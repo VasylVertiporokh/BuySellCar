@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -523,6 +523,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 20FA42301108166C8DF45E7C /* Build configuration list for PBXNativeTarget "BuySellCarApp" */;
 			buildPhases = (
+				D49544AC299BC22F003BA187 /* SwiftGen */,
 				C6A15651AC24A8789E3D2955 /* Sources */,
 				94B4F4F76AC7D46181A1DC13 /* Resources */,
 				27188E08A88BD52138962A57 /* Frameworks */,
@@ -604,6 +605,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D49544AC299BC22F003BA187 /* SwiftGen */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftGen;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftgen >/dev/null; then\n    swiftgen\nelse\n    echo \"warning: SwiftGen not installed, download from https://github.com/SwiftGen/SwiftGen\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C6A15651AC24A8789E3D2955 /* Sources */ = {

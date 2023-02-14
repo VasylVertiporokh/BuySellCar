@@ -1,5 +1,5 @@
-input_dir: MVVMSkeleton/Resources
-output_dir: MVVMSkeleton/Resources/Generated
+input_dir: BuySellCarApp/Resources
+output_dir: BuySellCarApp/Resources/Generated
 xcassets:
   - inputs: Assets.xcassets
     outputs:
