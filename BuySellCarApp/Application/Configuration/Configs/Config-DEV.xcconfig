@@ -10,4 +10,4 @@
 
 APP_ENVIRONMENT = dev
 APP_NAME = MVVMSkeleton DEV
-APP_BUNDLE_ID = com.chi.mvvmskeleton.dev
+APP_BUNDLE_ID = com.vasiavertiporokh.carapp.dev

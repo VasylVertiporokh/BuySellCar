@@ -9,5 +9,5 @@
 // https://help.apple.com/xcode/#/dev745c5c974
 
 APP_ENVIRONMENT = prod
-APP_NAME = MVVMSkeleton
-APP_BUNDLE_ID = com.chi.mvvmskeleton
+APP_NAME = BuySellCarApp
+APP_BUNDLE_ID = com.vasiavertiporokh.carapp
