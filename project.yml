@@ -1,0 +1,142 @@
+name: BuySellCarApp
+options:
+  bundleIdPrefix: com.romansmailik
+  generateEmptyDirectories: true
+  createIntermediateGroups: true
+  groupSortPosition: top
+  deploymentTarget:
+    iOS: 13.0
+configs:
+  Debug: debug
+  Release: release
+  Debug DEV: debug
+  Release DEV: release
+  Debug STG: debug
+  Release STG: release
+settings:
+  base:
+    INFOPLIST_FILE: BuySellCarApp/Resources/Info.plist
+    ENABLE_BITCODE: false
+    SWIFT_VERSION: 5.0
+  configs:
+    Debug:
+      ENABLE_TESTABILITY: true
+      SWIFT_OPTIMIZATION_LEVEL: -Onone
+      SWIFT_COMPILATION_MODE: singlefile
+    Release:
+      ENABLE_TESTABILITY: false
+      SWIFT_OPTIMIZATION_LEVEL: -O
+      SWIFT_COMPILATION_MODE: wholemodule
+    Debug DEV:
+      ENABLE_TESTABILITY: true
+      SWIFT_OPTIMIZATION_LEVEL: -Onone
+      SWIFT_COMPILATION_MODE: singlefile
+    Release DEV:
+      ENABLE_TESTABILITY: false
+      SWIFT_OPTIMIZATION_LEVEL: -O
+      SWIFT_COMPILATION_MODE: wholemodule
+    Debug STG:
+      ENABLE_TESTABILITY: true
+      SWIFT_OPTIMIZATION_LEVEL: -Onone
+      SWIFT_COMPILATION_MODE: singlefile
+    Release STG:
+      ENABLE_TESTABILITY: false
+      SWIFT_OPTIMIZATION_LEVEL: -O
+      SWIFT_COMPILATION_MODE: wholemodule
+packages:
+  CombineCocoa:
+    url: https://github.com/CombineCommunity/CombineCocoa.git
+    majorVersion: 0.4.0
+  KeyboardLayoutGuide:
+    url: https://github.com/freshOS/KeyboardLayoutGuide
+    majorVersion: 1.0.0
+  CombineNetworking:
+    url: https://github.com/chisw-ios/CombineNetworking
+    majorVersion: 0.1.0
+  KeychainAccess:
+    url: https://github.com/kishikawakatsumi/KeychainAccess
+    majorVersion: 4.0.0
+targets:
+  BuySellCarApp:
+    type: application
+    platform: iOS
+    sources:
+      - path: BuySellCarApp
+    preBuildScripts:
+      - script: "if which swiftgen >/dev/null; then\n\tswiftgen\nelse\n\techo \"warning: SwiftGen not installed, download from https://github.com/SwiftGen/SwiftGen\"\nfi"
+        name: SwiftGen
+    dependencies:
+      - package: CombineCocoa
+      - package: KeyboardLayoutGuide
+      - package: CombineNetworking
+      - package: KeychainAccess
+    configVariants:
+      - Debug
+      - Release
+      - Debug DEV
+      - Release DEV
+      - Debug STG
+      - Release STG
+    configFiles:
+      Debug: BuySellCarApp/Application/Configuration/Configs/Config-PROD.xcconfig
+      Release: BuySellCarApp/Application/Configuration/Configs/Config-PROD.xcconfig
+      Debug DEV: BuySellCarApp/Application/Configuration/Configs/Config-DEV.xcconfig
+      Release DEV: BuySellCarApp/Application/Configuration/Configs/Config-DEV.xcconfig
+      Debug STG: BuySellCarApp/Application/Configuration/Configs/Config-STG.xcconfig
+      Release STG: BuySellCarApp/Application/Configuration/Configs/Config-STG.xcconfig
+schemes:
+  BuySellCarApp:
+    build:
+      targets:
+        BuySellCarApp: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+      customArchiveName: BuySellCarApp
+      revealArchiveInOrganizer: true
+  BuySellCarApp DEV:
+    build:
+      targets:
+        BuySellCarApp: all
+    run:
+      config: Debug DEV
+    test:
+      config: Debug DEV
+    profile:
+      config: Release DEV
+    analyze:
+      config: Debug DEV
+    archive:
+      config: Release DEV
+      customArchiveName: BuySellCarApp DEV
+      revealArchiveInOrganizer: true
+  BuySellCarApp STG:
+    build:
+      targets:
+        BuySellCarApp: all
+    run:
+      config: Debug STG
+    test:
+      config: Debug STG
+    profile:
+      config: Release STG
+    analyze:
+      config: Debug STG
+    archive:
+      config: Release STG
+      customArchiveName: BuySellCarApp STG
+      revealArchiveInOrganizer: true
+configFiles:
+  Debug: BuySellCarApp/Application/Configuration/Configs/Config-PROD.xcconfig
+  Release: BuySellCarApp/Application/Configuration/Configs/Config-PROD.xcconfig
+  Debug DEV: BuySellCarApp/Application/Configuration/Configs/Config-DEV.xcconfig
+  Release DEV: BuySellCarApp/Application/Configuration/Configs/Config-DEV.xcconfig
+  Debug STG: BuySellCarApp/Application/Configuration/Configs/Config-STG.xcconfig
+  Release STG: BuySellCarApp/Application/Configuration/Configs/Config-STG.xcconfig

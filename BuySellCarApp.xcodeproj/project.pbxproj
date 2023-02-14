@@ -1,0 +1,1292 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0215679BB9B5CD1EF4673D8B /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BAA1E05913E2BA1850F0DB4 /* MainTabBarViewController.swift */; };
+		026973C14BF9C34C2412572F /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6738DCA126E714D84A4FB9E3 /* SignInViewModel.swift */; };
+		02CD74AAD57011D3E5C5842B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21EDA2DF80DC99DFE64D72B /* HomeViewController.swift */; };
+		061ADE121561DCED49E0848A /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173BE34A90FB549143B439D2 /* UserService.swift */; };
+		072F72ED93F9A6AD0F71FFFB /* Montserrat-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 181A1538B0C4BFDAEC64312F /* Montserrat-ExtraBoldItalic.ttf */; };
+		084D2EC5550EF144E3501A73 /* Montserrat-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD8159B8346F70332AB7D916 /* Montserrat-Thin.ttf */; };
+		0B330FE955A4E6CDF3499F6A /* Montserrat-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3672ACAFB0EB4E074C07FC1C /* Montserrat-LightItalic.ttf */; };
+		0B5369933285BD6E6AE60FE1 /* MainTabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C11CDAFE6ACE00F9D45F4C8 /* MainTabBarViewModel.swift */; };
+		0D38D12AC75458E87F590FD0 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F94F525E684B577C82B92F /* UIView+Constraints.swift */; };
+		154720384BE7D4D605505B04 /* Montserrat-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B5D092F58D96AE8251693F /* Montserrat-ThinItalic.ttf */; };
+		1AAD4EBF3B52DC8E952D0F89 /* DogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DC064276AD0E21249AC5FE /* DogService.swift */; };
+		2042C9CF1AA7377AD5EAEA71 /* DogServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B61B524CAAD71814D18B8BE /* DogServiceImpl.swift */; };
+		20E6443F2CF0FE7E640D0DDF /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF210A01E50E3A0070C899D /* AuthCoordinator.swift */; };
+		2174305FA29F27D7BC4E5DD5 /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB41F88AEA6C275FF542C14 /* AppContainer.swift */; };
+		2E0A948A1F95B389F8C78963 /* KeyboardLayoutGuide in Frameworks */ = {isa = PBXBuildFile; productRef = 6F28DE4B19DE8160C318C5F1 /* KeyboardLayoutGuide */; };
+		34CB169A966DE4EDB4306F49 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADDB911438A4932D6831535 /* SignUpViewModel.swift */; };
+		38853001D5E53B861428DCB1 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAAE6286724314D6707D09E /* Colors.swift */; };
+		3C5521BC30F2E1DB2DA1E3FC /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C7151FD27030E7C1700389 /* Localization.swift */; };
+		447D2F0338EE906471231B6B /* SignInModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD7DEFBCCA305BA212645D6 /* SignInModuleBuilder.swift */; };
+		479562E5FCE89C9960C92F35 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE7CDED8E433F09B16FF6BD /* AuthService.swift */; };
+		4C76CA084567E3710444DFB9 /* Montserrat-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2F4FEAF61897920FB4E7FEA /* Montserrat-MediumItalic.ttf */; };
+		523264AEF7CC4F32F85C0FE3 /* Montserrat-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2434A8CDE974A11EF75DAF57 /* Montserrat-BlackItalic.ttf */; };
+		56416D56E142574FE2DD1D99 /* UIEdgeInsets+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF44145BF552CC54BB3CB718 /* UIEdgeInsets+Ext.swift */; };
+		5730A6E57E40E695626504A9 /* Montserrat-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ABF5DA9E74A01B133202AE29 /* Montserrat-ExtraLight.ttf */; };
+		57AD0213C6F2BCD9803E3394 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9D6807DB7CE972E5EBDB1AED /* Montserrat-SemiBold.ttf */; };
+		5A1173AE7A69E7BE50BEC3C1 /* CombineNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = D80AF94D6605FEB62D6192CD /* CombineNetworking */; };
+		5BE56C3E7870225C3CDD3810 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB8205A5E17B766C09338027 /* Localizable.strings */; };
+		65A829DAAD75E4B54CCFB4C4 /* MainTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BF2DD48D6E5B5E11E8DA18 /* MainTabBarCoordinator.swift */; };
+		68D292177643B55317574209 /* DogResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04496B79B7EA51D30A7C50CF /* DogResponseModel.swift */; };
+		6928CFF3AF7380FACAA94511 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0E4E90738AF5A22BA05753 /* SettingsView.swift */; };
+		6AB9A8EF5CCE01E97D1F4D7C /* HomeModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B0E7F917F4895AEE3B0493 /* HomeModuleBuilder.swift */; };
+		6C94897697EB15664EAF5379 /* Montserrat-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A31B03D1EF8EB46FC47DACD /* Montserrat-ExtraLightItalic.ttf */; };
+		76EF914380E36EDB3B0B6DDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0417FF16B3B815BA9D92897E /* Assets.xcassets */; };
+		7704B904EFC154C47BD9DA91 /* AuthPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8105833C47CEE9F7EFCAD1E9 /* AuthPlugin.swift */; };
+		7B4B0FB8ECC07F033B220583 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C159E24B0C8800C3D304766 /* HomeViewModel.swift */; };
+		7EB4B3410B43ED90D532A613 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDA473779D2D7D8457568B5 /* SettingsViewController.swift */; };
+		826B2EB19730D87382D14BFD /* AuthSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39C1B53DE08B080E6B6D947 /* AuthSelectViewModel.swift */; };
+		8304DDF3CD66A921582DC923 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C7A39DB25F69C6F3534EF2 /* UIView+Ext.swift */; };
+		836F22198C47DE377767468F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCD70CD0A6DBE1DE0CF45E9 /* HomeView.swift */; };
+		8A61C740775B7F80E0DDB143 /* AuthSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE7841284FC5BB80F084CFA /* AuthSelectView.swift */; };
+		8D94C083B012E09E27D703B5 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A897018560828F509A88E3 /* BaseView.swift */; };
+		90991EDBF21638A3548B592E /* MainTabBarModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7201505F35E30E167375DE00 /* MainTabBarModuleBuilder.swift */; };
+		93332B253F13B2728D26CDF5 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 959F9F377A80BC0FCF56A345 /* Montserrat-Bold.ttf */; };
+		94820361E0C892362C5CD40F /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6142542848FE7F969A8668B /* AppEnvironment.swift */; };
+		9F6E640BC10DFF4C77F0DDA7 /* Montserrat-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DF41E2F882135301DC65A33 /* Montserrat-BoldItalic.ttf */; };
+		A1169F4D0EAFBC97B33C3559 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0245B40DE659A5D473685B02 /* LaunchScreen.storyboard */; };
+		A448E10ACF380C1C558E4785 /* DogAPIRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F04E0175ECF9118BD9E2FB /* DogAPIRequestBuilder.swift */; };
+		AC062A3D6F8A72ABCA506198 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 51E3C3EAD1C6F1214267E65D /* Montserrat-Light.ttf */; };
+		ADFB4AF6DD1936CF98CEE52F /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 37294289AACDB6A49D0CC214 /* Montserrat-Medium.ttf */; };
+		AEC4D7453986A360453833D2 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122680A4BDB3AC021B36A48 /* Coordinator.swift */; };
+		B0380C23C3E59C28F07AEA15 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A99EC98AF8BBFF9CE928A86 /* SignInView.swift */; };
+		B26C359EE922FD575E33B3B6 /* AuthSelectModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9722F644C6DB5414F69C8CBC /* AuthSelectModuleBuilder.swift */; };
+		B3019B074771559BE2D36644 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227779459FE6ACE005F31BFD /* LoadingView.swift */; };
+		B61EB11EF6DA0DCE18D4B40A /* Montserrat-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A4E0D4389DDFC4046E47109 /* Montserrat-ExtraBold.ttf */; };
+		BAEC1D000292EEB44A8FBDB6 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92D7BE4380C8EF3CD5D54E5 /* AppSettings.swift */; };
+		BD055F8B3C7F245B0D1E9612 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC77F35D56EAD0FF05319AA /* HomeCoordinator.swift */; };
+		BD82759C5143808E98B62201 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87A4789FEA0F869D5BC28FC /* AppConfiguration.swift */; };
+		BF49A036D782AC10A92809CB /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBAED10835414059C934F70 /* Fonts.swift */; };
+		C4858EACCB4DCFF08AC72157 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF0DB6AA3FEB4EED797BC18 /* SceneDelegate.swift */; };
+		C4D8924ED9A198AD2E8344AA /* Montserrat-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 32855F7B5DA1E1E30C221587 /* Montserrat-Black.ttf */; };
+		C9469842B1C58A5562C599B4 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C862345ACB3CDEC2F442ED /* AppCoordinator.swift */; };
+		D23761C110A93CDCA4F647CB /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C12EDFCDBED61BB33C9E7B /* SettingsCoordinator.swift */; };
+		D3E3F7BEE84A06C1CA57A0F5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE67B5FC8CDD0D06378FBB7 /* BaseViewController.swift */; };
+		D40531DD166ECEEEB589B360 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED6ED9CD2DBAED04BEFF514 /* SignUpView.swift */; };
+		D4CE253D43E79AE86BD92491 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02568F71E5D36EC312C8666 /* BaseViewModel.swift */; };
+		D50B0DC3B906281FFB3C6A3F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD0EC310A6EAE1E97942BC1 /* SettingsViewModel.swift */; };
+		D86DEBD8EF5B528295A52221 /* Montserrat-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF7AA4D7D6BC3BB4EB79D19C /* Montserrat-SemiBoldItalic.ttf */; };
+		D9B24D5BD078C922B781ED52 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52A59073413C82C2C83B87FE /* Montserrat-Regular.ttf */; };
+		D9DA8267D674BEFF9E81DA86 /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A0CB82B8E1825D1905BCD6 /* Module.swift */; };
+		DADF454F64386AB2002A0B5C /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D6D3BDA3D151DDFB2980197 /* Colors.xcassets */; };
+		DBD9E53A938258AF427C8291 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2677C69473889E2071A84C6E /* AppDelegate.swift */; };
+		DBFAE32C6B0D05408EF51339 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8864BDC9253E736F2AA917 /* SignUpViewController.swift */; };
+		DD94FE48CDF5D4260353B893 /* UIStackView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A668DAEEEBB5C4A445D60D /* UIStackView+Ext.swift */; };
+		DDF2C091E7C3C6AEA79777BA /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A4790935D81B7689B2BDE5 /* SignInViewController.swift */; };
+		E33235623CC81F5024DD2608 /* SignUpModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D775A9748B026AB243B06DBB /* SignUpModuleBuilder.swift */; };
+		E44F561A32F1479708D65A55 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9BAB2B1BDD898BA3749FD7 /* Assets.swift */; };
+		EA652AE85CDC79FA5E05BDBA /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 74278A158606845928D9BFE6 /* KeychainAccess */; };
+		F2445A8385E0C54ABC40104F /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 04E45920DB208769BBF57E76 /* CombineCocoa */; };
+		F3C00157A00B85221A1026E5 /* AuthSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C0608934EEBC2040B12DA /* AuthSelectViewController.swift */; };
+		F50D51CFD511955028239624 /* SettingsModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37879D532BB437AD6C0DE2C1 /* SettingsModuleBuilder.swift */; };
+		F602DAD0A0FA3ABB10D6872E /* Montserrat-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE0E63E4787BA86E2B028599 /* Montserrat-Italic.ttf */; };
+		F7BEDDCD78729639577A1381 /* ViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76ADD5A1887A544415E7E62A /* ViewRepresentable.swift */; };
+		FBCEA36A4DCA9D086FF628F9 /* AxisScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB89B40DECDD2C74562C1F54 /* AxisScrollView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0417FF16B3B815BA9D92897E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		04496B79B7EA51D30A7C50CF /* DogResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogResponseModel.swift; sourceTree = "<group>"; };
+		0A99EC98AF8BBFF9CE928A86 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		0DF41E2F882135301DC65A33 /* Montserrat-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BoldItalic.ttf"; sourceTree = "<group>"; };
+		0ED6ED9CD2DBAED04BEFF514 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		11ED46B0B0B628F67D24DAFE /* Config-PROD.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Config-PROD.xcconfig"; sourceTree = "<group>"; };
+		173BE34A90FB549143B439D2 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		181A1538B0C4BFDAEC64312F /* Montserrat-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		1AE7CDED8E433F09B16FF6BD /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		227779459FE6ACE005F31BFD /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		2434A8CDE974A11EF75DAF57 /* Montserrat-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BlackItalic.ttf"; sourceTree = "<group>"; };
+		25C862345ACB3CDEC2F442ED /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		2677C69473889E2071A84C6E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		2C11CDAFE6ACE00F9D45F4C8 /* MainTabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewModel.swift; sourceTree = "<group>"; };
+		3122680A4BDB3AC021B36A48 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		32855F7B5DA1E1E30C221587 /* Montserrat-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Black.ttf"; sourceTree = "<group>"; };
+		3672ACAFB0EB4E074C07FC1C /* Montserrat-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-LightItalic.ttf"; sourceTree = "<group>"; };
+		37294289AACDB6A49D0CC214 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
+		37879D532BB437AD6C0DE2C1 /* SettingsModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModuleBuilder.swift; sourceTree = "<group>"; };
+		37A711F212A38CCE683FBCC6 /* BuySellCarApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BuySellCarApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A31B03D1EF8EB46FC47DACD /* Montserrat-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		3D6D3BDA3D151DDFB2980197 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		3FCD70CD0A6DBE1DE0CF45E9 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		42F94F525E684B577C82B92F /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
+		44C7151FD27030E7C1700389 /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
+		4A0C0608934EEBC2040B12DA /* AuthSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSelectViewController.swift; sourceTree = "<group>"; };
+		51E3C3EAD1C6F1214267E65D /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
+		52A59073413C82C2C83B87FE /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		55B62A600B9155FFF78EDB32 /* Config-STG.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Config-STG.xcconfig"; sourceTree = "<group>"; };
+		5A4E0D4389DDFC4046E47109 /* Montserrat-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraBold.ttf"; sourceTree = "<group>"; };
+		5B61B524CAAD71814D18B8BE /* DogServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogServiceImpl.swift; sourceTree = "<group>"; };
+		5FDA473779D2D7D8457568B5 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		61BF2DD48D6E5B5E11E8DA18 /* MainTabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarCoordinator.swift; sourceTree = "<group>"; };
+		6738DCA126E714D84A4FB9E3 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		6AC77F35D56EAD0FF05319AA /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		6AF210A01E50E3A0070C899D /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
+		6BAA1E05913E2BA1850F0DB4 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
+		6DBAED10835414059C934F70 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		71B0E7F917F4895AEE3B0493 /* HomeModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModuleBuilder.swift; sourceTree = "<group>"; };
+		7201505F35E30E167375DE00 /* MainTabBarModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarModuleBuilder.swift; sourceTree = "<group>"; };
+		76ADD5A1887A544415E7E62A /* ViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRepresentable.swift; sourceTree = "<group>"; };
+		7C159E24B0C8800C3D304766 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		7DE67B5FC8CDD0D06378FBB7 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		8105833C47CEE9F7EFCAD1E9 /* AuthPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPlugin.swift; sourceTree = "<group>"; };
+		85B5D092F58D96AE8251693F /* Montserrat-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ThinItalic.ttf"; sourceTree = "<group>"; };
+		8752A6675270591F67F9E7A1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		88A897018560828F509A88E3 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		89A4DC800708F04829AC79E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8AAAE6286724314D6707D09E /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		8D8864BDC9253E736F2AA917 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		959F9F377A80BC0FCF56A345 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
+		9722F644C6DB5414F69C8CBC /* AuthSelectModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSelectModuleBuilder.swift; sourceTree = "<group>"; };
+		97A4790935D81B7689B2BDE5 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		9CB41F88AEA6C275FF542C14 /* AppContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContainer.swift; sourceTree = "<group>"; };
+		9D6807DB7CE972E5EBDB1AED /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
+		A6C7A39DB25F69C6F3534EF2 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		A9A0CB82B8E1825D1905BCD6 /* Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
+		AA9BAB2B1BDD898BA3749FD7 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
+		AADDB911438A4932D6831535 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		AAF0DB6AA3FEB4EED797BC18 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		ABF5DA9E74A01B133202AE29 /* Montserrat-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLight.ttf"; sourceTree = "<group>"; };
+		AF00D4D88085D67C841076EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B2F04E0175ECF9118BD9E2FB /* DogAPIRequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogAPIRequestBuilder.swift; sourceTree = "<group>"; };
+		B6142542848FE7F969A8668B /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
+		BF7AA4D7D6BC3BB4EB79D19C /* Montserrat-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		C39C1B53DE08B080E6B6D947 /* AuthSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSelectViewModel.swift; sourceTree = "<group>"; };
+		C87A4789FEA0F869D5BC28FC /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
+		CAD7DEFBCCA305BA212645D6 /* SignInModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInModuleBuilder.swift; sourceTree = "<group>"; };
+		CB89B40DECDD2C74562C1F54 /* AxisScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxisScrollView.swift; sourceTree = "<group>"; };
+		D02568F71E5D36EC312C8666 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		D21EDA2DF80DC99DFE64D72B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		D775A9748B026AB243B06DBB /* SignUpModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModuleBuilder.swift; sourceTree = "<group>"; };
+		DD8159B8346F70332AB7D916 /* Montserrat-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Thin.ttf"; sourceTree = "<group>"; };
+		DF44145BF552CC54BB3CB718 /* UIEdgeInsets+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+Ext.swift"; sourceTree = "<group>"; };
+		E5A85C08090B6E0C403F6475 /* Config-DEV.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Config-DEV.xcconfig"; sourceTree = "<group>"; };
+		E92D7BE4380C8EF3CD5D54E5 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		E9DC064276AD0E21249AC5FE /* DogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogService.swift; sourceTree = "<group>"; };
+		EA0E4E90738AF5A22BA05753 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		EE0E63E4787BA86E2B028599 /* Montserrat-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Italic.ttf"; sourceTree = "<group>"; };
+		F2A668DAEEEBB5C4A445D60D /* UIStackView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Ext.swift"; sourceTree = "<group>"; };
+		F2C12EDFCDBED61BB33C9E7B /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
+		F2F4FEAF61897920FB4E7FEA /* Montserrat-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-MediumItalic.ttf"; sourceTree = "<group>"; };
+		FAD0EC310A6EAE1E97942BC1 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		FBE7841284FC5BB80F084CFA /* AuthSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSelectView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		27188E08A88BD52138962A57 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2445A8385E0C54ABC40104F /* CombineCocoa in Frameworks */,
+				2E0A948A1F95B389F8C78963 /* KeyboardLayoutGuide in Frameworks */,
+				5A1173AE7A69E7BE50BEC3C1 /* CombineNetworking in Frameworks */,
+				EA652AE85CDC79FA5E05BDBA /* KeychainAccess in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		13453B7C90AB5FC64ACD7A84 = {
+			isa = PBXGroup;
+			children = (
+				ED02FF65E72DB0B7057DBFC8 /* BuySellCarApp */,
+				22D4565EE1CBBAE2316CA7D0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		146E0470EECBCE915B6ED4DB /* DogService */ = {
+			isa = PBXGroup;
+			children = (
+				B2F04E0175ECF9118BD9E2FB /* DogAPIRequestBuilder.swift */,
+				E9DC064276AD0E21249AC5FE /* DogService.swift */,
+				5B61B524CAAD71814D18B8BE /* DogServiceImpl.swift */,
+			);
+			path = DogService;
+			sourceTree = "<group>";
+		};
+		195B17D915795DFAF44BBE35 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				25C862345ACB3CDEC2F442ED /* AppCoordinator.swift */,
+				6AF210A01E50E3A0070C899D /* AuthCoordinator.swift */,
+				6AC77F35D56EAD0FF05319AA /* HomeCoordinator.swift */,
+				61BF2DD48D6E5B5E11E8DA18 /* MainTabBarCoordinator.swift */,
+				F2C12EDFCDBED61BB33C9E7B /* SettingsCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		22D4565EE1CBBAE2316CA7D0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				37A711F212A38CCE683FBCC6 /* BuySellCarApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2308B8BB1CF424987E17EE13 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				CAD7DEFBCCA305BA212645D6 /* SignInModuleBuilder.swift */,
+				0A99EC98AF8BBFF9CE928A86 /* SignInView.swift */,
+				97A4790935D81B7689B2BDE5 /* SignInViewController.swift */,
+				6738DCA126E714D84A4FB9E3 /* SignInViewModel.swift */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		2C33645FCAE1D351BB8D6E36 /* Configs */ = {
+			isa = PBXGroup;
+			children = (
+				E5A85C08090B6E0C403F6475 /* Config-DEV.xcconfig */,
+				11ED46B0B0B628F67D24DAFE /* Config-PROD.xcconfig */,
+				55B62A600B9155FFF78EDB32 /* Config-STG.xcconfig */,
+			);
+			path = Configs;
+			sourceTree = "<group>";
+		};
+		2C77695E65F0021890A962B9 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				2C33645FCAE1D351BB8D6E36 /* Configs */,
+				C87A4789FEA0F869D5BC28FC /* AppConfiguration.swift */,
+				B6142542848FE7F969A8668B /* AppEnvironment.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		2D616176C6D83293BB9F01DB /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				EAFC5F22BE3607EA991D61C6 /* Networking */,
+				E92D7BE4380C8EF3CD5D54E5 /* AppSettings.swift */,
+				1AE7CDED8E433F09B16FF6BD /* AuthService.swift */,
+				173BE34A90FB549143B439D2 /* UserService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		3200D8633180D0184E3580E4 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				71B0E7F917F4895AEE3B0493 /* HomeModuleBuilder.swift */,
+				3FCD70CD0A6DBE1DE0CF45E9 /* HomeView.swift */,
+				D21EDA2DF80DC99DFE64D72B /* HomeViewController.swift */,
+				7C159E24B0C8800C3D304766 /* HomeViewModel.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		48431CF91F4088FED11CA695 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				88A897018560828F509A88E3 /* BaseView.swift */,
+				7DE67B5FC8CDD0D06378FBB7 /* BaseViewController.swift */,
+				D02568F71E5D36EC312C8666 /* BaseViewModel.swift */,
+				A9A0CB82B8E1825D1905BCD6 /* Module.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		48A95DB40097E5B839DF2201 /* LaunchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				0245B40DE659A5D473685B02 /* LaunchScreen.storyboard */,
+			);
+			path = LaunchScreen;
+			sourceTree = "<group>";
+		};
+		61F6E5A9CBF1438DFF0EFE80 /* MainTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				7201505F35E30E167375DE00 /* MainTabBarModuleBuilder.swift */,
+				6BAA1E05913E2BA1850F0DB4 /* MainTabBarViewController.swift */,
+				2C11CDAFE6ACE00F9D45F4C8 /* MainTabBarViewModel.swift */,
+			);
+			path = MainTabBar;
+			sourceTree = "<group>";
+		};
+		6A6BBB5EFA19C7424B8F07B7 /* BusinessLogic */ = {
+			isa = PBXGroup;
+			children = (
+				195B17D915795DFAF44BBE35 /* Coordinators */,
+				716B06AF0901CA18A7BAAA7F /* Models */,
+				2D616176C6D83293BB9F01DB /* Services */,
+			);
+			path = BusinessLogic;
+			sourceTree = "<group>";
+		};
+		709CADC65289B84AE1C90454 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E090948C3E1FACBD0D5E9A89 /* UIKit */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		716B06AF0901CA18A7BAAA7F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				04496B79B7EA51D30A7C50CF /* DogResponseModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		83D9DBA2BF5FDFEAF6A3FFCF /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				AA9BAB2B1BDD898BA3749FD7 /* Assets.swift */,
+				8AAAE6286724314D6707D09E /* Colors.swift */,
+				6DBAED10835414059C934F70 /* Fonts.swift */,
+				44C7151FD27030E7C1700389 /* Localization.swift */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
+		8A1E1894FC9286821FB99388 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D53D8ECF387DAB20BD795982 /* Fonts */,
+				83D9DBA2BF5FDFEAF6A3FFCF /* Generated */,
+				0417FF16B3B815BA9D92897E /* Assets.xcassets */,
+				3D6D3BDA3D151DDFB2980197 /* Colors.xcassets */,
+				89A4DC800708F04829AC79E6 /* Info.plist */,
+				DB8205A5E17B766C09338027 /* Localizable.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		90C676532B9312003B4D6D67 /* Plugins */ = {
+			isa = PBXGroup;
+			children = (
+				8105833C47CEE9F7EFCAD1E9 /* AuthPlugin.swift */,
+			);
+			path = Plugins;
+			sourceTree = "<group>";
+		};
+		936521CA124B76A52C357B86 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				3122680A4BDB3AC021B36A48 /* Coordinator.swift */,
+				76ADD5A1887A544415E7E62A /* ViewRepresentable.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		A1B58394EF72400FFC363412 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				DB439DDA0730C657AAA36FC4 /* AuthSelect */,
+				3200D8633180D0184E3580E4 /* Home */,
+				48A95DB40097E5B839DF2201 /* LaunchScreen */,
+				61F6E5A9CBF1438DFF0EFE80 /* MainTabBar */,
+				AD5AA9CAF2AD0DA914CB2DF7 /* Settings */,
+				2308B8BB1CF424987E17EE13 /* SignIn */,
+				B975BA2BA6738251B64AF792 /* SignUp */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		AD5AA9CAF2AD0DA914CB2DF7 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				37879D532BB437AD6C0DE2C1 /* SettingsModuleBuilder.swift */,
+				EA0E4E90738AF5A22BA05753 /* SettingsView.swift */,
+				5FDA473779D2D7D8457568B5 /* SettingsViewController.swift */,
+				FAD0EC310A6EAE1E97942BC1 /* SettingsViewModel.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		AF64773E9E0835EAD672668B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CB89B40DECDD2C74562C1F54 /* AxisScrollView.swift */,
+				227779459FE6ACE005F31BFD /* LoadingView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B975BA2BA6738251B64AF792 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				D775A9748B026AB243B06DBB /* SignUpModuleBuilder.swift */,
+				0ED6ED9CD2DBAED04BEFF514 /* SignUpView.swift */,
+				8D8864BDC9253E736F2AA917 /* SignUpViewController.swift */,
+				AADDB911438A4932D6831535 /* SignUpViewModel.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		C552A73C0826F8EE1CA976C2 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				48431CF91F4088FED11CA695 /* Base */,
+				709CADC65289B84AE1C90454 /* Extensions */,
+				936521CA124B76A52C357B86 /* Helpers */,
+				AF64773E9E0835EAD672668B /* Views */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		D53D8ECF387DAB20BD795982 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				32855F7B5DA1E1E30C221587 /* Montserrat-Black.ttf */,
+				2434A8CDE974A11EF75DAF57 /* Montserrat-BlackItalic.ttf */,
+				959F9F377A80BC0FCF56A345 /* Montserrat-Bold.ttf */,
+				0DF41E2F882135301DC65A33 /* Montserrat-BoldItalic.ttf */,
+				5A4E0D4389DDFC4046E47109 /* Montserrat-ExtraBold.ttf */,
+				181A1538B0C4BFDAEC64312F /* Montserrat-ExtraBoldItalic.ttf */,
+				ABF5DA9E74A01B133202AE29 /* Montserrat-ExtraLight.ttf */,
+				3A31B03D1EF8EB46FC47DACD /* Montserrat-ExtraLightItalic.ttf */,
+				EE0E63E4787BA86E2B028599 /* Montserrat-Italic.ttf */,
+				51E3C3EAD1C6F1214267E65D /* Montserrat-Light.ttf */,
+				3672ACAFB0EB4E074C07FC1C /* Montserrat-LightItalic.ttf */,
+				37294289AACDB6A49D0CC214 /* Montserrat-Medium.ttf */,
+				F2F4FEAF61897920FB4E7FEA /* Montserrat-MediumItalic.ttf */,
+				52A59073413C82C2C83B87FE /* Montserrat-Regular.ttf */,
+				9D6807DB7CE972E5EBDB1AED /* Montserrat-SemiBold.ttf */,
+				BF7AA4D7D6BC3BB4EB79D19C /* Montserrat-SemiBoldItalic.ttf */,
+				DD8159B8346F70332AB7D916 /* Montserrat-Thin.ttf */,
+				85B5D092F58D96AE8251693F /* Montserrat-ThinItalic.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		DB439DDA0730C657AAA36FC4 /* AuthSelect */ = {
+			isa = PBXGroup;
+			children = (
+				9722F644C6DB5414F69C8CBC /* AuthSelectModuleBuilder.swift */,
+				FBE7841284FC5BB80F084CFA /* AuthSelectView.swift */,
+				4A0C0608934EEBC2040B12DA /* AuthSelectViewController.swift */,
+				C39C1B53DE08B080E6B6D947 /* AuthSelectViewModel.swift */,
+			);
+			path = AuthSelect;
+			sourceTree = "<group>";
+		};
+		E090948C3E1FACBD0D5E9A89 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				DF44145BF552CC54BB3CB718 /* UIEdgeInsets+Ext.swift */,
+				F2A668DAEEEBB5C4A445D60D /* UIStackView+Ext.swift */,
+				42F94F525E684B577C82B92F /* UIView+Constraints.swift */,
+				A6C7A39DB25F69C6F3534EF2 /* UIView+Ext.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		E0C707BC01386EC0A7FA2303 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				2C77695E65F0021890A962B9 /* Configuration */,
+				9CB41F88AEA6C275FF542C14 /* AppContainer.swift */,
+				2677C69473889E2071A84C6E /* AppDelegate.swift */,
+				AAF0DB6AA3FEB4EED797BC18 /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		EAFC5F22BE3607EA991D61C6 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				146E0470EECBCE915B6ED4DB /* DogService */,
+				90C676532B9312003B4D6D67 /* Plugins */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		ED02FF65E72DB0B7057DBFC8 /* BuySellCarApp */ = {
+			isa = PBXGroup;
+			children = (
+				E0C707BC01386EC0A7FA2303 /* Application */,
+				6A6BBB5EFA19C7424B8F07B7 /* BusinessLogic */,
+				C552A73C0826F8EE1CA976C2 /* Core */,
+				A1B58394EF72400FFC363412 /* Presentation */,
+				8A1E1894FC9286821FB99388 /* Resources */,
+			);
+			path = BuySellCarApp;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		85E785E9B1487C553FD41D0A /* BuySellCarApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 20FA42301108166C8DF45E7C /* Build configuration list for PBXNativeTarget "BuySellCarApp" */;
+			buildPhases = (
+				E7504138DCF1EF21E2BA1DAF /* SwiftGen */,
+				C6A15651AC24A8789E3D2955 /* Sources */,
+				94B4F4F76AC7D46181A1DC13 /* Resources */,
+				27188E08A88BD52138962A57 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BuySellCarApp;
+			packageProductDependencies = (
+				04E45920DB208769BBF57E76 /* CombineCocoa */,
+				6F28DE4B19DE8160C318C5F1 /* KeyboardLayoutGuide */,
+				D80AF94D6605FEB62D6192CD /* CombineNetworking */,
+				74278A158606845928D9BFE6 /* KeychainAccess */,
+			);
+			productName = BuySellCarApp;
+			productReference = 37A711F212A38CCE683FBCC6 /* BuySellCarApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1077D717878BB76AE9C00358 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1200;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 5418F0C21191E5A00ECFB5AA /* Build configuration list for PBXProject "BuySellCarApp" */;
+			compatibilityVersion = "Xcode 11.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 13453B7C90AB5FC64ACD7A84;
+			packageReferences = (
+				40D4EC2F46FEE68B4A900071 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
+				C999679C0A60D24852B685AF /* XCRemoteSwiftPackageReference "CombineNetworking" */,
+				8A1FEE9FCB32D722527A1457 /* XCRemoteSwiftPackageReference "KeyboardLayoutGuide" */,
+				0F8C899E3166F89182E724FF /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+			);
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				85E785E9B1487C553FD41D0A /* BuySellCarApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		94B4F4F76AC7D46181A1DC13 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				76EF914380E36EDB3B0B6DDC /* Assets.xcassets in Resources */,
+				DADF454F64386AB2002A0B5C /* Colors.xcassets in Resources */,
+				A1169F4D0EAFBC97B33C3559 /* LaunchScreen.storyboard in Resources */,
+				5BE56C3E7870225C3CDD3810 /* Localizable.strings in Resources */,
+				C4D8924ED9A198AD2E8344AA /* Montserrat-Black.ttf in Resources */,
+				523264AEF7CC4F32F85C0FE3 /* Montserrat-BlackItalic.ttf in Resources */,
+				93332B253F13B2728D26CDF5 /* Montserrat-Bold.ttf in Resources */,
+				9F6E640BC10DFF4C77F0DDA7 /* Montserrat-BoldItalic.ttf in Resources */,
+				B61EB11EF6DA0DCE18D4B40A /* Montserrat-ExtraBold.ttf in Resources */,
+				072F72ED93F9A6AD0F71FFFB /* Montserrat-ExtraBoldItalic.ttf in Resources */,
+				5730A6E57E40E695626504A9 /* Montserrat-ExtraLight.ttf in Resources */,
+				6C94897697EB15664EAF5379 /* Montserrat-ExtraLightItalic.ttf in Resources */,
+				F602DAD0A0FA3ABB10D6872E /* Montserrat-Italic.ttf in Resources */,
+				AC062A3D6F8A72ABCA506198 /* Montserrat-Light.ttf in Resources */,
+				0B330FE955A4E6CDF3499F6A /* Montserrat-LightItalic.ttf in Resources */,
+				ADFB4AF6DD1936CF98CEE52F /* Montserrat-Medium.ttf in Resources */,
+				4C76CA084567E3710444DFB9 /* Montserrat-MediumItalic.ttf in Resources */,
+				D9B24D5BD078C922B781ED52 /* Montserrat-Regular.ttf in Resources */,
+				57AD0213C6F2BCD9803E3394 /* Montserrat-SemiBold.ttf in Resources */,
+				D86DEBD8EF5B528295A52221 /* Montserrat-SemiBoldItalic.ttf in Resources */,
+				084D2EC5550EF144E3501A73 /* Montserrat-Thin.ttf in Resources */,
+				154720384BE7D4D605505B04 /* Montserrat-ThinItalic.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E7504138DCF1EF21E2BA1DAF /* SwiftGen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftGen;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftgen >/dev/null; then\n\tswiftgen\nelse\n\techo \"warning: SwiftGen not installed, download from https://github.com/SwiftGen/SwiftGen\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C6A15651AC24A8789E3D2955 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD82759C5143808E98B62201 /* AppConfiguration.swift in Sources */,
+				2174305FA29F27D7BC4E5DD5 /* AppContainer.swift in Sources */,
+				C9469842B1C58A5562C599B4 /* AppCoordinator.swift in Sources */,
+				DBD9E53A938258AF427C8291 /* AppDelegate.swift in Sources */,
+				94820361E0C892362C5CD40F /* AppEnvironment.swift in Sources */,
+				BAEC1D000292EEB44A8FBDB6 /* AppSettings.swift in Sources */,
+				E44F561A32F1479708D65A55 /* Assets.swift in Sources */,
+				20E6443F2CF0FE7E640D0DDF /* AuthCoordinator.swift in Sources */,
+				7704B904EFC154C47BD9DA91 /* AuthPlugin.swift in Sources */,
+				B26C359EE922FD575E33B3B6 /* AuthSelectModuleBuilder.swift in Sources */,
+				8A61C740775B7F80E0DDB143 /* AuthSelectView.swift in Sources */,
+				F3C00157A00B85221A1026E5 /* AuthSelectViewController.swift in Sources */,
+				826B2EB19730D87382D14BFD /* AuthSelectViewModel.swift in Sources */,
+				479562E5FCE89C9960C92F35 /* AuthService.swift in Sources */,
+				FBCEA36A4DCA9D086FF628F9 /* AxisScrollView.swift in Sources */,
+				8D94C083B012E09E27D703B5 /* BaseView.swift in Sources */,
+				D3E3F7BEE84A06C1CA57A0F5 /* BaseViewController.swift in Sources */,
+				D4CE253D43E79AE86BD92491 /* BaseViewModel.swift in Sources */,
+				38853001D5E53B861428DCB1 /* Colors.swift in Sources */,
+				AEC4D7453986A360453833D2 /* Coordinator.swift in Sources */,
+				A448E10ACF380C1C558E4785 /* DogAPIRequestBuilder.swift in Sources */,
+				68D292177643B55317574209 /* DogResponseModel.swift in Sources */,
+				1AAD4EBF3B52DC8E952D0F89 /* DogService.swift in Sources */,
+				2042C9CF1AA7377AD5EAEA71 /* DogServiceImpl.swift in Sources */,
+				BF49A036D782AC10A92809CB /* Fonts.swift in Sources */,
+				BD055F8B3C7F245B0D1E9612 /* HomeCoordinator.swift in Sources */,
+				6AB9A8EF5CCE01E97D1F4D7C /* HomeModuleBuilder.swift in Sources */,
+				836F22198C47DE377767468F /* HomeView.swift in Sources */,
+				02CD74AAD57011D3E5C5842B /* HomeViewController.swift in Sources */,
+				7B4B0FB8ECC07F033B220583 /* HomeViewModel.swift in Sources */,
+				B3019B074771559BE2D36644 /* LoadingView.swift in Sources */,
+				3C5521BC30F2E1DB2DA1E3FC /* Localization.swift in Sources */,
+				65A829DAAD75E4B54CCFB4C4 /* MainTabBarCoordinator.swift in Sources */,
+				90991EDBF21638A3548B592E /* MainTabBarModuleBuilder.swift in Sources */,
+				0215679BB9B5CD1EF4673D8B /* MainTabBarViewController.swift in Sources */,
+				0B5369933285BD6E6AE60FE1 /* MainTabBarViewModel.swift in Sources */,
+				D9DA8267D674BEFF9E81DA86 /* Module.swift in Sources */,
+				C4858EACCB4DCFF08AC72157 /* SceneDelegate.swift in Sources */,
+				D23761C110A93CDCA4F647CB /* SettingsCoordinator.swift in Sources */,
+				F50D51CFD511955028239624 /* SettingsModuleBuilder.swift in Sources */,
+				6928CFF3AF7380FACAA94511 /* SettingsView.swift in Sources */,
+				7EB4B3410B43ED90D532A613 /* SettingsViewController.swift in Sources */,
+				D50B0DC3B906281FFB3C6A3F /* SettingsViewModel.swift in Sources */,
+				447D2F0338EE906471231B6B /* SignInModuleBuilder.swift in Sources */,
+				B0380C23C3E59C28F07AEA15 /* SignInView.swift in Sources */,
+				DDF2C091E7C3C6AEA79777BA /* SignInViewController.swift in Sources */,
+				026973C14BF9C34C2412572F /* SignInViewModel.swift in Sources */,
+				E33235623CC81F5024DD2608 /* SignUpModuleBuilder.swift in Sources */,
+				D40531DD166ECEEEB589B360 /* SignUpView.swift in Sources */,
+				DBFAE32C6B0D05408EF51339 /* SignUpViewController.swift in Sources */,
+				34CB169A966DE4EDB4306F49 /* SignUpViewModel.swift in Sources */,
+				56416D56E142574FE2DD1D99 /* UIEdgeInsets+Ext.swift in Sources */,
+				DD94FE48CDF5D4260353B893 /* UIStackView+Ext.swift in Sources */,
+				0D38D12AC75458E87F590FD0 /* UIView+Constraints.swift in Sources */,
+				8304DDF3CD66A921582DC923 /* UIView+Ext.swift in Sources */,
+				061ADE121561DCED49E0848A /* UserService.swift in Sources */,
+				F7BEDDCD78729639577A1381 /* ViewRepresentable.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		0245B40DE659A5D473685B02 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AF00D4D88085D67C841076EB /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		DB8205A5E17B766C09338027 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8752A6675270591F67F9E7A1 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		25812B73D3DF4D6F3A24EF05 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 11ED46B0B0B628F67D24DAFE /* Config-PROD.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = BuySellCarApp/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.romansmailik.BuySellCarApp;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		41BEDEB9EE56A165A6DB9DE0 /* Debug DEV */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5A85C08090B6E0C403F6475 /* Config-DEV.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = BuySellCarApp/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.romansmailik.BuySellCarApp;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Debug DEV";
+		};
+		428AD90381DB6037EB79CE04 /* Release DEV */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5A85C08090B6E0C403F6475 /* Config-DEV.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = BuySellCarApp/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = "Release DEV";
+		};
+		578578FE3948B122DCF2DECF /* Debug STG */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 55B62A600B9155FFF78EDB32 /* Config-STG.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = BuySellCarApp/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.romansmailik.BuySellCarApp;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Debug STG";
+		};
+		72439C1676365FB93048ABB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 11ED46B0B0B628F67D24DAFE /* Config-PROD.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = BuySellCarApp/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.romansmailik.BuySellCarApp;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7258FA32764E2CA009B5D45B /* Debug STG */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 55B62A600B9155FFF78EDB32 /* Config-STG.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = BuySellCarApp/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = "Debug STG";
+		};
+		A7E454B87C8D0940ECB66E4C /* Release STG */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 55B62A600B9155FFF78EDB32 /* Config-STG.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = BuySellCarApp/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.romansmailik.BuySellCarApp;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Release STG";
+		};
+		BB65E277BFCD1A941EF12BF3 /* Release STG */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 55B62A600B9155FFF78EDB32 /* Config-STG.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = BuySellCarApp/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = "Release STG";
+		};
+		C9385457ABC9E30E506B46B6 /* Debug DEV */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5A85C08090B6E0C403F6475 /* Config-DEV.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = BuySellCarApp/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = "Debug DEV";
+		};
+		DACCFF7654838CE659930884 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 11ED46B0B0B628F67D24DAFE /* Config-PROD.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = BuySellCarApp/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		EFFB54B8161662E4ED78044D /* Release DEV */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5A85C08090B6E0C403F6475 /* Config-DEV.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = BuySellCarApp/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.romansmailik.BuySellCarApp;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Release DEV";
+		};
+		FE7BABC556728BB8F550E8A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 11ED46B0B0B628F67D24DAFE /* Config-PROD.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = BuySellCarApp/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		20FA42301108166C8DF45E7C /* Build configuration list for PBXNativeTarget "BuySellCarApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				72439C1676365FB93048ABB8 /* Debug */,
+				41BEDEB9EE56A165A6DB9DE0 /* Debug DEV */,
+				578578FE3948B122DCF2DECF /* Debug STG */,
+				25812B73D3DF4D6F3A24EF05 /* Release */,
+				EFFB54B8161662E4ED78044D /* Release DEV */,
+				A7E454B87C8D0940ECB66E4C /* Release STG */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		5418F0C21191E5A00ECFB5AA /* Build configuration list for PBXProject "BuySellCarApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DACCFF7654838CE659930884 /* Debug */,
+				C9385457ABC9E30E506B46B6 /* Debug DEV */,
+				7258FA32764E2CA009B5D45B /* Debug STG */,
+				FE7BABC556728BB8F550E8A7 /* Release */,
+				428AD90381DB6037EB79CE04 /* Release DEV */,
+				BB65E277BFCD1A941EF12BF3 /* Release STG */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0F8C899E3166F89182E724FF /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+		40D4EC2F46FEE68B4A900071 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.0;
+			};
+		};
+		8A1FEE9FCB32D722527A1457 /* XCRemoteSwiftPackageReference "KeyboardLayoutGuide" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/freshOS/KeyboardLayoutGuide";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		C999679C0A60D24852B685AF /* XCRemoteSwiftPackageReference "CombineNetworking" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/chisw-ios/CombineNetworking";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		04E45920DB208769BBF57E76 /* CombineCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 40D4EC2F46FEE68B4A900071 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
+			productName = CombineCocoa;
+		};
+		6F28DE4B19DE8160C318C5F1 /* KeyboardLayoutGuide */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8A1FEE9FCB32D722527A1457 /* XCRemoteSwiftPackageReference "KeyboardLayoutGuide" */;
+			productName = KeyboardLayoutGuide;
+		};
+		74278A158606845928D9BFE6 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0F8C899E3166F89182E724FF /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+		D80AF94D6605FEB62D6192CD /* CombineNetworking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C999679C0A60D24852B685AF /* XCRemoteSwiftPackageReference "CombineNetworking" */;
+			productName = CombineNetworking;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 1077D717878BB76AE9C00358 /* Project object */;
+}
