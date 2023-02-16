@@ -11,3 +11,6 @@
 APP_ENVIRONMENT = prod
 APP_NAME = BuySellCarApp
 APP_BUNDLE_ID = com.vasiavertiporokh.carapp
+BASE_URL = https:/$()/api.backendless.com
+APP_ID = 702852A2-8716-0683-FF0A-5BA4B7C2DC00
+API_KEY = E9F66CC4-A707-45CC-AD1C-0F96D2A475C4

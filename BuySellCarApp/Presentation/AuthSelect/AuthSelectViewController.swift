@@ -18,7 +18,6 @@ final class AuthSelectViewController: BaseViewController<AuthSelectViewModel> {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         bind()
     }
 

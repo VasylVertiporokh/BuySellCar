@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CombineNetworking
 
 protocol AppContainer: AnyObject {
     var appConfiguration: AppConfiguration { get }
