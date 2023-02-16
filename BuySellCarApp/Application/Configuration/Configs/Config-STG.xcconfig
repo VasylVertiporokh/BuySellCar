@@ -10,4 +10,4 @@
 
 APP_ENVIRONMENT = stg
 APP_NAME = MVVMSkeleton STG
-APP_BUNDLE_ID = com.chi.mvvmskeleton.stg
+APP_BUNDLE_ID = com.vasiavertiporokh.carapp.stg

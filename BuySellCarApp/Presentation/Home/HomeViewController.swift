@@ -30,13 +30,9 @@ final class HomeViewController: BaseViewController<HomeViewModel> {
                     viewModel.showDetail(for: dog)
                     
                 case .searchTextChanged(let text):
-                    viewModel.searchText = text
+                    print(text)
                 }
             }
-            .store(in: &cancellables)
-
-        viewModel.$dogs
-            .sink { [unowned self] dogs in contentView.show(dogs: dogs) }
             .store(in: &cancellables)
     }
 }

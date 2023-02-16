@@ -26,8 +26,6 @@ final class AuthSelectViewController: BaseViewController<AuthSelectViewModel> {
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
-                case .signIn: viewModel.showSignIn()
-                case .signUp: viewModel.showSignUp()
                 case .skip: viewModel.skipAuth()
                 }
             }

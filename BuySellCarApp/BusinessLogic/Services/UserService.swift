@@ -8,6 +8,14 @@
 import Foundation
 import KeychainAccess
 
+// TODO: - Temp struct use as example for keychain
+struct SignInResponse {
+    var id: String
+    var name: String
+    var email: String
+    var accessToken: String
+}
+
 protocol UserService {
     var isAuthorized: Bool { get }
     var token: String? { get }
