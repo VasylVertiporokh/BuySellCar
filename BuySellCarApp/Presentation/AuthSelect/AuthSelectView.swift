@@ -9,8 +9,6 @@ import UIKit
 import Combine
 
 enum AuthSelectViewAction {
-    case signIn
-    case signUp
     case skip
 }
 
@@ -40,14 +38,6 @@ final class AuthSelectView: BaseView {
     }
 
     private func bindActions() {
-        signInButton.tapPublisher
-            .sink { [unowned self] in actionSubject.send(.signIn) }
-            .store(in: &cancellables)
-
-        signUpButton.tapPublisher
-            .sink { [unowned self] in actionSubject.send(.signUp) }
-            .store(in: &cancellables)
-
         skipButton.tapPublisher
             .sink { [unowned self] in actionSubject.send(.skip) }
             .store(in: &cancellables)
