@@ -8,8 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0215679BB9B5CD1EF4673D8B /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BAA1E05913E2BA1850F0DB4 /* MainTabBarViewController.swift */; };
-		02CD74AAD57011D3E5C5842B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21EDA2DF80DC99DFE64D72B /* HomeViewController.swift */; };
-		061ADE121561DCED49E0848A /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173BE34A90FB549143B439D2 /* UserService.swift */; };
+		061ADE121561DCED49E0848A /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173BE34A90FB549143B439D2 /* KeychainService.swift */; };
 		072F72ED93F9A6AD0F71FFFB /* Montserrat-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 181A1538B0C4BFDAEC64312F /* Montserrat-ExtraBoldItalic.ttf */; };
 		084D2EC5550EF144E3501A73 /* Montserrat-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD8159B8346F70332AB7D916 /* Montserrat-Thin.ttf */; };
 		0B330FE955A4E6CDF3499F6A /* Montserrat-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3672ACAFB0EB4E074C07FC1C /* Montserrat-LightItalic.ttf */; };
@@ -28,17 +27,11 @@
 		57AD0213C6F2BCD9803E3394 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9D6807DB7CE972E5EBDB1AED /* Montserrat-SemiBold.ttf */; };
 		5BE56C3E7870225C3CDD3810 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB8205A5E17B766C09338027 /* Localizable.strings */; };
 		65A829DAAD75E4B54CCFB4C4 /* MainTabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61BF2DD48D6E5B5E11E8DA18 /* MainTabBarCoordinator.swift */; };
-		68D292177643B55317574209 /* DogResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04496B79B7EA51D30A7C50CF /* DogResponseModel.swift */; };
 		6928CFF3AF7380FACAA94511 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0E4E90738AF5A22BA05753 /* SettingsView.swift */; };
-		6AB9A8EF5CCE01E97D1F4D7C /* HomeModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B0E7F917F4895AEE3B0493 /* HomeModuleBuilder.swift */; };
 		6C94897697EB15664EAF5379 /* Montserrat-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A31B03D1EF8EB46FC47DACD /* Montserrat-ExtraLightItalic.ttf */; };
 		76EF914380E36EDB3B0B6DDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0417FF16B3B815BA9D92897E /* Assets.xcassets */; };
-		7B4B0FB8ECC07F033B220583 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C159E24B0C8800C3D304766 /* HomeViewModel.swift */; };
 		7EB4B3410B43ED90D532A613 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDA473779D2D7D8457568B5 /* SettingsViewController.swift */; };
-		826B2EB19730D87382D14BFD /* AuthSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39C1B53DE08B080E6B6D947 /* AuthSelectViewModel.swift */; };
 		8304DDF3CD66A921582DC923 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C7A39DB25F69C6F3534EF2 /* UIView+Ext.swift */; };
-		836F22198C47DE377767468F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCD70CD0A6DBE1DE0CF45E9 /* HomeView.swift */; };
-		8A61C740775B7F80E0DDB143 /* AuthSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE7841284FC5BB80F084CFA /* AuthSelectView.swift */; };
 		8D94C083B012E09E27D703B5 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A897018560828F509A88E3 /* BaseView.swift */; };
 		90991EDBF21638A3548B592E /* MainTabBarModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7201505F35E30E167375DE00 /* MainTabBarModuleBuilder.swift */; };
 		93332B253F13B2728D26CDF5 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 959F9F377A80BC0FCF56A345 /* Montserrat-Bold.ttf */; };
@@ -48,7 +41,6 @@
 		AC062A3D6F8A72ABCA506198 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 51E3C3EAD1C6F1214267E65D /* Montserrat-Light.ttf */; };
 		ADFB4AF6DD1936CF98CEE52F /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 37294289AACDB6A49D0CC214 /* Montserrat-Medium.ttf */; };
 		AEC4D7453986A360453833D2 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122680A4BDB3AC021B36A48 /* Coordinator.swift */; };
-		B26C359EE922FD575E33B3B6 /* AuthSelectModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9722F644C6DB5414F69C8CBC /* AuthSelectModuleBuilder.swift */; };
 		B3019B074771559BE2D36644 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227779459FE6ACE005F31BFD /* LoadingView.swift */; };
 		B61EB11EF6DA0DCE18D4B40A /* Montserrat-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A4E0D4389DDFC4046E47109 /* Montserrat-ExtraBold.ttf */; };
 		BAEC1D000292EEB44A8FBDB6 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92D7BE4380C8EF3CD5D54E5 /* AppSettings.swift */; };
@@ -60,12 +52,59 @@
 		C9469842B1C58A5562C599B4 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C862345ACB3CDEC2F442ED /* AppCoordinator.swift */; };
 		D23761C110A93CDCA4F647CB /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C12EDFCDBED61BB33C9E7B /* SettingsCoordinator.swift */; };
 		D3E3F7BEE84A06C1CA57A0F5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE67B5FC8CDD0D06378FBB7 /* BaseViewController.swift */; };
+		D46CC3B729A80112003BCB24 /* RequestBuilderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46CC3B629A80112003BCB24 /* RequestBuilderError.swift */; };
+		D46CC3BD29A8DF3C003BCB24 /* CreateUserRequsetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46CC3BC29A8DF3C003BCB24 /* CreateUserRequsetModel.swift */; };
+		D46CC3BF29A8E0FA003BCB24 /* CreateUserResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46CC3BE29A8E0FA003BCB24 /* CreateUserResponseModel.swift */; };
+		D46CC3C129A8F71C003BCB24 /* MainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46CC3C029A8F71C003BCB24 /* MainButton.swift */; };
+		D46CC3C529A92958003BCB24 /* MainTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46CC3C429A92958003BCB24 /* MainTextFieldView.swift */; };
+		D477DC3429B0C4B100B719AC /* UserNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477DC3329B0C4B100B719AC /* UserNetworkService.swift */; };
+		D477DC3629B0C59000B719AC /* UserNetworkServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477DC3529B0C59000B719AC /* UserNetworkServiceImpl.swift */; };
+		D477DC3829B0C5D000B719AC /* UserEndpointsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477DC3729B0C5D000B719AC /* UserEndpointsBuilder.swift */; };
+		D47CD5E129A507C800C3ECC6 /* NetworkManagerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47CD5E029A507C800C3ECC6 /* NetworkManagerImpl.swift */; };
+		D47CD5E329A5083500C3ECC6 /* NetworkManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47CD5E229A5083500C3ECC6 /* NetworkManagerProtocol.swift */; };
+		D47CD5E529A5324C00C3ECC6 /* RequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47CD5E429A5324C00C3ECC6 /* RequestBody.swift */; };
+		D4ADEBFB29ACBF9400D7CE53 /* MainTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEBFA29ACBF9400D7CE53 /* MainTextField.swift */; };
+		D4ADEBFD29ACF61400D7CE53 /* TextFieldType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEBFC29ACF61400D7CE53 /* TextFieldType.swift */; };
+		D4ADEBFF29AD09F600D7CE53 /* MainButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEBFE29AD09F600D7CE53 /* MainButtonType.swift */; };
+		D4ADEC0529AD33AA00D7CE53 /* RestorePasswordModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEC0129AD33AA00D7CE53 /* RestorePasswordModuleBuilder.swift */; };
+		D4ADEC0629AD33AA00D7CE53 /* RestorePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEC0229AD33AA00D7CE53 /* RestorePasswordViewController.swift */; };
+		D4ADEC0729AD33AA00D7CE53 /* RestorePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEC0329AD33AA00D7CE53 /* RestorePasswordView.swift */; };
+		D4ADEC0829AD33AA00D7CE53 /* RestorePasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEC0429AD33AA00D7CE53 /* RestorePasswordViewModel.swift */; };
+		D4ADEC0B29AD4F6100D7CE53 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = D4ADEC0A29AD4F6100D7CE53 /* Lottie */; };
+		D4ADEC0F29AD54D000D7CE53 /* lottiePassword.json in Resources */ = {isa = PBXBuildFile; fileRef = D4ADEC0E29AD54D000D7CE53 /* lottiePassword.json */; };
+		D4ADEC1229ADF84000D7CE53 /* RegEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEC1129ADF84000D7CE53 /* RegEx.swift */; };
+		D4ADEC1629AE3BE600D7CE53 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEC1529AE3BE600D7CE53 /* UserDefaultsService.swift */; };
+		D4ADEC1929AE3CFA00D7CE53 /* UserDefaultsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEC1829AE3CFA00D7CE53 /* UserDefaultsServiceProtocol.swift */; };
+		D4ADEC1B29AE3D5200D7CE53 /* UserDefaultsServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEC1A29AE3D5100D7CE53 /* UserDefaultsServiceError.swift */; };
+		D4ADEC2129AE407800D7CE53 /* CreateAccountModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEC1D29AE407800D7CE53 /* CreateAccountModuleBuilder.swift */; };
+		D4ADEC2229AE407800D7CE53 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEC1E29AE407800D7CE53 /* CreateAccountViewController.swift */; };
+		D4ADEC2329AE407800D7CE53 /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEC1F29AE407800D7CE53 /* CreateAccountView.swift */; };
+		D4ADEC2429AE407800D7CE53 /* CreateAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEC2029AE407800D7CE53 /* CreateAccountViewModel.swift */; };
+		D4ADEC2629AF6BF900D7CE53 /* loader.json in Resources */ = {isa = PBXBuildFile; fileRef = D4ADEC2529AF6BF900D7CE53 /* loader.json */; };
+		D4ADEC2D29AFA94000D7CE53 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEC2C29AFA94000D7CE53 /* UserService.swift */; };
+		D4ADEC2F29AFB58600D7CE53 /* UserServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEC2E29AFB58600D7CE53 /* UserServiceImpl.swift */; };
+		D4ADEC3329AFB5D600D7CE53 /* UserDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEC3229AFB5D600D7CE53 /* UserDomainModel.swift */; };
+		D4ADEC3D29AFB73000D7CE53 /* UserInfoModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEC3929AFB73000D7CE53 /* UserInfoModuleBuilder.swift */; };
+		D4ADEC3E29AFB73000D7CE53 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEC3A29AFB73000D7CE53 /* UserInfoViewController.swift */; };
+		D4ADEC3F29AFB73000D7CE53 /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEC3B29AFB73000D7CE53 /* UserInfoView.swift */; };
+		D4ADEC4029AFB73000D7CE53 /* UserInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEC3C29AFB73000D7CE53 /* UserInfoViewModel.swift */; };
 		D4CE253D43E79AE86BD92491 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02568F71E5D36EC312C8666 /* BaseViewModel.swift */; };
 		D4EA6E52299E5E9F009F7DBD /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EA6E51299E5E9F009F7DBD /* NetworkError.swift */; };
 		D4EA6E54299E5EC2009F7DBD /* HTTPMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EA6E53299E5EC2009F7DBD /* HTTPMethods.swift */; };
 		D4EA6E56299E5F35009F7DBD /* EndpointBuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EA6E55299E5F35009F7DBD /* EndpointBuilderProtocol.swift */; };
-		D4EA6E58299E617A009F7DBD /* CombineNetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EA6E57299E617A009F7DBD /* CombineNetworkServiceProtocol.swift */; };
-		D4EA6E5A299E619F009F7DBD /* CombineNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EA6E59299E619F009F7DBD /* CombineNetworkService.swift */; };
+		D4EA6E58299E617A009F7DBD /* NetworkProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EA6E57299E617A009F7DBD /* NetworkProviderProtocol.swift */; };
+		D4EA6E5A299E619F009F7DBD /* NetworkServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EA6E59299E619F009F7DBD /* NetworkServiceProvider.swift */; };
+		D4EA6E5D299E86EB009F7DBD /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D4EA6E5C299E86EB009F7DBD /* SnapKit */; };
+		D4EA6E63299E87A1009F7DBD /* SignInModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EA6E5F299E87A1009F7DBD /* SignInModuleBuilder.swift */; };
+		D4EA6E64299E87A1009F7DBD /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EA6E60299E87A1009F7DBD /* SignInViewController.swift */; };
+		D4EA6E65299E87A1009F7DBD /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EA6E61299E87A1009F7DBD /* SignInView.swift */; };
+		D4EA6E66299E87A1009F7DBD /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EA6E62299E87A1009F7DBD /* SignInViewModel.swift */; };
+		D4EA6E69299E8F40009F7DBD /* AuthEndpoitsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EA6E68299E8F40009F7DBD /* AuthEndpoitsBuilder.swift */; };
+		D4EA6E6C299E8FD7009F7DBD /* LoginRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EA6E6B299E8FD7009F7DBD /* LoginRequestModel.swift */; };
+		D4EA6E6E299E9260009F7DBD /* AuthNetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EA6E6D299E9260009F7DBD /* AuthNetworkServiceProtocol.swift */; };
+		D4EA6E70299E92CE009F7DBD /* AuthNetworkServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EA6E6F299E92CE009F7DBD /* AuthNetworkServiceImpl.swift */; };
+		D4EA6E73299E935F009F7DBD /* LoginResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EA6E72299E935F009F7DBD /* LoginResponseModel.swift */; };
+		D4EA6E7B299FAF31009F7DBD /* ApiErrorResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EA6E7A299FAF31009F7DBD /* ApiErrorResponseModel.swift */; };
 		D50B0DC3B906281FFB3C6A3F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD0EC310A6EAE1E97942BC1 /* SettingsViewModel.swift */; };
 		D86DEBD8EF5B528295A52221 /* Montserrat-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF7AA4D7D6BC3BB4EB79D19C /* Montserrat-SemiBoldItalic.ttf */; };
 		D9B24D5BD078C922B781ED52 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52A59073413C82C2C83B87FE /* Montserrat-Regular.ttf */; };
@@ -76,7 +115,6 @@
 		E44F561A32F1479708D65A55 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9BAB2B1BDD898BA3749FD7 /* Assets.swift */; };
 		EA652AE85CDC79FA5E05BDBA /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 74278A158606845928D9BFE6 /* KeychainAccess */; };
 		F2445A8385E0C54ABC40104F /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 04E45920DB208769BBF57E76 /* CombineCocoa */; };
-		F3C00157A00B85221A1026E5 /* AuthSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C0608934EEBC2040B12DA /* AuthSelectViewController.swift */; };
 		F50D51CFD511955028239624 /* SettingsModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37879D532BB437AD6C0DE2C1 /* SettingsModuleBuilder.swift */; };
 		F602DAD0A0FA3ABB10D6872E /* Montserrat-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE0E63E4787BA86E2B028599 /* Montserrat-Italic.ttf */; };
 		F7BEDDCD78729639577A1381 /* ViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76ADD5A1887A544415E7E62A /* ViewRepresentable.swift */; };
@@ -85,10 +123,9 @@
 
 /* Begin PBXFileReference section */
 		0417FF16B3B815BA9D92897E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		04496B79B7EA51D30A7C50CF /* DogResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogResponseModel.swift; sourceTree = "<group>"; };
 		0DF41E2F882135301DC65A33 /* Montserrat-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BoldItalic.ttf"; sourceTree = "<group>"; };
 		11ED46B0B0B628F67D24DAFE /* Config-PROD.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Config-PROD.xcconfig"; sourceTree = "<group>"; };
-		173BE34A90FB549143B439D2 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		173BE34A90FB549143B439D2 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		181A1538B0C4BFDAEC64312F /* Montserrat-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		227779459FE6ACE005F31BFD /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		2434A8CDE974A11EF75DAF57 /* Montserrat-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BlackItalic.ttf"; sourceTree = "<group>"; };
@@ -103,10 +140,8 @@
 		37A711F212A38CCE683FBCC6 /* BuySellCarApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BuySellCarApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A31B03D1EF8EB46FC47DACD /* Montserrat-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		3D6D3BDA3D151DDFB2980197 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
-		3FCD70CD0A6DBE1DE0CF45E9 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		42F94F525E684B577C82B92F /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		44C7151FD27030E7C1700389 /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
-		4A0C0608934EEBC2040B12DA /* AuthSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSelectViewController.swift; sourceTree = "<group>"; };
 		51E3C3EAD1C6F1214267E65D /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
 		52A59073413C82C2C83B87FE /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		55B62A600B9155FFF78EDB32 /* Config-STG.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Config-STG.xcconfig"; sourceTree = "<group>"; };
@@ -117,10 +152,8 @@
 		6AF210A01E50E3A0070C899D /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		6BAA1E05913E2BA1850F0DB4 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		6DBAED10835414059C934F70 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
-		71B0E7F917F4895AEE3B0493 /* HomeModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModuleBuilder.swift; sourceTree = "<group>"; };
 		7201505F35E30E167375DE00 /* MainTabBarModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarModuleBuilder.swift; sourceTree = "<group>"; };
 		76ADD5A1887A544415E7E62A /* ViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRepresentable.swift; sourceTree = "<group>"; };
-		7C159E24B0C8800C3D304766 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		7DE67B5FC8CDD0D06378FBB7 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		85B5D092F58D96AE8251693F /* Montserrat-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ThinItalic.ttf"; sourceTree = "<group>"; };
 		8752A6675270591F67F9E7A1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -128,7 +161,6 @@
 		89A4DC800708F04829AC79E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8AAAE6286724314D6707D09E /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		959F9F377A80BC0FCF56A345 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
-		9722F644C6DB5414F69C8CBC /* AuthSelectModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSelectModuleBuilder.swift; sourceTree = "<group>"; };
 		9CB41F88AEA6C275FF542C14 /* AppContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContainer.swift; sourceTree = "<group>"; };
 		9D6807DB7CE972E5EBDB1AED /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		A6C7A39DB25F69C6F3534EF2 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
@@ -139,16 +171,59 @@
 		AF00D4D88085D67C841076EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B6142542848FE7F969A8668B /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		BF7AA4D7D6BC3BB4EB79D19C /* Montserrat-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
-		C39C1B53DE08B080E6B6D947 /* AuthSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSelectViewModel.swift; sourceTree = "<group>"; };
 		C87A4789FEA0F869D5BC28FC /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		CB89B40DECDD2C74562C1F54 /* AxisScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxisScrollView.swift; sourceTree = "<group>"; };
 		D02568F71E5D36EC312C8666 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
-		D21EDA2DF80DC99DFE64D72B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		D46CC3B629A80112003BCB24 /* RequestBuilderError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilderError.swift; sourceTree = "<group>"; };
+		D46CC3BC29A8DF3C003BCB24 /* CreateUserRequsetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserRequsetModel.swift; sourceTree = "<group>"; };
+		D46CC3BE29A8E0FA003BCB24 /* CreateUserResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserResponseModel.swift; sourceTree = "<group>"; };
+		D46CC3C029A8F71C003BCB24 /* MainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButton.swift; sourceTree = "<group>"; };
+		D46CC3C429A92958003BCB24 /* MainTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTextFieldView.swift; sourceTree = "<group>"; };
+		D477DC3329B0C4B100B719AC /* UserNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkService.swift; sourceTree = "<group>"; };
+		D477DC3529B0C59000B719AC /* UserNetworkServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkServiceImpl.swift; sourceTree = "<group>"; };
+		D477DC3729B0C5D000B719AC /* UserEndpointsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEndpointsBuilder.swift; sourceTree = "<group>"; };
+		D47CD5E029A507C800C3ECC6 /* NetworkManagerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerImpl.swift; sourceTree = "<group>"; };
+		D47CD5E229A5083500C3ECC6 /* NetworkManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerProtocol.swift; sourceTree = "<group>"; };
+		D47CD5E429A5324C00C3ECC6 /* RequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBody.swift; sourceTree = "<group>"; };
+		D4ADEBFA29ACBF9400D7CE53 /* MainTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTextField.swift; sourceTree = "<group>"; };
+		D4ADEBFC29ACF61400D7CE53 /* TextFieldType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldType.swift; sourceTree = "<group>"; };
+		D4ADEBFE29AD09F600D7CE53 /* MainButtonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButtonType.swift; sourceTree = "<group>"; };
+		D4ADEC0129AD33AA00D7CE53 /* RestorePasswordModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePasswordModuleBuilder.swift; sourceTree = "<group>"; };
+		D4ADEC0229AD33AA00D7CE53 /* RestorePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePasswordViewController.swift; sourceTree = "<group>"; };
+		D4ADEC0329AD33AA00D7CE53 /* RestorePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePasswordView.swift; sourceTree = "<group>"; };
+		D4ADEC0429AD33AA00D7CE53 /* RestorePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorePasswordViewModel.swift; sourceTree = "<group>"; };
+		D4ADEC0E29AD54D000D7CE53 /* lottiePassword.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottiePassword.json; sourceTree = "<group>"; };
+		D4ADEC1129ADF84000D7CE53 /* RegEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegEx.swift; sourceTree = "<group>"; };
+		D4ADEC1529AE3BE600D7CE53 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
+		D4ADEC1829AE3CFA00D7CE53 /* UserDefaultsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsServiceProtocol.swift; sourceTree = "<group>"; };
+		D4ADEC1A29AE3D5100D7CE53 /* UserDefaultsServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsServiceError.swift; sourceTree = "<group>"; };
+		D4ADEC1D29AE407800D7CE53 /* CreateAccountModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountModuleBuilder.swift; sourceTree = "<group>"; };
+		D4ADEC1E29AE407800D7CE53 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
+		D4ADEC1F29AE407800D7CE53 /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
+		D4ADEC2029AE407800D7CE53 /* CreateAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewModel.swift; sourceTree = "<group>"; };
+		D4ADEC2529AF6BF900D7CE53 /* loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loader.json; sourceTree = "<group>"; };
+		D4ADEC2C29AFA94000D7CE53 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		D4ADEC2E29AFB58600D7CE53 /* UserServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServiceImpl.swift; sourceTree = "<group>"; };
+		D4ADEC3229AFB5D600D7CE53 /* UserDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDomainModel.swift; sourceTree = "<group>"; };
+		D4ADEC3929AFB73000D7CE53 /* UserInfoModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModuleBuilder.swift; sourceTree = "<group>"; };
+		D4ADEC3A29AFB73000D7CE53 /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
+		D4ADEC3B29AFB73000D7CE53 /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
+		D4ADEC3C29AFB73000D7CE53 /* UserInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewModel.swift; sourceTree = "<group>"; };
 		D4EA6E51299E5E9F009F7DBD /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		D4EA6E53299E5EC2009F7DBD /* HTTPMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethods.swift; sourceTree = "<group>"; };
 		D4EA6E55299E5F35009F7DBD /* EndpointBuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointBuilderProtocol.swift; sourceTree = "<group>"; };
-		D4EA6E57299E617A009F7DBD /* CombineNetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineNetworkServiceProtocol.swift; sourceTree = "<group>"; };
-		D4EA6E59299E619F009F7DBD /* CombineNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineNetworkService.swift; sourceTree = "<group>"; };
+		D4EA6E57299E617A009F7DBD /* NetworkProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProviderProtocol.swift; sourceTree = "<group>"; };
+		D4EA6E59299E619F009F7DBD /* NetworkServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProvider.swift; sourceTree = "<group>"; };
+		D4EA6E5F299E87A1009F7DBD /* SignInModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInModuleBuilder.swift; sourceTree = "<group>"; };
+		D4EA6E60299E87A1009F7DBD /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		D4EA6E61299E87A1009F7DBD /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		D4EA6E62299E87A1009F7DBD /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		D4EA6E68299E8F40009F7DBD /* AuthEndpoitsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthEndpoitsBuilder.swift; sourceTree = "<group>"; };
+		D4EA6E6B299E8FD7009F7DBD /* LoginRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequestModel.swift; sourceTree = "<group>"; };
+		D4EA6E6D299E9260009F7DBD /* AuthNetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNetworkServiceProtocol.swift; sourceTree = "<group>"; };
+		D4EA6E6F299E92CE009F7DBD /* AuthNetworkServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNetworkServiceImpl.swift; sourceTree = "<group>"; };
+		D4EA6E72299E935F009F7DBD /* LoginResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseModel.swift; sourceTree = "<group>"; };
+		D4EA6E7A299FAF31009F7DBD /* ApiErrorResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiErrorResponseModel.swift; sourceTree = "<group>"; };
 		DD8159B8346F70332AB7D916 /* Montserrat-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Thin.ttf"; sourceTree = "<group>"; };
 		DF44145BF552CC54BB3CB718 /* UIEdgeInsets+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+Ext.swift"; sourceTree = "<group>"; };
 		E5A85C08090B6E0C403F6475 /* Config-DEV.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Config-DEV.xcconfig"; sourceTree = "<group>"; };
@@ -159,7 +234,6 @@
 		F2C12EDFCDBED61BB33C9E7B /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		F2F4FEAF61897920FB4E7FEA /* Montserrat-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-MediumItalic.ttf"; sourceTree = "<group>"; };
 		FAD0EC310A6EAE1E97942BC1 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
-		FBE7841284FC5BB80F084CFA /* AuthSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSelectView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,7 +241,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4ADEC0B29AD4F6100D7CE53 /* Lottie in Frameworks */,
 				F2445A8385E0C54ABC40104F /* CombineCocoa in Frameworks */,
+				D4EA6E5D299E86EB009F7DBD /* SnapKit in Frameworks */,
 				2E0A948A1F95B389F8C78963 /* KeyboardLayoutGuide in Frameworks */,
 				EA652AE85CDC79FA5E05BDBA /* KeychainAccess in Frameworks */,
 			);
@@ -227,22 +303,13 @@
 		2D616176C6D83293BB9F01DB /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				EAFC5F22BE3607EA991D61C6 /* Networking */,
+				D477DC3229B0C49B00B719AC /* UserNetworkService */,
+				D4EA6E67299E8F03009F7DBD /* AuthService */,
+				D4ADEC2929AF9B0500D7CE53 /* UserService */,
 				E92D7BE4380C8EF3CD5D54E5 /* AppSettings.swift */,
-				173BE34A90FB549143B439D2 /* UserService.swift */,
+				173BE34A90FB549143B439D2 /* KeychainService.swift */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		3200D8633180D0184E3580E4 /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				71B0E7F917F4895AEE3B0493 /* HomeModuleBuilder.swift */,
-				3FCD70CD0A6DBE1DE0CF45E9 /* HomeView.swift */,
-				D21EDA2DF80DC99DFE64D72B /* HomeViewController.swift */,
-				7C159E24B0C8800C3D304766 /* HomeViewModel.swift */,
-			);
-			path = Home;
 			sourceTree = "<group>";
 		};
 		48431CF91F4088FED11CA695 /* Base */ = {
@@ -278,6 +345,7 @@
 			isa = PBXGroup;
 			children = (
 				195B17D915795DFAF44BBE35 /* Coordinators */,
+				D4ADEC3129AFB5B100D7CE53 /* NetworkingModel */,
 				716B06AF0901CA18A7BAAA7F /* Models */,
 				2D616176C6D83293BB9F01DB /* Services */,
 			);
@@ -295,7 +363,7 @@
 		716B06AF0901CA18A7BAAA7F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				04496B79B7EA51D30A7C50CF /* DogResponseModel.swift */,
+				D4ADEC3229AFB5D600D7CE53 /* UserDomainModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -314,6 +382,7 @@
 		8A1E1894FC9286821FB99388 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D4ADEC1329AE299D00D7CE53 /* LottieAnimations */,
 				D53D8ECF387DAB20BD795982 /* Fonts */,
 				83D9DBA2BF5FDFEAF6A3FFCF /* Generated */,
 				0417FF16B3B815BA9D92897E /* Assets.xcassets */,
@@ -327,6 +396,7 @@
 		936521CA124B76A52C357B86 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				D4ADEC1029ADF83400D7CE53 /* RegEx */,
 				3122680A4BDB3AC021B36A48 /* Coordinator.swift */,
 				76ADD5A1887A544415E7E62A /* ViewRepresentable.swift */,
 			);
@@ -336,11 +406,9 @@
 		A1B58394EF72400FFC363412 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				DB439DDA0730C657AAA36FC4 /* AuthSelect */,
-				3200D8633180D0184E3580E4 /* Home */,
+				D4ADEC3429AFB64000D7CE53 /* AutorizationFlow */,
+				D4ADEC3529AFB66A00D7CE53 /* MainFlow */,
 				48A95DB40097E5B839DF2201 /* LaunchScreen */,
-				61F6E5A9CBF1438DFF0EFE80 /* MainTabBar */,
-				AD5AA9CAF2AD0DA914CB2DF7 /* Settings */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -359,6 +427,8 @@
 		AF64773E9E0835EAD672668B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D46CC3C329A92933003BCB24 /* MainTextField */,
+				D46CC3C229A92927003BCB24 /* MainButton */,
 				CB89B40DECDD2C74562C1F54 /* AxisScrollView.swift */,
 				227779459FE6ACE005F31BFD /* LoadingView.swift */,
 			);
@@ -368,12 +438,234 @@
 		C552A73C0826F8EE1CA976C2 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				D4ADEC1429AE3BDC00D7CE53 /* UserDefaultsService */,
+				EAFC5F22BE3607EA991D61C6 /* Networking */,
 				48431CF91F4088FED11CA695 /* Base */,
 				709CADC65289B84AE1C90454 /* Extensions */,
 				936521CA124B76A52C357B86 /* Helpers */,
 				AF64773E9E0835EAD672668B /* Views */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		D46CC3B529A800DF003BCB24 /* NetworkLayerError */ = {
+			isa = PBXGroup;
+			children = (
+				D4EA6E51299E5E9F009F7DBD /* NetworkError.swift */,
+				D46CC3B629A80112003BCB24 /* RequestBuilderError.swift */,
+			);
+			path = NetworkLayerError;
+			sourceTree = "<group>";
+		};
+		D46CC3B929A801C3003BCB24 /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				D47CD5E029A507C800C3ECC6 /* NetworkManagerImpl.swift */,
+				D47CD5E229A5083500C3ECC6 /* NetworkManagerProtocol.swift */,
+			);
+			path = NetworkManager;
+			sourceTree = "<group>";
+		};
+		D46CC3BA29A8022D003BCB24 /* NetworkProvider */ = {
+			isa = PBXGroup;
+			children = (
+				D4EA6E59299E619F009F7DBD /* NetworkServiceProvider.swift */,
+				D4EA6E57299E617A009F7DBD /* NetworkProviderProtocol.swift */,
+			);
+			path = NetworkProvider;
+			sourceTree = "<group>";
+		};
+		D46CC3BB29A80269003BCB24 /* EnpointBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				D47CD5E429A5324C00C3ECC6 /* RequestBody.swift */,
+				D4EA6E53299E5EC2009F7DBD /* HTTPMethods.swift */,
+				D4EA6E55299E5F35009F7DBD /* EndpointBuilderProtocol.swift */,
+			);
+			path = EnpointBuilder;
+			sourceTree = "<group>";
+		};
+		D46CC3C229A92927003BCB24 /* MainButton */ = {
+			isa = PBXGroup;
+			children = (
+				D46CC3C029A8F71C003BCB24 /* MainButton.swift */,
+				D4ADEBFE29AD09F600D7CE53 /* MainButtonType.swift */,
+			);
+			path = MainButton;
+			sourceTree = "<group>";
+		};
+		D46CC3C329A92933003BCB24 /* MainTextField */ = {
+			isa = PBXGroup;
+			children = (
+				D46CC3C429A92958003BCB24 /* MainTextFieldView.swift */,
+				D4ADEBFC29ACF61400D7CE53 /* TextFieldType.swift */,
+				D4ADEBFA29ACBF9400D7CE53 /* MainTextField.swift */,
+			);
+			path = MainTextField;
+			sourceTree = "<group>";
+		};
+		D477DC3229B0C49B00B719AC /* UserNetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				D477DC3329B0C4B100B719AC /* UserNetworkService.swift */,
+				D477DC3529B0C59000B719AC /* UserNetworkServiceImpl.swift */,
+				D477DC3729B0C5D000B719AC /* UserEndpointsBuilder.swift */,
+			);
+			path = UserNetworkService;
+			sourceTree = "<group>";
+		};
+		D4ADEC0029AD334000D7CE53 /* RestorePassword */ = {
+			isa = PBXGroup;
+			children = (
+				D4ADEC0129AD33AA00D7CE53 /* RestorePasswordModuleBuilder.swift */,
+				D4ADEC0229AD33AA00D7CE53 /* RestorePasswordViewController.swift */,
+				D4ADEC0329AD33AA00D7CE53 /* RestorePasswordView.swift */,
+				D4ADEC0429AD33AA00D7CE53 /* RestorePasswordViewModel.swift */,
+			);
+			path = RestorePassword;
+			sourceTree = "<group>";
+		};
+		D4ADEC1029ADF83400D7CE53 /* RegEx */ = {
+			isa = PBXGroup;
+			children = (
+				D4ADEC1129ADF84000D7CE53 /* RegEx.swift */,
+			);
+			path = RegEx;
+			sourceTree = "<group>";
+		};
+		D4ADEC1329AE299D00D7CE53 /* LottieAnimations */ = {
+			isa = PBXGroup;
+			children = (
+				D4ADEC2529AF6BF900D7CE53 /* loader.json */,
+				D4ADEC0E29AD54D000D7CE53 /* lottiePassword.json */,
+			);
+			path = LottieAnimations;
+			sourceTree = "<group>";
+		};
+		D4ADEC1429AE3BDC00D7CE53 /* UserDefaultsService */ = {
+			isa = PBXGroup;
+			children = (
+				D4ADEC1529AE3BE600D7CE53 /* UserDefaultsService.swift */,
+				D4ADEC1829AE3CFA00D7CE53 /* UserDefaultsServiceProtocol.swift */,
+				D4ADEC1A29AE3D5100D7CE53 /* UserDefaultsServiceError.swift */,
+			);
+			path = UserDefaultsService;
+			sourceTree = "<group>";
+		};
+		D4ADEC1C29AE406300D7CE53 /* CreateAccount */ = {
+			isa = PBXGroup;
+			children = (
+				D4ADEC1D29AE407800D7CE53 /* CreateAccountModuleBuilder.swift */,
+				D4ADEC1E29AE407800D7CE53 /* CreateAccountViewController.swift */,
+				D4ADEC1F29AE407800D7CE53 /* CreateAccountView.swift */,
+				D4ADEC2029AE407800D7CE53 /* CreateAccountViewModel.swift */,
+			);
+			path = CreateAccount;
+			sourceTree = "<group>";
+		};
+		D4ADEC2929AF9B0500D7CE53 /* UserService */ = {
+			isa = PBXGroup;
+			children = (
+				D4ADEC2C29AFA94000D7CE53 /* UserService.swift */,
+				D4ADEC2E29AFB58600D7CE53 /* UserServiceImpl.swift */,
+			);
+			path = UserService;
+			sourceTree = "<group>";
+		};
+		D4ADEC3129AFB5B100D7CE53 /* NetworkingModel */ = {
+			isa = PBXGroup;
+			children = (
+				D4EA6E71299E933A009F7DBD /* ResponseModel */,
+				D4EA6E6A299E8FBF009F7DBD /* RequestModels */,
+			);
+			path = NetworkingModel;
+			sourceTree = "<group>";
+		};
+		D4ADEC3429AFB64000D7CE53 /* AutorizationFlow */ = {
+			isa = PBXGroup;
+			children = (
+				D4EA6E5E299E876F009F7DBD /* SignIn */,
+				D4ADEC1C29AE406300D7CE53 /* CreateAccount */,
+				D4ADEC0029AD334000D7CE53 /* RestorePassword */,
+			);
+			path = AutorizationFlow;
+			sourceTree = "<group>";
+		};
+		D4ADEC3529AFB66A00D7CE53 /* MainFlow */ = {
+			isa = PBXGroup;
+			children = (
+				61F6E5A9CBF1438DFF0EFE80 /* MainTabBar */,
+				D4ADEC3729AFB69000D7CE53 /* SearchFlow */,
+				D4ADEC3629AFB67600D7CE53 /* SettingFlow */,
+			);
+			path = MainFlow;
+			sourceTree = "<group>";
+		};
+		D4ADEC3629AFB67600D7CE53 /* SettingFlow */ = {
+			isa = PBXGroup;
+			children = (
+				AD5AA9CAF2AD0DA914CB2DF7 /* Settings */,
+			);
+			path = SettingFlow;
+			sourceTree = "<group>";
+		};
+		D4ADEC3729AFB69000D7CE53 /* SearchFlow */ = {
+			isa = PBXGroup;
+			children = (
+				D4ADEC3829AFB71400D7CE53 /* UserInfo */,
+			);
+			path = SearchFlow;
+			sourceTree = "<group>";
+		};
+		D4ADEC3829AFB71400D7CE53 /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				D4ADEC3929AFB73000D7CE53 /* UserInfoModuleBuilder.swift */,
+				D4ADEC3A29AFB73000D7CE53 /* UserInfoViewController.swift */,
+				D4ADEC3B29AFB73000D7CE53 /* UserInfoView.swift */,
+				D4ADEC3C29AFB73000D7CE53 /* UserInfoViewModel.swift */,
+			);
+			path = UserInfo;
+			sourceTree = "<group>";
+		};
+		D4EA6E5E299E876F009F7DBD /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				D4EA6E5F299E87A1009F7DBD /* SignInModuleBuilder.swift */,
+				D4EA6E60299E87A1009F7DBD /* SignInViewController.swift */,
+				D4EA6E61299E87A1009F7DBD /* SignInView.swift */,
+				D4EA6E62299E87A1009F7DBD /* SignInViewModel.swift */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		D4EA6E67299E8F03009F7DBD /* AuthService */ = {
+			isa = PBXGroup;
+			children = (
+				D4EA6E68299E8F40009F7DBD /* AuthEndpoitsBuilder.swift */,
+				D4EA6E6D299E9260009F7DBD /* AuthNetworkServiceProtocol.swift */,
+				D4EA6E6F299E92CE009F7DBD /* AuthNetworkServiceImpl.swift */,
+			);
+			path = AuthService;
+			sourceTree = "<group>";
+		};
+		D4EA6E6A299E8FBF009F7DBD /* RequestModels */ = {
+			isa = PBXGroup;
+			children = (
+				D4EA6E6B299E8FD7009F7DBD /* LoginRequestModel.swift */,
+				D46CC3BC29A8DF3C003BCB24 /* CreateUserRequsetModel.swift */,
+			);
+			path = RequestModels;
+			sourceTree = "<group>";
+		};
+		D4EA6E71299E933A009F7DBD /* ResponseModel */ = {
+			isa = PBXGroup;
+			children = (
+				D4EA6E72299E935F009F7DBD /* LoginResponseModel.swift */,
+				D4EA6E7A299FAF31009F7DBD /* ApiErrorResponseModel.swift */,
+				D46CC3BE29A8E0FA003BCB24 /* CreateUserResponseModel.swift */,
+			);
+			path = ResponseModel;
 			sourceTree = "<group>";
 		};
 		D53D8ECF387DAB20BD795982 /* Fonts */ = {
@@ -401,17 +693,6 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		DB439DDA0730C657AAA36FC4 /* AuthSelect */ = {
-			isa = PBXGroup;
-			children = (
-				9722F644C6DB5414F69C8CBC /* AuthSelectModuleBuilder.swift */,
-				FBE7841284FC5BB80F084CFA /* AuthSelectView.swift */,
-				4A0C0608934EEBC2040B12DA /* AuthSelectViewController.swift */,
-				C39C1B53DE08B080E6B6D947 /* AuthSelectViewModel.swift */,
-			);
-			path = AuthSelect;
-			sourceTree = "<group>";
-		};
 		E090948C3E1FACBD0D5E9A89 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -437,11 +718,10 @@
 		EAFC5F22BE3607EA991D61C6 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				D4EA6E51299E5E9F009F7DBD /* NetworkError.swift */,
-				D4EA6E59299E619F009F7DBD /* CombineNetworkService.swift */,
-				D4EA6E53299E5EC2009F7DBD /* HTTPMethods.swift */,
-				D4EA6E55299E5F35009F7DBD /* EndpointBuilderProtocol.swift */,
-				D4EA6E57299E617A009F7DBD /* CombineNetworkServiceProtocol.swift */,
+				D46CC3BB29A80269003BCB24 /* EnpointBuilder */,
+				D46CC3BA29A8022D003BCB24 /* NetworkProvider */,
+				D46CC3B929A801C3003BCB24 /* NetworkManager */,
+				D46CC3B529A800DF003BCB24 /* NetworkLayerError */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -479,6 +759,8 @@
 				04E45920DB208769BBF57E76 /* CombineCocoa */,
 				6F28DE4B19DE8160C318C5F1 /* KeyboardLayoutGuide */,
 				74278A158606845928D9BFE6 /* KeychainAccess */,
+				D4EA6E5C299E86EB009F7DBD /* SnapKit */,
+				D4ADEC0A29AD4F6100D7CE53 /* Lottie */,
 			);
 			productName = BuySellCarApp;
 			productReference = 37A711F212A38CCE683FBCC6 /* BuySellCarApp.app */;
@@ -505,6 +787,8 @@
 				40D4EC2F46FEE68B4A900071 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 				8A1FEE9FCB32D722527A1457 /* XCRemoteSwiftPackageReference "KeyboardLayoutGuide" */,
 				0F8C899E3166F89182E724FF /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				D4EA6E5B299E86EB009F7DBD /* XCRemoteSwiftPackageReference "SnapKit" */,
+				D4ADEC0929AD4F6100D7CE53 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 			);
 			projectDirPath = "";
 			projectRoot = "";
@@ -526,6 +810,7 @@
 				C4D8924ED9A198AD2E8344AA /* Montserrat-Black.ttf in Resources */,
 				523264AEF7CC4F32F85C0FE3 /* Montserrat-BlackItalic.ttf in Resources */,
 				93332B253F13B2728D26CDF5 /* Montserrat-Bold.ttf in Resources */,
+				D4ADEC0F29AD54D000D7CE53 /* lottiePassword.json in Resources */,
 				9F6E640BC10DFF4C77F0DDA7 /* Montserrat-BoldItalic.ttf in Resources */,
 				B61EB11EF6DA0DCE18D4B40A /* Montserrat-ExtraBold.ttf in Resources */,
 				072F72ED93F9A6AD0F71FFFB /* Montserrat-ExtraBoldItalic.ttf in Resources */,
@@ -536,6 +821,7 @@
 				0B330FE955A4E6CDF3499F6A /* Montserrat-LightItalic.ttf in Resources */,
 				ADFB4AF6DD1936CF98CEE52F /* Montserrat-Medium.ttf in Resources */,
 				4C76CA084567E3710444DFB9 /* Montserrat-MediumItalic.ttf in Resources */,
+				D4ADEC2629AF6BF900D7CE53 /* loader.json in Resources */,
 				D9B24D5BD078C922B781ED52 /* Montserrat-Regular.ttf in Resources */,
 				57AD0213C6F2BCD9803E3394 /* Montserrat-SemiBold.ttf in Resources */,
 				D86DEBD8EF5B528295A52221 /* Montserrat-SemiBoldItalic.ttf in Resources */,
@@ -575,53 +861,87 @@
 			files = (
 				BD82759C5143808E98B62201 /* AppConfiguration.swift in Sources */,
 				2174305FA29F27D7BC4E5DD5 /* AppContainer.swift in Sources */,
+				D4ADEC3D29AFB73000D7CE53 /* UserInfoModuleBuilder.swift in Sources */,
 				D4EA6E54299E5EC2009F7DBD /* HTTPMethods.swift in Sources */,
 				C9469842B1C58A5562C599B4 /* AppCoordinator.swift in Sources */,
+				D47CD5E529A5324C00C3ECC6 /* RequestBody.swift in Sources */,
+				D4EA6E7B299FAF31009F7DBD /* ApiErrorResponseModel.swift in Sources */,
+				D477DC3429B0C4B100B719AC /* UserNetworkService.swift in Sources */,
 				DBD9E53A938258AF427C8291 /* AppDelegate.swift in Sources */,
+				D4ADEBFF29AD09F600D7CE53 /* MainButtonType.swift in Sources */,
 				94820361E0C892362C5CD40F /* AppEnvironment.swift in Sources */,
+				D4ADEC2F29AFB58600D7CE53 /* UserServiceImpl.swift in Sources */,
 				BAEC1D000292EEB44A8FBDB6 /* AppSettings.swift in Sources */,
 				E44F561A32F1479708D65A55 /* Assets.swift in Sources */,
-				D4EA6E58299E617A009F7DBD /* CombineNetworkServiceProtocol.swift in Sources */,
+				D4EA6E58299E617A009F7DBD /* NetworkProviderProtocol.swift in Sources */,
 				20E6443F2CF0FE7E640D0DDF /* AuthCoordinator.swift in Sources */,
-				B26C359EE922FD575E33B3B6 /* AuthSelectModuleBuilder.swift in Sources */,
-				8A61C740775B7F80E0DDB143 /* AuthSelectView.swift in Sources */,
-				F3C00157A00B85221A1026E5 /* AuthSelectViewController.swift in Sources */,
-				826B2EB19730D87382D14BFD /* AuthSelectViewModel.swift in Sources */,
+				D4ADEC2329AE407800D7CE53 /* CreateAccountView.swift in Sources */,
+				D4ADEC0729AD33AA00D7CE53 /* RestorePasswordView.swift in Sources */,
+				D4ADEC1929AE3CFA00D7CE53 /* UserDefaultsServiceProtocol.swift in Sources */,
 				FBCEA36A4DCA9D086FF628F9 /* AxisScrollView.swift in Sources */,
+				D4ADEBFD29ACF61400D7CE53 /* TextFieldType.swift in Sources */,
 				8D94C083B012E09E27D703B5 /* BaseView.swift in Sources */,
+				D4ADEC2129AE407800D7CE53 /* CreateAccountModuleBuilder.swift in Sources */,
 				D3E3F7BEE84A06C1CA57A0F5 /* BaseViewController.swift in Sources */,
+				D46CC3C529A92958003BCB24 /* MainTextFieldView.swift in Sources */,
+				D4EA6E66299E87A1009F7DBD /* SignInViewModel.swift in Sources */,
 				D4CE253D43E79AE86BD92491 /* BaseViewModel.swift in Sources */,
 				38853001D5E53B861428DCB1 /* Colors.swift in Sources */,
 				AEC4D7453986A360453833D2 /* Coordinator.swift in Sources */,
-				68D292177643B55317574209 /* DogResponseModel.swift in Sources */,
 				BF49A036D782AC10A92809CB /* Fonts.swift in Sources */,
+				D46CC3C129A8F71C003BCB24 /* MainButton.swift in Sources */,
+				D4ADEC1229ADF84000D7CE53 /* RegEx.swift in Sources */,
 				BD055F8B3C7F245B0D1E9612 /* HomeCoordinator.swift in Sources */,
-				6AB9A8EF5CCE01E97D1F4D7C /* HomeModuleBuilder.swift in Sources */,
-				D4EA6E5A299E619F009F7DBD /* CombineNetworkService.swift in Sources */,
-				836F22198C47DE377767468F /* HomeView.swift in Sources */,
-				02CD74AAD57011D3E5C5842B /* HomeViewController.swift in Sources */,
+				D4ADEC2229AE407800D7CE53 /* CreateAccountViewController.swift in Sources */,
+				D4EA6E6E299E9260009F7DBD /* AuthNetworkServiceProtocol.swift in Sources */,
+				D4EA6E5A299E619F009F7DBD /* NetworkServiceProvider.swift in Sources */,
+				D4EA6E70299E92CE009F7DBD /* AuthNetworkServiceImpl.swift in Sources */,
+				D4ADEBFB29ACBF9400D7CE53 /* MainTextField.swift in Sources */,
 				D4EA6E52299E5E9F009F7DBD /* NetworkError.swift in Sources */,
 				D4EA6E56299E5F35009F7DBD /* EndpointBuilderProtocol.swift in Sources */,
-				7B4B0FB8ECC07F033B220583 /* HomeViewModel.swift in Sources */,
+				D4ADEC2D29AFA94000D7CE53 /* UserService.swift in Sources */,
 				B3019B074771559BE2D36644 /* LoadingView.swift in Sources */,
+				D4ADEC4029AFB73000D7CE53 /* UserInfoViewModel.swift in Sources */,
+				D477DC3829B0C5D000B719AC /* UserEndpointsBuilder.swift in Sources */,
+				D4ADEC3E29AFB73000D7CE53 /* UserInfoViewController.swift in Sources */,
+				D4ADEC3329AFB5D600D7CE53 /* UserDomainModel.swift in Sources */,
 				3C5521BC30F2E1DB2DA1E3FC /* Localization.swift in Sources */,
 				65A829DAAD75E4B54CCFB4C4 /* MainTabBarCoordinator.swift in Sources */,
 				90991EDBF21638A3548B592E /* MainTabBarModuleBuilder.swift in Sources */,
 				0215679BB9B5CD1EF4673D8B /* MainTabBarViewController.swift in Sources */,
+				D4ADEC0829AD33AA00D7CE53 /* RestorePasswordViewModel.swift in Sources */,
 				0B5369933285BD6E6AE60FE1 /* MainTabBarViewModel.swift in Sources */,
+				D4ADEC0529AD33AA00D7CE53 /* RestorePasswordModuleBuilder.swift in Sources */,
 				D9DA8267D674BEFF9E81DA86 /* Module.swift in Sources */,
 				C4858EACCB4DCFF08AC72157 /* SceneDelegate.swift in Sources */,
+				D46CC3BD29A8DF3C003BCB24 /* CreateUserRequsetModel.swift in Sources */,
+				D46CC3BF29A8E0FA003BCB24 /* CreateUserResponseModel.swift in Sources */,
+				D4ADEC1B29AE3D5200D7CE53 /* UserDefaultsServiceError.swift in Sources */,
+				D47CD5E129A507C800C3ECC6 /* NetworkManagerImpl.swift in Sources */,
+				D4EA6E69299E8F40009F7DBD /* AuthEndpoitsBuilder.swift in Sources */,
+				D4EA6E65299E87A1009F7DBD /* SignInView.swift in Sources */,
+				D4ADEC2429AE407800D7CE53 /* CreateAccountViewModel.swift in Sources */,
 				D23761C110A93CDCA4F647CB /* SettingsCoordinator.swift in Sources */,
+				D4ADEC1629AE3BE600D7CE53 /* UserDefaultsService.swift in Sources */,
+				D4ADEC0629AD33AA00D7CE53 /* RestorePasswordViewController.swift in Sources */,
+				D46CC3B729A80112003BCB24 /* RequestBuilderError.swift in Sources */,
 				F50D51CFD511955028239624 /* SettingsModuleBuilder.swift in Sources */,
 				6928CFF3AF7380FACAA94511 /* SettingsView.swift in Sources */,
+				D4EA6E64299E87A1009F7DBD /* SignInViewController.swift in Sources */,
 				7EB4B3410B43ED90D532A613 /* SettingsViewController.swift in Sources */,
 				D50B0DC3B906281FFB3C6A3F /* SettingsViewModel.swift in Sources */,
 				56416D56E142574FE2DD1D99 /* UIEdgeInsets+Ext.swift in Sources */,
+				D4EA6E73299E935F009F7DBD /* LoginResponseModel.swift in Sources */,
 				DD94FE48CDF5D4260353B893 /* UIStackView+Ext.swift in Sources */,
+				D4EA6E63299E87A1009F7DBD /* SignInModuleBuilder.swift in Sources */,
 				0D38D12AC75458E87F590FD0 /* UIView+Constraints.swift in Sources */,
+				D4ADEC3F29AFB73000D7CE53 /* UserInfoView.swift in Sources */,
+				D4EA6E6C299E8FD7009F7DBD /* LoginRequestModel.swift in Sources */,
 				8304DDF3CD66A921582DC923 /* UIView+Ext.swift in Sources */,
-				061ADE121561DCED49E0848A /* UserService.swift in Sources */,
+				061ADE121561DCED49E0848A /* KeychainService.swift in Sources */,
+				D47CD5E329A5083500C3ECC6 /* NetworkManagerProtocol.swift in Sources */,
 				F7BEDDCD78729639577A1381 /* ViewRepresentable.swift in Sources */,
+				D477DC3629B0C59000B719AC /* UserNetworkServiceImpl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1204,6 +1524,22 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		D4ADEC0929AD4F6100D7CE53 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+		D4EA6E5B299E86EB009F7DBD /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = exactVersion;
+				version = 5.6.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1221,6 +1557,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0F8C899E3166F89182E724FF /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
+		};
+		D4ADEC0A29AD4F6100D7CE53 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4ADEC0929AD4F6100D7CE53 /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
+		};
+		D4EA6E5C299E86EB009F7DBD /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4EA6E5B299E86EB009F7DBD /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

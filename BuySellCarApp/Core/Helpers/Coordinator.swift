@@ -40,4 +40,17 @@ extension Coordinator {
     func pop(animated: Bool = true) {
         self.navigationController.popViewController(animated: animated)
     }
+    
+    func present(_ viewController: UIViewController, animated: Bool = true) {
+        self.navigationController.present(viewController, animated: animated)
+    }
+    
+    func presentWithStyle(_ viewController: UIViewController, animated: Bool = true, style: UIModalPresentationStyle) {
+        viewController.modalPresentationStyle = style
+        self.navigationController.present(viewController, animated: animated)
+    }
+    
+    func dismiss(animated: Bool = true) {
+        self.navigationController.dismiss(animated: true)
+    }
 }

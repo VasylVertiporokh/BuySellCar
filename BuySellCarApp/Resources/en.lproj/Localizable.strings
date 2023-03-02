@@ -25,3 +25,16 @@
 "logout" = "Logout";
 "search" = "Search";
 
+//Create account
+"create-account-title" = "Create account";
+"successfully-alert-title" = "Successfully";
+"successfully-creation-message" = "Your account has been created, you can now log in";
+
+//Buttons title
+"forgot-password" = "Forgot password?";
+"create-new-account" = "You can create new account";
+"restore" = "Restore";
+
+// SignIn
+"or" = "OR";
+
