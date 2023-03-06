@@ -52,6 +52,7 @@
 		C9469842B1C58A5562C599B4 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C862345ACB3CDEC2F442ED /* AppCoordinator.swift */; };
 		D23761C110A93CDCA4F647CB /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C12EDFCDBED61BB33C9E7B /* SettingsCoordinator.swift */; };
 		D3E3F7BEE84A06C1CA57A0F5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE67B5FC8CDD0D06378FBB7 /* BaseViewController.swift */; };
+		D451E88729B63A1E00CE75D2 /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D451E88629B63A1E00CE75D2 /* NetworkLogger.swift */; };
 		D46CC3B729A80112003BCB24 /* RequestBuilderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46CC3B629A80112003BCB24 /* RequestBuilderError.swift */; };
 		D46CC3BD29A8DF3C003BCB24 /* CreateUserRequsetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46CC3BC29A8DF3C003BCB24 /* CreateUserRequsetModel.swift */; };
 		D46CC3BF29A8E0FA003BCB24 /* CreateUserResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46CC3BE29A8E0FA003BCB24 /* CreateUserResponseModel.swift */; };
@@ -174,6 +175,7 @@
 		C87A4789FEA0F869D5BC28FC /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		CB89B40DECDD2C74562C1F54 /* AxisScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxisScrollView.swift; sourceTree = "<group>"; };
 		D02568F71E5D36EC312C8666 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		D451E88629B63A1E00CE75D2 /* NetworkLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
 		D46CC3B629A80112003BCB24 /* RequestBuilderError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilderError.swift; sourceTree = "<group>"; };
 		D46CC3BC29A8DF3C003BCB24 /* CreateUserRequsetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserRequsetModel.swift; sourceTree = "<group>"; };
 		D46CC3BE29A8E0FA003BCB24 /* CreateUserResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserResponseModel.swift; sourceTree = "<group>"; };
@@ -448,6 +450,14 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
+		D451E88529B639FA00CE75D2 /* NetworkLogger */ = {
+			isa = PBXGroup;
+			children = (
+				D451E88629B63A1E00CE75D2 /* NetworkLogger.swift */,
+			);
+			path = NetworkLogger;
+			sourceTree = "<group>";
+		};
 		D46CC3B529A800DF003BCB24 /* NetworkLayerError */ = {
 			isa = PBXGroup;
 			children = (
@@ -718,6 +728,7 @@
 		EAFC5F22BE3607EA991D61C6 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				D451E88529B639FA00CE75D2 /* NetworkLogger */,
 				D46CC3BB29A80269003BCB24 /* EnpointBuilder */,
 				D46CC3BA29A8022D003BCB24 /* NetworkProvider */,
 				D46CC3B929A801C3003BCB24 /* NetworkManager */,
@@ -859,6 +870,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D451E88729B63A1E00CE75D2 /* NetworkLogger.swift in Sources */,
 				BD82759C5143808E98B62201 /* AppConfiguration.swift in Sources */,
 				2174305FA29F27D7BC4E5DD5 /* AppContainer.swift in Sources */,
 				D4ADEC3D29AFB73000D7CE53 /* UserInfoModuleBuilder.swift in Sources */,

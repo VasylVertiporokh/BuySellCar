@@ -33,6 +33,7 @@ extension EndpointBuilderProtocol {
         headerFields.forEach { request.addValue($0.key, forHTTPHeaderField: $0.value) }
         
         guard let body = body else {
+            NetworkLogger.log(request)
             return request
         }
         
@@ -45,6 +46,7 @@ extension EndpointBuilderProtocol {
             }
             request.httpBody = data
         }
+        NetworkLogger.log(request)
         return request
     }
 }

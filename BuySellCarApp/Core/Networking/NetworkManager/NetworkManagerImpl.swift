@@ -20,8 +20,8 @@ final class NetworkManagerImpl: NetworkManagerProtocol {
 
 // MARK: - Internal extension
 extension NetworkManagerImpl {
-    func resumeDataTask(_ requset: URLRequest) -> AnyPublisher<Data, NetworkError> {
-        return urlSession.dataTaskPublisher(for: requset)
+    func resumeDataTask(_ request: URLRequest) -> AnyPublisher<Data, NetworkError> {
+        return urlSession.dataTaskPublisher(for: request)
             .mapError { [weak self] error -> NetworkError in
                 guard let self = self else {
                     return NetworkError.unexpectedError
@@ -33,6 +33,7 @@ extension NetworkManagerImpl {
                     return Fail(error: .unexpectedError)
                         .eraseToAnyPublisher()
                 }
+                NetworkLogger.log(output)
                 return self.handleError(output)
             }
             .eraseToAnyPublisher()
