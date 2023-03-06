@@ -9,11 +9,14 @@ import Foundation
 import Combine
 
 final class UserServiceImpl {
+     var user: UserDomainModel? {
+        userDomainSubject.value
+    }
+    
     // MARK: - Private properties
     private let keychainService: KeychainService
     private let userDefaultsService: UserDefaultsServiceProtocol
     private let userNetworkService: UserNetworkService
-    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Publisher
     private(set) lazy var userDomainPublisher = userDomainSubject.eraseToAnyPublisher()
@@ -40,21 +43,19 @@ extension UserServiceImpl: UserService {
         userDomainSubject.value = model
     }
     
-    func getUser() -> UserDomainModel? {
-        try? userDefaultsService.getObject(forKey: .userModel, castTo: UserDomainModel.self)
-    }
-    
     func getToken() -> String? {
         keychainService.token
     }
     
-    func logout() -> AnyPublisher<Never, NetworkError> {
-        userNetworkService.logout(userToken: keychainService.token)
+    func logout() -> AnyPublisher<Never, Error> {
+         userNetworkService.logout(userToken: keychainService.token)
+            .mapError { $0 as Error }
+            .eraseToAnyPublisher()
     }
-
-    func deleteUser() {
+    
+    func clear() {
         userDefaultsService.removeObject(forKey: .userModel)
-        keychainService.clear()
+//        keychainService.clear()
     }
 }
 

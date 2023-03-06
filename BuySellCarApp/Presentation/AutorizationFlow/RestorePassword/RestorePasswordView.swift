@@ -45,9 +45,7 @@ final class RestorePasswordView: BaseView {
     private func bindActions() {
         passwordTextField.textFied.textPublisher
             .replaceNil(with: Constant.emptyString)
-            .sink { [unowned self] text in
-                actionSubject.send(.passwordTextFieldDidEnter(text))
-            }
+            .sink { [unowned self] text in actionSubject.send(.passwordTextFieldDidEnter(text)) }
             .store(in: &cancellables)
         passwordTextField.textFied.deleteTextActionPublisher
             .replaceNil(with: Constant.emptyString)
@@ -75,7 +73,6 @@ final class RestorePasswordView: BaseView {
         lottiePasswordView.loopMode = .loop
         lottiePasswordView.animationSpeed = Constant.animationSpeed
         lottiePasswordView.play()
-        
     }
     
     private func setupLayout() {

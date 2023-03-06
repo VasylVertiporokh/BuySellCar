@@ -21,6 +21,10 @@ final class MainTabBarViewController: UITabBarController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        print("Deinit of \(String(describing: self))")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewControllers?.enumerated().reversed().forEach({ [unowned self] (ind, _) in

@@ -44,7 +44,7 @@ final class AuthCoordinator: Coordinator {
                 }
             }
             .store(in: &cancellables)
-        push(module.viewController)
+        setRoot([module.viewController])
     }
     
     func createAccount() {

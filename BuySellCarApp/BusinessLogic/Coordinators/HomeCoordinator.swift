@@ -25,6 +25,10 @@ final class HomeCoordinator: Coordinator {
     func start() {
         searchRoot()
     }
+    
+    deinit {
+        print("Deinit of \(String(describing: self))")
+    }
 
     private func searchRoot() {
         let module = UserInfoModuleBuilder.build(container: container)

@@ -10,10 +10,10 @@ import Combine
 
 protocol UserService {
     var userDomainPublisher: AnyPublisher<UserDomainModel?, Never> { get }
+    var user: UserDomainModel? { get }
     
     func saveUser(_ model: UserDomainModel)
-    func getUser() -> UserDomainModel?
     func getToken() -> String?
-    func logout() -> AnyPublisher<Never, NetworkError>
-    func deleteUser()
+    func logout() -> AnyPublisher<Never, Error>
+    func clear()
 }

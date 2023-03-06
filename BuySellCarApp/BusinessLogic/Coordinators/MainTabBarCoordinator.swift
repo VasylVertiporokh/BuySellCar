@@ -27,7 +27,6 @@ final class MainTabBarCoordinator: Coordinator {
         print("Deinit of \(String(describing: self))")
     }
 
-
     func start() {
         setupHomeCoordinator()
         setupSettingsCoordinator()

@@ -28,7 +28,7 @@ final class SettingsViewModel: BaseViewModel {
             .sink { [weak self] error in
                 switch error {
                 case .finished:
-                    self?.userService.deleteUser()
+                    self?.userService.clear()
                     self?.isLoadingSubject.send(false)
                     self?.transitionSubject.send(.logout)
                 case .failure(let error):
