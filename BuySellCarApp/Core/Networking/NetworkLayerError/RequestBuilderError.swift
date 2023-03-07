@@ -8,7 +8,7 @@
 import Foundation
 
 enum RequestBuilderError: Error {
-    case bobyEncodingError
+    case bodyEncodingError
     case badURL
     case badURLComponents
 }
@@ -16,7 +16,7 @@ enum RequestBuilderError: Error {
 extension RequestBuilderError: LocalizedError {
     var requestErrorDescription: String? {
         switch self {
-        case .bobyEncodingError:
+        case .bodyEncodingError:
             return "Error encoding the body"
         case .badURL:
             return "Bad request URL"

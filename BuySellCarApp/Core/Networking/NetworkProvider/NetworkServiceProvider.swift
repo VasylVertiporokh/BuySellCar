@@ -31,7 +31,7 @@ final class NetworkServiceProvider<Endpoint: EndpointBuilderProtocol>: NetworkPr
     }
     
     // MARK: - Internal methods
-    func perfomWithResponseModel<T: Decodable>(_ builder: Endpoint) -> AnyPublisher<T, NetworkError> {
+    func performWithResponseModel<T: Decodable>(_ builder: Endpoint) -> AnyPublisher<T, NetworkError> {
         do {
             let request = try builder.createRequest(apiInfo.baseURL, encoder)
             return networkManager.resumeDataTask(request)
@@ -52,7 +52,7 @@ final class NetworkServiceProvider<Endpoint: EndpointBuilderProtocol>: NetworkPr
         }
     }
     
-    func perfomWithProcessingResult(_ builder: Endpoint) -> AnyPublisher<Never, NetworkError> {
+    func performWithProcessingResult(_ builder: Endpoint) -> AnyPublisher<Never, NetworkError> {
         do {
             let request = try builder.createRequest(apiInfo.baseURL, encoder)
             return networkManager.resumeDataTask(request)

@@ -26,6 +26,6 @@ extension UserNetworkServiceImpl: UserNetworkService {
             return Fail(error: NetworkError.tokenError)
                 .eraseToAnyPublisher()
         }
-        return provider.perfomWithProcessingResult(.logout(userToken))
+        return provider.performWithProcessingResult(.logout(userToken))
     }
 }

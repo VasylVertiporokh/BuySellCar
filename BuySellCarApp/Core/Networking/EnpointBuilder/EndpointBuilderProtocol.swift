@@ -25,7 +25,7 @@ extension EndpointBuilderProtocol {
     func createRequest(_ baseUrl: URL, _ encoder: JSONEncoder) throws -> URLRequest {
         var request: URLRequest
         do {
-            request = .init(url: try buldUrl(self.baseURL ?? baseUrl))
+            request = .init(url: try buildUrl(self.baseURL ?? baseUrl))
         } catch {
             throw error
         }
@@ -42,7 +42,7 @@ extension EndpointBuilderProtocol {
             request.httpBody = data
         case .encodable(let encodable):
             guard let data = try? encoder.encode(encodable) else {
-                throw RequestBuilderError.bobyEncodingError
+                throw RequestBuilderError.bodyEncodingError
             }
             request.httpBody = data
         }
@@ -53,7 +53,7 @@ extension EndpointBuilderProtocol {
 
 // MARK: - Private extension
 private extension EndpointBuilderProtocol {
-    func buldUrl(_ baseURL: URL) throws -> URL {
+    func buildUrl(_ baseURL: URL) throws -> URL {
         let url = baseURL.appendingPathComponent(path)
         guard let query = query else {
             return url
