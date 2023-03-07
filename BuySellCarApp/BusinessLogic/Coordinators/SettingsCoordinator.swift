@@ -25,6 +25,10 @@ final class SettingsCoordinator: Coordinator {
     func start() {
         settingsRoot()
     }
+    
+    deinit {
+        print("Deinit of \(String(describing: self))")
+    }
 
     private func settingsRoot() {
         let module = SettingsModuleBuilder.build(container: container)

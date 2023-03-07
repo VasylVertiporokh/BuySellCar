@@ -23,18 +23,20 @@ final class HomeCoordinator: Coordinator {
     }
 
     func start() {
-        homeRoot()
+        searchRoot()
+    }
+    
+    deinit {
+        print("Deinit of \(String(describing: self))")
     }
 
-    private func homeRoot() {
-        let module = HomeModuleBuilder.build(container: container)
+    private func searchRoot() {
+        let module = UserInfoModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] transition in
-                switch transition {
-                case .screen1: debugPrint("perform transition 1")
-                case .screen2: debugPrint("perform transition 2")
-                case .screen3: debugPrint("perform transition 3")
-                }
+//                switch transition {
+//
+//                }
             }
             .store(in: &cancellables)
         setRoot(module.viewController)

@@ -16,6 +16,10 @@ internal enum Localization {
   internal static let chooseOption = Localization.tr("Localizable", "choose-option", fallback: "Choose option")
   /// Confirm password
   internal static let confirmPassword = Localization.tr("Localizable", "confirm-password", fallback: "Confirm password")
+  /// Create account
+  internal static let createAccountTitle = Localization.tr("Localizable", "create-account-title", fallback: "Create account")
+  /// You can create new account
+  internal static let createNewAccount = Localization.tr("Localizable", "create-new-account", fallback: "You can create new account")
   /// Done
   internal static let done = Localization.tr("Localizable", "done", fallback: "Done")
   /// Email
@@ -25,6 +29,8 @@ internal enum Localization {
   /// 
   ///   Created by Roman Savchenko on 12.12.2021.
   internal static let error = Localization.tr("Localizable", "error", fallback: "Error")
+  /// Forgot password?
+  internal static let forgotPassword = Localization.tr("Localizable", "forgot-password", fallback: "Forgot password?")
   /// Home
   internal static let home = Localization.tr("Localizable", "home", fallback: "Home")
   /// Logout
@@ -33,8 +39,12 @@ internal enum Localization {
   internal static let name = Localization.tr("Localizable", "name", fallback: "Name")
   /// OK
   internal static let ok = Localization.tr("Localizable", "ok", fallback: "OK")
+  /// OR
+  internal static let or = Localization.tr("Localizable", "or", fallback: "OR")
   /// Password
   internal static let password = Localization.tr("Localizable", "password", fallback: "Password")
+  /// Restore
+  internal static let restore = Localization.tr("Localizable", "restore", fallback: "Restore")
   /// Search
   internal static let search = Localization.tr("Localizable", "search", fallback: "Search")
   /// Settings
@@ -45,6 +55,10 @@ internal enum Localization {
   internal static let signUp = Localization.tr("Localizable", "sign-up", fallback: "Sign Up")
   /// Skip
   internal static let skip = Localization.tr("Localizable", "skip", fallback: "Skip")
+  /// Successfully
+  internal static let successfullyAlertTitle = Localization.tr("Localizable", "successfully-alert-title", fallback: "Successfully")
+  /// Your account has been created, you can now log in
+  internal static let successfullyCreationMessage = Localization.tr("Localizable", "successfully-creation-message", fallback: "Your account has been created, you can now log in")
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces

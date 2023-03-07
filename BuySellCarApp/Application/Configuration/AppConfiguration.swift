@@ -7,23 +7,27 @@
 
 import Foundation
 
-protocol AppConfiguration {
+protocol AppConfiguration: ApiInfo {
     var bundleId: String { get }
     var environment: AppEnvironment { get }
+}
+
+protocol ApiInfo {
+    var baseURL: URL { get }
 }
 
 final class AppConfigurationImpl: AppConfiguration {
     // MARK: - Internal properties
     let bundleId: String
     let environment: AppEnvironment
-
-    var baseUrl: URL {
+    
+    lazy var baseURL: URL = {
         guard let url = URL(string: apiUrl) else {
             fatalError("Invalid url")
         }
         let fullUrl = url.appendingPathComponent(appId).appendingPathComponent(apiKey)
         return fullUrl
-    }
+    }()
     
     // MARK: - Private properties
     private let apiKey: String
@@ -49,10 +53,11 @@ final class AppConfigurationImpl: AppConfiguration {
         self.apiKey = apiKey
         self.appId = appId
         self.apiUrl = apiUrl
-
+        
         debugPrint(environment)
         debugPrint(bundleId)
-        debugPrint("⚙️ \(baseUrl)")
+        debugPrint("⚙️ \(baseURL)")
+        print("\n")
     }
 }
 

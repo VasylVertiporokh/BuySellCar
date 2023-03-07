@@ -22,6 +22,10 @@ final class MainTabBarCoordinator: Coordinator {
         self.navigationController = navigationController
         self.container = container
     }
+    
+    deinit {
+        print("Deinit of \(String(describing: self))")
+    }
 
     func start() {
         setupHomeCoordinator()
@@ -53,6 +57,7 @@ final class MainTabBarCoordinator: Coordinator {
             .sink { [unowned self] in
                 childCoordinators.forEach { removeChild(coordinator: $0) }
                 didFinishSubject.send()
+                didFinishSubject.send(completion: .finished)
             }
             .store(in: &cancellables)
         coordinator.start()
