@@ -14,7 +14,7 @@ enum UserInfoTransition: Transition {
 
 final class UserInfoModuleBuilder {
     class func build(container: AppContainer) -> Module<UserInfoTransition, UIViewController> {
-        let viewModel = UserInfoViewModel(userService: container.userService)
+        let viewModel = UserInfoViewModel(userService: container.userService, tempService: container.tempNetService)
         let viewController = UserInfoViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

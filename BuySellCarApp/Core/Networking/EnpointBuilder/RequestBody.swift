@@ -11,4 +11,5 @@ import Foundation
 enum RequestBody {
     case rawData(Data)
     case encodable(Encodable)
+    case multipartBody(Data)
 }

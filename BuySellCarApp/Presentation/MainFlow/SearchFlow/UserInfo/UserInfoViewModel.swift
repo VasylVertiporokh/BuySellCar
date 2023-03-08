@@ -15,6 +15,13 @@ enum UserInfoViewModelEvents {
 final class UserInfoViewModel: BaseViewModel {
     // MARK: - Private properties
     private let userService: UserService
+    let tempService: AdvertisementNetworkService
+    
+    let searchDict: [SearchParam] = [
+        .init(key: .price, value: .lessOrEqualTo(intValue: 50500)),
+        .init(key: .price, value: .greaterOrEqualTo(intValue: 6500))
+    ]
+    
     
     // MARK: - Subjects
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -23,8 +30,9 @@ final class UserInfoViewModel: BaseViewModel {
     private(set) lazy var eventsPublisher = eventsSubject.eraseToAnyPublisher()
     private let eventsSubject = PassthroughSubject<UserInfoViewModelEvents, Never>()
     
-    init(userService: UserService) {
+    init(userService: UserService, tempService: AdvertisementNetworkService) {
         self.userService = userService
+        self.tempService = tempService
         super.init()
     }
     
@@ -36,6 +44,15 @@ final class UserInfoViewModel: BaseViewModel {
                     return
                 }
                 eventsSubject.send(.showUserInfo(model))
+            }
+            .store(in: &cancellables)
+        
+        
+        tempService.searchAdvertisement(searchParams: searchDict)
+            .sink { error in
+                print(error)
+            } receiveValue: { _ in
+                
             }
             .store(in: &cancellables)
     }

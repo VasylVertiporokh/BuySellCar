@@ -45,6 +45,8 @@ extension EndpointBuilderProtocol {
                 throw RequestBuilderError.bodyEncodingError
             }
             request.httpBody = data
+        case .multipartBody(let data):
+            print(data)
         }
         NetworkLogger.log(request)
         return request
