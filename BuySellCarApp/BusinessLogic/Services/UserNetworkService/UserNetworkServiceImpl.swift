@@ -28,4 +28,8 @@ extension UserNetworkServiceImpl: UserNetworkService {
         }
         return provider.performWithProcessingResult(.logout(userToken))
     }
+    
+    func addUserAvatar(data: MultipartItem, userId: String) -> AnyPublisher<Never, NetworkError> {
+        return provider.performWithProcessingResult(.addUserAvatar(item: data, userId: userId))
+    }
 }

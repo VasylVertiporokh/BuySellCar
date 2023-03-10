@@ -17,11 +17,6 @@ final class UserInfoViewModel: BaseViewModel {
     private let userService: UserService
     let tempService: AdvertisementNetworkService
     
-    let searchDict: [SearchParam] = [
-        .init(key: .price, value: .lessOrEqualTo(intValue: 50500)),
-        .init(key: .price, value: .greaterOrEqualTo(intValue: 6500))
-    ]
-    
     
     // MARK: - Subjects
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -44,15 +39,6 @@ final class UserInfoViewModel: BaseViewModel {
                     return
                 }
                 eventsSubject.send(.showUserInfo(model))
-            }
-            .store(in: &cancellables)
-        
-        
-        tempService.searchAdvertisement(searchParams: searchDict)
-            .sink { error in
-                print(error)
-            } receiveValue: { _ in
-                
             }
             .store(in: &cancellables)
     }
