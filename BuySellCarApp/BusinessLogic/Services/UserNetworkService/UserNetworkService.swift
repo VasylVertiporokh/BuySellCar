@@ -10,4 +10,5 @@ import Combine
 
 protocol UserNetworkService {
     func logout(userToken: String?) -> AnyPublisher<Never, NetworkError>
+    func addUserAvatar(data: MultipartItem, userId: String) -> AnyPublisher<Never, NetworkError> // TODO: - fix never
 }

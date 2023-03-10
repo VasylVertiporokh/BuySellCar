@@ -21,14 +21,14 @@ final class AuthNetworkServiceImpl<NetworkProvider: NetworkProviderProtocol> whe
 // MARK: - LoginNetworkServiceProtocol
 extension AuthNetworkServiceImpl: AuthNetworkServiceProtocol {
     func login(loginModel: LoginRequestModel) -> AnyPublisher<LoginResponseModel, NetworkError> {
-        return provider.perfomWithResponseModel(.login(model: loginModel))
+        return provider.performWithResponseModel(.login(model: loginModel))
     }
     
     func creteUser(userModel: CreateUserRequsetModel) -> AnyPublisher<CreateUserResponseModel, NetworkError> {
-        return provider.perfomWithResponseModel(.createUser(model: userModel))
+        return provider.performWithResponseModel(.createUser(model: userModel))
     }
     
     func restorePassword(userEmail: String) -> AnyPublisher<Never, NetworkError> {
-        return provider.perfomWithProcessingResult(.restorePassword(email: userEmail))
+        return provider.performWithProcessingResult(.restorePassword(email: userEmail))
     }
 }

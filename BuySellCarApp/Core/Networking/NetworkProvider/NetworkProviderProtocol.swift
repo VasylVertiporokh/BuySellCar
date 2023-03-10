@@ -19,6 +19,6 @@ protocol NetworkProviderProtocol {
     var encoder: JSONEncoder { get }
     
     // MARK: - Methods
-    func perfomWithResponseModel<T: Decodable>(_ builder: Endpoint) -> AnyPublisher<T, NetworkError>
-    func perfomWithProcessingResult(_ builder: Endpoint) -> AnyPublisher<Never, NetworkError>
+    func performWithResponseModel<T: Decodable>(_ builder: Endpoint) -> AnyPublisher<T, NetworkError>
+    func performWithProcessingResult(_ builder: Endpoint) -> AnyPublisher<Never, NetworkError>
 }

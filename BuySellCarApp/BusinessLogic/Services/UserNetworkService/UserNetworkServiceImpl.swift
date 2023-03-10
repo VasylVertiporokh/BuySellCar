@@ -26,6 +26,10 @@ extension UserNetworkServiceImpl: UserNetworkService {
             return Fail(error: NetworkError.tokenError)
                 .eraseToAnyPublisher()
         }
-        return provider.perfomWithProcessingResult(.logout(userToken))
+        return provider.performWithProcessingResult(.logout(userToken))
+    }
+    
+    func addUserAvatar(data: MultipartItem, userId: String) -> AnyPublisher<Never, NetworkError> {
+        return provider.performWithProcessingResult(.addUserAvatar(item: data, userId: userId))
     }
 }

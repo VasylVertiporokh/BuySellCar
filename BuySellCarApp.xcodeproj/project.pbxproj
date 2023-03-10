@@ -52,7 +52,11 @@
 		C9469842B1C58A5562C599B4 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C862345ACB3CDEC2F442ED /* AppCoordinator.swift */; };
 		D23761C110A93CDCA4F647CB /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C12EDFCDBED61BB33C9E7B /* SettingsCoordinator.swift */; };
 		D3E3F7BEE84A06C1CA57A0F5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE67B5FC8CDD0D06378FBB7 /* BaseViewController.swift */; };
+		D4377E2F29B9044400BCC919 /* SearchQueryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4377E2E29B9044400BCC919 /* SearchQueryBuilder.swift */; };
 		D451E88729B63A1E00CE75D2 /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D451E88629B63A1E00CE75D2 /* NetworkLogger.swift */; };
+		D451E88A29B7946600CE75D2 /* AdvertisementNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D451E88929B7946600CE75D2 /* AdvertisementNetworkService.swift */; };
+		D451E88C29B7A40900CE75D2 /* AdvertisementEndpointBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D451E88B29B7A40900CE75D2 /* AdvertisementEndpointBuilder.swift */; };
+		D451E88E29B7A58F00CE75D2 /* AdvertisementNetworkImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D451E88D29B7A58F00CE75D2 /* AdvertisementNetworkImpl.swift */; };
 		D46CC3B729A80112003BCB24 /* RequestBuilderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46CC3B629A80112003BCB24 /* RequestBuilderError.swift */; };
 		D46CC3BD29A8DF3C003BCB24 /* CreateUserRequsetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46CC3BC29A8DF3C003BCB24 /* CreateUserRequsetModel.swift */; };
 		D46CC3BF29A8E0FA003BCB24 /* CreateUserResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46CC3BE29A8E0FA003BCB24 /* CreateUserResponseModel.swift */; };
@@ -175,7 +179,11 @@
 		C87A4789FEA0F869D5BC28FC /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		CB89B40DECDD2C74562C1F54 /* AxisScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxisScrollView.swift; sourceTree = "<group>"; };
 		D02568F71E5D36EC312C8666 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		D4377E2E29B9044400BCC919 /* SearchQueryBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQueryBuilder.swift; sourceTree = "<group>"; };
 		D451E88629B63A1E00CE75D2 /* NetworkLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
+		D451E88929B7946600CE75D2 /* AdvertisementNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementNetworkService.swift; sourceTree = "<group>"; };
+		D451E88B29B7A40900CE75D2 /* AdvertisementEndpointBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementEndpointBuilder.swift; sourceTree = "<group>"; };
+		D451E88D29B7A58F00CE75D2 /* AdvertisementNetworkImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementNetworkImpl.swift; sourceTree = "<group>"; };
 		D46CC3B629A80112003BCB24 /* RequestBuilderError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilderError.swift; sourceTree = "<group>"; };
 		D46CC3BC29A8DF3C003BCB24 /* CreateUserRequsetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserRequsetModel.swift; sourceTree = "<group>"; };
 		D46CC3BE29A8E0FA003BCB24 /* CreateUserResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserResponseModel.swift; sourceTree = "<group>"; };
@@ -305,6 +313,7 @@
 		2D616176C6D83293BB9F01DB /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				D451E88829B7944C00CE75D2 /* AdvertisementService */,
 				D477DC3229B0C49B00B719AC /* UserNetworkService */,
 				D4EA6E67299E8F03009F7DBD /* AuthService */,
 				D4ADEC2929AF9B0500D7CE53 /* UserService */,
@@ -456,6 +465,17 @@
 				D451E88629B63A1E00CE75D2 /* NetworkLogger.swift */,
 			);
 			path = NetworkLogger;
+			sourceTree = "<group>";
+		};
+		D451E88829B7944C00CE75D2 /* AdvertisementService */ = {
+			isa = PBXGroup;
+			children = (
+				D451E88929B7946600CE75D2 /* AdvertisementNetworkService.swift */,
+				D451E88D29B7A58F00CE75D2 /* AdvertisementNetworkImpl.swift */,
+				D451E88B29B7A40900CE75D2 /* AdvertisementEndpointBuilder.swift */,
+				D4377E2E29B9044400BCC919 /* SearchQueryBuilder.swift */,
+			);
+			path = AdvertisementService;
 			sourceTree = "<group>";
 		};
 		D46CC3B529A800DF003BCB24 /* NetworkLayerError */ = {
@@ -880,6 +900,7 @@
 				D4EA6E7B299FAF31009F7DBD /* ApiErrorResponseModel.swift in Sources */,
 				D477DC3429B0C4B100B719AC /* UserNetworkService.swift in Sources */,
 				DBD9E53A938258AF427C8291 /* AppDelegate.swift in Sources */,
+				D451E88C29B7A40900CE75D2 /* AdvertisementEndpointBuilder.swift in Sources */,
 				D4ADEBFF29AD09F600D7CE53 /* MainButtonType.swift in Sources */,
 				94820361E0C892362C5CD40F /* AppEnvironment.swift in Sources */,
 				D4ADEC2F29AFB58600D7CE53 /* UserServiceImpl.swift in Sources */,
@@ -896,6 +917,7 @@
 				D4ADEC2129AE407800D7CE53 /* CreateAccountModuleBuilder.swift in Sources */,
 				D3E3F7BEE84A06C1CA57A0F5 /* BaseViewController.swift in Sources */,
 				D46CC3C529A92958003BCB24 /* MainTextFieldView.swift in Sources */,
+				D451E88E29B7A58F00CE75D2 /* AdvertisementNetworkImpl.swift in Sources */,
 				D4EA6E66299E87A1009F7DBD /* SignInViewModel.swift in Sources */,
 				D4CE253D43E79AE86BD92491 /* BaseViewModel.swift in Sources */,
 				38853001D5E53B861428DCB1 /* Colors.swift in Sources */,
@@ -914,11 +936,13 @@
 				D4ADEC2D29AFA94000D7CE53 /* UserService.swift in Sources */,
 				B3019B074771559BE2D36644 /* LoadingView.swift in Sources */,
 				D4ADEC4029AFB73000D7CE53 /* UserInfoViewModel.swift in Sources */,
+				D4377E2F29B9044400BCC919 /* SearchQueryBuilder.swift in Sources */,
 				D477DC3829B0C5D000B719AC /* UserEndpointsBuilder.swift in Sources */,
 				D4ADEC3E29AFB73000D7CE53 /* UserInfoViewController.swift in Sources */,
 				D4ADEC3329AFB5D600D7CE53 /* UserDomainModel.swift in Sources */,
 				3C5521BC30F2E1DB2DA1E3FC /* Localization.swift in Sources */,
 				65A829DAAD75E4B54CCFB4C4 /* MainTabBarCoordinator.swift in Sources */,
+				D451E88A29B7946600CE75D2 /* AdvertisementNetworkService.swift in Sources */,
 				90991EDBF21638A3548B592E /* MainTabBarModuleBuilder.swift in Sources */,
 				0215679BB9B5CD1EF4673D8B /* MainTabBarViewController.swift in Sources */,
 				D4ADEC0829AD33AA00D7CE53 /* RestorePasswordViewModel.swift in Sources */,

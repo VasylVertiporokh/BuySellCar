@@ -9,6 +9,7 @@ import Foundation
 
 enum UserEndpointsBuilder {
     case logout(String)
+    case addUserAvatar(item: MultipartItem, userId: String)
 }
 
 // MARK: - EndpointBuilderProtocol
@@ -17,6 +18,8 @@ extension UserEndpointsBuilder: EndpointBuilderProtocol {
         switch self {
         case .logout:
             return "/users/logout"
+        case .addUserAvatar(let dataItem, let userId):
+            return "/files/images/users/\(userId)/\(dataItem.fileName)"
         }
     }
     
@@ -27,6 +30,8 @@ extension UserEndpointsBuilder: EndpointBuilderProtocol {
                 "application/json" : "Content-Type",
                 token : "user-token"
             ]
+        case .addUserAvatar:
+            return ["" : ""]
         }
     }
     
@@ -34,6 +39,17 @@ extension UserEndpointsBuilder: EndpointBuilderProtocol {
         switch self {
         case .logout:
             return .get
+        case .addUserAvatar:
+            return .post
+        }
+    }
+    
+    var body: RequestBody? {
+        switch self {
+        case .logout:
+            return nil
+        case .addUserAvatar(let item, _):
+            return .multipartBody([item])
         }
     }
 }

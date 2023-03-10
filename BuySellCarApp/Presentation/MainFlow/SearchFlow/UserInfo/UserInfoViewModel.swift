@@ -15,6 +15,8 @@ enum UserInfoViewModelEvents {
 final class UserInfoViewModel: BaseViewModel {
     // MARK: - Private properties
     private let userService: UserService
+    let tempService: AdvertisementNetworkService
+    
     
     // MARK: - Subjects
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -23,8 +25,9 @@ final class UserInfoViewModel: BaseViewModel {
     private(set) lazy var eventsPublisher = eventsSubject.eraseToAnyPublisher()
     private let eventsSubject = PassthroughSubject<UserInfoViewModelEvents, Never>()
     
-    init(userService: UserService) {
+    init(userService: UserService, tempService: AdvertisementNetworkService) {
         self.userService = userService
+        self.tempService = tempService
         super.init()
     }
     

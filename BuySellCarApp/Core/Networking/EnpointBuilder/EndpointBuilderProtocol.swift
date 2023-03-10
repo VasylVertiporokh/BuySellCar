@@ -25,7 +25,7 @@ extension EndpointBuilderProtocol {
     func createRequest(_ baseUrl: URL, _ encoder: JSONEncoder) throws -> URLRequest {
         var request: URLRequest
         do {
-            request = .init(url: try buldUrl(self.baseURL ?? baseUrl))
+            request = .init(url: try buildUrl(self.baseURL ?? baseUrl))
         } catch {
             throw error
         }
@@ -42,9 +42,14 @@ extension EndpointBuilderProtocol {
             request.httpBody = data
         case .encodable(let encodable):
             guard let data = try? encoder.encode(encodable) else {
-                throw RequestBuilderError.bobyEncodingError
+                throw RequestBuilderError.bodyEncodingError
             }
             request.httpBody = data
+        case .multipartBody(let items):
+            let multipartBody = buildMultipartBody(items: items)
+            request.httpBody = multipartBody.multipartData
+            request.addValue("multipart/form-data; boundary=\(multipartBody.boundary)", forHTTPHeaderField: "Content-Type")
+            request.addValue("\(multipartBody.length)", forHTTPHeaderField: "Content-Length")
         }
         NetworkLogger.log(request)
         return request
@@ -53,7 +58,7 @@ extension EndpointBuilderProtocol {
 
 // MARK: - Private extension
 private extension EndpointBuilderProtocol {
-    func buldUrl(_ baseURL: URL) throws -> URL {
+    func buildUrl(_ baseURL: URL) throws -> URL {
         let url = baseURL.appendingPathComponent(path)
         guard let query = query else {
             return url
@@ -68,5 +73,30 @@ private extension EndpointBuilderProtocol {
             throw RequestBuilderError.badURLComponents
         }
         return url
+    }
+    
+    func buildMultipartBody(items: [MultipartItem]) -> MultipartBody {
+        let requestBody = NSMutableData()
+        let boundary: String = UUID().uuidString
+        let lineBreak = "\r\n"
+        
+        for item in items {
+            requestBody.append("\(lineBreak)--\(boundary + lineBreak)")
+            requestBody.append("Content-Disposition: form-data; name=\"\(item.attachmentKey)\"")
+            requestBody.append("; filename=\"\(item.fileName)\"\(lineBreak)")
+            requestBody.append("Content-Type: \(item.mimeType.rawValue) \(lineBreak + lineBreak)")
+            requestBody.append(item.data)
+        }
+        requestBody.append("\(lineBreak)--\(boundary)--\(lineBreak)")
+        return .init(boundary: boundary, multipartData: requestBody as Data, length: requestBody.count)
+    }
+}
+
+// MARK: - NSMutableData + Append String
+extension NSMutableData {
+    func append(_ string: String) {
+        if let data = string.data(using: .utf8) {
+            self.append(data)
+        }
     }
 }
