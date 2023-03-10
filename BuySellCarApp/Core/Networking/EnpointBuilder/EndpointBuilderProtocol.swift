@@ -56,14 +56,6 @@ extension EndpointBuilderProtocol {
     }
 }
 
-extension NSMutableData {
-    func append(_ string: String) {
-        if let data = string.data(using: .utf8) {
-            self.append(data)
-        }
-    }
-}
-
 // MARK: - Private extension
 private extension EndpointBuilderProtocol {
     func buildUrl(_ baseURL: URL) throws -> URL {
@@ -97,5 +89,14 @@ private extension EndpointBuilderProtocol {
         }
         requestBody.append("\(lineBreak)--\(boundary)--\(lineBreak)")
         return .init(boundary: boundary, multipartData: requestBody as Data, length: requestBody.count)
+    }
+}
+
+// MARK: - NSMutableData + Append String
+extension NSMutableData {
+    func append(_ string: String) {
+        if let data = string.data(using: .utf8) {
+            self.append(data)
+        }
     }
 }
