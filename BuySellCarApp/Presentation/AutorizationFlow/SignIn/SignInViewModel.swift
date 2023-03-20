@@ -90,6 +90,7 @@ extension SignInViewModel {
                     return
                 }
                 self.isLoadingSubject.send(false)
+                self.userService.saveToken(model.userToken)
                 self.userService.saveUser(.init(responseModel: model))
                 self.transitionSubject.send(.showMainFlow)
             }

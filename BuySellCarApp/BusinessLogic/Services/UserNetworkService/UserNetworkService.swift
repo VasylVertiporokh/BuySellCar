@@ -9,6 +9,8 @@ import Foundation
 import Combine
 
 protocol UserNetworkService {
-    func logout(userToken: String?) -> AnyPublisher<Never, NetworkError>
-    func addUserAvatar(data: MultipartItem, userId: String) -> AnyPublisher<Never, NetworkError> // TODO: - fix never
+    func logout(userToken: String?) -> AnyPublisher<Void, NetworkError>
+    func deleteUserAvatar(userId: String) -> AnyPublisher<Void, NetworkError>
+    func addUserAvatar(data: MultipartItem, userId: String) -> AnyPublisher<UserAvatarResponseModel, NetworkError>
+    func updateUser(_ userData: Data, userId: String) -> AnyPublisher<UserResponseModel, NetworkError>
 }

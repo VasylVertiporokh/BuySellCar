@@ -20,7 +20,7 @@ final class AdvertisementNetworkImpl<NetworkProvider: NetworkProviderProtocol> w
 
 // MARK: - AdvertisementNetworkService
 extension AdvertisementNetworkImpl: AdvertisementNetworkService {
-    func searchAdvertisement(searchParams: [SearchParam]) -> AnyPublisher<Never, NetworkError> {
+    func searchAdvertisement(searchParams: [SearchParam]) -> AnyPublisher<Void, NetworkError> {
         provider.performWithProcessingResult(.searchAdvertisement(searchParams))
     }
 }

@@ -90,7 +90,7 @@ final class UserInfoView: BaseView {
         nameLabel.text = model.userName
         emailLabel.text = model.email
         userTokenLabel.text = model.userToken
-        userLocaleLabel.text = model.blUserLocale
+        userLocaleLabel.text = model.userAvatar
         objectIDLabel.text = model.objectID
         ownerIDLabel.text = model.ownerID
     }

@@ -9,5 +9,5 @@ import Foundation
 import Combine
 
 protocol AdvertisementNetworkService {
-    func searchAdvertisement(searchParams: [SearchParam]) -> AnyPublisher<Never, NetworkError>
+    func searchAdvertisement(searchParams: [SearchParam]) -> AnyPublisher<Void, NetworkError>
 }

@@ -52,11 +52,11 @@ final class NetworkServiceProvider<Endpoint: EndpointBuilderProtocol>: NetworkPr
         }
     }
     
-    func performWithProcessingResult(_ builder: Endpoint) -> AnyPublisher<Never, NetworkError> {
+    func performWithProcessingResult(_ builder: Endpoint) -> AnyPublisher<Void, NetworkError> {
         do {
             let request = try builder.createRequest(apiInfo.baseURL, encoder)
             return networkManager.resumeDataTask(request)
-                .ignoreOutput()
+                .map { _ in } 
                 .eraseToAnyPublisher()
         } catch {
             return Fail(error: NetworkError.requestError(error as! RequestBuilderError))
