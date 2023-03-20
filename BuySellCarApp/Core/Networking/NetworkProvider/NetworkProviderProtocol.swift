@@ -20,5 +20,5 @@ protocol NetworkProviderProtocol {
     
     // MARK: - Methods
     func performWithResponseModel<T: Decodable>(_ builder: Endpoint) -> AnyPublisher<T, NetworkError>
-    func performWithProcessingResult(_ builder: Endpoint) -> AnyPublisher<Never, NetworkError>
+    func performWithProcessingResult(_ builder: Endpoint) -> AnyPublisher<Void, NetworkError>
 }

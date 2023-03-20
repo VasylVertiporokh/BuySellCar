@@ -37,25 +37,72 @@ final class UserServiceImpl {
 
 // MARK: - UserService
 extension UserServiceImpl: UserService {
+    func updateUser(userData: Data, userId: String) -> AnyPublisher<UserResponseModel, NetworkError> {
+        return userNetworkService.updateUser(userData, userId: userId)
+    }
+    
+    func updateAvatar(userAvatar: MultipartItem, userId: String) -> AnyPublisher<UserResponseModel, NetworkError> {
+        userNetworkService.addUserAvatar(data: userAvatar, userId: userId)
+            .flatMap { [unowned self] userAvatarPath -> AnyPublisher<UserResponseModel, NetworkError> in
+                guard let parameters = "{\n\"userAvatar\": \"\(userAvatarPath.fileURL)\"\n}".data(using: .utf8) else {
+                    return Fail(error: .unexpectedError)
+                        .eraseToAnyPublisher()
+                }
+                return userNetworkService.updateUser(parameters, userId: userId)
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    func deleteAvatar(userId: String) -> AnyPublisher<Void, NetworkError> {
+        guard let parameters = "{\"userAvatar\": null\n}".data(using: .utf8) else {
+            return Fail(error: NetworkError.unexpectedError).eraseToAnyPublisher()
+        }
+        return updateUser(userData: parameters, userId: userId)
+            .flatMap { [unowned self] user -> AnyPublisher<Void, NetworkError> in
+                saveUser(.init(responseModel: user))
+                return userNetworkService.deleteUserAvatar(userId: userId)
+            }
+            .eraseToAnyPublisher()
+    }
+
+    
+//    func test(userId: String) -> AnyPublisher<Void, NetworkError> {
+//        guard let parameters = "{\"userAvatar\": null\n}".data(using: .utf8) else {
+//            return Fail(error: NetworkError.unexpectedError).eraseToAnyPublisher()
+//        }
+//       return userNetworkService.updateUser(parameters, userId: userId)
+//            .handleEvents(receiveOutput: { [unowned self] in
+//                saveUser(.init(responseModel: $0))
+//            })
+//            .flatMap { [unowned self] _ -> AnyPublisher<Void, NetworkError> in
+//                return deleteAvatar(userId: userId)
+//            }
+//            .eraseToAnyPublisher()
+//    }
+    
     func saveUser(_ model: UserDomainModel) {
-        keychainService.saveToken(token: model.userToken)
         try? userDefaultsService.saveObject(model, forKey: .userModel)
         userDomainSubject.value = model
+    }
+    
+    func saveToken(_ token: String?) {
+        guard let token = token else { return }
+        keychainService.saveToken(token: token)
     }
     
     func getToken() -> String? {
         keychainService.token
     }
     
-    func logout() -> AnyPublisher<Never, Error> {
-         userNetworkService.logout(userToken: keychainService.token)
+    func logout() -> AnyPublisher<Void, Error> {
+        userNetworkService.logout(userToken: keychainService.token)
             .mapError { $0 as Error }
             .eraseToAnyPublisher()
     }
     
     func clear() {
         userDefaultsService.removeObject(forKey: .userModel)
-//        keychainService.clear()
+        //        keychainService.clear()
     }
 }
 

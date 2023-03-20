@@ -11,7 +11,7 @@ protocol AppContainer: AnyObject {
     var appConfiguration: AppConfiguration { get }
     var keychainService: KeychainService { get }
     var appSettingsService: AppSettingsService { get }
-    var aurhNetworkService: AuthNetworkServiceProtocol { get }
+    var authNetworkService: AuthNetworkServiceProtocol { get }
     var userDefaultsService: UserDefaultsServiceProtocol { get }
     var userService: UserService { get }
     var userNetworkService: UserNetworkService { get }
@@ -23,7 +23,7 @@ final class AppContainerImpl: AppContainer {
     let appConfiguration: AppConfiguration
     let keychainService: KeychainService
     let appSettingsService: AppSettingsService
-    let aurhNetworkService: AuthNetworkServiceProtocol
+    let authNetworkService: AuthNetworkServiceProtocol
     let userDefaultsService: UserDefaultsServiceProtocol
     let userService: UserService
     let userNetworkService: UserNetworkService
@@ -60,7 +60,7 @@ final class AppContainerImpl: AppContainer {
             apiInfo: appConfiguration,
             networkManager: networkManager
         )
-        self.aurhNetworkService = AuthNetworkServiceImpl(loginNetworkService)
+        self.authNetworkService = AuthNetworkServiceImpl(loginNetworkService)
         
         
         let tempNetworkService = NetworkServiceProvider<AdvertisementEndpointBuilder> (
