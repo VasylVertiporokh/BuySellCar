@@ -14,7 +14,7 @@ struct UserResponseModel: Decodable {
     let userToken: String?
     let email: String
     let objectID: String
-    let updated: Int
+    let updated: Int?
     var userAvatar: String?
     
     enum CodingKeys: String, CodingKey {

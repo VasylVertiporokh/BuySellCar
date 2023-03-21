@@ -29,14 +29,34 @@ final class SettingsCoordinator: Coordinator {
     deinit {
         print("Deinit of \(String(describing: self))")
     }
+}
 
-    private func settingsRoot() {
-        let module = SettingsModuleBuilder.build(container: container)
+// MARK: - Internal extension
+extension SettingsCoordinator {
+    func showEditProfile() {
+        let module = EditUserProfileModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
                 case .logout:
                     didFinishSubject.send()
+                }
+            }
+            .store(in: &cancellables)
+        module.viewController.hidesBottomBarWhenPushed = true
+        push(module.viewController)
+    }
+}
+
+// MARK: - Private extension
+private extension SettingsCoordinator {
+    private func settingsRoot() {
+        let module = SettingsModuleBuilder.build(container: container)
+        module.transitionPublisher
+            .sink { [unowned self] transition in
+                switch transition {
+                case .showEditProfile:
+                    showEditProfile()
                 }
             }
             .store(in: &cancellables)

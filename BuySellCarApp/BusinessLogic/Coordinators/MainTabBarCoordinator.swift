@@ -48,7 +48,7 @@ final class MainTabBarCoordinator: Coordinator {
     
     private func setupSettingsCoordinator() {
         let navController = UINavigationController()
-        navController.tabBarItem = .init(title: Localization.settings,
+        navController.tabBarItem = .init(title: Localization.profile,
                                          image: UIImage(systemName: "gear"),
                                          selectedImage: nil)
         let coordinator = SettingsCoordinator(navigationController: navController, container: container)

@@ -25,6 +25,12 @@ final class SettingsViewModel: BaseViewModel {
     override func onViewWillAppear() {
         updateDataSource()
     }
+}
+// MARK: - Internal extension
+extension SettingsViewModel {
+    func showEditProfile() {
+        transitionSubject.send(.showEditProfile)
+    }
     
     func updateDataSource() {
         guard let user = userService.user else {
@@ -58,77 +64,5 @@ final class SettingsViewModel: BaseViewModel {
             ])
         }()
         self.sections = [userProfileSection, userSection, feedbackSection, otherSection]
-    }
-}
-// MARK: - Internal extension
-extension SettingsViewModel {
-    func logout() {
-        isLoadingSubject.send(true)
-        userService.logout()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] error in
-                guard let self = self else {
-                    return
-                }
-                switch error {
-                case .finished:
-                    self.userService.clear()
-                    self.isLoadingSubject.send(false)
-                    self.transitionSubject.send(.logout)
-                case .failure(let error):
-                    self.errorSubject.send(error)
-                    self.isLoadingSubject.send(false)
-                }
-            } receiveValue: { _ in }
-            .store(in: &cancellables)
-    }
-    
-    func updateUserAvatar(_ userAvatar: Data) {
-        let multipartItem = MultipartItem(data: userAvatar, attachmentKey: "", fileName: "avatar.png")
-        guard let userId = userService.user?.objectID else { return }
-        isLoadingSubject.send(true)
-        userService.updateAvatar(userAvatar: multipartItem, userId: userId)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else {
-                    return
-                }
-                guard case let .failure(error) = completion else {
-                    return
-                }
-                self.isLoadingSubject.send(false)
-                self.errorSubject.send(error)
-            } receiveValue: { [weak self] model in
-                guard let self = self else {
-                    return
-                }
-                self.userService.saveUser(.init(responseModel: model))
-                self.isLoadingSubject.send(false)
-                self.updateDataSource()
-            }
-            .store(in: &cancellables)
-    }
-    
-    func deleteAvatar() {
-        guard let objectID = userService.user?.objectID else {
-            return
-        }
-        isLoadingSubject.send(true)
-        userService.deleteAvatar(userId: objectID)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else {
-                    return
-                }
-                switch completion {
-                case .finished:
-                    self.isLoadingSubject.send(false)
-                    self.updateDataSource()
-                case .failure(let error):
-                    self.isLoadingSubject.send(false)
-                    self.errorSubject.send(error)
-                }
-            } receiveValue: { _ in }
-            .store(in: &cancellables)
     }
 }

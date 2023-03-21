@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 enum SettingsTransition: Transition {
-    case logout
+    case showEditProfile
 }
 
 final class SettingsModuleBuilder {

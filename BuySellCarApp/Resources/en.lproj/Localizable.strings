@@ -20,8 +20,11 @@
 "password" = "Password";
 "confirm-password" = "Confirm password";
 
+//Alert
+"defaultMessage" = "Oops something went wrong";
+
 "home" = "Home";
-"settings" = "Settings";
+"profile" = "Profile";
 "logout" = "Logout";
 "search" = "Search";
 
@@ -37,4 +40,11 @@
 
 // SignIn
 "or" = "OR";
+
+//Settings
+"recommendation" = "Recommendation";
+"emeilHeader" = "You can send your feedback and recommendations, it is very important for us";
+
+//Edit profile
+"edit-profile" = "Edit profile";
 

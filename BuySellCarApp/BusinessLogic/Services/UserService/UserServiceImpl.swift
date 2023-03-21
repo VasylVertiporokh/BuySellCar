@@ -64,21 +64,6 @@ extension UserServiceImpl: UserService {
             }
             .eraseToAnyPublisher()
     }
-
-    
-//    func test(userId: String) -> AnyPublisher<Void, NetworkError> {
-//        guard let parameters = "{\"userAvatar\": null\n}".data(using: .utf8) else {
-//            return Fail(error: NetworkError.unexpectedError).eraseToAnyPublisher()
-//        }
-//       return userNetworkService.updateUser(parameters, userId: userId)
-//            .handleEvents(receiveOutput: { [unowned self] in
-//                saveUser(.init(responseModel: $0))
-//            })
-//            .flatMap { [unowned self] _ -> AnyPublisher<Void, NetworkError> in
-//                return deleteAvatar(userId: userId)
-//            }
-//            .eraseToAnyPublisher()
-//    }
     
     func saveUser(_ model: UserDomainModel) {
         try? userDefaultsService.saveObject(model, forKey: .userModel)
@@ -102,7 +87,7 @@ extension UserServiceImpl: UserService {
     
     func clear() {
         userDefaultsService.removeObject(forKey: .userModel)
-        //        keychainService.clear()
+        keychainService.clear()
     }
 }
 

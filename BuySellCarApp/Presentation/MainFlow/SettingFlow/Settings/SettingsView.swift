@@ -9,7 +9,6 @@ import UIKit
 import Combine
 
 enum SettingsViewAction {
-    case logoutTapped
     case rowSelected(SettingsRow)
 }
 

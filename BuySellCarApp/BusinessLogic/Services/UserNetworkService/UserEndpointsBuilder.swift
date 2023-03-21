@@ -43,7 +43,7 @@ extension UserEndpointsBuilder: EndpointBuilderProtocol {
             return ["application/json" : "Content-Type"]
         }
     }
-
+     
     var method: HTTPMethod {
         switch self {
         case .logout:

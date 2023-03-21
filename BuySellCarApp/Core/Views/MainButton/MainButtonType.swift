@@ -10,6 +10,7 @@ import UIKit
 
 enum MainButtonType {
     case login
+    case logout
     case startSearch
     case restorePassword
     case createAccount
@@ -21,6 +22,8 @@ extension MainButtonType {
         switch self {
         case .login:
             return "Login"
+        case .logout:
+            return "Logout"
         case .startSearch:
             return "Start Search"
         case .restorePassword:
@@ -36,6 +39,8 @@ extension MainButtonType {
         switch self {
         case .login:
             return Colors.buttonDarkGray.color
+        case .logout:
+            return .red
         case .startSearch:
             return Colors.buttonDarkGray.color
         case .restorePassword:
@@ -49,5 +54,9 @@ extension MainButtonType {
     
     var titleColor: UIColor {
         return .white
+    }
+    
+    var titleFont: UIFont {
+        return FontFamily.Montserrat.semiBold.font(size: 16)
     }
 }

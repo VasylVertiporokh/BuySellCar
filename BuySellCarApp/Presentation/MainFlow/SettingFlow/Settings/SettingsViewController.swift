@@ -6,39 +6,11 @@
 //
 
 import UIKit
+import MessageUI
 
 final class SettingsViewController: BaseViewController<SettingsViewModel> {
     // MARK: - Views
     private let contentView = SettingsView()
-    
-    // MARK: - Navigation bar menu actions
-    private lazy var uploadAvatarAction: UIAction = {
-        let action = UIAction(title: "Update photo", image: Assets.addAvatarIcon.image) { [weak self] _ in
-            guard let self = self else { return }
-            self.openImagePickerController()
-        }
-        action.setFont(FontFamily.Montserrat.medium.font(size: 16))
-        return action
-    }()
-    
-    private lazy var deleteAvatarAction: UIAction = {
-        let action = UIAction(title: "Delete photo", image: Assets.deleteAvatarIcon.image) { [weak self] _ in
-            guard let self = self else { return }
-            self.viewModel.deleteAvatar()
-        }
-        action.setFont(FontFamily.Montserrat.medium.font(size: 16))
-        return action
-    }()
-    
-    private lazy var logoutAction: UIAction = {
-        let action = UIAction(title: "Logout", image: Assets.logoutIcon.image.withTintColor(.red)) { [weak self] _ in
-            guard let self = self else { return }
-            self.viewModel.logout()
-        }
-        action.attributes = .destructive
-        action.setFont(FontFamily.Montserrat.bold.font(size: 16))
-        return action
-    }()
     
     // MARK: - Lifecycle
     override func loadView() {
@@ -52,59 +24,71 @@ final class SettingsViewController: BaseViewController<SettingsViewModel> {
     }
 }
 
-// MARK: - Internal extension
-extension SettingsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(
-        _ picker: UIImagePickerController,
-        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
-    ) {
-        guard let image = info[.editedImage] as? UIImage else {
-            return
-        }
-    
-        viewModel.updateUserAvatar(image.jpegData(compressionQuality: 0.5) ?? Data())
-        dismiss(animated: true)
+// MARK: - MFMailComposeViewControllerDelegate
+extension SettingsViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
     }
 }
 
 // MARK: - Private extension
 private extension SettingsViewController {
     func configureNavigationBar() {
-        title = Localization.settings.uppercased()
-        let navItem = UIBarButtonItem(image: UIImage(systemName: "gear"), menu: createMenu())
-        navigationController?.navigationBar.tintColor = .black
-        navigationItem.rightBarButtonItem = navItem
-    }
-    
-    func createMenu() -> UIMenu {
-        let menu = UIMenu(children: [uploadAvatarAction, deleteAvatarAction, logoutAction])
-        return menu
+        title = Localization.profile.uppercased()
     }
     
     func setupBindings() {
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
-                case .logoutTapped:
-                    viewModel.logout()
                 case .rowSelected(let row):
-                    print(row)
+                    switch row.title {
+                    case "User Profile", "Profile":
+                        viewModel.showEditProfile()
+                    case "Notifications":
+                        print("Notifications")
+                    case "Recommend", "Feedback":
+                        sendFeedbackOrRecommendation()
+                    default:
+                        break
+                    }
                 }
             }
             .store(in: &cancellables)
         
         viewModel.$sections
             .sink { [unowned self] sections in
-            contentView.setupSnapshot(sections: sections)
-        }
-        .store(in: &cancellables)
+                contentView.setupSnapshot(sections: sections)
+            }
+            .store(in: &cancellables)
     }
     
-    func openImagePickerController() {
-        let picker = UIImagePickerController()
-        picker.allowsEditing = true
-        picker.delegate = self
-        present(picker, animated: true)
+    func sendFeedbackOrRecommendation() {
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setSubject(Localization.recommendation)
+            mail.setToRecipients([Constants.devEmail])
+            mail.setMessageBody("<p>\(Localization.emeilHeader))</p>", isHTML: true)
+            present(mail, animated: true)
+        } else {
+            infoAlert()
+        }
+    }
+    
+    func infoAlert() {
+        let alertController = UIAlertController(
+            title: Localization.error,
+            message: Localization.defaultMessage,
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: Localization.ok, style: .default)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
     }
 }
 
+// MARK: - Constants
+private enum Constants {
+    static let devEmail: String = "vasiavertiporoh17@gmail.com"
+}

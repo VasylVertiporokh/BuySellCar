@@ -77,6 +77,7 @@ private extension MainButton {
         backgroundColor = type.buttonColor
         tintColor = .white
         layer.cornerRadius = Constants.cornerRadius
+        titleLabel?.font = type.titleFont
     }
     
     func setButtonImage() {
