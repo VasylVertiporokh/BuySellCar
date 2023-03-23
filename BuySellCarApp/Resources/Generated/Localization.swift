@@ -20,10 +20,18 @@ internal enum Localization {
   internal static let createAccountTitle = Localization.tr("Localizable", "create-account-title", fallback: "Create account")
   /// You can create new account
   internal static let createNewAccount = Localization.tr("Localizable", "create-new-account", fallback: "You can create new account")
+  /// Oops something went wrong
+  internal static let defaultMessage = Localization.tr("Localizable", "defaultMessage", fallback: "Oops something went wrong")
   /// Done
   internal static let done = Localization.tr("Localizable", "done", fallback: "Done")
+  /// Edit profile
+  internal static let editProfile = Localization.tr("Localizable", "edit-profile", fallback: "Edit profile")
+  /// User edited successfully
+  internal static let editedSuccessfully = Localization.tr("Localizable", "edited-successfully", fallback: "User edited successfully")
   /// Email
   internal static let email = Localization.tr("Localizable", "email", fallback: "Email")
+  /// You can send your feedback and recommendations, it is very important for us
+  internal static let emailHeader = Localization.tr("Localizable", "emailHeader", fallback: "You can send your feedback and recommendations, it is very important for us")
   /// Localizable.strings
   ///   MVVMSkeleton
   /// 
@@ -43,12 +51,14 @@ internal enum Localization {
   internal static let or = Localization.tr("Localizable", "or", fallback: "OR")
   /// Password
   internal static let password = Localization.tr("Localizable", "password", fallback: "Password")
+  /// Profile
+  internal static let profile = Localization.tr("Localizable", "profile", fallback: "Profile")
+  /// Recommendation
+  internal static let recommendation = Localization.tr("Localizable", "recommendation", fallback: "Recommendation")
   /// Restore
   internal static let restore = Localization.tr("Localizable", "restore", fallback: "Restore")
   /// Search
   internal static let search = Localization.tr("Localizable", "search", fallback: "Search")
-  /// Settings
-  internal static let settings = Localization.tr("Localizable", "settings", fallback: "Settings")
   /// Sign In
   internal static let signIn = Localization.tr("Localizable", "sign-in", fallback: "Sign In")
   /// Sign Up

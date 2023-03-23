@@ -10,17 +10,13 @@ import Foundation
 
 // MARK: - CreateAccountViewModelEvents
 enum CreateAccountViewModelEvents {
-    case checkEmail(Bool)
-    case checkName(Bool)
-    case checkPassword(Bool)
-    case comparePasswords(Bool)
-    case isAllFieldsValid(Bool)
     case userCreatedSuccessfully
 }
 
 final class CreateAccountViewModel: BaseViewModel {
     // MARK: - Private properties
     private let authService: AuthNetworkServiceProtocol
+    private var userPhoneNumber: String = ""
     
     // MARK: - Subjects
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -33,8 +29,10 @@ final class CreateAccountViewModel: BaseViewModel {
     private let emailSubject = CurrentValueSubject<String, Never>("")
     private let passwordSubject = CurrentValueSubject<String, Never>("")
     private let repeatPasswordSubject = CurrentValueSubject<String, Never>("")
-    private let isPasswordFieldEquelSubject = CurrentValueSubject<Bool, Never>(false)
-    private let isAllFieldsValidSubject = CurrentValueSubject<Bool, Never>(false)
+    private let isPhoneNumberValidSubject = CurrentValueSubject<Bool, Never>(false)
+    
+    private let validationSubject = CurrentValueSubject<CreateAccountValidationForm, Never>(.init())
+    private(set) lazy var validationPublisher = validationSubject.eraseToAnyPublisher()
     
     // MARK: - Init
     init(authService: AuthNetworkServiceProtocol) {
@@ -45,39 +43,35 @@ final class CreateAccountViewModel: BaseViewModel {
     // MARK: - Lifecycle
     override func onViewDidLoad() {
         nameSubject
-            .map {  RegEx.nickname.checkString(text: $0) }
+            .map { RegEx.nickname.checkString(text: $0) }
             .dropFirst()
             .removeDuplicates()
-            .sink { [unowned self] in eventsSubject.send(.checkName($0)) }
+            .sink { [unowned self] in validationSubject.value.name = $0 ? .valid : .invalid }
             .store(in: &cancellables)
         
         emailSubject
-            .map {  RegEx.email.checkString(text: $0) }
+            .map { RegEx.email.checkString(text: $0) }
             .dropFirst()
             .removeDuplicates()
-            .sink { [unowned self] in eventsSubject.send(.checkEmail($0)) }
+            .sink { [unowned self] in validationSubject.value.email = $0 ? .valid : .invalid }
             .store(in: &cancellables)
         
         passwordSubject
             .map {  RegEx.password.checkString(text: $0) }
             .dropFirst()
             .removeDuplicates()
-            .sink { [unowned self] in eventsSubject.send(.checkPassword($0)) }
+            .sink { [unowned self] in validationSubject.value.password = $0 ? .valid : .invalid }
             .store(in: &cancellables)
         
         repeatPasswordSubject.combineLatest(passwordSubject)
-            .map { RegEx.password.checkString(text: $0) && RegEx.password.checkString(text: $1) }
+            .map { $0 == $1 }
             .dropFirst()
             .removeDuplicates()
-            .sink { [unowned self] in
-                eventsSubject.send(.comparePasswords($0))
-                isPasswordFieldEquelSubject.send($0)
-            }
+            .sink { [unowned self] in validationSubject.value.confirmPassword = $0 ? .valid : .invalid }
             .store(in: &cancellables)
-        isAllFieldsValidSubject
-            .combineLatest(nameSubject, emailSubject, isPasswordFieldEquelSubject)
-            .map { RegEx.nickname.checkString(text: $1) && RegEx.email.checkString(text: $2) && $3 }
-            .sink { [unowned self] in eventsSubject.send(.isAllFieldsValid($0)) }
+        
+        isPhoneNumberValidSubject
+            .sink { [unowned self] in validationSubject.value.phone = $0 ? .valid : .invalid }
             .store(in: &cancellables)
     }
 }
@@ -89,7 +83,8 @@ extension CreateAccountViewModel {
         authService.creteUser(
             userModel: .init(email: emailSubject.value,
                              password: passwordSubject.value,
-                             name: nameSubject.value)
+                             name: nameSubject.value,
+                             phoneNumber: userPhoneNumber)
         )
         .receive(on: DispatchQueue.main)
         .sink { [weak self] error in
@@ -126,5 +121,13 @@ extension CreateAccountViewModel {
     
     func setRepeatPassword(_ password: String) {
         repeatPasswordSubject.send(password)
+    }
+    
+    func setUserPhone(_ phone: String) {
+        userPhoneNumber = phone
+    }
+    
+    func setIsPhoneValid(_ isValid: Bool) {
+        isPhoneNumberValidSubject.send(isValid)
     }
 }

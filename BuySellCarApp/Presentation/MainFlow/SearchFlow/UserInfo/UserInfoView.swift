@@ -89,7 +89,7 @@ final class UserInfoView: BaseView {
     func setUserInfo(model: UserDomainModel) {
         nameLabel.text = model.userName
         emailLabel.text = model.email
-        userTokenLabel.text = model.userToken
+        userTokenLabel.text = model.phoneNumber
         userLocaleLabel.text = model.userAvatar
         objectIDLabel.text = model.objectID
         ownerIDLabel.text = model.ownerID

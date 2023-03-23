@@ -52,6 +52,8 @@ private extension UserInfoCellContentView {
     func setupUI() {
         userAvatar.contentMode = .scaleAspectFill
         userAvatar.layer.cornerRadius = Constants.userAvatarCornerRadius
+        userAvatar.layer.borderWidth = 0.3
+        userAvatar.layer.borderColor = Colors.buttonDarkGray.color.cgColor
         userAvatar.clipsToBounds = true
         
         nicknameLabel.numberOfLines = .zero
@@ -85,6 +87,10 @@ private extension UserInfoCellContentView {
     
     private func apply(configuration: UserInfoCellContentConfiguration) {
         guard currentConfiguration != configuration else {
+            userAvatar.kf.setImage(
+                with: configuration.userAvatar,
+                placeholder: Assets.userPlaceholder.image
+            )
             return
         }
         userAvatar.kf.setImage(

@@ -17,7 +17,7 @@ final class MainTabBarCoordinator: Coordinator {
     private var cancellables = Set<AnyCancellable>()
     
     private let container: AppContainer
-
+    
     init(navigationController: UINavigationController, container: AppContainer) {
         self.navigationController = navigationController
         self.container = container
@@ -26,11 +26,11 @@ final class MainTabBarCoordinator: Coordinator {
     deinit {
         print("Deinit of \(String(describing: self))")
     }
-
+    
     func start() {
         setupHomeCoordinator()
         setupSettingsCoordinator()
-
+        
         let controllers = childCoordinators.compactMap { $0.navigationController }
         let module = MainTabBarModuleBuilder.build(viewControllers: controllers)
         setRoot(module.viewController)
@@ -48,7 +48,7 @@ final class MainTabBarCoordinator: Coordinator {
     
     private func setupSettingsCoordinator() {
         let navController = UINavigationController()
-        navController.tabBarItem = .init(title: Localization.settings,
+        navController.tabBarItem = .init(title: Localization.profile,
                                          image: UIImage(systemName: "gear"),
                                          selectedImage: nil)
         let coordinator = SettingsCoordinator(navigationController: navController, container: container)

@@ -13,7 +13,7 @@ final class MainTextFieldView: UIStackView {
     private let type: TextFieldType
     
     // MARK: - Subviews
-    private(set) lazy var textFied = MainTextField(type: type)
+    private(set) lazy var textField = MainTextField(type: type)
     private let errorLabel = UILabel()
     
     // MARK: - Init
@@ -31,13 +31,19 @@ final class MainTextFieldView: UIStackView {
 // MARK: - Internal extension
 extension MainTextFieldView {    
     func setErrorState(_ isFieldValid: Bool) {
+        textField.layer.borderColor = isFieldValid ? Colors.buttonDarkGray.color.cgColor : UIColor.red.cgColor
+        errorLabel.alpha = isFieldValid ? .zero : Constants.initialSpringVelocity
+        errorLabel.isHidden = isFieldValid
+    }
+    
+    func setErrorStateWithAnimation(_ isFieldValid: Bool) {
         UIView.animate(withDuration: Constants.animationDuration,
                        delay: .zero,
                        usingSpringWithDamping: Constants.animationDamping,
                        initialSpringVelocity: Constants.initialSpringVelocity,
                        options: [],
                        animations: {
-            self.textFied.layer.borderColor = isFieldValid ? Colors.buttonDarkGray.color.cgColor : UIColor.red.cgColor
+            self.textField.layer.borderColor = isFieldValid ? Colors.buttonDarkGray.color.cgColor : UIColor.red.cgColor
             self.errorLabel.alpha = isFieldValid ? .zero : Constants.initialSpringVelocity
             self.errorLabel.isHidden = isFieldValid
             self.layoutIfNeeded()
@@ -60,16 +66,16 @@ private extension MainTextFieldView {
     }
     
     func addSubviews() {
-        addArrangedSubview(textFied)
+        addArrangedSubview(textField)
         addArrangedSubview(errorLabel)
-        textFied.snp.makeConstraints { $0.height.equalTo(Constants.textFieldHeight) }
+        textField.snp.makeConstraints { $0.height.equalTo(Constants.textFieldHeight) }
         errorLabel.snp.makeConstraints { $0.height.equalTo(Constants.fontSize) }
     }
     
     func configureTextField() {
-        textFied.layer.cornerRadius = Constants.cornerRadius
-        textFied.layer.borderColor = Colors.buttonDarkGray.color.cgColor
-        textFied.layer.borderWidth = Constants.borderWidth
+        textField.layer.cornerRadius = Constants.cornerRadius
+        textField.layer.borderColor = Colors.buttonDarkGray.color.cgColor
+        textField.layer.borderWidth = Constants.borderWidth
     }
     
     func configureErrorLabel() {
@@ -83,7 +89,7 @@ private extension MainTextFieldView {
 // MARK: - Constants
 private enum Constants {
     static let stackViewSpacing: CGFloat = 8
-    static let textFieldHeight: CGFloat = 47
+    static let textFieldHeight: CGFloat = 40
     static let cornerRadius: CGFloat = 10
     static let borderWidth: CGFloat = 1
     static let fontSize: CGFloat = 12

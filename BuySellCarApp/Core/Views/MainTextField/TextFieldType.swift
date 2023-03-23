@@ -13,6 +13,7 @@ enum TextFieldType {
     case confirmPassword
     case name
     case email
+    case editable
 }
 
 // MARK: - Internal extension
@@ -23,7 +24,7 @@ extension TextFieldType {
             return .alphabet
         case .password, .confirmPassword:
             return .default
-        case .email, .nickname:
+        case .email, .nickname, .editable:
             return .emailAddress
         }
     }
@@ -40,6 +41,8 @@ extension TextFieldType {
             return Assets.addUserIcon.image
         case .email:
             return Assets.emailIcon.image
+        case .editable:
+            return nil
         }
     }
     
@@ -52,6 +55,8 @@ extension TextFieldType {
             imageName = "eye.slash"
         case .confirmPassword:
             imageName = "eye.slash"
+        case .editable:
+            return Assets.editIcon.image
         case .name:
             return nil
         case .email:
@@ -73,6 +78,8 @@ extension TextFieldType {
             text = "Name"
         case .email:
             text = "Email"
+        case .editable:
+            text = "Field not valid"
         }
         
         let attibutes: [NSAttributedString.Key: Any] = [
@@ -103,6 +110,8 @@ extension TextFieldType {
             return "Invalid name"
         case .email:
             return "Invalid email"
+        case .editable:
+            return "Field is empty"
         }
     }
 }

@@ -14,7 +14,6 @@ class SettingsListCell: UICollectionViewListCell {
     // MARK: - Override methods
     override func updateConfiguration(using state: UICellConfigurationState) {
         var newConfiguration = SettingsCellContentConfiguration().updated(for: state)
-//        newConfiguration.cellTitleLabel = cellItem?.cellTitle
         newConfiguration.cellTitleLabel = title
         contentConfiguration = newConfiguration
         isSelected = false

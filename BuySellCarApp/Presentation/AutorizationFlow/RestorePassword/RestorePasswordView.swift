@@ -43,11 +43,11 @@ final class RestorePasswordView: BaseView {
     }
     
     private func bindActions() {
-        passwordTextField.textFied.textPublisher
+        passwordTextField.textField.textPublisher
             .replaceNil(with: Constant.emptyString)
             .sink { [unowned self] text in actionSubject.send(.passwordTextFieldDidEnter(text)) }
             .store(in: &cancellables)
-        passwordTextField.textFied.deleteTextActionPublisher
+        passwordTextField.textField.deleteTextActionPublisher
             .replaceNil(with: Constant.emptyString)
             .sink { [unowned self] text in self.actionSubject.send(.passwordTextFieldDidEnter(text)) }
             .store(in: &cancellables)

@@ -40,17 +40,26 @@ final class MainTextField: UITextField {
     
     // MARK: - Overrided methods
     override func textRect(forBounds bounds: CGRect) -> CGRect {
-        let inset = UIEdgeInsets(top: .zero, left: 36, bottom: .zero, right: .zero)
+        var inset = UIEdgeInsets(top: .zero, left: 36, bottom: .zero, right: .zero)
+        if type == .editable {
+            inset = UIEdgeInsets(top: .zero, left: 12, bottom: .zero, right: .zero)
+        }
         return bounds.inset(by: inset)
     }
     
     override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
-        let inset = UIEdgeInsets(top: .zero, left: 36, bottom: .zero, right: .zero)
+        var inset = UIEdgeInsets(top: .zero, left: 36, bottom: .zero, right: .zero)
+        if type == .editable {
+            inset = UIEdgeInsets(top: .zero, left: 12, bottom: .zero, right: .zero)
+        }
         return bounds.inset(by: inset)
     }
     
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        let inset = UIEdgeInsets(top: .zero, left: 36, bottom: .zero, right: .zero)
+        var inset = UIEdgeInsets(top: .zero, left: 36, bottom: .zero, right: .zero)
+        if type == .editable {
+            inset = UIEdgeInsets(top: .zero, left: 12, bottom: .zero, right: 42)
+        }
         return bounds.inset(by: inset)
     }
     
@@ -109,6 +118,8 @@ private extension MainTextField {
         case .name, .email, .nickname:
             text = ""
             actionSubject.send(text)
+        case .editable:
+            self.becomeFirstResponder()
         }
     }
 }

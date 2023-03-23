@@ -48,11 +48,11 @@ final class SignInView: BaseView {
     }
     
     private func bindActions() {
-        nickNameTextField.textFied.textPublisher
+        nickNameTextField.textField.textPublisher
             .replaceNil(with: "")
             .sink { [unowned self] text in actionSubject.send(.nickNameDidEnter(text)) }
             .store(in: &cancellables)
-        passwordTextField.textFied.textPublisher
+        passwordTextField.textField.textPublisher
             .replaceNil(with: "")
             .sink { [unowned self] text in actionSubject.send(.passwordDidEnter(text)) }
             .store(in: &cancellables)

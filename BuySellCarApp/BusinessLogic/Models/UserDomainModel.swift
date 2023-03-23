@@ -11,20 +11,20 @@ struct UserDomainModel: Codable {
     var userName: String
     var ownerID: String
     var blUserLocale: String
-    var userToken: String?
     var email: String
     var objectID: String
+    var phoneNumber: String
     var userAvatar: String?
-    var updated: Int
+    var updated: Int?
     
     // MARK: - Map from LoginResponseModel
     init(responseModel: UserResponseModel) {
         userName = responseModel.name
         ownerID = responseModel.ownerID
         blUserLocale = responseModel.blUserLocale
-        userToken = responseModel.userToken
         email = responseModel.email
         objectID = responseModel.objectID
+        phoneNumber = responseModel.phoneNumber
         userAvatar = responseModel.userAvatar
         updated = responseModel.updated
     }

@@ -77,8 +77,20 @@
 		D47CD5E129A507C800C3ECC6 /* NetworkManagerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47CD5E029A507C800C3ECC6 /* NetworkManagerImpl.swift */; };
 		D47CD5E329A5083500C3ECC6 /* NetworkManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47CD5E229A5083500C3ECC6 /* NetworkManagerProtocol.swift */; };
 		D47CD5E529A5324C00C3ECC6 /* RequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47CD5E429A5324C00C3ECC6 /* RequestBody.swift */; };
+		D48BE09C29CB0C9D00E7F159 /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = D48BE09B29CB0C9D00E7F159 /* PhoneNumberKit */; };
+		D48BE09E29CB5E9200E7F159 /* TextFieldValidationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BE09D29CB5E9200E7F159 /* TextFieldValidationState.swift */; };
+		D48BE0A129CB861300E7F159 /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BE0A029CB861300E7F159 /* UIResponder+Extension.swift */; };
+		D48BE0A429CB887E00E7F159 /* CreateAccountValidationForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BE0A329CB887E00E7F159 /* CreateAccountValidationForm.swift */; };
+		D48BE0A629CB8A7E00E7F159 /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BE0A529CB8A7E00E7F159 /* UICollectionView+Extension.swift */; };
+		D48BE0A929CC476D00E7F159 /* EditProfileValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BE0A829CC476D00E7F159 /* EditProfileValidation.swift */; };
 		D495003E29C8E5D8009CECA9 /* SettingsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D495003D29C8E5D8009CECA9 /* SettingsCollectionView.swift */; };
 		D495004029C8E648009CECA9 /* SectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D495003F29C8E648009CECA9 /* SectionModel.swift */; };
+		D495004629C8EA89009CECA9 /* EditUserProfileModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D495004229C8EA89009CECA9 /* EditUserProfileModuleBuilder.swift */; };
+		D495004729C8EA89009CECA9 /* EditUserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D495004329C8EA89009CECA9 /* EditUserProfileViewController.swift */; };
+		D495004829C8EA89009CECA9 /* EditUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D495004429C8EA89009CECA9 /* EditUserProfileView.swift */; };
+		D495004929C8EA89009CECA9 /* EditUserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D495004529C8EA89009CECA9 /* EditUserProfileViewModel.swift */; };
+		D495004B29C9BFF8009CECA9 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D495004A29C9BFF8009CECA9 /* UIView+Extension.swift */; };
+		D495004E29C9EE50009CECA9 /* Optional+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D495004D29C9EE50009CECA9 /* Optional+Extension.swift */; };
 		D4ADEBFB29ACBF9400D7CE53 /* MainTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEBFA29ACBF9400D7CE53 /* MainTextField.swift */; };
 		D4ADEBFD29ACF61400D7CE53 /* TextFieldType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEBFC29ACF61400D7CE53 /* TextFieldType.swift */; };
 		D4ADEBFF29AD09F600D7CE53 /* MainButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ADEBFE29AD09F600D7CE53 /* MainButtonType.swift */; };
@@ -216,8 +228,19 @@
 		D47CD5E029A507C800C3ECC6 /* NetworkManagerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerImpl.swift; sourceTree = "<group>"; };
 		D47CD5E229A5083500C3ECC6 /* NetworkManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerProtocol.swift; sourceTree = "<group>"; };
 		D47CD5E429A5324C00C3ECC6 /* RequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBody.swift; sourceTree = "<group>"; };
+		D48BE09D29CB5E9200E7F159 /* TextFieldValidationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldValidationState.swift; sourceTree = "<group>"; };
+		D48BE0A029CB861300E7F159 /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
+		D48BE0A329CB887E00E7F159 /* CreateAccountValidationForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountValidationForm.swift; sourceTree = "<group>"; };
+		D48BE0A529CB8A7E00E7F159 /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
+		D48BE0A829CC476D00E7F159 /* EditProfileValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileValidation.swift; sourceTree = "<group>"; };
 		D495003D29C8E5D8009CECA9 /* SettingsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCollectionView.swift; sourceTree = "<group>"; };
 		D495003F29C8E648009CECA9 /* SectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionModel.swift; sourceTree = "<group>"; };
+		D495004229C8EA89009CECA9 /* EditUserProfileModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserProfileModuleBuilder.swift; sourceTree = "<group>"; };
+		D495004329C8EA89009CECA9 /* EditUserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserProfileViewController.swift; sourceTree = "<group>"; };
+		D495004429C8EA89009CECA9 /* EditUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserProfileView.swift; sourceTree = "<group>"; };
+		D495004529C8EA89009CECA9 /* EditUserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserProfileViewModel.swift; sourceTree = "<group>"; };
+		D495004A29C9BFF8009CECA9 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		D495004D29C9EE50009CECA9 /* Optional+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Extension.swift"; sourceTree = "<group>"; };
 		D4ADEBFA29ACBF9400D7CE53 /* MainTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTextField.swift; sourceTree = "<group>"; };
 		D4ADEBFC29ACF61400D7CE53 /* TextFieldType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldType.swift; sourceTree = "<group>"; };
 		D4ADEBFE29AD09F600D7CE53 /* MainButtonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButtonType.swift; sourceTree = "<group>"; };
@@ -274,6 +297,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D48BE09C29CB0C9D00E7F159 /* PhoneNumberKit in Frameworks */,
 				D4E77B2729C8AC0100CC899E /* Kingfisher in Frameworks */,
 				D4ADEC0B29AD4F6100D7CE53 /* Lottie in Frameworks */,
 				F2445A8385E0C54ABC40104F /* CombineCocoa in Frameworks */,
@@ -390,6 +414,8 @@
 		709CADC65289B84AE1C90454 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				D48BE09F29CB85FF00E7F159 /* UIResponder */,
+				D495004C29C9EE28009CECA9 /* Optional */,
 				D42F78FF29C254E000339DA2 /* UIAction */,
 				E090948C3E1FACBD0D5E9A89 /* UIKit */,
 			);
@@ -436,6 +462,7 @@
 				D4ADEC1029ADF83400D7CE53 /* RegEx */,
 				3122680A4BDB3AC021B36A48 /* Coordinator.swift */,
 				76ADD5A1887A544415E7E62A /* ViewRepresentable.swift */,
+				D48BE09D29CB5E9200E7F159 /* TextFieldValidationState.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -608,12 +635,56 @@
 			path = UserNetworkService;
 			sourceTree = "<group>";
 		};
+		D48BE09F29CB85FF00E7F159 /* UIResponder */ = {
+			isa = PBXGroup;
+			children = (
+				D48BE0A029CB861300E7F159 /* UIResponder+Extension.swift */,
+			);
+			path = UIResponder;
+			sourceTree = "<group>";
+		};
+		D48BE0A229CB887100E7F159 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D48BE0A329CB887E00E7F159 /* CreateAccountValidationForm.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D48BE0A729CC475800E7F159 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D48BE0A829CC476D00E7F159 /* EditProfileValidation.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		D495003C29C8E5A5009CECA9 /* CollectionViewDataSources */ = {
 			isa = PBXGroup;
 			children = (
 				D495003D29C8E5D8009CECA9 /* SettingsCollectionView.swift */,
 			);
 			path = CollectionViewDataSources;
+			sourceTree = "<group>";
+		};
+		D495004129C8EA73009CECA9 /* EditUserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				D495004229C8EA89009CECA9 /* EditUserProfileModuleBuilder.swift */,
+				D495004329C8EA89009CECA9 /* EditUserProfileViewController.swift */,
+				D495004429C8EA89009CECA9 /* EditUserProfileView.swift */,
+				D495004529C8EA89009CECA9 /* EditUserProfileViewModel.swift */,
+				D48BE0A729CC475800E7F159 /* Models */,
+			);
+			path = EditUserProfile;
+			sourceTree = "<group>";
+		};
+		D495004C29C9EE28009CECA9 /* Optional */ = {
+			isa = PBXGroup;
+			children = (
+				D495004D29C9EE50009CECA9 /* Optional+Extension.swift */,
+			);
+			path = Optional;
 			sourceTree = "<group>";
 		};
 		D4ADEC0029AD334000D7CE53 /* RestorePassword */ = {
@@ -661,6 +732,7 @@
 				D4ADEC1E29AE407800D7CE53 /* CreateAccountViewController.swift */,
 				D4ADEC1F29AE407800D7CE53 /* CreateAccountView.swift */,
 				D4ADEC2029AE407800D7CE53 /* CreateAccountViewModel.swift */,
+				D48BE0A229CB887100E7F159 /* Models */,
 			);
 			path = CreateAccount;
 			sourceTree = "<group>";
@@ -706,6 +778,7 @@
 		D4ADEC3629AFB67600D7CE53 /* SettingFlow */ = {
 			isa = PBXGroup;
 			children = (
+				D495004129C8EA73009CECA9 /* EditUserProfile */,
 				D495003C29C8E5A5009CECA9 /* CollectionViewDataSources */,
 				AD5AA9CAF2AD0DA914CB2DF7 /* Settings */,
 			);
@@ -805,6 +878,8 @@
 				F2A668DAEEEBB5C4A445D60D /* UIStackView+Ext.swift */,
 				42F94F525E684B577C82B92F /* UIView+Constraints.swift */,
 				A6C7A39DB25F69C6F3534EF2 /* UIView+Ext.swift */,
+				D495004A29C9BFF8009CECA9 /* UIView+Extension.swift */,
+				D48BE0A529CB8A7E00E7F159 /* UICollectionView+Extension.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -868,6 +943,7 @@
 				D4EA6E5C299E86EB009F7DBD /* SnapKit */,
 				D4ADEC0A29AD4F6100D7CE53 /* Lottie */,
 				D4E77B2629C8AC0100CC899E /* Kingfisher */,
+				D48BE09B29CB0C9D00E7F159 /* PhoneNumberKit */,
 			);
 			productName = BuySellCarApp;
 			productReference = 37A711F212A38CCE683FBCC6 /* BuySellCarApp.app */;
@@ -897,6 +973,7 @@
 				D4EA6E5B299E86EB009F7DBD /* XCRemoteSwiftPackageReference "SnapKit" */,
 				D4ADEC0929AD4F6100D7CE53 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 				D4E77B2529C8AC0100CC899E /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				D48BE09A29CB0C9D00E7F159 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */,
 			);
 			projectDirPath = "";
 			projectRoot = "";
@@ -993,18 +1070,23 @@
 				8D94C083B012E09E27D703B5 /* BaseView.swift in Sources */,
 				D4ADEC2129AE407800D7CE53 /* CreateAccountModuleBuilder.swift in Sources */,
 				D3E3F7BEE84A06C1CA57A0F5 /* BaseViewController.swift in Sources */,
+				D48BE0A929CC476D00E7F159 /* EditProfileValidation.swift in Sources */,
 				D46CC3C529A92958003BCB24 /* MainTextFieldView.swift in Sources */,
+				D495004829C8EA89009CECA9 /* EditUserProfileView.swift in Sources */,
 				D451E88E29B7A58F00CE75D2 /* AdvertisementNetworkImpl.swift in Sources */,
 				D4EA6E66299E87A1009F7DBD /* SignInViewModel.swift in Sources */,
 				D495003E29C8E5D8009CECA9 /* SettingsCollectionView.swift in Sources */,
 				D4CE253D43E79AE86BD92491 /* BaseViewModel.swift in Sources */,
 				38853001D5E53B861428DCB1 /* Colors.swift in Sources */,
+				D495004629C8EA89009CECA9 /* EditUserProfileModuleBuilder.swift in Sources */,
+				D48BE0A629CB8A7E00E7F159 /* UICollectionView+Extension.swift in Sources */,
 				AEC4D7453986A360453833D2 /* Coordinator.swift in Sources */,
 				BF49A036D782AC10A92809CB /* Fonts.swift in Sources */,
 				D46CC3C129A8F71C003BCB24 /* MainButton.swift in Sources */,
 				D42F790529C372BC00339DA2 /* UserAvatarResponseModel.swift in Sources */,
 				D4ADEC1229ADF84000D7CE53 /* RegEx.swift in Sources */,
 				BD055F8B3C7F245B0D1E9612 /* HomeCoordinator.swift in Sources */,
+				D48BE09E29CB5E9200E7F159 /* TextFieldValidationState.swift in Sources */,
 				D4ADEC2229AE407800D7CE53 /* CreateAccountViewController.swift in Sources */,
 				D4EA6E6E299E9260009F7DBD /* AuthNetworkServiceProtocol.swift in Sources */,
 				D4EA6E5A299E619F009F7DBD /* NetworkServiceProvider.swift in Sources */,
@@ -1013,6 +1095,7 @@
 				D4EA6E52299E5E9F009F7DBD /* NetworkError.swift in Sources */,
 				D4EA6E56299E5F35009F7DBD /* EndpointBuilderProtocol.swift in Sources */,
 				D4ADEC2D29AFA94000D7CE53 /* UserService.swift in Sources */,
+				D495004729C8EA89009CECA9 /* EditUserProfileViewController.swift in Sources */,
 				D42F78FC29C0C2AC00339DA2 /* UserInfoCellContentConfiguration.swift in Sources */,
 				B3019B074771559BE2D36644 /* LoadingView.swift in Sources */,
 				D4ADEC4029AFB73000D7CE53 /* UserInfoViewModel.swift in Sources */,
@@ -1030,6 +1113,8 @@
 				D4ADEC0829AD33AA00D7CE53 /* RestorePasswordViewModel.swift in Sources */,
 				0B5369933285BD6E6AE60FE1 /* MainTabBarViewModel.swift in Sources */,
 				D42F790129C254F800339DA2 /* UIAction+Extension.swift in Sources */,
+				D495004B29C9BFF8009CECA9 /* UIView+Extension.swift in Sources */,
+				D495004E29C9EE50009CECA9 /* Optional+Extension.swift in Sources */,
 				D4ADEC0529AD33AA00D7CE53 /* RestorePasswordModuleBuilder.swift in Sources */,
 				D9DA8267D674BEFF9E81DA86 /* Module.swift in Sources */,
 				D42F78F529C0C1D700339DA2 /* SettingsListCell.swift in Sources */,
@@ -1046,9 +1131,11 @@
 				D23761C110A93CDCA4F647CB /* SettingsCoordinator.swift in Sources */,
 				D4ADEC1629AE3BE600D7CE53 /* UserDefaultsService.swift in Sources */,
 				D4ADEC0629AD33AA00D7CE53 /* RestorePasswordViewController.swift in Sources */,
+				D48BE0A129CB861300E7F159 /* UIResponder+Extension.swift in Sources */,
 				D42F78F729C0C1F800339DA2 /* SettingsCellContentConfiguration.swift in Sources */,
 				D46CC3B729A80112003BCB24 /* RequestBuilderError.swift in Sources */,
 				F50D51CFD511955028239624 /* SettingsModuleBuilder.swift in Sources */,
+				D495004929C8EA89009CECA9 /* EditUserProfileViewModel.swift in Sources */,
 				6928CFF3AF7380FACAA94511 /* SettingsView.swift in Sources */,
 				D4EA6E64299E87A1009F7DBD /* SignInViewController.swift in Sources */,
 				7EB4B3410B43ED90D532A613 /* SettingsViewController.swift in Sources */,
@@ -1056,6 +1143,7 @@
 				56416D56E142574FE2DD1D99 /* UIEdgeInsets+Ext.swift in Sources */,
 				D4EA6E73299E935F009F7DBD /* UserResponseModel.swift in Sources */,
 				DD94FE48CDF5D4260353B893 /* UIStackView+Ext.swift in Sources */,
+				D48BE0A429CB887E00E7F159 /* CreateAccountValidationForm.swift in Sources */,
 				D4EA6E63299E87A1009F7DBD /* SignInModuleBuilder.swift in Sources */,
 				0D38D12AC75458E87F590FD0 /* UIView+Constraints.swift in Sources */,
 				D4ADEC3F29AFB73000D7CE53 /* UserInfoView.swift in Sources */,
@@ -1097,15 +1185,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L3QAWRZFYR;
 				INFOPLIST_FILE = BuySellCarApp/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.vasiavaertiporokh.BuySellCarApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chisw.BuySellCarApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1118,15 +1206,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L3QAWRZFYR;
 				INFOPLIST_FILE = BuySellCarApp/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.vasiavaertiporokh.BuySellCarApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chisw.BuySellCarApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1199,15 +1287,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L3QAWRZFYR;
 				INFOPLIST_FILE = BuySellCarApp/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.vasiavaertiporokh.BuySellCarApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chisw.BuySellCarApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1220,15 +1308,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L3QAWRZFYR;
 				INFOPLIST_FILE = BuySellCarApp/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.vasiavaertiporokh.BuySellCarApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chisw.BuySellCarApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1308,15 +1396,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L3QAWRZFYR;
 				INFOPLIST_FILE = BuySellCarApp/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.vasiavaertiporokh.BuySellCarApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chisw.BuySellCarApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1523,15 +1611,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L3QAWRZFYR;
 				INFOPLIST_FILE = BuySellCarApp/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.vasiavaertiporokh.BuySellCarApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chisw.BuySellCarApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1654,6 +1742,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		D48BE09A29CB0C9D00E7F159 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/marmelroy/PhoneNumberKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		D4ADEC0929AD4F6100D7CE53 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
@@ -1695,6 +1791,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0F8C899E3166F89182E724FF /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
+		};
+		D48BE09B29CB0C9D00E7F159 /* PhoneNumberKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D48BE09A29CB0C9D00E7F159 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */;
+			productName = PhoneNumberKit;
 		};
 		D4ADEC0A29AD4F6100D7CE53 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;

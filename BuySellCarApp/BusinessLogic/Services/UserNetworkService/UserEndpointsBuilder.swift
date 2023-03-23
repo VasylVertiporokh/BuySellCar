@@ -11,7 +11,7 @@ enum UserEndpointsBuilder {
     case logout(String)
     case deleteAvatar(userId: String)
     case addUserAvatar(item: MultipartItem, userId: String)
-    case updateUser(userData: Data, userId: String)
+    case updateUser(userModel: UserInfoUpdateRequestModel, userId: String)
 }
 
 // MARK: - EndpointBuilderProtocol
@@ -43,7 +43,7 @@ extension UserEndpointsBuilder: EndpointBuilderProtocol {
             return ["application/json" : "Content-Type"]
         }
     }
-
+     
     var method: HTTPMethod {
         switch self {
         case .logout:
@@ -74,8 +74,8 @@ extension UserEndpointsBuilder: EndpointBuilderProtocol {
             return nil
         case .addUserAvatar(let item, _):
             return .multipartBody([item])
-        case .updateUser(let userData, _):
-            return .rawData(userData)
+        case .updateUser(let userModel, _):
+            return .encodable(userModel)
         }
     }
 }

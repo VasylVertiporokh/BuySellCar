@@ -18,7 +18,7 @@ enum SettingsSection: Int, CaseIterable {
 
 // MARK: - Rows model
 struct UserProfileCellModel: Hashable {
-    let lastProfileUpdate: Int
+    let lastProfileUpdate: Int?
     let username: String
     let email: String
     let avatar: URL?
@@ -40,6 +40,8 @@ enum SettingsRow: Hashable {
     
     var title: String? {
         switch self {
+        case .userProfile:
+            return "User Profile"
         case .profile:
             return "Profile"
         case .notification:
@@ -60,8 +62,6 @@ enum SettingsRow: Hashable {
             return "Privacy Manager"
         case .usedLibraries:
             return "Used libraries"
-        case .userProfile:
-            return nil
         }
     }
     
