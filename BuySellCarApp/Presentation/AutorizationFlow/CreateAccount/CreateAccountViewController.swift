@@ -15,13 +15,13 @@ final class CreateAccountViewController: BaseViewController<CreateAccountViewMod
     override func loadView() {
         view = contentView
     }
-
+    
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBindings()
     }
-
+    
     private func setupBindings() {
         contentView.actionPublisher
             .sink { [unowned self] action in
@@ -34,6 +34,10 @@ final class CreateAccountViewController: BaseViewController<CreateAccountViewMod
                     viewModel.setPassword(password)
                 case .repeatPasswordEntered(let password):
                     viewModel.setRepeatPassword(password)
+                case .phoneEntered(let phoneNumber):
+                    viewModel.setUserPhone(phoneNumber)
+                case .isPhoneValid(let isPhoneValid):
+                    viewModel.setIsPhoneValid(isPhoneValid)
                 case .createAccountButtonDidTap:
                     viewModel.createAccount()
                 case .backButtonDidTap:
@@ -45,20 +49,19 @@ final class CreateAccountViewController: BaseViewController<CreateAccountViewMod
         viewModel.eventsPublisher
             .sink { [unowned self] events in
                 switch events {
-                case .checkEmail(let isEmailValid):
-                    contentView.showEmailError(isEmailValid)
-                case .checkName(let isNameValid):
-                    contentView.showNameError(isNameValid)
-                case .checkPassword(let isPasswordValid):
-                    contentView.showPasswordError(isPasswordValid)
-                case .comparePasswords(let isPasswordsEqual):
-                    contentView.showRepeatPasswordError(isPasswordsEqual)
-                case .isAllFieldsValid(let isAllFieldValid):
-                    contentView.isAllFieldsValid(isAllFieldValid)
                 case .userCreatedSuccessfully:
                     successfulCreationAlert()
                 }
             }
+            .store(in: &cancellables)
+        
+        viewModel.validationPublisher
+            .removeDuplicates()
+            .sink { [unowned self] in contentView.applyValidation(form: $0) }
+            .store(in: &cancellables)
+        
+        keyboardHeightPublisher
+            .sink { [unowned self] in contentView.setScrollViewOffSet(offSet: $0) }
             .store(in: &cancellables)
     }
 }

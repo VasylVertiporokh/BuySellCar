@@ -15,6 +15,7 @@ enum MainButtonType {
     case restorePassword
     case createAccount
     case back
+    case save
 }
 
 extension MainButtonType {
@@ -32,6 +33,8 @@ extension MainButtonType {
             return "Create account"
         case .back:
             return "Back"
+        case .save:
+            return "Save changes"
         }
     }
     
@@ -48,6 +51,8 @@ extension MainButtonType {
         case.createAccount:
             return Colors.buttonDarkGray.color
         case .back:
+            return Colors.buttonDarkGray.color
+        case .save:
             return Colors.buttonDarkGray.color
         }
     }

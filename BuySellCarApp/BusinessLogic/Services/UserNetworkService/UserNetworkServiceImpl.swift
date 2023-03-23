@@ -37,7 +37,7 @@ extension UserNetworkServiceImpl: UserNetworkService {
         return provider.performWithResponseModel(.addUserAvatar(item: data, userId: userId))
     }
     
-    func updateUser(_ userData: Data, userId: String) -> AnyPublisher<UserResponseModel, NetworkError> {
-        return provider.performWithResponseModel(.updateUser(userData: userData, userId: userId))
+    func updateUser(_ userModel: UserInfoUpdateRequestModel, userId: String) -> AnyPublisher<UserResponseModel, NetworkError> {
+        return provider.performWithResponseModel(.updateUser(userModel: userModel, userId: userId))
     }
 }

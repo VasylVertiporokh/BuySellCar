@@ -87,6 +87,10 @@ private extension UserInfoCellContentView {
     
     private func apply(configuration: UserInfoCellContentConfiguration) {
         guard currentConfiguration != configuration else {
+            userAvatar.kf.setImage(
+                with: configuration.userAvatar,
+                placeholder: Assets.userPlaceholder.image
+            )
             return
         }
         userAvatar.kf.setImage(

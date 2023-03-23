@@ -14,16 +14,23 @@ final class SettingsViewModel: BaseViewModel {
     
     // MARK: - Private properties
     private let userService: UserService
-    @Published private(set) var sections: [SectionModel<SettingsSection, SettingsRow>] = []
+    @Published private(set) var sections: [SectionModel<SettingsSection, SettingsRow>] = [] // TODO: - Fix it!
     
     // MARK: - Init
     init(userService: UserService) {
         self.userService = userService
         super.init()
     }
-        
-    override func onViewWillAppear() {
-        updateDataSource()
+    
+    override func onViewDidLoad() {
+        userService.userDomainPublisher
+            .sink { [unowned self] model in
+                guard let model = model else {
+                    return
+                }
+                updateDataSource(domainModel: model)
+            }
+            .store(in: &cancellables)
     }
 }
 // MARK: - Internal extension
@@ -32,16 +39,13 @@ extension SettingsViewModel {
         transitionSubject.send(.showEditProfile)
     }
     
-    func updateDataSource() {
-        guard let user = userService.user else {
-            return
-        }
+    func updateDataSource(domainModel: UserDomainModel) {
         let userProfileSection: SectionModel<SettingsSection, SettingsRow> = {
             let userModel = UserProfileCellModel(
-                lastProfileUpdate: user.updated,
-                username: user.userName,
-                email: user.email,
-                avatar: URL(string: user.userAvatar ?? "")
+                lastProfileUpdate: domainModel.updated,
+                username: domainModel.userName,
+                email: domainModel.email,
+                avatar: URL(string: domainModel.userAvatar ?? "")
             )
             return .init(section: .userProfile, items: [.userProfile(model: userModel)])
         }()

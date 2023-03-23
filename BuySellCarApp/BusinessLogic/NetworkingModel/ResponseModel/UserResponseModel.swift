@@ -14,6 +14,7 @@ struct UserResponseModel: Decodable {
     let userToken: String?
     let email: String
     let objectID: String
+    let phoneNumber: String
     let updated: Int?
     var userAvatar: String?
     
@@ -21,6 +22,6 @@ struct UserResponseModel: Decodable {
         case ownerID = "ownerId"
         case objectID = "objectId"
         case userToken = "user-token"
-        case name, blUserLocale, email, userAvatar, updated
+        case name, blUserLocale, email, userAvatar, updated, phoneNumber
     }
 }

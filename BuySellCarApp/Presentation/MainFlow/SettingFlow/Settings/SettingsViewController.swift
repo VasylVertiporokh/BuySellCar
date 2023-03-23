@@ -57,6 +57,7 @@ private extension SettingsViewController {
             .store(in: &cancellables)
         
         viewModel.$sections
+            .receive(on: DispatchQueue.main)
             .sink { [unowned self] sections in
                 contentView.setupSnapshot(sections: sections)
             }
@@ -69,7 +70,7 @@ private extension SettingsViewController {
             mail.mailComposeDelegate = self
             mail.setSubject(Localization.recommendation)
             mail.setToRecipients([Constants.devEmail])
-            mail.setMessageBody("<p>\(Localization.emeilHeader))</p>", isHTML: true)
+            mail.setMessageBody("<p>\(Localization.emailHeader))</p>", isHTML: true)
             present(mail, animated: true)
         } else {
             infoAlert()

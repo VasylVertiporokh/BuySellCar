@@ -6,29 +6,11 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class EditUserProfileViewController: BaseViewController<EditUserProfileViewModel> {
     // MARK: - Views
     private let contentView = EditUserProfileView()
-    
-    // MARK: - Actions
-    private lazy var uploadAvatarAction: UIAction = {
-        let action = UIAction(title: "Update photo", image: Assets.addAvatarIcon.image) { [weak self] _ in
-            guard let self = self else { return }
-            self.openImagePickerController()
-        }
-        action.setFont(FontFamily.Montserrat.medium.font(size: 16))
-        return action
-    }()
-    
-    private lazy var deleteAvatarAction: UIAction = {
-        let action = UIAction(title: "Delete photo", image: Assets.deleteAvatarIcon.image) { [weak self] _ in
-            guard let self = self else { return }
-            self.viewModel.deleteAvatar()
-        }
-        action.setFont(FontFamily.Montserrat.medium.font(size: 16))
-        return action
-    }()
     
     // MARK: - Lifecycle
     override func loadView() {
@@ -39,26 +21,6 @@ final class EditUserProfileViewController: BaseViewController<EditUserProfileVie
         super.viewDidLoad()
         setupBindings()
         configureNavigationBar()
-    }
-    
-    private func setupBindings() {
-        contentView.actionPublisher
-            .sink { [unowned self] action in
-                switch action {
-                case .logout:
-                    viewModel.logout()
-                }
-            }
-            .store(in: &cancellables)
-        viewModel.eventsPublisher
-            .sink { [unowned self] events in
-                switch events {
-                case .showUserInfo(let userModel):
-                    contentView.setUserInfo(userModel)
-                    configureNavigationBar(isAvatarAvailable: !userModel.userAvatar.isNilOrEmpty)
-                }
-            }
-            .store(in: &cancellables)
     }
 }
 
@@ -79,17 +41,49 @@ extension EditUserProfileViewController: UIImagePickerControllerDelegate, UINavi
 
 // MARK: - Private extension
 private extension EditUserProfileViewController {
-    func configureNavigationBar(isAvatarAvailable: Bool = false) {
+    func configureNavigationBar() {
         title = Localization.editProfile.uppercased()
-        deleteAvatarAction.attributes = isAvatarAvailable ? [] : .hidden
-        let navItem = UIBarButtonItem(image: UIImage(systemName: "gear"), menu: createMenu())
         navigationController?.navigationBar.tintColor = .black
-        navigationItem.rightBarButtonItem = navItem
     }
     
-    func createMenu() -> UIMenu {
-        let menu = UIMenu(children: [uploadAvatarAction, deleteAvatarAction])
-        return menu
+    private func setupBindings() {
+        contentView.actionPublisher
+            .sink { [unowned self] action in
+                switch action {
+                case .logout:
+                    viewModel.logout()
+                case .updateUserAvatar:
+                    openImagePickerController()
+                case .deleteUserAvatar:
+                    viewModel.deleteAvatar()
+                case .saveChanges:
+                    viewModel.updateUserInfo()
+                case .nameChanged(let userName):
+                    viewModel.setName(userName)
+                case .phoneChanged(phoneNumber: let phoneNumber, isValid: let isValid):
+                    viewModel.setPhone(phoneNumber, isValid: isValid)
+                }
+            }
+            .store(in: &cancellables)
+        
+        viewModel.eventsPublisher
+            .sink { [unowned self] events in
+                switch events {
+                case .showUserInfo(let userModel):
+                    contentView.configureView(userModel)
+                case .successfulEditing:
+                    successfulEditingAlert()
+                }
+            }
+            .store(in: &cancellables)
+        
+        viewModel.validationPublisher
+            .sink { [unowned self] in contentView.applyValidation(form: $0) }
+            .store(in: &cancellables)
+        
+        keyboardHeightPublisher
+            .sink { [unowned self] in contentView.setScrollViewOffSet(offSet: $0) }
+            .store(in: &cancellables)
     }
     
     func openImagePickerController() {
@@ -97,5 +91,16 @@ private extension EditUserProfileViewController {
         picker.allowsEditing = true
         picker.delegate = self
         present(picker, animated: true)
+    }
+    
+    func successfulEditingAlert() {
+        let alertController = UIAlertController(
+            title: Localization.successfullyAlertTitle,
+            message: Localization.editedSuccessfully,
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: Localization.ok, style: .default)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
     }
 }

@@ -86,33 +86,20 @@ private extension SettingsView {
     
     
     func setupDataSource() {
-        collectionListView.register(UserInfoListCell.self, forCellWithReuseIdentifier: "userProfileCell")
-        collectionListView.register(SettingsListCell.self, forCellWithReuseIdentifier: "settingsCell")
+        collectionListView.register(cellType: UserInfoListCell.self)
+        collectionListView.register(cellType: SettingsListCell.self)
         
         dataSource = .init(collectionView: collectionListView, cellProvider: { collectionView, indexPath, item in
             switch item {
             case .userProfile(let model):
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userProfileCell", for: indexPath) as! UserInfoListCell
+                let cell: UserInfoListCell = collectionView.dequeueReusableCell(for: indexPath)
                 cell.cellItem = model
                 return cell
             default:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "settingsCell", for: indexPath) as! SettingsListCell
+                let cell: SettingsListCell = collectionView.dequeueReusableCell(for: indexPath)
                 cell.title = item.title
                 return cell
             }
         })
-    }
-}
-
-// MARK: - View constants
-private enum Constant {
-    static let topCollectionViewInset: CGFloat = 16
-    static let bottomCollectionViewInset: CGFloat = 8
-}
-
-import SwiftUI
-struct SettingsViewPreview: PreviewProvider {
-    static var previews: some View {
-        ViewRepresentable(SettingsView())
     }
 }

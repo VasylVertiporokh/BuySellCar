@@ -26,10 +26,12 @@ internal enum Localization {
   internal static let done = Localization.tr("Localizable", "done", fallback: "Done")
   /// Edit profile
   internal static let editProfile = Localization.tr("Localizable", "edit-profile", fallback: "Edit profile")
+  /// User edited successfully
+  internal static let editedSuccessfully = Localization.tr("Localizable", "edited-successfully", fallback: "User edited successfully")
   /// Email
   internal static let email = Localization.tr("Localizable", "email", fallback: "Email")
   /// You can send your feedback and recommendations, it is very important for us
-  internal static let emeilHeader = Localization.tr("Localizable", "emeilHeader", fallback: "You can send your feedback and recommendations, it is very important for us")
+  internal static let emailHeader = Localization.tr("Localizable", "emailHeader", fallback: "You can send your feedback and recommendations, it is very important for us")
   /// Localizable.strings
   ///   MVVMSkeleton
   /// 

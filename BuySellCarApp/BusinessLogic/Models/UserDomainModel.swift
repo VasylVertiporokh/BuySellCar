@@ -13,6 +13,7 @@ struct UserDomainModel: Codable {
     var blUserLocale: String
     var email: String
     var objectID: String
+    var phoneNumber: String
     var userAvatar: String?
     var updated: Int?
     
@@ -23,6 +24,7 @@ struct UserDomainModel: Codable {
         blUserLocale = responseModel.blUserLocale
         email = responseModel.email
         objectID = responseModel.objectID
+        phoneNumber = responseModel.phoneNumber
         userAvatar = responseModel.userAvatar
         updated = responseModel.updated
     }
