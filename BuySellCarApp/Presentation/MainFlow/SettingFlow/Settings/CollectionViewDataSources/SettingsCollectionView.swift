@@ -64,17 +64,4 @@ enum SettingsRow: Hashable {
             return "Used libraries"
         }
     }
-    
-    func cellFor(collectionView: UICollectionView, indexPath: IndexPath, identifier: String) -> UICollectionViewCell {
-        switch self {
-        case .userProfile(let model):
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userProfileCell", for: indexPath) as! UserInfoListCell
-            cell.cellItem = model
-            return cell
-        default:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "settingsCell", for: indexPath) as! SettingsListCell
-            cell.title = title
-            return cell
-        }
-    }
 }

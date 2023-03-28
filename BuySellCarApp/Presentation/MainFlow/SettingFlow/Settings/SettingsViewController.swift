@@ -56,7 +56,7 @@ private extension SettingsViewController {
             }
             .store(in: &cancellables)
         
-        viewModel.$sections
+        viewModel.sectionsAction
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] sections in
                 contentView.setupSnapshot(sections: sections)

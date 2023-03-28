@@ -8,6 +8,7 @@
 import Foundation
 
 enum AdvertisementEndpointBuilder {
+    case getAdvertisement(pageSize: String)
     case searchAdvertisement([SearchParam])
 }
 
@@ -15,14 +16,14 @@ enum AdvertisementEndpointBuilder {
 extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
     var path: String {
         switch self {
-        case .searchAdvertisement:
+        case .searchAdvertisement, .getAdvertisement:
             return "/data/Advertisement"
         }
     }
     
     var headerFields: [String : String] {
         switch self {
-        case .searchAdvertisement:
+        case .searchAdvertisement, .getAdvertisement:
             return ["application/json" : "Content-Type"]
         }
     }
@@ -45,12 +46,14 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
             }
             let result = searchProps.joined(separator: " and ")
             return ["where" : result]
+        case.getAdvertisement(let pageSize):
+            return pageSize.isEmpty ? nil : ["pageSize" : "\(pageSize)"]
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .searchAdvertisement:
+        case .searchAdvertisement, .getAdvertisement:
             return .get
         }
     }

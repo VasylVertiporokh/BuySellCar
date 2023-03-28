@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct SearchParam {
+struct SearchParam: Hashable {
     let key: SearchKey
     let value: SearchValue
 }
 
 // MARK: - SearchKey
-enum SearchKey: String {
+enum SearchKey: String, Hashable {
     case price = "price"
     case bodyColor = "bodyColor"
     case bodyType = "bodyType"
@@ -30,7 +30,7 @@ enum SearchKey: String {
 }
 
 // MARK: - SearchValue
-enum SearchValue {
+enum SearchValue: Hashable {
     case equalToString(stringValue: String)
     case equalToInt(intValue: Int)
     case greaterOrEqualTo(intValue: Int)

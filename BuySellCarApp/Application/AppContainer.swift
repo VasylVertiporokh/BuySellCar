@@ -15,8 +15,8 @@ protocol AppContainer: AnyObject {
     var userDefaultsService: UserDefaultsServiceProtocol { get }
     var userService: UserService { get }
     var userNetworkService: UserNetworkService { get }
-    
-    var tempNetService: AdvertisementNetworkService { get }
+    var advertisementNetworkService: AdvertisementNetworkService { get }
+    var advertisementService: AdvertisementService { get }
 }
 
 final class AppContainerImpl: AppContainer {
@@ -27,7 +27,8 @@ final class AppContainerImpl: AppContainer {
     let userDefaultsService: UserDefaultsServiceProtocol
     let userService: UserService
     let userNetworkService: UserNetworkService
-    let tempNetService: AdvertisementNetworkService
+    let advertisementNetworkService: AdvertisementNetworkService
+    let advertisementService: AdvertisementService
     
     init() {
         let appConfiguration = AppConfigurationImpl()
@@ -63,11 +64,12 @@ final class AppContainerImpl: AppContainer {
         self.authNetworkService = AuthNetworkServiceImpl(loginNetworkService)
         
         
-        let tempNetworkService = NetworkServiceProvider<AdvertisementEndpointBuilder> (
+        let advertisementNetworkServiceProvider = NetworkServiceProvider<AdvertisementEndpointBuilder> (
             apiInfo: appConfiguration,
             networkManager: networkManager
         )
+        self.advertisementNetworkService = AdvertisementNetworkImpl(provider: advertisementNetworkServiceProvider)
         
-        self.tempNetService = AdvertisementNetworkImpl(provider: tempNetworkService)
+        self.advertisementService = AdvertisementServiceImpl(advertisementNetworkService: advertisementNetworkService)
     }
 }

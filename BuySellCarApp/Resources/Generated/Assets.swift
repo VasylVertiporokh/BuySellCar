@@ -22,6 +22,14 @@ internal typealias AssetImageTypeAlias = ImageAsset.Image
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Assets {
+  internal static let compact = ImageAsset(name: "compact")
+  internal static let electric = ImageAsset(name: "electric")
+  internal static let family = ImageAsset(name: "family")
+  internal static let hybrid = ImageAsset(name: "hybrid")
+  internal static let premium = ImageAsset(name: "premium")
+  internal static let roadTrip = ImageAsset(name: "roadTrip")
+  internal static let suv = ImageAsset(name: "suv")
+  internal static let vintage = ImageAsset(name: "vintage")
   internal static let addAvatarIcon = ImageAsset(name: "addAvatarIcon")
   internal static let addUserIcon = ImageAsset(name: "addUserIcon")
   internal static let arrow = ImageAsset(name: "arrow")
@@ -31,6 +39,7 @@ internal enum Assets {
   internal static let deleteAvatarIcon = ImageAsset(name: "deleteAvatarIcon")
   internal static let editIcon = ImageAsset(name: "editIcon")
   internal static let emailIcon = ImageAsset(name: "emailIcon")
+  internal static let gtr = ImageAsset(name: "gtr")
   internal static let heart = ImageAsset(name: "heart")
   internal static let keyIcon = ImageAsset(name: "keyIcon")
   internal static let logoutIcon = ImageAsset(name: "logoutIcon")

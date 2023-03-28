@@ -29,16 +29,17 @@ final class HomeCoordinator: Coordinator {
     deinit {
         print("Deinit of \(String(describing: self))")
     }
-
+    
     private func searchRoot() {
-        let module = UserInfoModuleBuilder.build(container: container)
+        let module = AdvertisementRecomendationModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] transition in
-//                switch transition {
-//
-//                }
+                //                switch transition {
+                //
+                //                }
             }
             .store(in: &cancellables)
         setRoot(module.viewController)
+        
     }
 }
