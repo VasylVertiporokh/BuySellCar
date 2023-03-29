@@ -1,29 +1,26 @@
 //
-//  RecommendationCell.swift
+//  SearchResultCell.swift
 //  BuySellCarApp
 //
-//  Created by Vasil Vertiporokh on 23.03.2023.
+//  Created by Vasil Vertiporokh on 29.03.2023.
 //
 
-import Foundation
-import SnapKit
-import Kingfisher
 import UIKit
+import SnapKit
 
-final class RecommendationCell: UICollectionViewCell {
+final class SearchResultCell: UICollectionViewCell {
     // MARK: - Subviews
     private let containerStackView = UIStackView()
-    private let headerStackView = UIStackView()
-    private let imageStackView = UIStackView()
-    private let priceStackView = UIStackView()
+    private let carInformationStackView = UIStackView()
+    private let carImageView = UIImageView()
     private let mainInfoStackView = UIStackView()
+    private let modelNameStackView = UIStackView()
+    private let modelNameLabel = UILabel()
+    private let priceLabel = UILabel()
+    private let shareButton = UIButton(type: .system)
+    private let carDetailsStackView = UIStackView()
     private let leftInfoStackView = UIStackView()
     private let rightInfoStackView = UIStackView()
-    private let sellerStackView = UIStackView()
-    private let separatorView = UIView()
-    private let carImageView = UIImageView()
-    private let brandNameLabel = UILabel()
-    private let priceLabel = UILabel()
     private let mileageLabel = UILabel()
     private let powerLabel = UILabel()
     private let numberOfOwners = UILabel()
@@ -32,6 +29,8 @@ final class RecommendationCell: UICollectionViewCell {
     private let conditionLabel = UILabel()
     private let fuelTypeLabel = UILabel()
     private let colorLabel = UILabel()
+    private let separatorView = UIView()
+    private let sellerStackView = UIStackView()
     private let sellerNameLabel = UILabel()
     private let locationLabel = UILabel()
     
@@ -39,7 +38,15 @@ final class RecommendationCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialSetup()
+    }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Layout subviews
+    override func layoutSubviews() {
+        super.layoutSubviews()
         layer.cornerRadius = 8
         layer.masksToBounds = false
         layer.shadowColor = UIColor.lightGray.cgColor
@@ -49,27 +56,19 @@ final class RecommendationCell: UICollectionViewCell {
 
         contentView.backgroundColor = .white
         contentView.layer.cornerRadius = 8
+
+        layer.shadowPath = UIBezierPath(
+            roundedRect: bounds,
+            cornerRadius: 8
+        ).cgPath
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Layout subviews
-    override func layoutSubviews() {
-          super.layoutSubviews()
-          layer.shadowPath = UIBezierPath(
-              roundedRect: bounds,
-              cornerRadius: 8
-          ).cgPath
-      }
 }
 
 // MARK: - Internal extension
-extension RecommendationCell {
-    func setInfo(model: AdvertisementCellModel) {
-        carImageView.image = UIImage(named: "gtr")
-        brandNameLabel.text = model.brandName
+extension SearchResultCell {
+    func setInfo(_ model: AdvertisementCellModel) {
+        carImageView.image =  Assets.electric.image
+        modelNameLabel.text = "\(model.brandName)"
         priceLabel.text = "€ \(model.price).-"
         mileageLabel.text = "\(model.mileage) km"
         powerLabel.text = "\(model.power) hp"
@@ -85,80 +84,81 @@ extension RecommendationCell {
 }
 
 // MARK: - Private extension
-private extension RecommendationCell {
+private extension SearchResultCell {
     func initialSetup() {
+        configureStackViews()
         setupLayout()
         setupUI()
     }
     
-    func setupUI() {
-        configureStackViews()
-        configureLabels()
-        containerStackView.backgroundColor = .clear
-        
-        separatorView.backgroundColor = .lightGray
-        carImageView.contentMode = .scaleAspectFill
-        carImageView.clipsToBounds = true
-    }
-    
     func setupLayout() {
         contentView.addSubview(containerStackView)
-        containerStackView.addArrangedSubview(headerStackView)
-        containerStackView.addArrangedSubview(mainInfoStackView)
-        containerStackView.addArrangedSubview(separatorView)
-        containerStackView.addArrangedSubview(sellerStackView)
-        containerStackView.isLayoutMarginsRelativeArrangement = true
-        containerStackView.layoutMargins = .init(top: 16, left: 16, bottom: 8, right: 16)
-        
-        headerStackView.addArrangedSubview(imageStackView)
-        headerStackView.addArrangedSubview(priceStackView)
-        
-        priceStackView.addArrangedSubview(brandNameLabel)
-        priceStackView.addArrangedSubview(priceLabel)
-        priceStackView.distribution = .equalCentering
-        priceStackView.isLayoutMarginsRelativeArrangement = true
-        priceStackView.layoutMargins = .init(top: 4, left: .zero, bottom: 16, right: .zero)
-        
-        mainInfoStackView.addArrangedSubview(leftInfoStackView)
-        mainInfoStackView.addArrangedSubview(rightInfoStackView)
-        
-        imageStackView.addArrangedSubview(carImageView)
-        
+        containerStackView.addArrangedSubview(carImageView)
+        containerStackView.addArrangedSubview(carInformationStackView)
+        carInformationStackView.addArrangedSubview(mainInfoStackView)
+        mainInfoStackView.addArrangedSubview(modelNameStackView)
+        modelNameStackView.addArrangedSubview(modelNameLabel)
+        modelNameStackView.addArrangedSubview(shareButton)
+        mainInfoStackView.addArrangedSubview(priceLabel)
+        carInformationStackView.addArrangedSubview(carDetailsStackView)
+        carDetailsStackView.addArrangedSubview(leftInfoStackView)
         leftInfoStackView.addArrangedSubview(mileageLabel)
         leftInfoStackView.addArrangedSubview(powerLabel)
         leftInfoStackView.addArrangedSubview(numberOfOwners)
         leftInfoStackView.addArrangedSubview(fuelConsumptionLabel)
-        
+        carDetailsStackView.addArrangedSubview(rightInfoStackView)
         rightInfoStackView.addArrangedSubview(yearLabel)
         rightInfoStackView.addArrangedSubview(conditionLabel)
         rightInfoStackView.addArrangedSubview(fuelTypeLabel)
         rightInfoStackView.addArrangedSubview(colorLabel)
-        
+        carInformationStackView.addArrangedSubview(separatorView)
+        carInformationStackView.addArrangedSubview(sellerStackView)
         sellerStackView.addArrangedSubview(sellerNameLabel)
         sellerStackView.addArrangedSubview(locationLabel)
         
+        carInformationStackView.isLayoutMarginsRelativeArrangement = true
+        carInformationStackView.layoutMargins = .init(top: .zero, left: 16, bottom: 8, right: 16)
+        modelNameStackView.isLayoutMarginsRelativeArrangement = true
+        modelNameStackView.layoutMargins = .init(top: .zero, left: .zero, bottom: .zero, right: 16)
+        
         containerStackView.snp.makeConstraints { $0.edges.equalTo(contentView.snp.edges) }
-        carImageView.snp.makeConstraints { $0.height.equalTo(80) }
-        carImageView.snp.makeConstraints { $0.width.equalTo(90) }
+        carImageView.snp.makeConstraints { $0.height.equalTo(200) }
+        shareButton.snp.makeConstraints { $0.height.width.equalTo(25) }
         separatorView.snp.makeConstraints { $0.height.equalTo(0.5) }
+    }
+    
+    func setupUI() {
+        configureLabels()
+        carImageView.contentMode = .scaleAspectFill
+        carImageView.clipsToBounds = true
+        carImageView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        carImageView.layer.cornerRadius = 8
+        
+        separatorView.backgroundColor = .lightGray
+        shareButton.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
     }
 }
 
 // MARK: - Configure stack views
-private extension RecommendationCell {
+private extension SearchResultCell {
     func configureStackViews() {
         containerStackView.axis = .vertical
         containerStackView.spacing = 8
-        headerStackView.axis = .horizontal
-        headerStackView.spacing = 8
-        imageStackView.axis = .vertical
+                
+        carInformationStackView.axis = .vertical
+        carInformationStackView.spacing = 8
         
-        priceStackView.axis = .vertical
-        priceStackView.spacing = 10
+        mainInfoStackView.axis = .vertical
+        mainInfoStackView.distribution = .fill
+        mainInfoStackView.spacing = 4
         
-        mainInfoStackView.axis = .horizontal
-        mainInfoStackView.distribution = .fillEqually
-        mainInfoStackView.spacing = 12
+        modelNameStackView.axis = .horizontal
+        modelNameStackView.alignment = .center
+        modelNameStackView.spacing = 32
+        
+        carDetailsStackView.axis = .horizontal
+        carDetailsStackView.spacing = 32
+        carDetailsStackView.distribution = .fillEqually
         
         leftInfoStackView.axis = .vertical
         leftInfoStackView.spacing = 6
@@ -189,8 +189,8 @@ private extension RecommendationCell {
             $0.textColor = .black
             $0.font = FontFamily.Montserrat.regular.font(size: 14)
         }
-        
-        [brandNameLabel, priceLabel].forEach { $0.font = FontFamily.Montserrat.semiBold.font(size: 15) }
-        brandNameLabel.numberOfLines = 2
+        priceLabel.font = FontFamily.Montserrat.semiBold.font(size: 20)
+        modelNameLabel.font = FontFamily.Montserrat.semiBold.font(size: 16)
+        modelNameLabel.numberOfLines = 2
     }
 }

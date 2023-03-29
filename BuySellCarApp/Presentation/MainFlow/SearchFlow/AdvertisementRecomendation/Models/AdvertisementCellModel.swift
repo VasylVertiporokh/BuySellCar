@@ -1,5 +1,5 @@
 //
-//  RecommendationCellModel.swift
+//  AdvertisementCellModel.swift
 //  BuySellCarApp
 //
 //  Created by Vasil Vertiporokh on 28.03.2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RecommendationCellModel: Hashable {
+struct AdvertisementCellModel: Hashable {
     let brandName: String
     let price: Int
     let mileage: Int
@@ -22,7 +22,7 @@ struct RecommendationCellModel: Hashable {
     let location: String
     let objectID: String
     
-    // MARK: - Init from AdvertisementResponseModel
+    // MARK: - Init from AdvertisementCellModel
     init(model: AdvertisementResponseModel) {
         brandName = model.transportName
         price = model.price

@@ -73,6 +73,7 @@ extension AdvertisementRecommendationViewModel {
                     self?.isLoadingSubject.send(false)
                 }
                 .store(in: &cancellables)
+            transitionSubject.send(.showResult)
         }
     }
 }

@@ -100,7 +100,7 @@ private extension AdvertisementRecommendationView {
         collectionView.didSelectItemPublisher
             .compactMap { self.dataSource?.itemIdentifier(for: $0) }
             .map { AdvertisementRecommendationViewAction.rowSelected($0) }
-            .sink { [unowned self]  in actionSubject.send($0) }
+            .sink { [unowned self] in actionSubject.send($0) }
             .store(in: &cancellables)
         
         searchButton.tapPublisher

@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 enum AdvertisementRecomendationTransition: Transition {
-    
+    case showResult
 }
 
 final class AdvertisementRecomendationModuleBuilder {

@@ -31,6 +31,6 @@ enum AdvertisementSection: Int, CaseIterable {
 
 // MARK: - Settings rows
 enum AdvertisementRow: Hashable {
-    case recommended(model: RecommendationCellModel)
+    case recommended(model: AdvertisementCellModel)
     case trending(model: TrendingCategoriesModel)
 }

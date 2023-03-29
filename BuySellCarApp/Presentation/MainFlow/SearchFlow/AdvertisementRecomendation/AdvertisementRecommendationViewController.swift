@@ -19,7 +19,6 @@ final class AdvertisementRecommendationViewController: BaseViewController<Advert
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBindings()
-        setupNavigationBar()
     }
 }
 
@@ -40,16 +39,5 @@ private extension AdvertisementRecommendationViewController {
         viewModel.sectionsAction
             .sink { [unowned self] in contentView.setupSnapshot(sections: $0) }
             .store(in: &cancellables)
-    }
-    
-    func setupNavigationBar() {
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .clear
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.clear.cgColor]
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.clipsToBounds = true
     }
 }
