@@ -11,6 +11,7 @@ import Foundation
 final class AdvertisementRecommendationViewModel: BaseViewModel {
     // MARK: - Private properties
     private let advertisementService: AdvertisementService
+    private var advertisementResponseModel: [AdvertisementResponseModel] = []
     
     // MARK: - Subjects
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -39,6 +40,7 @@ final class AdvertisementRecommendationViewModel: BaseViewModel {
             } receiveValue: { [weak self] advertisementResponse in
                 guard let self = self else { return }
                 self.isLoadingSubject.send(false)
+                self.advertisementResponseModel = advertisementResponse
                 self.updateDataSource(model: advertisementResponse)
             }
             .store(in: &cancellables)
@@ -48,20 +50,29 @@ final class AdvertisementRecommendationViewModel: BaseViewModel {
 // MARK: - Internal extension
 extension AdvertisementRecommendationViewModel {
     func startSearch() {
-        
+        print(#function)
     }
     
-    func showSelectedRecommendation(_ itemIndex: Int) {
-        print(itemIndex)
-    }
-    
-    func showQuickResult(_ section: Int, _ item: Int) {
-        let item = sectionsSubject.value[section].items[item]
-        switch item {
-        case .trending(let searchParams):
-            print(searchParams.searchParameters)
-        default:
-            break
+    func showSelected(_ row: AdvertisementRow) {
+        switch row {
+        case .recommended(let model):
+            let testFilteredResult = advertisementResponseModel.filter { $0.objectID == model.objectID }
+            print(testFilteredResult)
+        case .trending(let model):
+            isLoadingSubject.send(true)
+            advertisementService.searchAdvertisement(searchParams: model.searchParameters)
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] completion in
+                    guard case let .failure(error) = completion else {
+                        return
+                    }
+                    self?.errorSubject.send(error)
+                    self?.isLoadingSubject.send(false)
+                } receiveValue: { [weak self] filteredModel in
+                    print(filteredModel)
+                    self?.isLoadingSubject.send(false)
+                }
+                .store(in: &cancellables)
         }
     }
 }
@@ -107,7 +118,7 @@ private extension AdvertisementRecommendationViewModel {
 }
 
 // MARK: - QuickSearchParams
-private enum QuickSearchParams {
+private enum QuickSearchParams { // TODO: - Add search params array to backend as JSON
     static let premiumSearchParams: [SearchParam] = [
         .init(key: .price, value: .greaterOrEqualTo(intValue: 30000)),
         .init(key: .transmissionType, value: .equalToString(stringValue: TransmissionType.automatic.rawValue)),

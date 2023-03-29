@@ -20,6 +20,7 @@ struct RecommendationCellModel: Hashable {
     let color: String
     let sellerName: String
     let location: String
+    let objectID: String
     
     // MARK: - Init from AdvertisementResponseModel
     init(model: AdvertisementResponseModel) {
@@ -35,5 +36,6 @@ struct RecommendationCellModel: Hashable {
         color = model.bodyColor
         sellerName = "Alex" // TODO: - add this fields
         location = "Berlin"
+        objectID = model.objectID
     }
 }

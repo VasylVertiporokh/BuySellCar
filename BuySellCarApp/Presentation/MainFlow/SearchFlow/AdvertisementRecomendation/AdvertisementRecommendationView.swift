@@ -10,8 +10,7 @@ import SnapKit
 import Combine
 
 enum AdvertisementRecommendationViewAction {
-    case recommendedTapped(index: Int)
-    case quickSearchTapped(sectionIndex: Int, itemIndex: Int)
+    case rowSelected(AdvertisementRow)
     case startSearch
 }
 
@@ -99,15 +98,9 @@ private extension AdvertisementRecommendationView {
     
     func bindActions() {
         collectionView.didSelectItemPublisher
-            .sink { [unowned self] indexPath in
-                guard let sectionType = AdvertisementSection(rawValue: indexPath.section) else { fatalError() }
-                switch sectionType {
-                case .recommended:
-                    actionSubject.send(.recommendedTapped(index: indexPath.row))
-                case .trendingCategories:
-                    actionSubject.send(.quickSearchTapped(sectionIndex: indexPath.section, itemIndex: indexPath.row))
-                }
-            }
+            .compactMap { self.dataSource?.itemIdentifier(for: $0) }
+            .map { AdvertisementRecommendationViewAction.rowSelected($0) }
+            .sink { [unowned self]  in actionSubject.send($0) }
             .store(in: &cancellables)
         
         searchButton.tapPublisher

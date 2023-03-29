@@ -29,12 +29,10 @@ private extension AdvertisementRecommendationViewController {
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
-                case .recommendedTapped(let index):
-                    viewModel.showSelectedRecommendation(index)
                 case .startSearch:
                     viewModel.startSearch()
-                case .quickSearchTapped(let sectionIndex, let itemIndex):
-                    viewModel.showQuickResult(sectionIndex, itemIndex)
+                case .rowSelected(let row):
+                    viewModel.showSelected(row)
                 }
             }
             .store(in: &cancellables)
