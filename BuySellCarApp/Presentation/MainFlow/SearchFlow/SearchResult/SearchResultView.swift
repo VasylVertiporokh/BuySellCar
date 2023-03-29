@@ -105,7 +105,7 @@ private extension SearchResultView {
     func resultSectionLayout() -> NSCollectionLayoutSection {
         let layoutSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(Constant.fractionalValue),
-            heightDimension: .estimated(Constant.estimatedValue)
+            heightDimension: .estimated(Constant.resultCellHeight)
         )
         
         let item = NSCollectionLayoutItem(layoutSize: layoutSize)
@@ -125,7 +125,7 @@ private extension SearchResultView {
 
 // MARK: - View constants
 private enum Constant {
-    static let estimatedValue: CGFloat = 1
+    static let resultCellHeight: CGFloat = 350
     static let fractionalValue: CGFloat = 1.0
     static let defaultSpace: CGFloat = 16
     static let badgeViewOffset: CGPoint = .init(x: 0, y: 15)

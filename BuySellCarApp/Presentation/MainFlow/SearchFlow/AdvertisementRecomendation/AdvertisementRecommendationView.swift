@@ -156,12 +156,12 @@ private extension AdvertisementRecommendationView {
     func recommendedSectionLayout() -> NSCollectionLayoutSection {
         let layoutSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(Constant.fractionalValue),
-            heightDimension: .estimated(Constant.estimatedValue)
+            heightDimension: .estimated(Constant.recommendationCellHeight)
         )
         
         let badgeViewSize = NSCollectionLayoutSize(
-            widthDimension: .estimated(Constant.estimatedValue),
-            heightDimension: .estimated(Constant.estimatedValue)
+            widthDimension: .estimated(Constant.badgeViewWidth),
+            heightDimension: .estimated(Constant.badgeViewHeight)
         )
         let containerAnchor = NSCollectionLayoutAnchor(edges: [.top, .leading], absoluteOffset: Constant.badgeViewOffset)
         let badgeView = NSCollectionLayoutSupplementaryItem(
@@ -184,7 +184,7 @@ private extension AdvertisementRecommendationView {
         
         let headerSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(Constant.fractionalValue),
-            heightDimension: .estimated(Constant.estimatedValue)
+            heightDimension: .estimated(Constant.headerHeight)
         )
         
         let headerElement = NSCollectionLayoutBoundarySupplementaryItem(
@@ -200,12 +200,12 @@ private extension AdvertisementRecommendationView {
     func trendingCategoriesSectionLayout() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .absolute((bounds.width - Constant.allSpacingValue) / Constant.numberOfItemsInGroup),
-            heightDimension: .estimated(Constant.estimatedValue)
+            heightDimension: .estimated(Constant.trendingCellHeight)
         )
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(Constant.fractionalValue),
-            heightDimension: .estimated(Constant.estimatedValue))
+            heightDimension: .estimated(Constant.trandingGroupHeight))
         
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
@@ -222,7 +222,7 @@ private extension AdvertisementRecommendationView {
         
         let headerSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(Constant.fractionalValue),
-            heightDimension: .estimated(Constant.estimatedValue)
+            heightDimension: .estimated(Constant.headerHeight)
         )
         
         let headerElement = NSCollectionLayoutBoundarySupplementaryItem(
@@ -237,11 +237,16 @@ private extension AdvertisementRecommendationView {
 
 // MARK: - View constants
 private enum Constant {
-    static let estimatedValue: CGFloat = 1
+    static let trendingCellHeight: CGFloat = 150
     static let fractionalValue: CGFloat = 1.0
     static let defaultSpace: CGFloat = 16
     static let badgeViewOffset: CGPoint = .init(x: 0, y: 15)
     static let searchButtonHeight: CGFloat = 47
     static let allSpacingValue: CGFloat = 48
     static let numberOfItemsInGroup: CGFloat = 2
+    static let recommendationCellHeight: CGFloat =  250
+    static let badgeViewHeight: CGFloat = 20
+    static let badgeViewWidth: CGFloat = 100
+    static let headerHeight: CGFloat = 50
+    static let trandingGroupHeight: CGFloat = 300
 }
