@@ -90,6 +90,8 @@
 		D477DC3629B0C59000B719AC /* UserNetworkServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477DC3529B0C59000B719AC /* UserNetworkServiceImpl.swift */; };
 		D477DC3829B0C5D000B719AC /* UserEndpointsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D477DC3729B0C5D000B719AC /* UserEndpointsBuilder.swift */; };
 		D47A8EB129D49A6D00500259 /* NavigationTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A8EB029D49A6D00500259 /* NavigationTitleView.swift */; };
+		D47A8EB329D6C16E00500259 /* CarImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A8EB229D6C16E00500259 /* CarImageCell.swift */; };
+		D47A8EB629D6D63900500259 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47A8EB529D6D63900500259 /* Int+Extension.swift */; };
 		D47CD5E129A507C800C3ECC6 /* NetworkManagerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47CD5E029A507C800C3ECC6 /* NetworkManagerImpl.swift */; };
 		D47CD5E329A5083500C3ECC6 /* NetworkManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47CD5E229A5083500C3ECC6 /* NetworkManagerProtocol.swift */; };
 		D47CD5E529A5324C00C3ECC6 /* RequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47CD5E429A5324C00C3ECC6 /* RequestBody.swift */; };
@@ -258,6 +260,8 @@
 		D477DC3529B0C59000B719AC /* UserNetworkServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkServiceImpl.swift; sourceTree = "<group>"; };
 		D477DC3729B0C5D000B719AC /* UserEndpointsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEndpointsBuilder.swift; sourceTree = "<group>"; };
 		D47A8EB029D49A6D00500259 /* NavigationTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTitleView.swift; sourceTree = "<group>"; };
+		D47A8EB229D6C16E00500259 /* CarImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarImageCell.swift; sourceTree = "<group>"; };
+		D47A8EB529D6D63900500259 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		D47CD5E029A507C800C3ECC6 /* NetworkManagerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerImpl.swift; sourceTree = "<group>"; };
 		D47CD5E229A5083500C3ECC6 /* NetworkManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerProtocol.swift; sourceTree = "<group>"; };
 		D47CD5E429A5324C00C3ECC6 /* RequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBody.swift; sourceTree = "<group>"; };
@@ -449,6 +453,7 @@
 		709CADC65289B84AE1C90454 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				D47A8EB429D6D62B00500259 /* Int */,
 				D48BE09F29CB85FF00E7F159 /* UIResponder */,
 				D495004C29C9EE28009CECA9 /* Optional */,
 				D42F78FF29C254E000339DA2 /* UIAction */,
@@ -552,7 +557,7 @@
 		D42F78F029C0C14F00339DA2 /* CollectionViewCells */ = {
 			isa = PBXGroup;
 			children = (
-				D4623E0229D44C5D003B4020 /* SearchResultCell */,
+				D4623E0229D44C5D003B4020 /* SearchResultCells */,
 				D44AF13F29D1915C00C7E756 /* QuickSearchCell */,
 				D48BE0BD29CC984600E7F159 /* RecommendationCell */,
 				D42F78F829C0C27200339DA2 /* UserInfoListCell */,
@@ -656,12 +661,13 @@
 			path = SearchResult;
 			sourceTree = "<group>";
 		};
-		D4623E0229D44C5D003B4020 /* SearchResultCell */ = {
+		D4623E0229D44C5D003B4020 /* SearchResultCells */ = {
 			isa = PBXGroup;
 			children = (
 				D4623E0329D44C74003B4020 /* SearchResultCell.swift */,
+				D47A8EB229D6C16E00500259 /* CarImageCell.swift */,
 			);
-			path = SearchResultCell;
+			path = SearchResultCells;
 			sourceTree = "<group>";
 		};
 		D4623E0729D45EF8003B4020 /* Models */ = {
@@ -744,6 +750,14 @@
 				D47A8EB029D49A6D00500259 /* NavigationTitleView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		D47A8EB429D6D62B00500259 /* Int */ = {
+			isa = PBXGroup;
+			children = (
+				D47A8EB529D6D63900500259 /* Int+Extension.swift */,
+			);
+			path = Int;
 			sourceTree = "<group>";
 		};
 		D48BE09F29CB85FF00E7F159 /* UIResponder */ = {
@@ -1260,6 +1274,7 @@
 				D47CD5E129A507C800C3ECC6 /* NetworkManagerImpl.swift in Sources */,
 				D4EA6E69299E8F40009F7DBD /* AuthEndpoitsBuilder.swift in Sources */,
 				D44AF14429D2054000C7E756 /* AdvertisementHeaderView.swift in Sources */,
+				D47A8EB629D6D63900500259 /* Int+Extension.swift in Sources */,
 				D42F790329C35C8600339DA2 /* UserInfoUpdateRequestModel.swift in Sources */,
 				D4EA6E65299E87A1009F7DBD /* SignInView.swift in Sources */,
 				D495004029C8E648009CECA9 /* SectionModel.swift in Sources */,
@@ -1269,6 +1284,7 @@
 				D4ADEC0629AD33AA00D7CE53 /* RestorePasswordViewController.swift in Sources */,
 				D48BE0A129CB861300E7F159 /* UIResponder+Extension.swift in Sources */,
 				D42F78F729C0C1F800339DA2 /* SettingsCellContentConfiguration.swift in Sources */,
+				D47A8EB329D6C16E00500259 /* CarImageCell.swift in Sources */,
 				D46CC3B729A80112003BCB24 /* RequestBuilderError.swift in Sources */,
 				F50D51CFD511955028239624 /* SettingsModuleBuilder.swift in Sources */,
 				D48BE0AF29CC958700E7F159 /* AdvertisementRecomendationModuleBuilder.swift in Sources */,

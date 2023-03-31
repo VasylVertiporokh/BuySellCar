@@ -9,6 +9,7 @@ import Foundation
 
 struct AdvertisementCellModel: Hashable {
     let brandName: String
+    let brandModel: String
     let price: Int
     let mileage: Int
     let power: Int
@@ -21,10 +22,12 @@ struct AdvertisementCellModel: Hashable {
     let sellerName: String
     let location: String
     let objectID: String
+    let imageArray: [String]?
     
     // MARK: - Init from AdvertisementCellModel
     init(model: AdvertisementResponseModel) {
         brandName = model.transportName
+        brandModel = model.transportModel
         price = model.price
         mileage = model.mileage
         power = model.power
@@ -37,5 +40,6 @@ struct AdvertisementCellModel: Hashable {
         sellerName = "Alex" // TODO: - add this fields
         location = "Berlin"
         objectID = model.objectID
+        imageArray = model.images?.carImages
     }
 }

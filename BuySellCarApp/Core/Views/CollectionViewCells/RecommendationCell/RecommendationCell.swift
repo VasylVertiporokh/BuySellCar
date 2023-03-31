@@ -39,16 +39,16 @@ final class RecommendationCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialSetup()
-    
-        layer.cornerRadius = 8
+        
+        layer.cornerRadius = Constant.mainCornerRadius
         layer.masksToBounds = false
         layer.shadowColor = UIColor.lightGray.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 10)
-        layer.shadowOpacity = 0.5
-        layer.shadowRadius = 8
-
+        layer.shadowOffset = Constant.shadowOffset
+        layer.shadowOpacity = Constant.shadowOpacity
+        layer.shadowRadius = Constant.mainCornerRadius
+        
         contentView.backgroundColor = .white
-        contentView.layer.cornerRadius = 8
+        contentView.layer.cornerRadius = Constant.mainCornerRadius
     }
     
     required init?(coder: NSCoder) {
@@ -57,18 +57,18 @@ final class RecommendationCell: UICollectionViewCell {
     
     // MARK: - Layout subviews
     override func layoutSubviews() {
-          super.layoutSubviews()
-          layer.shadowPath = UIBezierPath(
-              roundedRect: bounds,
-              cornerRadius: 8
-          ).cgPath
-      }
+        super.layoutSubviews()
+        layer.shadowPath = UIBezierPath(
+            roundedRect: bounds,
+            cornerRadius: Constant.mainCornerRadius
+        ).cgPath
+    }
 }
 
 // MARK: - Internal extension
 extension RecommendationCell {
     func setInfo(model: AdvertisementCellModel) {
-        carImageView.image = UIImage(named: "gtr")
+        carImageView.kf.setImage(with: URL(string: model.imageArray?.first ?? ""), placeholder: Assets.carPlaceholder.image)
         brandNameLabel.text = model.brandName
         priceLabel.text = "€ \(model.price).-"
         mileageLabel.text = "\(model.mileage) km"
@@ -108,7 +108,7 @@ private extension RecommendationCell {
         containerStackView.addArrangedSubview(separatorView)
         containerStackView.addArrangedSubview(sellerStackView)
         containerStackView.isLayoutMarginsRelativeArrangement = true
-        containerStackView.layoutMargins = .init(top: 16, left: 16, bottom: 8, right: 16)
+        containerStackView.layoutMargins = Constant.containerStackViewMargins
         
         headerStackView.addArrangedSubview(imageStackView)
         headerStackView.addArrangedSubview(priceStackView)
@@ -117,7 +117,7 @@ private extension RecommendationCell {
         priceStackView.addArrangedSubview(priceLabel)
         priceStackView.distribution = .equalCentering
         priceStackView.isLayoutMarginsRelativeArrangement = true
-        priceStackView.layoutMargins = .init(top: 4, left: .zero, bottom: 16, right: .zero)
+        priceStackView.layoutMargins = Constant.priceStackViewMargins
         
         mainInfoStackView.addArrangedSubview(leftInfoStackView)
         mainInfoStackView.addArrangedSubview(rightInfoStackView)
@@ -138,9 +138,9 @@ private extension RecommendationCell {
         sellerStackView.addArrangedSubview(locationLabel)
         
         containerStackView.snp.makeConstraints { $0.edges.equalTo(contentView.snp.edges) }
-        carImageView.snp.makeConstraints { $0.height.equalTo(80) }
-        carImageView.snp.makeConstraints { $0.width.equalTo(90) }
-        separatorView.snp.makeConstraints { $0.height.equalTo(0.5) }
+        carImageView.snp.makeConstraints { $0.height.equalTo(Constant.carImageViewHeight) }
+        carImageView.snp.makeConstraints { $0.width.equalTo(Constant.carImageViewWidth) }
+        separatorView.snp.makeConstraints { $0.height.equalTo(Constant.separatorViewHeight) }
     }
 }
 
@@ -148,28 +148,28 @@ private extension RecommendationCell {
 private extension RecommendationCell {
     func configureStackViews() {
         containerStackView.axis = .vertical
-        containerStackView.spacing = 8
+        containerStackView.spacing = Constant.middleSpacing
         headerStackView.axis = .horizontal
-        headerStackView.spacing = 8
+        headerStackView.spacing = Constant.middleSpacing
         imageStackView.axis = .vertical
         
         priceStackView.axis = .vertical
-        priceStackView.spacing = 10
+        priceStackView.spacing = Constant.priceStackViewSpacing
         
         mainInfoStackView.axis = .horizontal
         mainInfoStackView.distribution = .fillEqually
-        mainInfoStackView.spacing = 12
+        mainInfoStackView.spacing = Constant.mainInfoStackViewSpacing
         
         leftInfoStackView.axis = .vertical
-        leftInfoStackView.spacing = 6
+        leftInfoStackView.spacing = Constant.minSpacing
         leftInfoStackView.distribution = .fillEqually
         
         rightInfoStackView.axis = .vertical
-        rightInfoStackView.spacing = 6
+        rightInfoStackView.spacing = Constant.minSpacing
         rightInfoStackView.distribution = .fillEqually
         
         sellerStackView.axis = .vertical
-        sellerStackView.spacing = 4
+        sellerStackView.spacing = Constant.minSpacing
         sellerStackView.distribution = .fillProportionally
     }
     
@@ -187,10 +187,29 @@ private extension RecommendationCell {
             locationLabel
         ].forEach {
             $0.textColor = .black
-            $0.font = FontFamily.Montserrat.regular.font(size: 14)
+            $0.font = Constant.defaultLabelFont
         }
         
-        [brandNameLabel, priceLabel].forEach { $0.font = FontFamily.Montserrat.semiBold.font(size: 15) }
-        brandNameLabel.numberOfLines = 2
+        [brandNameLabel, priceLabel].forEach { $0.font = Constant.priceLabelFont }
+        brandNameLabel.numberOfLines = Constant.brandNameLabel
     }
+}
+
+// MARK: - Constant
+private enum Constant {
+    static let carImageViewHeight: CGFloat = 80
+    static let carImageViewWidth: CGFloat = 90
+    static let containerStackViewMargins: UIEdgeInsets = .init(top: 16, left: 16, bottom: 8, right: 16)
+    static let priceStackViewMargins: UIEdgeInsets = .init(top: 4, left: .zero, bottom: 16, right: .zero)
+    static let mainCornerRadius: CGFloat = 8
+    static let shadowOpacity: Float = 0.5
+    static let shadowOffset = CGSize(width: .zero, height: 10)
+    static let mainInfoStackViewSpacing: CGFloat = 12
+    static let priceStackViewSpacing: CGFloat = 10
+    static let middleSpacing: CGFloat = 8
+    static let minSpacing: CGFloat = 4
+    static let defaultLabelFont: UIFont = FontFamily.Montserrat.regular.font(size: 14)
+    static let priceLabelFont: UIFont = FontFamily.Montserrat.semiBold.font(size: 15)
+    static let brandNameLabel: Int = 2
+    static let separatorViewHeight: CGFloat = 0.5
 }

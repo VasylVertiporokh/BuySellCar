@@ -22,6 +22,7 @@ final class SearchResultViewController: BaseViewController<SearchResultViewModel
         super.viewDidLoad()
         setupBindings()
         navigationItem.titleView = navigationView
+        navigationController?.navigationBar.tintColor = Colors.buttonDarkGray.color
     }
 
     private func setupBindings() {

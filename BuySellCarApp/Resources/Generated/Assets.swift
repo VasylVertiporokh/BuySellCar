@@ -34,6 +34,7 @@ internal enum Assets {
   internal static let addUserIcon = ImageAsset(name: "addUserIcon")
   internal static let arrow = ImageAsset(name: "arrow")
   internal static let carImage = ImageAsset(name: "carImage")
+  internal static let carPlaceholder = ImageAsset(name: "carPlaceholder")
   internal static let carSellIcon = ImageAsset(name: "carSellIcon")
   internal static let closeIcon = ImageAsset(name: "closeIcon")
   internal static let deleteAvatarIcon = ImageAsset(name: "deleteAvatarIcon")

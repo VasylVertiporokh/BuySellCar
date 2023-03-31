@@ -23,8 +23,8 @@ final class SearchResultView: BaseView {
     // MARK: - Subjects
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<SearchResultViewAction, Never>()
-    
 
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialSetup()
@@ -79,6 +79,10 @@ private extension SearchResultView {
             case .searchResultRow(let model):
                 let cell: SearchResultCell = collectionView.dequeueReusableCell(for: indexPath)
                 cell.setInfo(model)
+                guard let carRow = self.dataSource?.itemIdentifier(for: indexPath) else { return cell }
+                cell.setupSnapshot(sections: [
+                    .init(section: .images, items: carRow.carImages.compactMap { CarImageRow.carImage($0) })
+                ])
                 return cell
             }
         })
