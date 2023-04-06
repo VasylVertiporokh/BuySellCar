@@ -10,6 +10,6 @@ import Combine
 
 protocol AdvertisementNetworkService {
     func getAdvertisementObjects(pageSize: String) -> AnyPublisher<[AdvertisementResponseModel], NetworkError>
-    func searchAdvertisement(searchParams: [SearchParam]) -> AnyPublisher<[AdvertisementResponseModel], NetworkError>
-    func getAdvertisementCount(searchParams: [SearchParam]) -> AnyPublisher<Data, NetworkError >
+    func searchAdvertisement(searchParams: [SearchParam], pageSize: Int) -> AnyPublisher<[AdvertisementResponseModel], NetworkError>
+    func getAdvertisementCount(searchParams: [SearchParam]) -> AnyPublisher<Data, NetworkError>
 }

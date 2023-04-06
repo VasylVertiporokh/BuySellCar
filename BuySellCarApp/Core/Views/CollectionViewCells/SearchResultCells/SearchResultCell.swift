@@ -197,16 +197,16 @@ private extension SearchResultCell {
         counterLabel.isHidden = itemCount.isEquallyOne
         counterLabel.text = "\(pageNumber.incrementByOne)/\(itemCount)"
     }
-    
-    
+        
     func createLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { [unowned self] sectionIndex, layoutEnvironment in
-            guard let sectionType = AdvertisementSearchResultSection(rawValue: sectionIndex) else {
-                fatalError()
-            }
-            switch sectionType {
-            case .searchResult:
-                return resultSectionLayout()
+        let layout = UICollectionViewCompositionalLayout { [weak self] sectionIndex, layoutEnvironment in
+            guard let self = self,
+                  let dataSource = self.dataSource else { return nil }
+
+            let sections = dataSource.snapshot().sectionIdentifiers[sectionIndex]
+            switch sections {
+            case .images:
+                return self.resultSectionLayout()
             }
         }
         

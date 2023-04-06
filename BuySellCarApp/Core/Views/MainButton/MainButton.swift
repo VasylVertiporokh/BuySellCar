@@ -38,6 +38,16 @@ final class MainButton: UIButton {
         setupButton()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        switch type {
+        case .filter:
+            layer.cornerRadius = bounds.height / 2
+        default:
+            layer.cornerRadius = Constants.cornerRadius
+        }
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -76,7 +86,6 @@ private extension MainButton {
         setTitleColor(type.titleColor, for: .disabled)
         backgroundColor = type.buttonColor
         tintColor = .white
-        layer.cornerRadius = Constants.cornerRadius
         titleLabel?.font = type.titleFont
     }
     
@@ -85,6 +94,11 @@ private extension MainButton {
         case .startSearch:
             setImage(Assets.searchIcon.image.withRenderingMode(.alwaysTemplate), for: .normal)
             imageEdgeInsets = .init(top: .zero, left: .zero, bottom: .zero, right: 24)
+        case .filter:
+            setImage(Assets.filterIcon.image.withRenderingMode(.alwaysTemplate), for: .normal)
+            imageEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 16)
+            imageView?.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
+            imageView?.contentMode = .scaleAspectFit
         default:
             break
         }

@@ -31,22 +31,9 @@ final class HomeCoordinator: Coordinator {
     }
 }
 
-// MARK: - Internal extension
-extension HomeCoordinator {
-    func showSearchResult() {
-        let module = SearchResultModuleBuilder.build(container: container)
-        module.transitionPublisher
-            .sink { [unowned self] transition in
-                
-            }
-            .store(in: &cancellables)
-        push(module.viewController)
-    }
-}
-
 // MARK: - Private extension
 private extension HomeCoordinator {
-    private func searchRoot() {
+    func searchRoot() {
         let module = AdvertisementRecomendationModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] transition in
@@ -57,6 +44,15 @@ private extension HomeCoordinator {
             }
             .store(in: &cancellables)
         setRoot(module.viewController)
-        
+    }
+    
+    func showSearchResult() {
+        let module = SearchResultModuleBuilder.build(container: container)
+        module.transitionPublisher
+            .sink { [unowned self] transition in
+                
+            }
+            .store(in: &cancellables)
+        push(module.viewController)
     }
 }

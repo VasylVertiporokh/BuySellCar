@@ -10,12 +10,13 @@ import SnapKit
 import Combine
 
 enum SearchResultViewAction {
-
+    case deleteSearchParam(SearchParam)
 }
 
 final class SearchResultView: BaseView {
     // MARK: - Subviews
     private var collectionView: UICollectionView!
+    private let filterView = FilterView()
     
     // MARK: - Private properties
     private var dataSource: UICollectionViewDiffableDataSource<AdvertisementSearchResultSection, AdvertisementResultRow>?
@@ -43,13 +44,34 @@ final class SearchResultView: BaseView {
     }
 
     private func bindActions() {
+        filterView.filterViewActionAction
+            .sink { [unowned self] action in
+                switch action {
+                case .deleteSearchParam(let param):
+                    actionSubject.send(.deleteSearchParam(param))
+                }
+            }
+            .store(in: &cancellables)
     }
 
     private func setupUI() {
         backgroundColor = .white
+        filterView.dropShadow(
+            shadowColor: Colors.buttonDarkGray.color,
+            shadowOffset: .init(width: 0, height: 4),
+            shadowOpacity: 0.2,
+            shadowRadius: 4
+        )
     }
 
     private func setupLayout() {
+        addSubview(filterView)
+        filterView.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide.snp.top)
+            $0.leading.equalTo(snp.leading)
+            $0.trailing.equalTo(snp.trailing)
+            $0.height.equalTo(50)
+        }
     }
 }
 
@@ -61,13 +83,17 @@ extension SearchResultView {
             snapShot.appendSections([section.section])
             snapShot.appendItems(section.items, toSection: section.section)
         }
-        dataSource?.apply(snapShot)
+        dataSource?.apply(snapShot, animatingDifferences: true)
+    }
+    
+    func setupSearchSnapshot(sections: [SectionModel<FilteredSection, FilteredRow>]) {
+        filterView.setupSnapshot(sections: sections)
     }
 }
 
 private extension SearchResultView {
     func configureCollectionView() {
-        collectionView = UICollectionView(frame: bounds, collectionViewLayout: createLayout())
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         addSubview(collectionView)
         collectionView.snp.makeConstraints { $0.edges.equalTo(snp.edges) }
     }
@@ -91,11 +117,14 @@ private extension SearchResultView {
 
 private extension SearchResultView {
     func createLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { [unowned self] sectionIndex, layoutEnvironment in
-            guard let sectionType = AdvertisementSearchResultSection(rawValue: sectionIndex) else { fatalError() }
-            switch sectionType {
+        let layout = UICollectionViewCompositionalLayout { [weak self] sectionIndex, layoutEnvironment in
+            guard let self = self,
+                  let dataSource = self.dataSource else { return nil }
+            
+            let sections = dataSource.snapshot().sectionIdentifiers[sectionIndex]
+            switch sections {
             case .searchResult:
-                return resultSectionLayout()
+                return self.resultSectionLayout()
             }
         }
         
@@ -117,7 +146,7 @@ private extension SearchResultView {
         
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(
-            top: .zero,
+            top: Constant.sectionTopInset,
             leading: Constant.defaultSpace,
             bottom: Constant.defaultSpace,
             trailing: Constant.defaultSpace
@@ -132,6 +161,7 @@ private enum Constant {
     static let resultCellHeight: CGFloat = 350
     static let fractionalValue: CGFloat = 1.0
     static let defaultSpace: CGFloat = 16
+    static let sectionTopInset: CGFloat = 66
     static let badgeViewOffset: CGPoint = .init(x: 0, y: 15)
     static let searchButtonHeight: CGFloat = 47
     static let allSpacingValue: CGFloat = 48

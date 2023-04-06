@@ -29,7 +29,7 @@ final class AdvertisementRecommendationViewModel: BaseViewModel {
     // MARK: - Life cycle
     override func onViewWillAppear() {
         isLoadingSubject.send(true)
-        advertisementService.getAdvertisementObjects(pageSize: "")
+        advertisementService.getAdvertisementObjects(pageSize: Constant.maximumNumberOfRecommendations)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard case let .failure(error) = completion else {
@@ -59,20 +59,7 @@ extension AdvertisementRecommendationViewModel {
             let testFilteredResult = advertisementResponseModel.filter { $0.objectID == model.objectID }
             print(testFilteredResult)
         case .trending(let model):
-            isLoadingSubject.send(true)
-            advertisementService.searchAdvertisement(searchParams: model.searchParameters)
-                .receive(on: DispatchQueue.main)
-                .sink { [weak self] completion in
-                    guard case let .failure(error) = completion else {
-                        return
-                    }
-                    self?.errorSubject.send(error)
-                    self?.isLoadingSubject.send(false)
-                } receiveValue: { [weak self] filteredModel in
-                    print(filteredModel)
-                    self?.isLoadingSubject.send(false)
-                }
-                .store(in: &cancellables)
+            advertisementService.saveSearchParam(model.searchParameters)
             transitionSubject.send(.showResult)
         }
     }
@@ -158,4 +145,9 @@ private enum QuickSearchParams { // TODO: - Add search params array to backend a
     static let electricSearchParams: [SearchParam] = [
         .init(key: .fuelType, value: .equalToString(stringValue: FuelType.electro.rawValue))
     ]
+}
+
+// MARK: - Constants
+private enum Constant {
+    static let  maximumNumberOfRecommendations: String = "15"
 }

@@ -9,7 +9,7 @@ import Foundation
 
 enum AdvertisementEndpointBuilder {
     case getAdvertisement(pageSize: String)
-    case searchAdvertisement([SearchParam])
+    case searchAdvertisement([SearchParam], Int)
     case getAdvertisementCount([SearchParam])
 }
 
@@ -27,46 +27,30 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
     var headerFields: [String : String] {
         switch self {
         case .searchAdvertisement, .getAdvertisement, .getAdvertisementCount:
-            return ["application/json" : "Content-Type"]
+            return ["Content-Type" : "application/json"]
         }
     }
     
     var query: [String : String]? {
         switch self {
-        case .searchAdvertisement(let searchParams):
-            var searchProps: [String] = []
-            for param in searchParams {
-                switch param.value {
-                case .equalToInt(let intValue):
-                    searchProps.append("\(param.key) = \(intValue)")
-                case .equalToString(let stringValue):
-                    searchProps.append("\(param.key) = '\(stringValue)'")
-                case .greaterOrEqualTo(let intValue):
-                    searchProps.append("\(param.key) >= \(intValue)")
-                case .lessOrEqualTo(let intValue):
-                    searchProps.append("\(param.key) <= \(intValue)")
-                }
-            }
-            let result = searchProps.joined(separator: " and ")
-            return ["where" : result]
+        case .searchAdvertisement(let searchParams, let pageSize):
+            let query = searchParams
+                .map { $0.queryString }
+                .joined(separator: " and ")
+            return [
+                "where" : query,
+                "pageSize" : "\(pageSize)"
+//                "offset" : "2"
+            ]
+            
         case.getAdvertisement(let pageSize):
             return pageSize.isEmpty ? nil : ["pageSize" : "\(pageSize)"]
+            
         case .getAdvertisementCount(let searchParams):
-            var searchProps: [String] = []
-            for param in searchParams {
-                switch param.value {
-                case .equalToInt(let intValue):
-                    searchProps.append("\(param.key) = \(intValue)")
-                case .equalToString(let stringValue):
-                    searchProps.append("\(param.key) = '\(stringValue)'")
-                case .greaterOrEqualTo(let intValue):
-                    searchProps.append("\(param.key) >= \(intValue)")
-                case .lessOrEqualTo(let intValue):
-                    searchProps.append("\(param.key) <= \(intValue)")
-                }
-            }
-            let result = searchProps.joined(separator: " and ")
-            return ["where" : result]
+            let query = searchParams
+                .map { $0.queryString }
+                .joined(separator: " and ")
+            return ["where" : query]
         }
     }
     

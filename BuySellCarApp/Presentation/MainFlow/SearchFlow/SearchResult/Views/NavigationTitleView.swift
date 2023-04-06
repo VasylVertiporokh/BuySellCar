@@ -27,12 +27,8 @@ final class NavigationTitleView: UIView {
 
 // MARK: - Internal extension
 extension NavigationTitleView {
-    func setResultCount(_ count: String?) {
-        guard let count = count else {
-            numberOfItemsLabel.text = "0"
-            return
-        }
-        numberOfItemsLabel.text = count
+    func setResultCount(_ count: Int) {
+        numberOfItemsLabel.text = "\(count)"
     }
 }
 

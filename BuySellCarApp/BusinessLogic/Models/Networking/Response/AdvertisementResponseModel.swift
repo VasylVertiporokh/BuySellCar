@@ -80,4 +80,3 @@ enum TransmissionType: String, Codable {
     case automatic = "Automatic"
     case manual = "Manual"
 }
-

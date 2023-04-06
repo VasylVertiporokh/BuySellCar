@@ -37,7 +37,7 @@ extension AuthEndpoitsBuilder: EndpointBuilderProtocol {
     }
     
     var headerFields: [String : String] {
-        return ["application/json" : "Content-Type"]
+        return ["Content-Type" : "application/json"]
     }
     
     var body: RequestBody? {

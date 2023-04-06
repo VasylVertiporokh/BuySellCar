@@ -57,7 +57,7 @@ final class AppConfigurationImpl: AppConfiguration {
         debugPrint(environment)
         debugPrint(bundleId)
         debugPrint("⚙️ \(baseURL)")
-        print("\n")
+        debugPrint("----------------------------------------------------")
     }
 }
 

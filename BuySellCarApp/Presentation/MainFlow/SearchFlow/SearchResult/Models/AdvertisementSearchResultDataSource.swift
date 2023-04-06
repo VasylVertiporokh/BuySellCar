@@ -7,12 +7,12 @@
 
 import Foundation
 
-// MARK: - Sections
+// MARK: - AdvertisementSearchResultSection
 enum AdvertisementSearchResultSection: Int, CaseIterable {
     case searchResult
 }
 
-// MARK: - Settings rows
+// MARK: - AdvertisementResultRow
 enum AdvertisementResultRow: Hashable {
     case searchResultRow(model: AdvertisementCellModel)
 }
@@ -27,12 +27,23 @@ extension AdvertisementResultRow {
     }
 }
 
-// MARK: - Sections
+// MARK: - CarImage Section
 enum CarImageSection: Int, CaseIterable {
     case images
 }
 
-// MARK: - Settings rows
+// MARK: - CarImage rows
 enum CarImageRow: Hashable {
     case carImage(String)
+}
+
+
+// MARK: - Filtered sections
+enum FilteredSection: Int, CaseIterable {
+    case filtered
+}
+
+// MARK: - FilteredRow rows
+enum FilteredRow: Hashable {
+    case filteredParameter(SearchParam)
 }

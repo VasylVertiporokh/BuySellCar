@@ -28,8 +28,11 @@ final class AuthCoordinator: Coordinator {
     deinit {
         print("Deinit of \(String(describing: self))")
     }
-    
-    private func showLogin() {
+}
+
+// MARK: - Private extension
+private extension AuthCoordinator {
+    func showLogin() {
         let module = SignInModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] transition in

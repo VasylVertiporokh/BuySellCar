@@ -20,6 +20,7 @@ protocol AppContainer: AnyObject {
 }
 
 final class AppContainerImpl: AppContainer {
+    // TODO: - Change to lazy var
     let appConfiguration: AppConfiguration
     let keychainService: KeychainService
     let appSettingsService: AppSettingsService

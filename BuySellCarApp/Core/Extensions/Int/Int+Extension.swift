@@ -15,4 +15,8 @@ extension Int {
     var isEquallyOne: Bool {
         self == 1
     }
+    
+    var isZero: Bool {
+        self == .zero
+    }
 }

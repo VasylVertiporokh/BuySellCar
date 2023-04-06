@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 enum SearchResultViewModelEvents {
-    case advertisementCount(count: String?)
+    case advertisementCount(count: Int)
 }
 
 final class SearchResultViewModel: BaseViewModel {
@@ -26,6 +26,9 @@ final class SearchResultViewModel: BaseViewModel {
     private(set) lazy var sectionPublisher = sectionsSubject.eraseToAnyPublisher()
     private let sectionsSubject = CurrentValueSubject<[SectionModel<AdvertisementSearchResultSection, AdvertisementResultRow>], Never>([])
     
+    private(set) lazy var filteredSectionPublisher = filteredSectionSubject.eraseToAnyPublisher()
+    private let filteredSectionSubject = CurrentValueSubject<[SectionModel<FilteredSection, FilteredRow>], Never>([])
+    
     // MARK: - Init
     init(advertisementService: AdvertisementService) {
         self.advertisementService = advertisementService
@@ -34,33 +37,74 @@ final class SearchResultViewModel: BaseViewModel {
     
     // MARK: - Life cycle
     override func onViewDidLoad() {
-        advertisementService.getAdvertisementObjects(pageSize: "")
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard case let .failure(error) = completion else {
-                    return
-                }
-                self?.errorSubject.send(error)
-            } receiveValue: { [weak self] searchResult in
-                guard let self = self else { return }
-                self.updateDataSource(model: searchResult)
-            }
-            .store(in: &cancellables)
-        
-        advertisementService.advertisementCountPublisher
-            .receive(on: DispatchQueue.main)
-            .sink { [unowned self] in eventsSubject.send(.advertisementCount(count: $0.advertisementCount)) }
-            .store(in: &cancellables)
+        loadAdvertisement()
+        loadNumberOfAdvertisements()
+        updateSearchParamsDataSource()
+    }
+    
+    override func onViewWillAppear() {
+        isLoadingSubject.send(true)
+    }
+}
+
+// MARK: - Internal extension
+extension SearchResultViewModel {
+    func deleteSearchParam(_ param: SearchParam) {
+        isLoadingSubject.send(true)
+        advertisementService.deleteSearchParam(param)
     }
 }
 
 // MARK: - Private extension
 private extension SearchResultViewModel {
+    func loadAdvertisement() {
+        advertisementService.advertisementSearchParamsPublisher
+            .sink { [unowned self] searchModel in
+                advertisementService.searchAdvertisement(
+                    searchParams: searchModel.searchParams,
+                    pageSize: searchModel.defaultPageSize
+                )
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] completion in
+                    guard case let .failure(error) = completion else {
+                        return
+                    }
+                    self?.isLoadingSubject.send(false)
+                    self?.errorSubject.send(error)
+                } receiveValue: { [weak self] results in
+                    guard let self = self else { return }
+                    self.isLoadingSubject.send(false)
+                    self.updateDataSource(model: results)
+                }
+                .store(in: &cancellables)
+            }
+            .store(in: &cancellables)
+    }
+    
+    func loadNumberOfAdvertisements() {
+        advertisementService.advertisementCountPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [unowned self] in eventsSubject.send(.advertisementCount(count: $0)) }
+            .store(in: &cancellables)
+    }
+    
     func updateDataSource(model: [AdvertisementResponseModel]) {
-        let userProfileSection: SectionModel<AdvertisementSearchResultSection, AdvertisementResultRow> = {
-            let recommendedItems = model.map { AdvertisementResultRow.searchResultRow(model: .init(model: $0)) }
-            return .init(section: .searchResult, items: recommendedItems)
+        let advertisementSection: SectionModel<AdvertisementSearchResultSection, AdvertisementResultRow> = {
+            let items = model.map { AdvertisementResultRow.searchResultRow(model: .init(model: $0)) }
+            return .init(section: .searchResult, items: items)
         }()
-        self.sectionsSubject.value = [userProfileSection]
+        sectionsSubject.value = [advertisementSection]
+    }
+    
+    func updateSearchParamsDataSource() {
+        advertisementService.advertisementSearchParamsPublisher
+            .sink { [unowned self] searchModel in
+                let searchSection: SectionModel<FilteredSection, FilteredRow> = {
+                    let searchItems = searchModel.searchParams.map { FilteredRow.filteredParameter($0) }
+                    return .init(section: .filtered, items: searchItems)
+                }()
+                self.filteredSectionSubject.value = [searchSection]
+            }
+            .store(in: &cancellables)
     }
 }

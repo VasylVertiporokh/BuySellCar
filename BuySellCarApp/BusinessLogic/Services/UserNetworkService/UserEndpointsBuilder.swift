@@ -32,15 +32,13 @@ extension UserEndpointsBuilder: EndpointBuilderProtocol {
         switch self {
         case .logout(let token):
             return [
-                "application/json" : "Content-Type",
-                token : "user-token"
+                "Content-Type" : "application/json",
+                "user-token" : token
             ]
-        case .deleteAvatar:
-            return ["application/json" : "Content-Type"]
+        case .deleteAvatar, .updateUser:
+            return ["Content-Type" : "application/json"]
         case .addUserAvatar:
             return ["" : ""]
-        case .updateUser:
-            return ["application/json" : "Content-Type"]
         }
     }
      

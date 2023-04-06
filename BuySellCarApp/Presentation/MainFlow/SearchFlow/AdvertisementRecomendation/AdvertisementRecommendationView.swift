@@ -70,15 +70,17 @@ private extension AdvertisementRecommendationView {
             }
         })
         
-        dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
+        dataSource?.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
+            guard let self = self,
+                  let dataSource = self.dataSource else { return nil }
+            let section = dataSource.snapshot().sectionIdentifiers[indexPath.section]
+            
             switch kind {
             case "UICollectionElementKindSectionHeader":
                 let header: AdvertisementHeaderView = collectionView.dequeueSupplementaryView(for: indexPath, kind: kind)
-                guard let sectionType = AdvertisementSection(rawValue: indexPath.section) else {
-                    fatalError()
-                }
-                header.setHeaderTitle(sectionType.headerTitle)
-                return header
+                    header.setHeaderTitle(section.headerTitle)
+                    return header
+               
             case "RecommendationBadgeView":
                 let badge: RecommendationBadgeView = collectionView.dequeueSupplementaryView(for: indexPath, kind: kind)
                 return badge
@@ -136,13 +138,17 @@ private extension AdvertisementRecommendationView {
 // MARK: - UICollectionView Layout
 private extension AdvertisementRecommendationView {
     func createLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { [unowned self] sectionIndex, layoutEnvironment in
-            guard let sectionType = AdvertisementSection(rawValue: sectionIndex) else { fatalError() }
-            switch sectionType {
+        let layout = UICollectionViewCompositionalLayout { [weak self] sectionIndex, layoutEnvironment in
+            guard let self = self,
+                  let dataSource = self.dataSource else { return nil }
+            
+            let sections = dataSource.snapshot().sectionIdentifiers[sectionIndex]
+            switch sections {
             case .recommended:
-                return recommendedSectionLayout()
+                return self.recommendedSectionLayout()
+                
             case .trendingCategories:
-                return trendingCategoriesSectionLayout()
+                return self.trendingCategoriesSectionLayout()
             }
         }
         
@@ -200,8 +206,7 @@ private extension AdvertisementRecommendationView {
     func trendingCategoriesSectionLayout() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .absolute((bounds.width - Constant.allSpacingValue) / Constant.numberOfItemsInGroup),
-            heightDimension: .estimated(Constant.trendingCellHeight)
-        )
+            heightDimension: .estimated(Constant.trendingCellHeight))
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(Constant.fractionalValue),

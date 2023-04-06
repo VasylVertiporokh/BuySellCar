@@ -16,8 +16,8 @@ struct TrendingCategoriesModel: Hashable {
 
 // MARK: - Sections
 enum AdvertisementSection: Int, CaseIterable {
-    case recommended
     case trendingCategories
+    case recommended
     
     var headerTitle: String {
         switch self {

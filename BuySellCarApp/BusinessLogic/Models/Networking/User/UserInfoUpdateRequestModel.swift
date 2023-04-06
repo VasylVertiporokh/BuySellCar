@@ -12,12 +12,9 @@ struct UserInfoUpdateRequestModel: Encodable {
     var name: String?
     var userAvatar: String?
     
-    init(phoneNumber: String?, name: String?) {
+    init(phoneNumber: String? = nil, name: String? = nil, userAvatar: String? = nil) {
         self.phoneNumber = phoneNumber
         self.name = name
-    }
-    
-    init(userAvatar: String?) {
         self.userAvatar = userAvatar
     }
 }

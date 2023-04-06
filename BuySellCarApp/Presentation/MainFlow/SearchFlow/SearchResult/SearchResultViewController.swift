@@ -29,6 +29,8 @@ final class SearchResultViewController: BaseViewController<SearchResultViewModel
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
+                case .deleteSearchParam(let searchParam):
+                    viewModel.deleteSearchParam(searchParam)
                 }
             }
             .store(in: &cancellables)
@@ -44,6 +46,9 @@ final class SearchResultViewController: BaseViewController<SearchResultViewModel
         
         viewModel.sectionPublisher
             .sink { [unowned self] in contentView.setupSnapshot(sections: $0) }
+            .store(in: &cancellables)
+        viewModel.filteredSectionPublisher
+            .sink { [unowned self] in contentView.setupSearchSnapshot(sections: $0) }
             .store(in: &cancellables)
     }
 }
