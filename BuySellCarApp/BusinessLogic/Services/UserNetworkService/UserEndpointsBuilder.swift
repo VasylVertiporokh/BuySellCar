@@ -8,7 +8,7 @@
 import Foundation
 
 enum UserEndpointsBuilder {
-    case logout(String)
+    case logout(Token)
     case deleteAvatar(userId: String)
     case addUserAvatar(item: MultipartItem, userId: String)
     case updateUser(userModel: UserInfoUpdateRequestModel, userId: String)
@@ -32,15 +32,13 @@ extension UserEndpointsBuilder: EndpointBuilderProtocol {
         switch self {
         case .logout(let token):
             return [
-                "application/json" : "Content-Type",
-                token : "user-token"
+                "Content-Type" : "application/json",
+                "user-token" : token.value
             ]
-        case .deleteAvatar:
-            return ["application/json" : "Content-Type"]
+        case .deleteAvatar, .updateUser:
+            return ["Content-Type" : "application/json"]
         case .addUserAvatar:
             return ["" : ""]
-        case .updateUser:
-            return ["application/json" : "Content-Type"]
         }
     }
      

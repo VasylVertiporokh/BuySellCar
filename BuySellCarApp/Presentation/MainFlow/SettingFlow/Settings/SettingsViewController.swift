@@ -42,21 +42,20 @@ private extension SettingsViewController {
             .sink { [unowned self] action in
                 switch action {
                 case .rowSelected(let row):
-                    switch row.title {
-                    case "User Profile", "Profile":
+                    switch row {
+                    case .userProfile, .profile:
                         viewModel.showEditProfile()
-                    case "Notifications":
-                        print("Notifications")
-                    case "Recommend", "Feedback":
+                    case .recommend, .feedback:
                         sendFeedbackOrRecommendation()
-                    default:
+                    case .notification, .outputData, .conditionsAgreements, .privacyPolicy,
+                            .consentProcessing, .privacyManager, .usedLibraries:
                         break
                     }
                 }
             }
             .store(in: &cancellables)
         
-        viewModel.$sections
+        viewModel.sectionsAction
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] sections in
                 contentView.setupSnapshot(sections: sections)
@@ -65,16 +64,16 @@ private extension SettingsViewController {
     }
     
     func sendFeedbackOrRecommendation() {
-        if MFMailComposeViewController.canSendMail() {
-            let mail = MFMailComposeViewController()
-            mail.mailComposeDelegate = self
-            mail.setSubject(Localization.recommendation)
-            mail.setToRecipients([Constants.devEmail])
-            mail.setMessageBody("<p>\(Localization.emailHeader))</p>", isHTML: true)
-            present(mail, animated: true)
-        } else {
+        guard MFMailComposeViewController.canSendMail() else {
             infoAlert()
+            return
         }
+        let mail = MFMailComposeViewController()
+        mail.mailComposeDelegate = self
+        mail.setSubject(Localization.recommendation)
+        mail.setToRecipients([Constants.devEmail])
+        mail.setMessageBody("<p>\(Localization.emailHeader))</p>", isHTML: true)
+        present(mail, animated: true)
     }
     
     func infoAlert() {

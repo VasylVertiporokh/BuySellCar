@@ -9,12 +9,15 @@ import Combine
 import Foundation
 
 final class SettingsViewModel: BaseViewModel {
+    // MARK: - Subjects
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<SettingsTransition, Never>()
     
+    private(set) lazy var sectionsAction = sectionsSubject.eraseToAnyPublisher()
+    private let sectionsSubject = CurrentValueSubject<[SectionModel<SettingsSection, SettingsRow>], Never>([])
+    
     // MARK: - Private properties
     private let userService: UserService
-    @Published private(set) var sections: [SectionModel<SettingsSection, SettingsRow>] = [] // TODO: - Fix it!
     
     // MARK: - Init
     init(userService: UserService) {
@@ -67,6 +70,6 @@ extension SettingsViewModel {
                 .usedLibraries
             ])
         }()
-        self.sections = [userProfileSection, userSection, feedbackSection, otherSection]
+        self.sectionsSubject.value = [userProfileSection, userSection, feedbackSection, otherSection]
     }
 }

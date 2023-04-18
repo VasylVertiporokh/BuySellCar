@@ -9,6 +9,7 @@ import Foundation
 import Combine
 
 protocol UserService {
+    var isAuthorized: Bool { get }
     var userDomainPublisher: AnyPublisher<UserDomainModel?, Never> { get }
     var user: UserDomainModel? { get }
     
@@ -18,7 +19,5 @@ protocol UserService {
     func logout() -> AnyPublisher<Void, Error>
     
     func saveUser(_ model: UserDomainModel)
-    func saveToken(_ token: String?)
-    func getToken() -> String?
     func clear()
 }

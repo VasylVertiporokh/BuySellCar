@@ -63,4 +63,15 @@ final class NetworkServiceProvider<Endpoint: EndpointBuilderProtocol>: NetworkPr
                 .eraseToAnyPublisher()
         }
     }
+    
+    func performWithRawData(_ builder: Endpoint) -> AnyPublisher<Data, NetworkError> {
+        do {
+            let request = try builder.createRequest(apiInfo.baseURL, encoder)
+            return networkManager.resumeDataTask(request)
+                .eraseToAnyPublisher()
+        } catch {
+            return Fail(error: NetworkError.requestError(error as! RequestBuilderError))
+                .eraseToAnyPublisher()
+        }
+    }
 }

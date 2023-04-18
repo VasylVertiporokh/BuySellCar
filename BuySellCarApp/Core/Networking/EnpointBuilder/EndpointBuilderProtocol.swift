@@ -30,7 +30,7 @@ extension EndpointBuilderProtocol {
             throw error
         }
         request.httpMethod = method.rawValue
-        headerFields.forEach { request.addValue($0.key, forHTTPHeaderField: $0.value) }
+        headerFields.forEach { request.addValue($0.value, forHTTPHeaderField: $0.key) }
         
         guard let body = body else {
             NetworkLogger.log(request)

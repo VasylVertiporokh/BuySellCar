@@ -29,16 +29,31 @@ final class HomeCoordinator: Coordinator {
     deinit {
         print("Deinit of \(String(describing: self))")
     }
+}
 
-    private func searchRoot() {
-        let module = UserInfoModuleBuilder.build(container: container)
+// MARK: - Private extension
+private extension HomeCoordinator {
+    func searchRoot() {
+        let module = AdvertisementRecomendationModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] transition in
-//                switch transition {
-//
-//                }
+                switch transition {
+                case .showResult(let model):
+                    showSearchResult(model: model)
+                }
             }
             .store(in: &cancellables)
         setRoot(module.viewController)
+    }
+    
+    func showSearchResult(model: AdvertisementModel) {
+        let module = SearchResultModuleBuilder.build(container: container, model: model)
+        module.transitionPublisher
+            .sink { [unowned self] transition in
+                
+            }
+            .store(in: &cancellables)
+        module.viewController.hidesBottomBarWhenPushed = true
+        push(module.viewController)
     }
 }
