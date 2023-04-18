@@ -9,5 +9,5 @@ import Foundation
 
 struct SectionModel<Section: Hashable, Item: Hashable> {
     let section: Section
-    let items: [Item]
+    var items: [Item]
 }

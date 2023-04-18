@@ -10,8 +10,8 @@ import Foundation
 
 final class AdvertisementRecommendationViewModel: BaseViewModel {
     // MARK: - Private properties
-    private let advertisementService: AdvertisementService
-    private var advertisementResponseModel: [AdvertisementResponseModel] = []
+    private let advertisementModel: AdvertisementModel
+    private var advertisementResponseModel: [AdvertisementDomainModel] = []
     
     // MARK: - Subjects
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -21,15 +21,17 @@ final class AdvertisementRecommendationViewModel: BaseViewModel {
     private let sectionsSubject = CurrentValueSubject<[SectionModel<AdvertisementSection, AdvertisementRow>], Never>([])
     
     // MARK: - Init
-    init(advertisementService: AdvertisementService) {
-        self.advertisementService = advertisementService
+    init(advertisementModel: AdvertisementModel) {
+        self.advertisementModel = advertisementModel
         super.init()
     }
     
     // MARK: - Life cycle
     override func onViewWillAppear() {
         isLoadingSubject.send(true)
-        advertisementService.getAdvertisementObjects(pageSize: Constant.maximumNumberOfRecommendations)
+        advertisementModel.getRecommendedAdvertisements(
+            searchModel: .init(pageSize: .zero, offset: .zero, searchParams: [])
+        )
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard case let .failure(error) = completion else {
@@ -37,11 +39,11 @@ final class AdvertisementRecommendationViewModel: BaseViewModel {
                 }
                 self?.errorSubject.send(error)
                 self?.isLoadingSubject.send(false)
-            } receiveValue: { [weak self] advertisementResponse in
+            } receiveValue: { [weak self] advertisementDomainModel in
                 guard let self = self else { return }
                 self.isLoadingSubject.send(false)
-                self.advertisementResponseModel = advertisementResponse
-                self.updateDataSource(model: advertisementResponse)
+                self.advertisementResponseModel = advertisementDomainModel
+                self.updateDataSource(model: advertisementDomainModel)
             }
             .store(in: &cancellables)
     }
@@ -59,15 +61,15 @@ extension AdvertisementRecommendationViewModel {
             let testFilteredResult = advertisementResponseModel.filter { $0.objectID == model.objectID }
             print(testFilteredResult)
         case .trending(let model):
-            advertisementService.saveSearchParam(model.searchParameters)
-            transitionSubject.send(.showResult)
+            advertisementModel.setFastSearсhParams(model.searchParameters)
+            transitionSubject.send(.showResult(advertisementModel))
         }
     }
 }
 
 // MARK: - Private extension
 private extension AdvertisementRecommendationViewModel {
-    func updateDataSource(model: [AdvertisementResponseModel]) {
+    func updateDataSource(model: [AdvertisementDomainModel]) {
         let userProfileSection: SectionModel<AdvertisementSection, AdvertisementRow> = {
             let recommendedItems = model.map { AdvertisementRow.recommended(model: .init(model: $0)) }
             return .init(section: .recommended, items: recommendedItems)
@@ -147,7 +149,3 @@ private enum QuickSearchParams { // TODO: - Add search params array to backend a
     ]
 }
 
-// MARK: - Constants
-private enum Constant {
-    static let  maximumNumberOfRecommendations: String = "15"
-}

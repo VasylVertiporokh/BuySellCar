@@ -18,6 +18,7 @@ final class SignInViewModel: BaseViewModel {
     // MARK: - Private properties
     private let networkService: AuthNetworkServiceProtocol
     private let userService: UserService
+    private let tokenStorage: TokenStorage
     
     // MARK: - PassthroughSubjects
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -33,9 +34,10 @@ final class SignInViewModel: BaseViewModel {
     private let isNicknameValid = CurrentValueSubject<Bool, Never>(false)
     
     // MARK: - Init
-    init(networkService: AuthNetworkServiceProtocol, userService: UserService) {
+    init(networkService: AuthNetworkServiceProtocol, userService: UserService, tokenStorage: TokenStorage) {
         self.networkService = networkService
         self.userService = userService
+        self.tokenStorage = tokenStorage
         super.init()
     }
     
@@ -90,7 +92,10 @@ extension SignInViewModel {
                     return
                 }
                 self.isLoadingSubject.send(false)
-                self.userService.saveToken(model.userToken)
+                guard let token = model.userToken else {
+                    return
+                }
+                self.tokenStorage.set(token: Token(value: token))
                 self.userService.saveUser(.init(responseModel: model))
                 self.transitionSubject.send(.showMainFlow)
             }

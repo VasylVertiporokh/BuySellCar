@@ -9,12 +9,13 @@ import UIKit
 import Combine
 
 enum AdvertisementRecomendationTransition: Transition {
-    case showResult
+    case showResult(AdvertisementModel)
 }
 
 final class AdvertisementRecomendationModuleBuilder {
     class func build(container: AppContainer) -> Module<AdvertisementRecomendationTransition, UIViewController> {
-        let viewModel = AdvertisementRecommendationViewModel(advertisementService: container.advertisementService)
+        let advertisementModel = AdvertisementModelImpl(advertisementService: container.advertisementService)
+        let viewModel = AdvertisementRecommendationViewModel(advertisementModel: advertisementModel)
         let viewController = AdvertisementRecommendationViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

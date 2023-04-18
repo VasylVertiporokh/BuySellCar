@@ -8,32 +8,60 @@
 import UIKit
 import Combine
 
-final class AppCoordinator: Coordinator {
+enum UserAuthorizationStatus: Int, CaseIterable {
+    case authorized
+    case nonAuthorized
+}
 
+final class AppCoordinator: Coordinator {
+    // MARK: - Internal properties
     var window: UIWindow
     var navigationController: UINavigationController
     let container: AppContainer
-    
-    private(set) lazy var didFinishPublisher = didFinishSubject.eraseToAnyPublisher()
-    private let didFinishSubject = PassthroughSubject<Void, Never>()
     var childCoordinators: [Coordinator] = []
     
+    // MARK: - Private properties
+    private(set) lazy var didFinishPublisher = didFinishSubject.eraseToAnyPublisher()
+    private let didFinishSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
-
+    
+    // MARK: - Init
     init(window: UIWindow, container: AppContainer, navigationController: UINavigationController = UINavigationController()) {
         self.window = window
         self.container = container
         self.navigationController = navigationController
     }
-
+    
     func start() {
         self.window.rootViewController = navigationController
         self.window.makeKeyAndVisible()
         
-        container.keychainService.isAuthorized ? mainFlow() : authFlow()
+        fakeSplash()
     }
+}
 
-    private func authFlow() {
+// MARK: - Private extension
+private extension AppCoordinator {
+    func fakeSplash() {
+        let module = FakeSplashModuleBuilder.build(container: container)
+        module.transitionPublisher
+            .sink { [unowned self] transition in
+                switch transition {
+                case .didFinish(let status):
+                    switch status {
+                    case .authorized:
+                        mainFlow()
+                    case .nonAuthorized:
+                        authFlow()
+                    }
+                }
+            }
+            .store(in: &cancellables)
+        
+        setRoot(module.viewController)
+    }
+    
+    func authFlow() {
         let authCoordinator = AuthCoordinator(navigationController: navigationController,
                                               container: container)
         childCoordinators.append(authCoordinator)
@@ -45,8 +73,8 @@ final class AppCoordinator: Coordinator {
             .store(in: &cancellables)
         authCoordinator.start()
     }
-
-    private func mainFlow() {
+    
+    func mainFlow() {
         let mainCoordinator = MainTabBarCoordinator(navigationController: navigationController,
                                                     container: container)
         childCoordinators.append(mainCoordinator)

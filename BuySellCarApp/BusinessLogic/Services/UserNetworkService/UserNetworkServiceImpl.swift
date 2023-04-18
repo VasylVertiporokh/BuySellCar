@@ -21,7 +21,7 @@ final class UserNetworkServiceImpl<NetworkProvider: NetworkProviderProtocol> whe
 
 // MARK: - UserNetworkService
 extension UserNetworkServiceImpl: UserNetworkService {
-    func logout(userToken: String?) -> AnyPublisher<Void, NetworkError> {
+    func logout(userToken: Token?) -> AnyPublisher<Void, NetworkError> {
         guard let userToken = userToken else {
             return Fail(error: NetworkError.tokenError)
                 .eraseToAnyPublisher()

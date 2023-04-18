@@ -18,7 +18,8 @@ final class SignInModuleBuilder {
     class func build(container: AppContainer) -> Module<SignInTransition, UIViewController> {
         let viewModel = SignInViewModel(
             networkService: container.authNetworkService,
-            userService: container.userService
+            userService: container.userService,
+            tokenStorage: container.tokenStorage
         )
         let viewController = SignInViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)

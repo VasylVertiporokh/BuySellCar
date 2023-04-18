@@ -11,6 +11,7 @@ import Combine
 
 enum SearchResultViewAction {
     case deleteSearchParam(SearchParam)
+    case needLoadNextPage(Bool)
 }
 
 final class SearchResultView: BaseView {
@@ -20,58 +21,20 @@ final class SearchResultView: BaseView {
     
     // MARK: - Private properties
     private var dataSource: UICollectionViewDiffableDataSource<AdvertisementSearchResultSection, AdvertisementResultRow>?
-
+    private var isPaging: Bool = false
+    
     // MARK: - Subjects
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<SearchResultViewAction, Never>()
-
+    
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialSetup()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    private func initialSetup() {
-        setupUI()
-        configureCollectionView()
-        setupDataSource()
-        setupLayout()
-        bindActions()
-    }
-
-    private func bindActions() {
-        filterView.filterViewActionAction
-            .sink { [unowned self] action in
-                switch action {
-                case .deleteSearchParam(let param):
-                    actionSubject.send(.deleteSearchParam(param))
-                }
-            }
-            .store(in: &cancellables)
-    }
-
-    private func setupUI() {
-        backgroundColor = .white
-        filterView.dropShadow(
-            shadowColor: Colors.buttonDarkGray.color,
-            shadowOffset: .init(width: 0, height: 4),
-            shadowOpacity: 0.2,
-            shadowRadius: 4
-        )
-    }
-
-    private func setupLayout() {
-        addSubview(filterView)
-        filterView.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide.snp.top)
-            $0.leading.equalTo(snp.leading)
-            $0.trailing.equalTo(snp.trailing)
-            $0.height.equalTo(50)
-        }
     }
 }
 
@@ -83,14 +46,67 @@ extension SearchResultView {
             snapShot.appendSections([section.section])
             snapShot.appendItems(section.items, toSection: section.section)
         }
-        dataSource?.apply(snapShot, animatingDifferences: true)
+        dataSource?.apply(snapShot, animatingDifferences: false)
     }
     
     func setupSearchSnapshot(sections: [SectionModel<FilteredSection, FilteredRow>]) {
         filterView.setupSnapshot(sections: sections)
     }
+    
+    func setPagingState(_ isPaging: Bool) {
+        self.isPaging = isPaging
+    }
 }
 
+// MARK: - Private extension
+private extension SearchResultView {
+    func initialSetup() {
+        setupUI()
+        configureCollectionView()
+        setupDataSource()
+        setupLayout()
+        bindActions()
+    }
+    
+    func bindActions() {
+        filterView.filterViewActionAction
+            .sink { [unowned self] action in
+                switch action {
+                case .deleteSearchParam(let param):
+                    actionSubject.send(.deleteSearchParam(param))
+                }
+            }
+            .store(in: &cancellables)
+        
+        collectionView.reachedBottomPublisher()
+            .sink { [unowned self] _ in
+                actionSubject.send(.needLoadNextPage(true))
+            }
+            .store(in: &cancellables)
+    }
+    
+    func setupUI() {
+        backgroundColor = .white
+        filterView.dropShadow(
+            shadowColor: Colors.buttonDarkGray.color,
+            shadowOffset: .init(width: 0, height: 4),
+            shadowOpacity: 0.2,
+            shadowRadius: 4
+        )
+    }
+    
+    func setupLayout() {
+        addSubview(filterView)
+        filterView.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide.snp.top)
+            $0.leading.equalTo(snp.leading)
+            $0.trailing.equalTo(snp.trailing)
+            $0.height.equalTo(Constant.filterViewHeight)
+        }
+    }
+}
+
+// MARK: - Collection view configuration
 private extension SearchResultView {
     func configureCollectionView() {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
@@ -100,6 +116,8 @@ private extension SearchResultView {
     
     func setupDataSource() {
         collectionView.register(cellType: SearchResultCell.self)
+        collectionView.register(footer: LoaderFooterView.self)
+        
         dataSource = .init(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
             switch item {
             case .searchResultRow(let model):
@@ -112,10 +130,21 @@ private extension SearchResultView {
                 return cell
             }
         })
+        
+        dataSource?.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
+            guard let self = self,
+                  let dataSource = self.dataSource else { return nil }
+            let section = dataSource.snapshot().sectionIdentifiers[indexPath.section]
+            
+            switch section {
+            case .searchResult:
+                let header: LoaderFooterView = collectionView.dequeueSupplementaryView(for: indexPath, kind: kind)
+                header.startAnimating()
+                return header
+            }
+        }
     }
-}
-
-private extension SearchResultView {
+    
     func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { [weak self] sectionIndex, layoutEnvironment in
             guard let self = self,
@@ -152,6 +181,19 @@ private extension SearchResultView {
             trailing: Constant.defaultSpace
         )
         section.interGroupSpacing = Constant.defaultSpace
+        
+        let footerSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(Constant.fractionalValue),
+            heightDimension: .estimated(30)
+        )
+        
+        let footerElement = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: footerSize,
+            elementKind: UICollectionView.elementKindSectionFooter,
+            alignment: .bottom
+        )
+        section.boundarySupplementaryItems = [footerElement]
+        
         return section
     }
 }
@@ -166,4 +208,5 @@ private enum Constant {
     static let searchButtonHeight: CGFloat = 47
     static let allSpacingValue: CGFloat = 48
     static let numberOfItemsInGroup: CGFloat = 2
+    static let filterViewHeight: CGFloat = 50
 }

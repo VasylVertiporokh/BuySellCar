@@ -2,7 +2,7 @@
 //  AdvertisementCellModel.swift
 //  BuySellCarApp
 //
-//  Created by Vasil Vertiporokh on 28.03.2023.
+//  Created by Vasil Vertiporokh on 18.04.2023.
 //
 
 import Foundation
@@ -22,10 +22,10 @@ struct AdvertisementCellModel: Hashable {
     let sellerName: String
     let location: String
     let objectID: String
-    let imageArray: [String]?
+    let imageArray: [String]
     
     // MARK: - Init from AdvertisementCellModel
-    init(model: AdvertisementResponseModel) {
+    init(model: AdvertisementDomainModel) {
         brandName = model.transportName
         brandModel = model.transportModel
         price = model.price
@@ -40,6 +40,6 @@ struct AdvertisementCellModel: Hashable {
         sellerName = "Alex" // TODO: - add this fields
         location = "Berlin"
         objectID = model.objectID
-        imageArray = model.images?.carImages
+        imageArray = model.images?.carImages ?? []
     }
 }

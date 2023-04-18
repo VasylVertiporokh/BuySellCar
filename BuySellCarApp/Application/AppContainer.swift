@@ -9,7 +9,7 @@ import Foundation
 
 protocol AppContainer: AnyObject {
     var appConfiguration: AppConfiguration { get }
-    var keychainService: KeychainService { get }
+    var tokenStorage: TokenStorage { get }
     var appSettingsService: AppSettingsService { get }
     var authNetworkService: AuthNetworkServiceProtocol { get }
     var userDefaultsService: UserDefaultsServiceProtocol { get }
@@ -22,7 +22,7 @@ protocol AppContainer: AnyObject {
 final class AppContainerImpl: AppContainer {
     // TODO: - Change to lazy var
     let appConfiguration: AppConfiguration
-    let keychainService: KeychainService
+    let tokenStorage: TokenStorage
     let appSettingsService: AppSettingsService
     let authNetworkService: AuthNetworkServiceProtocol
     let userDefaultsService: UserDefaultsServiceProtocol
@@ -37,8 +37,8 @@ final class AppContainerImpl: AppContainer {
         
         let networkManager = NetworkManagerImpl()
         
-        let keychainService = KeychainServiceImpl(configuration: appConfiguration)
-        self.keychainService = keychainService
+        let tokenStorage = TokenStorageImpl(configuration: appConfiguration)
+        self.tokenStorage = tokenStorage
         
         let appSettingsService = AppSettingsServiceImpl()
         self.appSettingsService = appSettingsService
@@ -53,7 +53,7 @@ final class AppContainerImpl: AppContainer {
         self.userNetworkService = UserNetworkServiceImpl(userNetworkProvider)
         
         let userService = UserServiceImpl(
-            keychainService: keychainService,
+            tokenStorage: tokenStorage,
             userDefaultsService: userDefaultsService,
             userNetworkService: userNetworkService)
         self.userService = userService

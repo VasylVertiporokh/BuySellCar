@@ -38,21 +38,22 @@ private extension HomeCoordinator {
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
-                case .showResult:
-                    showSearchResult()
+                case .showResult(let model):
+                    showSearchResult(model: model)
                 }
             }
             .store(in: &cancellables)
         setRoot(module.viewController)
     }
     
-    func showSearchResult() {
-        let module = SearchResultModuleBuilder.build(container: container)
+    func showSearchResult(model: AdvertisementModel) {
+        let module = SearchResultModuleBuilder.build(container: container, model: model)
         module.transitionPublisher
             .sink { [unowned self] transition in
                 
             }
             .store(in: &cancellables)
+        module.viewController.hidesBottomBarWhenPushed = true
         push(module.viewController)
     }
 }

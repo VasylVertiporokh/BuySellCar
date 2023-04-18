@@ -68,7 +68,7 @@ final class RecommendationCell: UICollectionViewCell {
 // MARK: - Internal extension
 extension RecommendationCell {
     func setInfo(model: AdvertisementCellModel) {
-        carImageView.kf.setImage(with: URL(string: model.imageArray?.first ?? ""), placeholder: Assets.carPlaceholder.image)
+        carImageView.kf.setImage(with: URL(string: model.imageArray.first ?? ""), placeholder: Assets.carPlaceholder.image)
         brandNameLabel.text = model.brandName
         priceLabel.text = "€ \(model.price).-"
         mileageLabel.text = "\(model.mileage) km"

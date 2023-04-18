@@ -31,6 +31,8 @@ final class SearchResultViewController: BaseViewController<SearchResultViewModel
                 switch action {
                 case .deleteSearchParam(let searchParam):
                     viewModel.deleteSearchParam(searchParam)
+                case.needLoadNextPage(let startPaging):
+                    viewModel.loadNextPage(startPaging)
                 }
             }
             .store(in: &cancellables)
@@ -45,10 +47,16 @@ final class SearchResultViewController: BaseViewController<SearchResultViewModel
             .store(in: &cancellables)
         
         viewModel.sectionPublisher
+            .receive(on: DispatchQueue.main)
             .sink { [unowned self] in contentView.setupSnapshot(sections: $0) }
             .store(in: &cancellables)
         viewModel.filteredSectionPublisher
             .sink { [unowned self] in contentView.setupSearchSnapshot(sections: $0) }
+            .store(in: &cancellables)
+        viewModel.isPagingInProgressPublisher
+            .receive(on: DispatchQueue.main)
+            .removeDuplicates()
+            .sink { [unowned self] in contentView.setPagingState($0) }
             .store(in: &cancellables)
     }
 }

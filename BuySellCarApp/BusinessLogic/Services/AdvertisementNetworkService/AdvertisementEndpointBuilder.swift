@@ -9,7 +9,7 @@ import Foundation
 
 enum AdvertisementEndpointBuilder {
     case getAdvertisement(pageSize: String)
-    case searchAdvertisement([SearchParam], Int)
+    case searchAdvertisement(SearchResultDomainModel)
     case getAdvertisementCount([SearchParam])
 }
 
@@ -33,14 +33,14 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
     
     var query: [String : String]? {
         switch self {
-        case .searchAdvertisement(let searchParams, let pageSize):
-            let query = searchParams
+        case .searchAdvertisement(let searchParams):
+            let query = searchParams.searchParams
                 .map { $0.queryString }
                 .joined(separator: " and ")
             return [
                 "where" : query,
-                "pageSize" : "\(pageSize)"
-//                "offset" : "2"
+                "pageSize" : "\(searchParams.pageSize)",
+                "offset" : "\(searchParams.offset)"
             ]
             
         case.getAdvertisement(let pageSize):

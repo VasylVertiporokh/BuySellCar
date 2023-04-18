@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - AdvertisementSearchResultSection
-enum AdvertisementSearchResultSection: Int, CaseIterable {
+enum AdvertisementSearchResultSection: Hashable {
     case searchResult
 }
 
@@ -22,7 +22,7 @@ extension AdvertisementResultRow {
     var carImages: [String] {
         switch self {
         case .searchResultRow(let model):
-            return model.imageArray ?? [""]
+            return model.imageArray
         }
     }
 }

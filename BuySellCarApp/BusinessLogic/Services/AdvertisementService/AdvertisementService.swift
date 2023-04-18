@@ -9,16 +9,6 @@ import Foundation
 import Combine
 
 protocol AdvertisementService: AnyObject {
-    var advertisementCountPublisher: AnyPublisher<Int, Never> { get }
-    var advertisementSearchParamsPublisher: AnyPublisher<SearchResultModel, Never> { get }
-    
-    func saveSearchParam(_ param: [SearchParam])
-    func deleteSearchParam(_ param: SearchParam)
-    func addSearchParam(_ param: SearchParam)
-    
-    func getAdvertisementObjects(pageSize: String) -> AnyPublisher<[AdvertisementResponseModel], NetworkError>
-    func getAdvertisementCount(searchParams: [SearchParam]) -> AnyPublisher<Data, NetworkError >
-    func searchAdvertisement(searchParams: [SearchParam], pageSize: Int) -> AnyPublisher<[AdvertisementResponseModel], NetworkError>
-    
-    func updatePageSize(_ size: Int)
+    func getAdvertisementCount(searchParams: [SearchParam]) -> AnyPublisher<Data, Error>
+    func searchAdvertisement(searchParams: SearchResultDomainModel) -> AnyPublisher<[AdvertisementDomainModel], Error>
 }

@@ -9,12 +9,17 @@ import Foundation
 import Combine
 
 final class UserServiceImpl {
+    // MARK: - Internal properties
+    var isAuthorized: Bool {
+        tokenStorage.token != nil
+    }
+    
      var user: UserDomainModel? {
         userDomainSubject.value
     }
     
     // MARK: - Private properties
-    private let keychainService: KeychainService
+    private let tokenStorage: TokenStorage
     private let userDefaultsService: UserDefaultsServiceProtocol
     private let userNetworkService: UserNetworkService
     
@@ -24,11 +29,11 @@ final class UserServiceImpl {
     
     // MARK: - Init
     init(
-        keychainService: KeychainService,
+        tokenStorage: TokenStorage,
         userDefaultsService: UserDefaultsServiceProtocol,
         userNetworkService: UserNetworkService
     ) {
-        self.keychainService = keychainService
+        self.tokenStorage = tokenStorage
         self.userDefaultsService = userDefaultsService
         self.userNetworkService = userNetworkService
         createUserDomainPublisher()
@@ -64,24 +69,15 @@ extension UserServiceImpl: UserService {
         userDomainSubject.value = model
     }
     
-    func saveToken(_ token: String?) {
-        guard let token = token else { return }
-        keychainService.saveToken(token: token)
-    }
-    
-    func getToken() -> String? {
-        keychainService.token
-    }
-    
     func logout() -> AnyPublisher<Void, Error> {
-        userNetworkService.logout(userToken: keychainService.token)
+        userNetworkService.logout(userToken: tokenStorage.token)
             .mapError { $0 as Error }
             .eraseToAnyPublisher()
     }
     
     func clear() {
         userDefaultsService.removeObject(forKey: .userModel)
-        keychainService.clear()
+        tokenStorage.clear()
     }
 }
 
