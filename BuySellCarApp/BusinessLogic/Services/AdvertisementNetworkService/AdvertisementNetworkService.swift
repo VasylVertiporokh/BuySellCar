@@ -13,5 +13,3 @@ protocol AdvertisementNetworkService {
     func searchAdvertisement(searchParams: SearchResultDomainModel) -> AnyPublisher<[AdvertisementResponseModel], NetworkError>
     func getAdvertisementCount(searchParams: [SearchParam]) -> AnyPublisher<Data, NetworkError>
 }
-
-// TODO: - need add delete and edit func...

@@ -38,7 +38,7 @@ final class MainTabBarCoordinator: Coordinator {
     
     private func setupHomeCoordinator() {
         let navController = UINavigationController()
-        navController.tabBarItem = .init(title: Localization.home,
+        navController.tabBarItem = .init(title: Localization.search,
                                          image: UIImage(systemName: "house"),
                                          selectedImage: UIImage(systemName: "house.fill"))
         let coordinator = HomeCoordinator(navigationController: navController, container: container)
@@ -48,7 +48,7 @@ final class MainTabBarCoordinator: Coordinator {
     
     private func setupSettingsCoordinator() {
         let navController = UINavigationController()
-        navController.tabBarItem = .init(title: Localization.profile,
+        navController.tabBarItem = .init(title: Localization.settings,
                                          image: UIImage(systemName: "gear"),
                                          selectedImage: nil)
         let coordinator = SettingsCoordinator(navigationController: navController, container: container)

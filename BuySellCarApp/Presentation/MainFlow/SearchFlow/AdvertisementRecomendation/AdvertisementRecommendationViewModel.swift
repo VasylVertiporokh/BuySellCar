@@ -52,7 +52,7 @@ final class AdvertisementRecommendationViewModel: BaseViewModel {
 // MARK: - Internal extension
 extension AdvertisementRecommendationViewModel {
     func startSearch() {
-        print(#function)
+        transitionSubject.send(.startSearch(advertisementModel))
     }
     
     func showSelected(_ row: AdvertisementRow) {

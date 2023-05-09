@@ -24,8 +24,8 @@
 "defaultMessage" = "Oops something went wrong";
 "edited-successfully" = "User edited successfully";
 
-"home" = "Home";
-"profile" = "Profile";
+"search" = "Search";
+"settings" = "Settings";
 "logout" = "Logout";
 "search" = "Search";
 

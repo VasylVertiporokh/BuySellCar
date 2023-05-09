@@ -20,7 +20,6 @@ protocol AppContainer: AnyObject {
 }
 
 final class AppContainerImpl: AppContainer {
-    // TODO: - Change to lazy var
     let appConfiguration: AppConfiguration
     let tokenStorage: TokenStorage
     let appSettingsService: AppSettingsService
@@ -51,7 +50,7 @@ final class AppContainerImpl: AppContainer {
             networkManager: networkManager
         )
         self.userNetworkService = UserNetworkServiceImpl(userNetworkProvider)
-        
+        // TODO: -  add keychain
         let userService = UserServiceImpl(
             tokenStorage: tokenStorage,
             userDefaultsService: userDefaultsService,

@@ -34,7 +34,7 @@ extension SettingsViewController: MFMailComposeViewControllerDelegate {
 // MARK: - Private extension
 private extension SettingsViewController {
     func configureNavigationBar() {
-        title = Localization.profile.uppercased()
+        title = Localization.settings
     }
     
     func setupBindings() {

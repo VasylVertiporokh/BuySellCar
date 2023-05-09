@@ -20,6 +20,7 @@ final class HomeCoordinator: Coordinator {
     init(navigationController: UINavigationController, container: AppContainer) {
         self.navigationController = navigationController
         self.container = container
+        setupNavigationBar()
     }
 
     func start() {
@@ -40,6 +41,8 @@ private extension HomeCoordinator {
                 switch transition {
                 case .showResult(let model):
                     showSearchResult(model: model)
+                case .startSearch(let model):
+                    startSearch(model: model)
                 }
             }
             .store(in: &cancellables)
@@ -55,5 +58,22 @@ private extension HomeCoordinator {
             .store(in: &cancellables)
         module.viewController.hidesBottomBarWhenPushed = true
         push(module.viewController)
+    }
+    
+    func startSearch(model: AdvertisementModel) {
+        let module = SearchAdvertisementModuleBuilder.build(container: container, model: model)
+        module.transitionPublisher
+            .sink { [unowned self] transition in
+                
+            }
+            .store(in: &cancellables)
+        push(module.viewController)
+    }
+}
+
+// MARK: - NavigationControler configuration
+private extension HomeCoordinator {
+    func setupNavigationBar() {
+        navigationController.navigationBar.tintColor = Colors.buttonDarkGray.color
     }
 }

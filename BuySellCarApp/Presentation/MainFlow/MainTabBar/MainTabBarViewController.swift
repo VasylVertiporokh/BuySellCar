@@ -27,6 +27,7 @@ final class MainTabBarViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
         viewControllers?.enumerated().reversed().forEach({ [unowned self] (ind, _) in
             selectedIndex = ind
         })
@@ -35,5 +36,12 @@ final class MainTabBarViewController: UITabBarController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
+    }
+}
+
+// MARK: - Setup MainTabBarViewController
+private extension MainTabBarViewController {
+    func setupUI() {
+        tabBar.tintColor = Colors.buttonDarkGray.color
     }
 }

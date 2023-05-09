@@ -42,7 +42,7 @@ extension EditUserProfileViewController: UIImagePickerControllerDelegate, UINavi
 // MARK: - Private extension
 private extension EditUserProfileViewController {
     func configureNavigationBar() {
-        title = Localization.editProfile.uppercased()
+        title = Localization.editProfile
         navigationController?.navigationBar.tintColor = .black
     }
     

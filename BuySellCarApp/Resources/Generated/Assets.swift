@@ -22,6 +22,22 @@ internal typealias AssetImageTypeAlias = ImageAsset.Image
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Assets {
+  internal static let cabrioBody = ImageAsset(name: "cabrioBody")
+  internal static let compactBody = ImageAsset(name: "compactBody")
+  internal static let hatchbackBody = ImageAsset(name: "hatchbackBody")
+  internal static let sedanBody = ImageAsset(name: "sedanBody")
+  internal static let stationWagonBody = ImageAsset(name: "stationWagonBody")
+  internal static let suvBody = ImageAsset(name: "suvBody")
+  internal static let transporterBody = ImageAsset(name: "transporterBody")
+  internal static let vanBody = ImageAsset(name: "vanBody")
+  internal static let audiLogo = ImageAsset(name: "audiLogo")
+  internal static let bmwLogo = ImageAsset(name: "bmwLogo")
+  internal static let fiatLogo = ImageAsset(name: "fiatLogo")
+  internal static let fordLogo = ImageAsset(name: "fordLogo")
+  internal static let icons8Tesla = ImageAsset(name: "icons8-tesla")
+  internal static let mercedesLogo = ImageAsset(name: "mercedesLogo")
+  internal static let renaultLogo = ImageAsset(name: "renaultLogo")
+  internal static let volkswagenLogo = ImageAsset(name: "volkswagenLogo")
   internal static let compact = ImageAsset(name: "compact")
   internal static let electric = ImageAsset(name: "electric")
   internal static let family = ImageAsset(name: "family")
