@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 enum SearchAdvertisementTransition: Transition {
-    
+    case showResults
 }
 
 final class SearchAdvertisementModuleBuilder {

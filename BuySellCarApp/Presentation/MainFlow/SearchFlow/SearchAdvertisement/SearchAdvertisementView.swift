@@ -13,11 +13,13 @@ enum SearchAdvertisementViewAction {
     case rowSelected(SearchRow)
     case deleteSelectedBrands(SearchRow)
     case showAllMakes
+    case showResults
 }
 
 final class SearchAdvertisementView: BaseView {
     // MARK: - Subviews
     private var collectionView: UICollectionView!
+    private let showResultsButton = UIButton(type: .system)
     
     // MARK: - Private properties
     private var dataSource: UICollectionViewDiffableDataSource<SearchSection, SearchRow>?
@@ -47,6 +49,10 @@ extension SearchAdvertisementView {
         }
         dataSource?.apply(snapShot)
     }
+    
+    func setNumberOfResults(_ count: Int) {
+        showResultsButton.setTitle(Localization.searchResultButton("\(count)"), for: .normal)
+    }
 }
 
 // MARK: - Private extension
@@ -69,13 +75,27 @@ private extension SearchAdvertisementView {
     
     func setupUI() {
         backgroundColor = .white
+        showResultsButton.backgroundColor = Colors.buttonYellow.color
+        showResultsButton.layer.cornerRadius = Constant.showResultsButtonRadius
+        showResultsButton.tintColor = Colors.buttonDarkGray.color
+        showResultsButton.setTitle("No results", for: .normal)
+        showResultsButton.titleLabel?.font = Constant.showResultsButtonFont
+        showResultsButton.addTarget(self, action: #selector(showResults), for: .touchUpInside)
     }
     
     func setupLayout() {
         addSubview(collectionView)
+        addSubview(showResultsButton)
         
         collectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
+        }
+        
+        showResultsButton.snp.makeConstraints {
+            $0.height.equalTo(Constant.showResultsButtonHeight)
+            $0.leading.equalTo(snp.leading).offset(Constant.defaultConstraint)
+            $0.trailing.equalTo(snp.trailing).inset(Constant.defaultConstraint)
+            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(Constant.showResultsButtonBottomConstraint)
         }
     }
     
@@ -93,16 +113,17 @@ private extension SearchAdvertisementView {
                   let dataSource = self.dataSource else { return nil }
             
             let sections = dataSource.snapshot().sectionIdentifiers[sectionIndex]
+            
             switch sections {
             case .brands:                            return self.brandsSectionLayout()
             case .selectedBrand(let isAvailable):    return self.selectedBrandSectionLayout(isAvailable)
             case .bodyType:                          return self.bodyTypesSectionLayout()
             case .fuelType:                          return self.fuelTypeSectionLayout()
             case .transmissionType:                  return self.transmissionTypeSectionLayout()
-            case .sellerInfo:                        return self.sellerInfoSectionLayout()
             case .firstRegistration:                 return self.technicalSpecSection()
             case .millage:                           return self.technicalSpecSection()
             case .power:                             return self.technicalSpecSection()
+            case .sellerInfo:                        return self.sellerInfoSectionLayout()
             }
         }
         
@@ -394,6 +415,7 @@ private extension SearchAdvertisementView {
         )
         let section = NSCollectionLayoutSection(group: group)
         section.boundarySupplementaryItems = [headerElement]
+        section.contentInsets.bottom = Constant.lastSectionBottomInset
         return section
     }
 }
@@ -481,6 +503,14 @@ private extension SearchAdvertisementView {
     }
 }
 
+// MARK: - Action
+private extension SearchAdvertisementView {
+    @objc
+    func showResults() {
+        actionSubject.send(.showResults)
+    }
+}
+
 // MARK: - View constants
 private enum Constant {
     static let transmissionTypeCount: CGFloat = 3
@@ -501,6 +531,12 @@ private enum Constant {
     static let fuelTypeHeaderInset: CGFloat = -16
     static let sellerInfoGroupHeight: CGFloat = 70
     static let sellerInfoCellHeight: CGFloat = 35
+    static let lastSectionBottomInset: CGFloat = 64
+    static let showResultsButtonRadius: CGFloat = 8
+    static let showResultsButtonHeight: CGFloat = 47
+    static let showResultsButtonBottomConstraint: CGFloat = 10
+    static let defaultConstraint: CGFloat = 16
+    static let showResultsButtonFont: UIFont = FontFamily.Montserrat.medium.font(size: 14)
     static let transmissionTypeGroupInset: NSDirectionalEdgeInsets = .init(top: .zero, leading: 16, bottom: .zero, trailing: 16)
     static let brandGroupInset: NSDirectionalEdgeInsets = .init(top: .zero, leading: 20, bottom: .zero, trailing: 20)
     static let bodyTypesSectionInset: NSDirectionalEdgeInsets = .init(top: 16, leading: .zero, bottom: 16, trailing: .zero)
@@ -576,7 +612,6 @@ struct BrandCellModel: Hashable {
             .init(logoImage: Assets.fiatLogo.image, brandName: "Nissan")
         ]
     }
-    
 }
 
 struct BodyTypeCellModel: Hashable {
@@ -605,7 +640,7 @@ struct FuelTypeModel: Hashable {
     static func fuelTypes() -> [Self] {
         return [
             .init(fuelType: "Petrol"),
-            .init(fuelType: "Electric"),
+            .init(fuelType: "Electro"),
             .init(fuelType: "Hybrid"),
             .init(fuelType: "Diesel"),
             .init(fuelType: "LPG"),
@@ -658,27 +693,21 @@ struct TechnicalSpecCellModel {
         )
     }
     
-    // MARK: - TechnicalSpecCell models
-    static func year(selectedRange: CurrentValueSubject<SelectedRange, Never>) -> SectionModel<SearchSection, SearchRow> {
+    // MARK: - TechnicalSpecCell models    
+    static func year(selectedRange: CurrentValueSubject<SelectedRange, Never>) -> [Self] {
         let year = Calendar.current.component(.year, from: Date())
         let yearRange: RangeView.Range = .init(lowerBound: 1920, upperBound: Double(year))
-        
-        return .init(section: .firstRegistration, items: [
-            .firstRegistrationRow(.init(inRange: yearRange, rangeStep: 1, selectedRange: selectedRange))])
+        return [.init(inRange: yearRange, rangeStep: 1, selectedRange: selectedRange)]
     }
     
-    static func millage(selectedRange: CurrentValueSubject<SelectedRange, Never>) -> SectionModel<SearchSection, SearchRow> {
+    static func millage(selectedRange: CurrentValueSubject<SelectedRange, Never>) -> [Self] {
         let millageRange: RangeView.Range = .init(lowerBound: 0, upperBound: 250000)
-        
-        return .init(section: .millage, items: [
-            .millageRow(.init(inRange: millageRange, rangeStep: 500, selectedRange: selectedRange))])
+        return [.init(inRange: millageRange, rangeStep: 500, selectedRange: selectedRange)]
     }
     
-    static func power(selectedRange: CurrentValueSubject<SelectedRange, Never>) -> SectionModel<SearchSection, SearchRow> {
+    static func power(selectedRange: CurrentValueSubject<SelectedRange, Never>) -> [Self] {
         let powerRange: RangeView.Range = .init(lowerBound: 20, upperBound: 1000)
-        
-        return .init(section: .power, items: [
-            .powerRow(.init(inRange: powerRange, rangeStep: 10, selectedRange: selectedRange))])
+        return [.init(inRange: powerRange, rangeStep: 10, selectedRange: selectedRange)]
     }
 }
 

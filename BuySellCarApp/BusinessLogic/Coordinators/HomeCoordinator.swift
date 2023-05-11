@@ -64,7 +64,10 @@ private extension HomeCoordinator {
         let module = SearchAdvertisementModuleBuilder.build(container: container, model: model)
         module.transitionPublisher
             .sink { [unowned self] transition in
-                
+                switch transition {
+                case .showResults:
+                    showSearchResult(model: model)
+                }
             }
             .store(in: &cancellables)
         push(module.viewController)

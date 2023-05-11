@@ -120,7 +120,6 @@ private enum QuickSearchParams { // TODO: - Add search params array to backend a
     ]
     
     static let roadTripSearchParams: [SearchParam] = [
-        .init(key: .doorCount, value: .greaterOrEqualTo(intValue: 4)),
         .init(key: .bodyType, value: .equalToString(stringValue: BodyType.sedan.rawValue)),
         .init(key: .bodyType, value: .equalToString(stringValue: BodyType.hatchback.rawValue)),
         .init(key: .price, value: .equalToInt(intValue: 9000))
@@ -140,7 +139,6 @@ private enum QuickSearchParams { // TODO: - Add search params array to backend a
     ]
     
     static let familySearchParams: [SearchParam] = [
-        .init(key: .doorCount, value: .greaterOrEqualTo(intValue: 4)),
         .init(key: .bodyType, value: .equalToString(stringValue: BodyType.sedan.rawValue))
     ]
     

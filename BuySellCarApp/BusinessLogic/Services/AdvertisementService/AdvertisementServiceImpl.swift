@@ -26,7 +26,7 @@ extension AdvertisementServiceImpl: AdvertisementService {
             .eraseToAnyPublisher()
     }
     
-    func searchAdvertisement(searchParams: SearchResultDomainModel) -> AnyPublisher<[AdvertisementDomainModel], Error> {
+    func searchAdvertisement(searchParams: SearchParamsDomainModel) -> AnyPublisher<[AdvertisementDomainModel], Error> {
         advertisementNetworkService.searchAdvertisement(searchParams: searchParams)
             .mapError { $0 as Error }
             .map { $0.map { AdvertisementDomainModel(advertisementResponseModel: $0) } }

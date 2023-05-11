@@ -15,7 +15,7 @@ enum SearchResultViewModelEvents {
 final class SearchResultViewModel: BaseViewModel {
     // MARK: - Private properties
     private let advertisementModel: AdvertisementModel
-    private var searchModel = SearchResultDomainModel()
+    private var searchModel = SearchParamsDomainModel()
     
     // MARK: - Subjects
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()

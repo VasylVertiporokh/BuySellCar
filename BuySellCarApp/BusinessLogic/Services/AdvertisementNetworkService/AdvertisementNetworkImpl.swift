@@ -24,7 +24,7 @@ extension AdvertisementNetworkImpl: AdvertisementNetworkService {
         provider.performWithResponseModel(.getAdvertisement(pageSize: pageSize))
     }
     
-    func searchAdvertisement(searchParams: SearchResultDomainModel) -> AnyPublisher<[AdvertisementResponseModel], NetworkError> {
+    func searchAdvertisement(searchParams: SearchParamsDomainModel) -> AnyPublisher<[AdvertisementResponseModel], NetworkError> {
         provider.performWithResponseModel(.searchAdvertisement(searchParams))
     }
     

@@ -6,13 +6,8 @@
 //
 
 import Foundation
-import Combine
 import UIKit
 import SnapKit
-
-enum FilteredCellActions {
-    case deleteSearchParam(SearchParam?)
-}
 
 final class FilteredCell: UICollectionViewCell {
     // MARK: - Subviews
@@ -20,11 +15,8 @@ final class FilteredCell: UICollectionViewCell {
     private let filterParamLabel = UILabel()
     private let deleteParamButton = UIButton(type: .system)
     
-    // MARK: - Private properties
-    private var cancellables = Set<AnyCancellable>()
-    private(set) lazy var cellActionPublisher = cellActionSubject.eraseToAnyPublisher()
-    private let cellActionSubject = PassthroughSubject<FilteredCellActions, Never>()
-    private var searchParams: SearchParam?
+    // MARK: - Internal properties
+    var deleteItem: (() -> Void)?
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -35,18 +27,11 @@ final class FilteredCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    // MARK: - PrepareForReuse
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        searchParams = nil
-    }
 }
 
 // MARK: - Internal extension
 extension FilteredCell {
     func setFilteredParam(_ parameter: SearchParam) {
-        searchParams = parameter
         filterParamLabel.text = parameter.key.keyDescription + " " + parameter.value.searchValueDescription
     }
 }
@@ -56,7 +41,6 @@ private extension FilteredCell {
     func initialSetup() {
         setupLayout()
         setupUI()
-        bindActions()
     }
     
     func setupLayout() {
@@ -88,14 +72,15 @@ private extension FilteredCell {
         filterParamLabel.textAlignment = .left
         filterParamLabel.font = Constants.filterParamLabelFont
         deleteParamButton.setImage(Assets.closeCircleIcon.image.withRenderingMode(.alwaysOriginal), for: .normal)
+        deleteParamButton.addTarget(self, action: #selector(deleteButtonDidTapped), for: .touchUpInside)
     }
-    
-    func bindActions() {
-        deleteParamButton.tapPublisher
-            .sink { [unowned self] in
-                cellActionSubject.send(.deleteSearchParam(searchParams))
-            }
-            .store(in: &cancellables)
+}
+
+// MARK: - Action
+private extension FilteredCell {
+    @objc
+    func deleteButtonDidTapped() {
+        deleteItem?()
     }
 }
 

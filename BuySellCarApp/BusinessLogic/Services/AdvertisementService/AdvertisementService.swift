@@ -10,5 +10,5 @@ import Combine
 
 protocol AdvertisementService: AnyObject {
     func getAdvertisementCount(searchParams: [SearchParam]) -> AnyPublisher<Data, Error>
-    func searchAdvertisement(searchParams: SearchResultDomainModel) -> AnyPublisher<[AdvertisementDomainModel], Error>
+    func searchAdvertisement(searchParams: SearchParamsDomainModel) -> AnyPublisher<[AdvertisementDomainModel], Error>
 }

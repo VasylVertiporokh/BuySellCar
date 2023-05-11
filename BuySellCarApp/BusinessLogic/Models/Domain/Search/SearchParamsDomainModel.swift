@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SearchResultDomainModel: Equatable {
+struct SearchParamsDomainModel: Equatable {
     var pageSize: Int = 3
     var offset: Int = 0
     var searchParams: [SearchParam] = []

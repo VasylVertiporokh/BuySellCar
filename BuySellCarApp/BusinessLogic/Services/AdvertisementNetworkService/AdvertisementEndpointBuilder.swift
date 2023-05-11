@@ -9,7 +9,7 @@ import Foundation
 
 enum AdvertisementEndpointBuilder {
     case getAdvertisement(pageSize: String)
-    case searchAdvertisement(SearchResultDomainModel)
+    case searchAdvertisement(SearchParamsDomainModel)
     case getAdvertisementCount([SearchParam])
 }
 

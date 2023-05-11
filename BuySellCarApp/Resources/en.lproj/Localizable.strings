@@ -49,3 +49,5 @@
 //Edit profile
 "edit-profile" = "Edit profile";
 
+//Search
+"search-Result-Button" = "%@ results";

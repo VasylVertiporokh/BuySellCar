@@ -9,7 +9,8 @@ import Foundation
 
 struct SearchParam: Hashable {
     let key: SearchKey
-    let value: SearchValue
+    var value: SearchValue
+    var valueType: ValueType = .min
     
     var queryString: String {
         switch value {
@@ -23,21 +24,23 @@ struct SearchParam: Hashable {
             return "\(key) <= \(intValue)"
         }
     }
+    
+    enum ValueType {
+        case min
+        case max
+    }
 }
 
 // MARK: - SearchKey
 enum SearchKey: String, Hashable {
     case price = "price"
-    case bodyColor = "bodyColor"
     case bodyType = "bodyType"
     case transportName = "transportName"
     case transportModel = "transportModel"
-    case interiorColor = "interiorColor"
     case transmissionType = "transmissionType"
     case mileage = "mileage"
-    case doorCount = "doorCount"
     case yearOfManufacture = "yearOfManufacture"
-    case condition = "condition"
+    case power = "power"
     case fuelType = "fuelType"
     case sellerType = "sellerType"
 }
@@ -46,26 +49,16 @@ enum SearchKey: String, Hashable {
 extension SearchKey {
     var keyDescription: String {
         switch self {
-        case .price:
-            return "Price:"
-        case .bodyColor:
-            return "Color:"
-        case .bodyType:
-            return "Body:"
-        case .transmissionType:
-            return "Transmission:"
-        case .doorCount:
-            return "Doors:"
-        case .yearOfManufacture:
-            return "Year:"
-        case .condition:
-            return "Condition:"
-        case .fuelType:
-            return "Fuel:"
-        case .sellerType:
-            return "Seller:"
-        case .transportName, .transportModel, .interiorColor, .mileage:
-            return ""
+        case .price:             return "Price:"
+        case .bodyType:          return "Body:"
+        case .transmissionType:  return "Transmission:"
+        case .yearOfManufacture: return "Year:"
+        case .fuelType:          return "Fuel:"
+        case .sellerType:        return "Seller:"
+        case .mileage:           return "km"
+        case .power:             return "hp"
+        case .transportName:     return ""
+        case .transportModel:    return "model"
         }
     }
 }
@@ -87,7 +80,7 @@ extension SearchValue {
         case .equalToInt(let intValue):
             return "\(intValue)"
         case .greaterOrEqualTo(let intValue):
-            return "From \(intValue)"
+            return "from \(intValue)"
         case .lessOrEqualTo(let intValue):
             return "to \(intValue)"
         }

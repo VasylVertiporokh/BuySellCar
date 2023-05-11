@@ -35,16 +35,25 @@ private extension SearchAdvertisementViewController {
                 case .showAllMakes:
                     print("showAllMakes")
                 case .deleteSelectedBrands(let searchRow):
-                    guard case let .selectedBrandRow(selectedBrand) = searchRow else {
-                        return
-                    }
+                    guard case let .selectedBrandRow(selectedBrand) = searchRow else { return }
                     viewModel.deleteSelectedBrand(selectedBrand)
+                case .showResults:
+                    viewModel.showSearchResults()
                 }
             }
             .store(in: &cancellables)
         
         viewModel.sectionsPublisher
             .sink { [unowned self]  in contentView.setupSnapshot(sections: $0) }
+            .store(in: &cancellables)
+        
+        viewModel.eventsPublisher
+            .sink { [unowned self] events in
+                switch events {
+                case .numberOfAdvertisements(let count):
+                    contentView.setNumberOfResults(count)
+                }
+            }
             .store(in: &cancellables)
     }
     

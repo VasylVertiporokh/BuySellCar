@@ -143,15 +143,13 @@ private extension FilterView {
             case .filteredParameter(let parameter):
                 let cell: FilteredCell = collectionView.dequeueReusableCell(for: indexPath)
                 cell.setFilteredParam(parameter)
-                cell.cellActionPublisher
-                    .sink { [unowned self] action in
-                        switch action {
-                        case .deleteSearchParam(let param):
-                            guard let param = param else { return }
-                            filterViewActionSubject.send(.deleteSearchParam(param))
-                        }
+                cell.deleteItem = { [weak self] in
+                    guard let self = self else { return }
+                    switch item {
+                    case .filteredParameter(let searchPram):
+                        self.filterViewActionSubject.send(.deleteSearchParam(searchPram))
                     }
-                    .store(in: &self.cancellables)
+                }
                 return cell
             }
         })

@@ -9,17 +9,18 @@ import Foundation
 import Combine
 
 protocol AdvertisementModel {
-    var advertisementSearchParamsPublisher: AnyPublisher<SearchResultDomainModel, Never> { get }
+    var advertisementSearchParamsPublisher: AnyPublisher<SearchParamsDomainModel, Never> { get }
     
-    func getRecommendedAdvertisements(searchModel: SearchResultDomainModel) -> AnyPublisher<[AdvertisementDomainModel], Error>
-    func findAdvertisements(searchModel: SearchResultDomainModel) -> AnyPublisher<[AdvertisementDomainModel], Error>
+    func getRecommendedAdvertisements(searchModel: SearchParamsDomainModel) -> AnyPublisher<[AdvertisementDomainModel], Error>
+    func findAdvertisements(searchModel: SearchParamsDomainModel) -> AnyPublisher<[AdvertisementDomainModel], Error>
     func getAdvertisementCount(searchParams: [SearchParam]) -> AnyPublisher<Int, Error>
     func loadNextPage()
     
     func setFastSearсhParams(_ param: [SearchParam])
-    func deleteSearchParam(_ param: SearchResultDomainModel)
-    func addSearchParam(_ param: SearchParam)
+    func deleteSearchParam(_ param: SearchParamsDomainModel)
     func resetSearchParams()
+    func addSearchParam(_ param: SearchParam)
+    func rangeValue(_ range: TechnicalSpecCellModel.SelectedRange, searchKey: SearchKey)
 }
 
 final class AdvertisementModelImpl {
@@ -31,7 +32,7 @@ final class AdvertisementModelImpl {
     private var numberOfAdvertisements: Int = Constant.countDefaultValue
     
     // MARK: - Subjects
-    private let searchParamsSubjects = CurrentValueSubject<SearchResultDomainModel, Never>(.init())
+    private let searchParamsSubjects = CurrentValueSubject<SearchParamsDomainModel, Never>(.init())
     
     // MARK: - Init
     init(advertisementService: AdvertisementService) {
@@ -41,11 +42,11 @@ final class AdvertisementModelImpl {
 
 // MARK: - AdvertisementModel protocol
 extension AdvertisementModelImpl: AdvertisementModel {
-    func getRecommendedAdvertisements(searchModel: SearchResultDomainModel) -> AnyPublisher<[AdvertisementDomainModel], Error> {
+    func getRecommendedAdvertisements(searchModel: SearchParamsDomainModel) -> AnyPublisher<[AdvertisementDomainModel], Error> {
         advertisementService.searchAdvertisement(searchParams: searchModel)
     }
     
-    func findAdvertisements(searchModel: SearchResultDomainModel) -> AnyPublisher<[AdvertisementDomainModel], Error> {
+    func findAdvertisements(searchModel: SearchParamsDomainModel) -> AnyPublisher<[AdvertisementDomainModel], Error> {
         advertisementService.searchAdvertisement(searchParams: searchModel)
     }
     
@@ -73,16 +74,47 @@ extension AdvertisementModelImpl: AdvertisementModel {
         searchParamsSubjects.value.searchParams = param
     }
     
-    func deleteSearchParam(_ param: SearchResultDomainModel) {
+    func deleteSearchParam(_ param: SearchParamsDomainModel) {
         searchParamsSubjects.value = param
     }
     
-    func addSearchParam(_ param: SearchParam) {
-        searchParamsSubjects.value.searchParams.append(param)
+    func resetSearchParams() {
+        searchParamsSubjects.value = SearchParamsDomainModel()
     }
     
-    func resetSearchParams() {
-        searchParamsSubjects.value = SearchResultDomainModel()
+    func addSearchParam(_ param: SearchParam) {
+        guard searchParamsSubjects.value.searchParams.contains(where: { $0 == param }) else {
+            searchParamsSubjects.value.searchParams.append(param)
+            return
+        }
+        searchParamsSubjects.value.searchParams.removeAll { $0 == param }
+    }
+    
+    func rangeValue(_ range: TechnicalSpecCellModel.SelectedRange, searchKey: SearchKey) {
+        if let max = range.maxRangeValue {
+            let maxSearchParams = SearchParam(key: searchKey, value: .lessOrEqualTo(intValue: Int(max)), valueType: .max)
+            if let index = searchParamsSubjects.value.searchParams.firstIndex(where: {
+                $0.key == maxSearchParams.key && $0.valueType == maxSearchParams.valueType
+            }) {
+                searchParamsSubjects.value.searchParams[index].value = maxSearchParams.value
+            } else {
+                searchParamsSubjects.value.searchParams.append(maxSearchParams)
+            }
+        } else {
+            searchParamsSubjects.value.searchParams.removeAll { $0.key == searchKey && $0.valueType == .max }
+        }
+        
+        if let min = range.minRangeValue {
+            let minSearchParams = SearchParam(key: searchKey, value: .greaterOrEqualTo(intValue: Int(min)), valueType: .min)
+            if let index = searchParamsSubjects.value.searchParams.firstIndex(where: {
+                $0.key == minSearchParams.key && $0.valueType == minSearchParams.valueType }) {
+                searchParamsSubjects.value.searchParams[index].value = minSearchParams.value
+            } else {
+                searchParamsSubjects.value.searchParams.append(minSearchParams)
+            }
+        } else {
+            searchParamsSubjects.value.searchParams.removeAll { $0.key == searchKey && $0.valueType == .min }
+        }
     }
 }
 

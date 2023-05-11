@@ -119,7 +119,7 @@
 		D495004929C8EA89009CECA9 /* EditUserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D495004529C8EA89009CECA9 /* EditUserProfileViewModel.swift */; };
 		D495004B29C9BFF8009CECA9 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D495004A29C9BFF8009CECA9 /* UIView+Extension.swift */; };
 		D495004E29C9EE50009CECA9 /* Optional+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D495004D29C9EE50009CECA9 /* Optional+Extension.swift */; };
-		D49D0E1929EEA8FF00C67E96 /* SearchResultDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D0E1829EEA8FF00C67E96 /* SearchResultDomainModel.swift */; };
+		D49D0E1929EEA8FF00C67E96 /* SearchParamsDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D0E1829EEA8FF00C67E96 /* SearchParamsDomainModel.swift */; };
 		D49D0E1F29EEB09A00C67E96 /* FakeSplashModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D0E1B29EEB09900C67E96 /* FakeSplashModuleBuilder.swift */; };
 		D49D0E2029EEB09A00C67E96 /* FakeSplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D0E1C29EEB09900C67E96 /* FakeSplashViewController.swift */; };
 		D49D0E2129EEB09A00C67E96 /* FakeSplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D0E1D29EEB09900C67E96 /* FakeSplashView.swift */; };
@@ -314,7 +314,7 @@
 		D495004529C8EA89009CECA9 /* EditUserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserProfileViewModel.swift; sourceTree = "<group>"; };
 		D495004A29C9BFF8009CECA9 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		D495004D29C9EE50009CECA9 /* Optional+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Extension.swift"; sourceTree = "<group>"; };
-		D49D0E1829EEA8FF00C67E96 /* SearchResultDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultDomainModel.swift; sourceTree = "<group>"; };
+		D49D0E1829EEA8FF00C67E96 /* SearchParamsDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchParamsDomainModel.swift; sourceTree = "<group>"; };
 		D49D0E1B29EEB09900C67E96 /* FakeSplashModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeSplashModuleBuilder.swift; sourceTree = "<group>"; };
 		D49D0E1C29EEB09900C67E96 /* FakeSplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeSplashViewController.swift; sourceTree = "<group>"; };
 		D49D0E1D29EEB09900C67E96 /* FakeSplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeSplashView.swift; sourceTree = "<group>"; };
@@ -916,7 +916,7 @@
 		D49D0E1729EEA8F300C67E96 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				D49D0E1829EEA8FF00C67E96 /* SearchResultDomainModel.swift */,
+				D49D0E1829EEA8FF00C67E96 /* SearchParamsDomainModel.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1492,7 +1492,7 @@
 				7EB4B3410B43ED90D532A613 /* SettingsViewController.swift in Sources */,
 				D49D0E1F29EEB09A00C67E96 /* FakeSplashModuleBuilder.swift in Sources */,
 				D50B0DC3B906281FFB3C6A3F /* SettingsViewModel.swift in Sources */,
-				D49D0E1929EEA8FF00C67E96 /* SearchResultDomainModel.swift in Sources */,
+				D49D0E1929EEA8FF00C67E96 /* SearchParamsDomainModel.swift in Sources */,
 				56416D56E142574FE2DD1D99 /* UIEdgeInsets+Ext.swift in Sources */,
 				D4EA6E73299E935F009F7DBD /* UserResponseModel.swift in Sources */,
 				DD94FE48CDF5D4260353B893 /* UIStackView+Ext.swift in Sources */,
