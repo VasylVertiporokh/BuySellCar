@@ -29,24 +29,45 @@ final class MainTabBarCoordinator: Coordinator {
     
     func start() {
         setupHomeCoordinator()
+        setupAddAdvertisementCoordinator()
         setupSettingsCoordinator()
         
         let controllers = childCoordinators.compactMap { $0.navigationController }
         let module = MainTabBarModuleBuilder.build(viewControllers: controllers)
         setRoot(module.viewController)
     }
-    
-    private func setupHomeCoordinator() {
+}
+
+// MARK: - Private extension
+private extension MainTabBarCoordinator {
+    func setupHomeCoordinator() {
         let navController = UINavigationController()
         navController.tabBarItem = .init(title: Localization.search,
-                                         image: UIImage(systemName: "house"),
-                                         selectedImage: UIImage(systemName: "house.fill"))
+                                         image: Assets.searchIcon.image,
+                                         selectedImage: nil)
         let coordinator = HomeCoordinator(navigationController: navController, container: container)
         childCoordinators.append(coordinator)
         coordinator.start()
     }
     
-    private func setupSettingsCoordinator() {
+    func setupAddAdvertisementCoordinator() {
+        let navController = UINavigationController()
+        navController.tabBarItem = .init(title: Localization.selling,
+                                         image: Assets.addAdv.image,
+                                         selectedImage: nil)
+        let coordinator = AddAdvertisementCoordinator(navigationController: navController, container: container)
+        childCoordinators.append(coordinator)
+        coordinator.didFinishPublisher
+            .sink { [unowned self] in
+                childCoordinators.forEach { removeChild(coordinator: $0) }
+                didFinishSubject.send()
+                didFinishSubject.send(completion: .finished)
+            }
+            .store(in: &cancellables)
+        coordinator.start()
+    }
+    
+    func setupSettingsCoordinator() {
         let navController = UINavigationController()
         navController.tabBarItem = .init(title: Localization.settings,
                                          image: UIImage(systemName: "gear"),

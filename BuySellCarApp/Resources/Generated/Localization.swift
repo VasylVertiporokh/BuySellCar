@@ -59,6 +59,8 @@ internal enum Localization {
   internal static func searchResultButton(_ p1: Any) -> String {
     return Localization.tr("Localizable", "search-Result-Button", String(describing: p1), fallback: "%@ results")
   }
+  /// Selling
+  internal static let selling = Localization.tr("Localizable", "selling", fallback: "Selling")
   /// Settings
   internal static let settings = Localization.tr("Localizable", "settings", fallback: "Settings")
   /// Sign In
