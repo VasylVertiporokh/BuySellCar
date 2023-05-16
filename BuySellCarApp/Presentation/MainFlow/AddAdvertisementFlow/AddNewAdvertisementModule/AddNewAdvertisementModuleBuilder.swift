@@ -14,7 +14,7 @@ enum AddNewAdvertisementTransition: Transition {
 
 final class AddNewAdvertisementModuleBuilder {
     class func build(container: AppContainer) -> Module<AddNewAdvertisementTransition, UIViewController> {
-        let viewModel = AddNewAdvertisementViewModel()
+        let viewModel = AddNewAdvertisementViewModel(addAdvertisementModel: container.addAdvertisementModel)
         let viewController = AddNewAdvertisementViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

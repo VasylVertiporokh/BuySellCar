@@ -8,7 +8,13 @@
 import Foundation
 import Combine
 
-final class UserDefaultsServiceImpl: UserDefaultsServiceProtocol {    
+final class UserDefaultsServiceImpl: UserDefaultsServiceProtocol {
+    // MARK: - Internal properties
+    var userID: String? {
+        let userID = try? getObject(forKey: .userModel, castTo: UserDomainModel.self).ownerID
+        return userID
+    }
+    
     // MARK: - Private properties
     private let userDefaults = UserDefaults.standard
     // MARK: - Save object

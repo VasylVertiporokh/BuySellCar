@@ -1,15 +1,14 @@
 //
-//  EmptyStateCell.swift
+//  EmptyStateView.swift
 //  BuySellCarApp
 //
-//  Created by Vasil Vertiporokh on 11.05.2023.
+//  Created by Vasil Vertiporokh on 12.05.2023.
 //
 
-import Foundation
-import UIKit
 import SnapKit
+import UIKit
 
-final class EmptyStateCell: UICollectionViewCell {
+final class EmptyStateView: UIView {
     // MARK: - Subviews
     private let containerStackView = UIStackView()
     private let emptyStateImageView = UIImageView()
@@ -26,16 +25,16 @@ final class EmptyStateCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
-
+    
 // MARK: - Private extension
-private extension EmptyStateCell {
+private extension EmptyStateView {
     func initialSetup() {
         setupLayout()
         setupUI()
     }
     
     func setupLayout() {
-        contentView.addSubview(containerStackView)
+        addSubview(containerStackView)
         containerStackView.axis = .vertical
         containerStackView.alignment = .center
         containerStackView.spacing = Constant.containerStackViewSpacing
@@ -44,13 +43,14 @@ private extension EmptyStateCell {
         containerStackView.addArrangedSubview(titleLabel)
         containerStackView.addArrangedSubview(subtitleLabel)
         
-        containerStackView.snp.makeConstraints { $0.edges.equalTo(contentView) }
-        emptyStateImageView.snp.makeConstraints { $0.size.equalTo(120) }
+        containerStackView.snp.makeConstraints { $0.edges.equalToSuperview() }
+        emptyStateImageView.snp.makeConstraints { $0.size.equalTo(Constant.imageViewSize) }
         
     }
     
     func setupUI() {
         emptyStateImageView.image = Assets.addAdv.image
+        emptyStateImageView.contentMode = .scaleAspectFit
         titleLabel.numberOfLines = Constant.numberOfLines
         titleLabel.font = Constant.titleLabelFont
         titleLabel.textAlignment = .center
@@ -64,10 +64,9 @@ private extension EmptyStateCell {
 
 // MARK: - Constant
 private enum Constant {
-    static let containerStackViewSpacing: CGFloat = 24
+    static let containerStackViewSpacing: CGFloat = 16
     static let numberOfLines: Int = 0
     static let titleLabelFont: UIFont = FontFamily.Montserrat.regular.font(size: 24)
     static let subtitleLabelFont: UIFont = FontFamily.Montserrat.regular.font(size: 12)
+    static let imageViewSize: CGFloat = 64
 }
-
-

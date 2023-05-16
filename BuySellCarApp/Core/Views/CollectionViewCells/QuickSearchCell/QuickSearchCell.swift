@@ -62,8 +62,8 @@ private extension QuickSearchCell {
     func setupUI() {
         setShadow()
         containerStackView.backgroundColor = .clear
-        carImageView.contentMode = .scaleAspectFill
         
+        carImageView.contentMode = .scaleAspectFill
         carImageView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         carImageView.layer.cornerRadius = Constants.carImageViewCornerRadius
         carImageView.clipsToBounds = true

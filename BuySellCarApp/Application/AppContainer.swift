@@ -17,6 +17,7 @@ protocol AppContainer: AnyObject {
     var userNetworkService: UserNetworkService { get }
     var advertisementNetworkService: AdvertisementNetworkService { get }
     var advertisementService: AdvertisementService { get }
+    var addAdvertisementModel: AddAdvertisementModel { get }
 }
 
 final class AppContainerImpl: AppContainer {
@@ -29,6 +30,7 @@ final class AppContainerImpl: AppContainer {
     let userNetworkService: UserNetworkService
     let advertisementNetworkService: AdvertisementNetworkService
     let advertisementService: AdvertisementService
+    let addAdvertisementModel: AddAdvertisementModel
     
     init() {
         let appConfiguration = AppConfigurationImpl()
@@ -69,7 +71,10 @@ final class AppContainerImpl: AppContainer {
             networkManager: networkManager
         )
         self.advertisementNetworkService = AdvertisementNetworkImpl(provider: advertisementNetworkServiceProvider)
-        
         self.advertisementService = AdvertisementServiceImpl(advertisementNetworkService: advertisementNetworkService)
+        self.addAdvertisementModel = AddAdvertisementModelImpl(
+            userDefaultsService: userDefaultsService,
+            advertisementNetworkService: advertisementNetworkService
+        )
     }
 }

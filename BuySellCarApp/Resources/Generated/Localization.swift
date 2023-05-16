@@ -20,8 +20,14 @@ internal enum Localization {
   internal static let createAccountTitle = Localization.tr("Localizable", "create-account-title", fallback: "Create account")
   /// You can create new account
   internal static let createNewAccount = Localization.tr("Localizable", "create-new-account", fallback: "You can create new account")
+  /// Create ad
+  internal static let createAdButtonTitle = Localization.tr("Localizable", "createAdButtonTitle", fallback: "Create ad")
   /// Oops something went wrong
   internal static let defaultMessage = Localization.tr("Localizable", "defaultMessage", fallback: "Oops something went wrong")
+  /// Are you sure you want to delete the ad?
+  internal static let deleteAdsMessage = Localization.tr("Localizable", "delete-ads-message", fallback: "Are you sure you want to delete the ad?")
+  /// The ad will be removed
+  internal static let deleteAdsTitle = Localization.tr("Localizable", "delete-ads-title", fallback: "The ad will be removed")
   /// Done
   internal static let done = Localization.tr("Localizable", "done", fallback: "Done")
   /// Edit profile

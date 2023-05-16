@@ -7,9 +7,10 @@
 
 import Foundation
 
-struct AdvertisementResponseModel: Codable {
+struct AdvertisementResponseModel: Decodable {
     let bodyType: BodyType
-    let transportName, bodyColor: String
+    let transportName: String
+    let bodyColor: String
     let description: String?
     let avarageFuelConsumption: Double
     let ownerID: String?
@@ -23,7 +24,9 @@ struct AdvertisementResponseModel: Codable {
     let yearOfManufacture: Int
     let created: Int
     let transportModel: String
-    let interiorFittings, photo, shortDescription: String?
+    let interiorFittings: String?
+    let photo: String?
+    let shortDescription: String?
     let numberOfSeats: Int
     let condition: Condition
     let fuelType: FuelType
@@ -38,11 +41,12 @@ struct AdvertisementResponseModel: Codable {
         case interiorColor, price
         case transmissionType, power
         case objectID = "objectId"
-        case mileage, doorCount, yearOfManufacture, created, transportModel, interiorFittings, photo, shortDescription, numberOfSeats, condition, fuelType, location, sellerType, updated, images
+        case mileage, doorCount, yearOfManufacture, created, transportModel, interiorFittings, photo,
+             shortDescription, numberOfSeats, condition, fuelType, location, sellerType, updated, images
     }
 }
 
-struct AdvertisementImages: Codable {
+struct AdvertisementImages: Decodable {
     var objectId: String?
     var carImages: [String]?
 }
@@ -51,32 +55,44 @@ enum BodyType: String, Codable {
     case hatchback = "Hatchback"
     case sedan = "Sedan"
     case suv = "SUV"
+    case compact = "Compact"
+    case stationWagon = "Station wagon"
+    case cabrio = "Cabrio"
+    case van = "Van"
+    case transporter = "Transporter"
 }
 
-enum Condition: String, Codable {
+enum Condition: String, Decodable {
     case new = "New"
     case used = "Used"
 }
 
-enum FuelType: String, Codable {
+enum FuelType: String, Decodable {
     case disel = "Disel"
     case electro = "Electro"
     case petrol = "Petrol"
     case hybrid = "Hybrid"
+    case ethanol = "Ethanol"
+    case hydrogen = "Hydrogen"
+    case lpg = "LPG"
+    case other = "Other"
 }
 
-enum InteriorColor: String, Codable {
+enum InteriorColor: String, Decodable {
     case black = "Black"
     case gray = "Gray"
     case white = "White"
+    case red = "Red"
+    case blue = "Blue"
 }
 
-enum SellerType: String, Codable {
+enum SellerType: String, Decodable {
     case diller = "Diller"
     case owner = "Owner"
 }
 
-enum TransmissionType: String, Codable {
+enum TransmissionType: String, Decodable {
     case automatic = "Automatic"
     case manual = "Manual"
+    case semiAutomatic = "Semi-automatic"
 }

@@ -23,6 +23,8 @@
 //Alert
 "defaultMessage" = "Oops something went wrong";
 "edited-successfully" = "User edited successfully";
+"delete-ads-title" = "The ad will be removed";
+"delete-ads-message" = "Are you sure you want to delete the ad?";
 
 "search" = "Search";
 "settings" = "Settings";
@@ -52,3 +54,6 @@
 
 //Search
 "search-Result-Button" = "%@ results";
+
+//Create ad
+"createAdButtonTitle" = "Create ad";

@@ -31,4 +31,20 @@ extension AdvertisementNetworkImpl: AdvertisementNetworkService {
     func getAdvertisementCount(searchParams: [SearchParam]) -> AnyPublisher<Data, NetworkError> {
         provider.performWithRawData(.getAdvertisementCount(searchParams))
     }
+    
+    func getOwnAds(ownerID: String) -> AnyPublisher<[AdvertisementResponseModel], NetworkError> {
+        provider.performWithResponseModel(.getOwnAds(ownedId: ownerID))
+    }
+    
+    func deleteAdvertisement(objectID: String) -> AnyPublisher<Void, NetworkError> {
+        provider.performWithProcessingResult(.deleteAdvertisement(objectID: objectID))
+    }
+    
+    func getBrands() -> AnyPublisher<[BrandResponseModel], NetworkError> {
+        provider.performWithResponseModel(.getBrand)
+    }
+    
+    func getModelsByBrandId(_ brandId: String) -> AnyPublisher<[ModelResponseModel], NetworkError> {
+        provider.performWithResponseModel(.getModel(brandId: brandId))
+    }
 }

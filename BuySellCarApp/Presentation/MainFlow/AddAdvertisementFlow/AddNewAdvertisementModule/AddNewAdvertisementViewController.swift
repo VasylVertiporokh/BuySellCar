@@ -29,6 +29,27 @@ private extension AddNewAdvertisementViewController {
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
+                case .createAd:
+                    print("Start adding")
+                case .deleteAd(let deleteItem):
+                    deleteAdsAlert { [weak self] _ in
+                        self?.viewModel.deleteAdvertisement(item: deleteItem)
+                    }
+                }
+            }
+            .store(in: &cancellables)
+        
+        viewModel.sectionPublisher
+            .sink { [unowned self] model in
+                contentView.setupSnapshot(sections: model)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.eventsPublisher
+            .sink { [unowned self] events in
+                switch events {
+                case .hasUserOwnAdvertisement(let hasUserOwnAdvertisement):
+                    contentView.configureIfEmptyState(hasUserOwnAdvertisement)
                 }
             }
             .store(in: &cancellables)
@@ -36,5 +57,18 @@ private extension AddNewAdvertisementViewController {
     
     func setupNavigationBar() {
         title = Localization.selling
+    }
+    
+    func deleteAdsAlert(action: @escaping (UIAlertAction) -> Void) {
+        let alertController = UIAlertController(
+            title: Localization.deleteAdsTitle,
+            message: Localization.deleteAdsMessage,
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: Localization.ok, style: .destructive, handler: action)
+        let cancel = UIAlertAction(title: Localization.cancel, style: .default)
+        alertController.addAction(okAction)
+        alertController.addAction(cancel)
+        present(alertController, animated: true, completion: nil)
     }
 }
