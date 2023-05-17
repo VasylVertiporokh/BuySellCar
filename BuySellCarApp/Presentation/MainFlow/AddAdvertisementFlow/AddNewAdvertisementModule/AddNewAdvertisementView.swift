@@ -84,7 +84,7 @@ private extension AddNewAdvertisementView {
     }
 }
 
-// MARK: - Internal section
+// MARK: - Internal extension
 extension AddNewAdvertisementView {
     func setupSnapshot(sections: [SectionModel<CreatedAdvertisementsSection, CreatedAdvertisementsRow>]) {        
         var snapShot = NSDiffableDataSourceSnapshot<CreatedAdvertisementsSection, CreatedAdvertisementsRow>()

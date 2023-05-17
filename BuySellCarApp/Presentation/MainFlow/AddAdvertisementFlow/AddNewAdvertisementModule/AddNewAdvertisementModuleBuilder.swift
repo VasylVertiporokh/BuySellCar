@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 enum AddNewAdvertisementTransition: Transition {
-    
+    case showVehicleData
 }
 
 final class AddNewAdvertisementModuleBuilder {

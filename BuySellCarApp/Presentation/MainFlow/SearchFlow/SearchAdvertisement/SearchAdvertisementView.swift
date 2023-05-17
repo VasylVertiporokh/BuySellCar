@@ -159,7 +159,7 @@ private extension SearchAdvertisementView {
         
         let headerElement = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerSize,
-            elementKind: SearchSectionHeaderView.className,
+            elementKind: SimpleHeader.className,
             alignment: .top
         )
         
@@ -202,7 +202,7 @@ private extension SearchAdvertisementView {
         
         let headerElement = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerSize,
-            elementKind: SearchSectionHeaderView.className,
+            elementKind: SimpleHeader.className,
             alignment: .top
         )
         
@@ -251,7 +251,7 @@ private extension SearchAdvertisementView {
         
         let headerElement = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerSize,
-            elementKind: SearchSectionHeaderView.className,
+            elementKind: SimpleHeader.className,
             alignment: .top
         )
         
@@ -290,7 +290,7 @@ private extension SearchAdvertisementView {
         
         let headerElement = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerSize,
-            elementKind: SearchSectionHeaderView.className,
+            elementKind: SimpleHeader.className,
             alignment: .top
         )
         headerElement.contentInsets.leading = Constant.fuelTypeHeaderInset
@@ -332,7 +332,7 @@ private extension SearchAdvertisementView {
         
         let headerElement = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerSize,
-            elementKind: SearchSectionHeaderView.className,
+            elementKind: SimpleHeader.className,
             alignment: .top
         )
         headerElement.contentInsets.leading = Constant.fuelTypeHeaderInset
@@ -379,7 +379,7 @@ private extension SearchAdvertisementView {
         
         let headerElement = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerSize,
-            elementKind: SearchSectionHeaderView.className,
+            elementKind: SimpleHeader.className,
             alignment: .top
         )
         let section = NSCollectionLayoutSection(group: group)
@@ -410,7 +410,7 @@ private extension SearchAdvertisementView {
         
         let headerElement = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerSize,
-            elementKind: SearchSectionHeaderView.className,
+            elementKind: SimpleHeader.className,
             alignment: .top
         )
         let section = NSCollectionLayoutSection(group: group)
@@ -426,7 +426,7 @@ private extension SearchAdvertisementView {
         collectionView.register(cellType: BrandCell.self)
         collectionView.register(cellType: BodyTypeCell.self)
         collectionView.register(view: BrandsFooterView.self)
-        collectionView.register(view: SearchSectionHeaderView.self)
+        collectionView.register(view: SimpleHeader.self)
         collectionView.register(cellType: AdditionalSearchParamCell.self)
         collectionView.register(cellType: TechnicalSpecCell.self)
         collectionView.register(cellType: SearchPlainCell.self)
@@ -492,8 +492,8 @@ private extension SearchAdvertisementView {
                 }
                 return footer
 
-            case SearchSectionHeaderView.className:
-                let header: SearchSectionHeaderView = collectionView.dequeueSupplementaryView(for: indexPath, kind: kind)
+            case SimpleHeader.className:
+                let header: SimpleHeader = collectionView.dequeueSupplementaryView(for: indexPath, kind: kind)
                 header.setHeaderTitle(section.sectionHeaderTitle)
                 return header
             default:

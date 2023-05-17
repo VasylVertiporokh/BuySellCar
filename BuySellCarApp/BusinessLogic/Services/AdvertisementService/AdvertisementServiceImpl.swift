@@ -32,4 +32,31 @@ extension AdvertisementServiceImpl: AdvertisementService {
             .map { $0.map { AdvertisementDomainModel(advertisementResponseModel: $0) } }
             .eraseToAnyPublisher()
     }
+    
+    func getOwnAds(byID: String) -> AnyPublisher<[AdvertisementDomainModel], Error> {
+        advertisementNetworkService.getOwnAds(ownerID: byID)
+            .mapError { $0 as Error }
+            .map { $0.map { AdvertisementDomainModel(advertisementResponseModel: $0) } }
+            .eraseToAnyPublisher()
+    }
+    
+    func getBrands() -> AnyPublisher<[BrandDomainModel], Error> {
+        advertisementNetworkService.getBrands()
+            .mapError { $0 as Error }
+            .map { $0.map { BrandDomainModel(brandResponseModel: $0) }}
+            .eraseToAnyPublisher()
+    }
+    
+    func getModelsByBrandId(_ brandId: String) -> AnyPublisher<[ModelsDomainModel], Error> {
+        advertisementNetworkService.getModelsByBrandId(brandId)
+            .mapError { $0 as Error }
+            .map { $0.map { ModelsDomainModel(modelResponseModel: $0) }}
+            .eraseToAnyPublisher()
+    }
+    
+    func deleteAdvertisementByID(_ id: String) -> AnyPublisher<Void, Error> {
+        advertisementNetworkService.deleteAdvertisement(objectID: id)
+            .mapError { $0 as Error }
+            .eraseToAnyPublisher()
+    }
 }

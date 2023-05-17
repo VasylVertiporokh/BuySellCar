@@ -28,7 +28,12 @@ final class SearchPlainCell: UICollectionViewCell {
 // MARK: - Internal extension
 extension SearchPlainCell {
     func setLabelText(_ labelText: String) {
+        arrowImageView.isHidden = false
         cellLabel.text = labelText
+    }
+    
+    func setBrand(from model: BrandCellConfigurationModel) {
+        cellLabel.text = model.brandName
     }
 }
 
@@ -58,6 +63,7 @@ private extension SearchPlainCell {
     
     func configureUI() {
         backgroundColor = .white
+        arrowImageView.isHidden = true
         arrowImageView.image = Assets.arrow.image
         cellLabel.font = Constant.cellLabelFont
         contentView.layer.borderWidth = Constant.contentViewBorderWidth

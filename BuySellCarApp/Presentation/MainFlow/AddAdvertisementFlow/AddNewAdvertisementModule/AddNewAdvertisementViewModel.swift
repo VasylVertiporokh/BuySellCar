@@ -51,6 +51,10 @@ extension AddNewAdvertisementViewModel {
             addAdvertisementModel.deleteAdvertisementByID(advertisementCellModel.objectID)
         }
     }
+    
+    func showVehicleData() {
+        transitionSubject.send(.showVehicleData)
+    }
 }
  
 // MARK: - Private extension

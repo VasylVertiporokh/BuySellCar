@@ -22,8 +22,8 @@ protocol AddAdvertisementModel {
 
 final class AddAdvertisementModelImpl {
     // MARK: - Private properties
-    private let userDefaultsService: UserDefaultsServiceProtocol
-    private let advertisementNetworkService: AdvertisementNetworkService
+    private let userService: UserService
+    private let advertisementService: AdvertisementService
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Subjects
@@ -39,69 +39,66 @@ final class AddAdvertisementModelImpl {
     lazy var modelErrorPublisher = modelErrorSubject.eraseToAnyPublisher()
     
     // MARK: - Init
-    init(userDefaultsService: UserDefaultsServiceProtocol, advertisementNetworkService: AdvertisementNetworkService) {
-        self.userDefaultsService = userDefaultsService
-        self.advertisementNetworkService = advertisementNetworkService
+    init(userService: UserService, advertisementService: AdvertisementService) {
+        self.userService = userService
+        self.advertisementService = advertisementService
     }
 }
 
 // MARK: -
 extension AddAdvertisementModelImpl: AddAdvertisementModel {
     func getOwnAds() {
-        guard let ownerID = userDefaultsService.userID else {
+        guard let ownerID = userService.user?.ownerID else {
             return
         }
-        advertisementNetworkService.getOwnAds(ownerID: ownerID)
-            .mapError { $0 as Error }
+        
+        advertisementService.getOwnAds(byID: ownerID)
             .sink { [weak self] completion in
                 guard case let .failure(error) = completion else {
                     return
                 }
                 self?.modelErrorSubject.send(error)
-            } receiveValue: { [weak self] adsResponseModel in
+            } receiveValue: { [weak self] adsDomainModel in
                 guard let self = self else { return }
-                self.ownAdsSubject.send(adsResponseModel.map({AdvertisementDomainModel.init(advertisementResponseModel: $0)}))
+                self.ownAdsSubject.send(adsDomainModel)
             }
             .store(in: &cancellables)
     }
     
     func getBrands() {
-        advertisementNetworkService.getBrands()
-            .mapError { $0 as Error }
+        advertisementService.getBrands()
             .sink { [weak self] completion in
                 guard case let .failure(error) = completion else {
                     return
                 }
                 self?.modelErrorSubject.send(error)
-            } receiveValue: { [weak self] brandResponseModel in
+            } receiveValue: { [weak self] brandsDomainModel in
                 guard let self = self else {
                     return
                 }
-                self.brandsSubject.send(brandResponseModel.map { BrandDomainModel(brandResponseModel: $0) })
+                self.brandsSubject.send(brandsDomainModel.sorted { $0.name < $1.name })
             }
             .store(in: &cancellables)
     }
     
     func getModelsById(_ brandId: String) {
-        advertisementNetworkService.getModelsByBrandId(brandId)
-            .mapError { $0 as Error }
+        advertisementService.getModelsByBrandId(brandId)
             .sink { [weak self] completion in
                 guard case let .failure(error) = completion else {
                     return
                 }
                 self?.modelErrorSubject.send(error)
-            } receiveValue: { [weak self] modelsResponseModel in
+            } receiveValue: { [weak self] modelsDomainModel in
                 guard let self = self else {
                     return
                 }
-                self.modelsSubject.send(modelsResponseModel.map { ModelsDomainModel(modelResponseModel: $0) })
+                self.modelsSubject.send(modelsDomainModel)
             }
             .store(in: &cancellables)
     }
     
     func deleteAdvertisementByID(_ id: String) {
-        advertisementNetworkService.deleteAdvertisement(objectID: id)
-            .mapError { $0 as Error }
+        advertisementService.deleteAdvertisementByID(id)
             .sink { [weak self] completion in
                 guard case let .failure(error) = completion else {
                     return
@@ -116,4 +113,3 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
             .store(in: &cancellables)
     }
 }
-

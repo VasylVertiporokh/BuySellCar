@@ -73,8 +73,8 @@ final class AppContainerImpl: AppContainer {
         self.advertisementNetworkService = AdvertisementNetworkImpl(provider: advertisementNetworkServiceProvider)
         self.advertisementService = AdvertisementServiceImpl(advertisementNetworkService: advertisementNetworkService)
         self.addAdvertisementModel = AddAdvertisementModelImpl(
-            userDefaultsService: userDefaultsService,
-            advertisementNetworkService: advertisementNetworkService
+            userService: userService,
+            advertisementService: advertisementService
         )
     }
 }

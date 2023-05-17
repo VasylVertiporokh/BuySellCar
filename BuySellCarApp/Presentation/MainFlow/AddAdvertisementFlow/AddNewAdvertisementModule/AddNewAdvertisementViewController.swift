@@ -30,7 +30,7 @@ private extension AddNewAdvertisementViewController {
             .sink { [unowned self] action in
                 switch action {
                 case .createAd:
-                    print("Start adding")
+                    viewModel.showVehicleData()
                 case .deleteAd(let deleteItem):
                     deleteAdsAlert { [weak self] _ in
                         self?.viewModel.deleteAdvertisement(item: deleteItem)

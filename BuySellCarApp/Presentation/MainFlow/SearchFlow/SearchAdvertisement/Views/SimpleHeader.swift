@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class SearchSectionHeaderView: UICollectionReusableView {
+final class SimpleHeader: UICollectionReusableView {
     // MARK: - Subviews
     private let containerStackView = UIStackView()
     private let titleLabel = UILabel()
@@ -25,14 +25,14 @@ final class SearchSectionHeaderView: UICollectionReusableView {
 }
 
 // MARK: - Internal extension
-extension SearchSectionHeaderView {
+extension SimpleHeader {
     func setHeaderTitle(_ title: String) {
         titleLabel.text = title
     }
 }
 
 // MARK: - Private extension
-private extension SearchSectionHeaderView {
+private extension SimpleHeader {
     func initialSetup() {
         configureLayout()
         configureUI()
