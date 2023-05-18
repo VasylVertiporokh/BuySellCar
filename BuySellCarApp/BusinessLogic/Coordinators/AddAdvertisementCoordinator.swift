@@ -60,6 +60,7 @@ private extension AddAdvertisementCoordinator {
                 }
             }
             .store(in: &cancellables)
+        module.viewController.hidesBottomBarWhenPushed = true
         push(module.viewController)
     }
     

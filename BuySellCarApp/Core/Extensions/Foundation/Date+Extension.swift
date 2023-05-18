@@ -24,7 +24,7 @@ extension Date {
 
     var convertToIntYear: Int {
         let calendar = Calendar.current
-        var intYear = calendar.component(.year, from: self)
+        let intYear = calendar.component(.year, from: self)
         return intYear
     }
 }
