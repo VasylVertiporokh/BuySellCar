@@ -9,6 +9,7 @@ import UIKit
 import Combine
 
 enum BrandListTransition: Transition {
+    case popToPreviousModule
 }
 
 final class BrandListModuleBuilder {

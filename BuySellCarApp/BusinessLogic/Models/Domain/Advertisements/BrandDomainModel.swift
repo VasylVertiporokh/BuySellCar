@@ -8,6 +8,7 @@
 import Foundation
 
 struct BrandDomainModel {
+    let dataType: VehicleDataType = .make
     let id: String
     let name: String
     

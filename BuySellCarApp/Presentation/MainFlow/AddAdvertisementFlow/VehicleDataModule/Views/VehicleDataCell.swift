@@ -40,7 +40,7 @@ final class VehicleDataCell: UICollectionViewCell {
 // MARK: - Internal extension
 extension VehicleDataCell {
     func configureCell(from model: VehicleDataCellModel) {
-        dataTypeLabel.text = model.dataTypeTitle
+        dataTypeLabel.text = model.dataType.rawValue
         dataDetailsLabel.text = model.dataDescriptionTitle
     }
 }
@@ -108,16 +108,3 @@ private enum Constant {
     static let labelFont: UIFont = FontFamily.Montserrat.regular.font(size: 14)
     static let separatorViewColor: UIColor = Colors.buttonDarkGray.color.withAlphaComponent(0.3)
 }
-
-struct VehicleDataCellModel: Hashable {
-    let dataTypeTitle: String
-    var dataDescriptionTitle: String?
-}
-
-//enum VehicleDataType: String {
-//    case make = "Make"
-//    case firstRegistration = "First registration"
-//    case bodyColor = "Body color"
-//    case model = "Model"
-//    case fuelType = "Fuel type"
-//}

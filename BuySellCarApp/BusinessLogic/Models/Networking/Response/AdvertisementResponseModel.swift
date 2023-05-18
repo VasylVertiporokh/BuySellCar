@@ -6,15 +6,16 @@
 //
 
 import Foundation
+import UIKit
 
 struct AdvertisementResponseModel: Decodable {
     let bodyType: BodyType
     let transportName: String
-    let bodyColor: String
+    let bodyColor: CarColor
     let description: String?
     let avarageFuelConsumption: Double
     let ownerID: String?
-    let interiorColor: InteriorColor
+    let interiorColor: CarColor
     let price: Int
     let transmissionType: TransmissionType
     let power: Int
@@ -76,14 +77,48 @@ enum FuelType: String, Decodable {
     case hydrogen = "Hydrogen"
     case lpg = "LPG"
     case other = "Other"
+    
+    static var fuelTypes: [Self] {
+        return [
+            FuelType.disel, FuelType.electro, FuelType.petrol, FuelType.hybrid,
+            FuelType.ethanol, FuelType.hydrogen, FuelType.lpg, FuelType.other
+        ]
+    }
 }
 
-enum InteriorColor: String, Decodable {
+enum CarColor: String, Decodable {
     case black = "Black"
     case gray = "Gray"
     case white = "White"
     case red = "Red"
     case blue = "Blue"
+    case yellow = "Yellow"
+    case orange = "Orange"
+    case green = "Green"
+    case brown = "Brown"
+    case silver = "Silver"
+    
+    var colors: UIColor {
+        switch self {
+        case .black:     return .black
+        case .gray:      return .gray
+        case .white:     return .white
+        case .red:       return .red
+        case .blue:      return .blue
+        case .yellow:    return .yellow
+        case .orange:    return .orange
+        case .green:     return .green
+        case .brown:     return .brown
+        case .silver:    return .lightGray
+        }
+    }
+    
+    static var colorsList: [Self] {
+        return [
+            CarColor.black, CarColor.gray, CarColor.white, CarColor.red, CarColor.brown,
+            CarColor.blue, CarColor.yellow, CarColor.orange, CarColor.green, CarColor.silver
+        ]
+    }
 }
 
 enum SellerType: String, Decodable {

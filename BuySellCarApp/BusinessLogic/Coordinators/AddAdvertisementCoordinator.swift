@@ -52,8 +52,11 @@ private extension AddAdvertisementCoordinator {
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
-                case .showBrands:
-                    brandsModule()
+                case .showBrands:             brandsModule()
+                case .showModels:             modelsModule()
+                case .showRegistrationDate:   registrationDateModule()
+                case .showFuelType:           fuelTypeModule()
+                case .showBodyColor:          bodyColorModule()
                 }
             }
             .store(in: &cancellables)
@@ -64,7 +67,54 @@ private extension AddAdvertisementCoordinator {
         let module = BrandListModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] transition in
-                
+                switch transition {
+                case .popToPreviousModule:
+                    pop()
+                }
+            }
+            .store(in: &cancellables)
+        push(module.viewController)
+    }
+    
+    func modelsModule() {
+        let module = ModelListModuleBuilder.build(container: container)
+        module.transitionPublisher
+            .sink { [unowned self] transition in
+                switch transition {
+                case .popToPreviousModule:
+                    pop()
+                }
+            }
+            .store(in: &cancellables)
+        push(module.viewController)
+    }
+    
+    func registrationDateModule() {
+        let module = FirstRedistrationModuleBuilder.build(container: container)
+        presentWithStyle(module.viewController, style: .overFullScreen)
+    }
+    
+    func fuelTypeModule() {
+        let module = FuelTypeListModuleBuilder.build(container: container)
+        module.transitionPublisher
+            .sink { [unowned self] transition in
+                switch transition {
+                case .popToPreviousModule:
+                    pop()
+                }
+            }
+            .store(in: &cancellables)
+        push(module.viewController)
+    }
+    
+    func bodyColorModule() {
+        let module = BodyColorModuleBuilder.build(container: container)
+        module.transitionPublisher
+            .sink { [unowned self] transition in
+                switch transition {
+                case .popToPreviousModule:
+                    pop()
+                }
             }
             .store(in: &cancellables)
         push(module.viewController)

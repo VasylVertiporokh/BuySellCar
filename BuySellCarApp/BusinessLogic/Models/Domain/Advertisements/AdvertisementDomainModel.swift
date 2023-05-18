@@ -10,11 +10,11 @@ import Foundation
 struct AdvertisementDomainModel {
     let bodyType: BodyType
     let transportName: String
-    let bodyColor: String
+    let bodyColor: CarColor
     let description: String?
     let avarageFuelConsumption: Double
     let ownerID: String?
-    let interiorColor: InteriorColor
+    let interiorColor: CarColor
     let price: Int
     let transmissionType: TransmissionType
     let power: Int

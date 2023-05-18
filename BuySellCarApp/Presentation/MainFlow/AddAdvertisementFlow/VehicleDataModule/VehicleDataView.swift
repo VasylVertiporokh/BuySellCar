@@ -9,6 +9,17 @@ import UIKit
 import SnapKit
 import Combine
 
+// MARK: - VehicleDataSection
+enum VehicleDataSection: Hashable {
+    case vehicleDataSection
+}
+
+// MARK: - VehicleDataRow
+enum VehicleDataRow: Hashable {
+    case vehicleDataRow(VehicleDataCellModel)
+}
+
+// MARK: - VehicleDataViewAction
 enum VehicleDataViewAction {
     case cellDidTap(VehicleDataRow)
 }
@@ -46,6 +57,10 @@ extension VehicleDataView {
         }
         dataSource?.apply(snapShot, animatingDifferences: false)
     }
+    
+    func configureToValidState(_ isValid: Bool) {
+        continueButton.isHidden = !isValid
+    }
 }
 
 // MARK: - Private extension
@@ -69,13 +84,13 @@ private extension VehicleDataView {
     func setupUI() {
         backgroundColor = .systemGroupedBackground
         progressView.configureForStep(.createAd)
+        continueButton.isHidden = true
         continueButton.setTitle("Continue", for: .normal)
         continueButton.backgroundColor = Colors.buttonYellow.color
         continueButton.tintColor = Colors.buttonDarkGray.color
         continueButton.layer.cornerRadius = Constant.continueButtonRadius
         continueButton.titleLabel?.font = Constant.continueButtonFont
     }
-    
     
     func setupLayout() {
         addSubview(progressView)
@@ -113,7 +128,7 @@ private extension VehicleDataView {
             let sections = dataSource.snapshot().sectionIdentifiers[sectionIndex]
             switch sections {
             case .vehicleDataSection:
-                return self.createdAdvertisementsSectionLayout()
+                return self.createVehicleDataSectionLayout()
             }
         }
         
@@ -127,31 +142,15 @@ private extension VehicleDataView {
         
         dataSource = .init(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
             switch item {
-            case .carBrandRow(let brand):
+            case .vehicleDataRow(let row):
                 let cell: VehicleDataCell = collectionView.dequeueReusableCell(for: indexPath)
-                cell.configureCell(from: brand)
-                return cell
-            case .firstRegistrationRow(let firstRegistration):
-                let cell: VehicleDataCell = collectionView.dequeueReusableCell(for: indexPath)
-                cell.configureCell(from: firstRegistration)
-                return cell
-            case .bodyColorRow(let bodyColor):
-                let cell: VehicleDataCell = collectionView.dequeueReusableCell(for: indexPath)
-                cell.configureCell(from: bodyColor)
-                return cell
-            case .modelRow(let model):
-                let cell: VehicleDataCell = collectionView.dequeueReusableCell(for: indexPath)
-                cell.configureCell(from: model)
-                return cell
-            case .fuelTypeRow(let fuelType):
-                let cell: VehicleDataCell = collectionView.dequeueReusableCell(for: indexPath)
-                cell.configureCell(from: fuelType)
+                cell.configureCell(from: row)
                 return cell
             }
         })
     }
     
-    func createdAdvertisementsSectionLayout() -> NSCollectionLayoutSection {
+    func createVehicleDataSectionLayout() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: Constant.itemSize)
         let group = NSCollectionLayoutGroup.vertical(layoutSize: Constant.layoutSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
@@ -170,19 +169,4 @@ private enum Constant {
     static let defaultConstraint: CGFloat = 16
     static let continueButtonBottomConstraint: CGFloat = 8
     static let continueButtonFont: UIFont = FontFamily.Montserrat.medium.font(size: 14)
-}
-
-
-// MARK: - VehicleDataSection
-enum VehicleDataSection: Hashable {
-    case vehicleDataSection
-}
-
-// MARK: - VehicleDataRow
-enum VehicleDataRow: Hashable {
-    case carBrandRow(VehicleDataCellModel)
-    case firstRegistrationRow(VehicleDataCellModel)
-    case bodyColorRow(VehicleDataCellModel)
-    case modelRow(VehicleDataCellModel)
-    case fuelTypeRow(VehicleDataCellModel)
 }

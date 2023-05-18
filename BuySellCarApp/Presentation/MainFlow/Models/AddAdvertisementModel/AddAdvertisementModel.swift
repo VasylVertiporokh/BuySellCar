@@ -12,15 +12,29 @@ protocol AddAdvertisementModel {
     var ownAdsPublisher: AnyPublisher<[AdvertisementDomainModel], Never> { get }
     var brandsPublisher: AnyPublisher<[BrandDomainModel], Never> { get }
     var modelsPublisher: AnyPublisher<[ModelsDomainModel], Never> { get }
+    var isAllFieldsValidPublisher: AnyPublisher<Bool, Never> { get }
     var modelErrorPublisher: AnyPublisher<Error, Never> { get }
+    var carColorArray: [CarColor] { get }
+    var fuelTypesArray: [FuelType] { get }
+    var addAdsDomainModelPublisher: AnyPublisher<AddAdvertisementDomainModel, Never> { get }
     
     func getOwnAds()
     func getBrands()
     func getModelsById(_ brandId: String)
     func deleteAdvertisementByID(_ id: String)
+    func setBrand(model: BrandCellConfigurationModel)
+    func setModel(model: ModelCellConfigurationModel)
+    func setRegistrationData(date: Date)
+    func setFuelType(type: FuelType)
+    func setCarColor(color: CarColor)
+    func resetAdCreation()
 }
 
 final class AddAdvertisementModelImpl {
+    // MARK: - Internal properties
+    private(set) var fuelTypesArray: [FuelType] = FuelType.fuelTypes
+    private(set) var carColorArray: [CarColor] = CarColor.colorsList
+    
     // MARK: - Private properties
     private let userService: UserService
     private let advertisementService: AdvertisementService
@@ -30,18 +44,22 @@ final class AddAdvertisementModelImpl {
     private let ownAdsSubject = CurrentValueSubject<[AdvertisementDomainModel], Never>([])
     private let brandsSubject = CurrentValueSubject<[BrandDomainModel], Never>([])
     private let modelsSubject = CurrentValueSubject<[ModelsDomainModel], Never>([])
+    private let isAllFieldsValidSubject = CurrentValueSubject<Bool, Never>(false)
     private let modelErrorSubject = PassthroughSubject<Error, Never>()
+    private let addAdsDomainModelSubject = CurrentValueSubject<AddAdvertisementDomainModel, Never>(.init())
     
     // MARK: - Publishers
     lazy var ownAdsPublisher = ownAdsSubject.eraseToAnyPublisher()
     lazy var brandsPublisher = brandsSubject.eraseToAnyPublisher()
     lazy var modelsPublisher = modelsSubject.eraseToAnyPublisher()
     lazy var modelErrorPublisher = modelErrorSubject.eraseToAnyPublisher()
+    lazy var addAdsDomainModelPublisher = addAdsDomainModelSubject.eraseToAnyPublisher()
+    lazy var isAllFieldsValidPublisher = isAllFieldsValidSubject.eraseToAnyPublisher()
     
     // MARK: - Init
     init(userService: UserService, advertisementService: AdvertisementService) {
         self.userService = userService
-        self.advertisementService = advertisementService
+        self.advertisementService = advertisementService      
     }
 }
 
@@ -112,4 +130,52 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
             }
             .store(in: &cancellables)
     }
+    
+    func setBrand(model: BrandCellConfigurationModel) {
+        addAdsDomainModelSubject.value = .init()
+        addAdsDomainModelSubject.value.make = model.brandName
+        addAdsDomainModelSubject.value.model = ""
+        isAllFieldsValidSubject.send(false)
+    }
+    
+    func setModel(model: ModelCellConfigurationModel) {
+        addAdsDomainModelSubject.value.model = model.modelName
+        addAdsDomainModelSubject.value.firstRegistration = .init()
+        addAdsDomainModelSubject.value.fuelType = .petrol
+    }
+    
+    func setRegistrationData(date: Date) {
+        addAdsDomainModelSubject.value.firstRegistration?.dateString = date.convertToString(format: .monthYear)
+        addAdsDomainModelSubject.value.firstRegistration?.dateInt = date.convertToIntYear
+    }
+    
+    func setFuelType(type: FuelType) {
+        addAdsDomainModelSubject.value.fuelType = type
+        addAdsDomainModelSubject.value.bodyColor = .white
+        isAllFieldsValidSubject.send(true)
+    }
+    
+    func setCarColor(color: CarColor) {
+        addAdsDomainModelSubject.value.bodyColor = color
+    }
+    
+    func resetAdCreation() {
+        addAdsDomainModelSubject.value = .init()
+        isAllFieldsValidSubject.send(false)
+    }
+}
+
+// TODO: - Replace with an existing domain model (after the demo)
+// MARK: - AddAdvertisementDomainModel
+struct AddAdvertisementDomainModel {
+    var make: String?
+    var model: String?
+    var firstRegistration: FirstRegistrationDataModel?
+    var fuelType: FuelType?
+    var bodyColor: CarColor?
+}
+
+struct FirstRegistrationDataModel {
+    var dateString: String = Date().convertToString(format: .monthYear)
+    var dateInt: Int = Date().convertToIntYear
 }

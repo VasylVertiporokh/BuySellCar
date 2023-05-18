@@ -10,6 +10,10 @@ import Combine
 
 enum VehicleDataTransition: Transition {
     case showBrands
+    case showModels
+    case showRegistrationDate
+    case showFuelType
+    case showBodyColor
 }
 
 final class VehicleDataModuleBuilder {

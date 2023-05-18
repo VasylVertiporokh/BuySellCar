@@ -36,7 +36,7 @@ struct AdvertisementCellModel: Hashable {
         year = model.yearOfManufacture
         condition = model.condition.rawValue
         fuelType = model.fuelType.rawValue
-        color = model.bodyColor
+        color = model.bodyColor.rawValue
         sellerName = "Alex" // TODO: - add this fields
         location = "Berlin"
         objectID = model.objectID

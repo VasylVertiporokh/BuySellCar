@@ -1,38 +1,38 @@
 //
-//  BrandListView.swift
+//  FuelTypeListView.swift
 //  BuySellCarApp
 //
-//  Created by Vasil Vertiporokh on 16.05.2023.
+//  Created by Vasil Vertiporokh on 18.05.2023.
 //
 
 import UIKit
 import Combine
 
 // MARK: - BrandSection
-enum BrandSection: Hashable {
-    case brandSection
+enum FuelTypeSection: Hashable {
+    case carFuelTypeSection
 }
 
 // MARK: - VehicleDataRow
-enum BrandRow: Hashable {
-    case carBrandRow(BrandCellConfigurationModel)
+enum FuelTypeRow: Hashable {
+    case carFuelTypeRow(FuelType)
 }
 
-// MARK: - BrandListViewAction
-enum BrandListViewAction {
-    case cellDidTap(BrandRow)
+// MARK: - FuelTypeListViewAction
+enum FuelTypeListViewAction {
+    case cellDidTap(FuelTypeRow)
 }
 
-final class BrandListView: BaseView {
+final class FuelTypeListView: BaseView {
     // MARK: - Subviews
     private var collectionView: UICollectionView!
     
     // MARK: - Private properties
-    private var dataSource: UICollectionViewDiffableDataSource<BrandSection, BrandRow>?
+    private var dataSource: UICollectionViewDiffableDataSource<FuelTypeSection, FuelTypeRow>?
     
     // MARK: - Action publisher
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<BrandListViewAction, Never>()
+    private let actionSubject = PassthroughSubject<FuelTypeListViewAction, Never>()
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -46,9 +46,9 @@ final class BrandListView: BaseView {
 }
 
 // MARK: - Internal extension
-extension BrandListView {
-    func setupSnapshot(sections: [SectionModel<BrandSection, BrandRow>]) {
-        var snapShot = NSDiffableDataSourceSnapshot<BrandSection, BrandRow>()
+extension FuelTypeListView {
+    func setupSnapshot(sections: [SectionModel<FuelTypeSection, FuelTypeRow>]) {
+        var snapShot = NSDiffableDataSourceSnapshot<FuelTypeSection, FuelTypeRow>()
         for section in sections {
             snapShot.appendSections([section.section])
             snapShot.appendItems(section.items, toSection: section.section)
@@ -58,10 +58,11 @@ extension BrandListView {
 }
 
 // MARK: - Private extension
-private extension BrandListView {
+private extension FuelTypeListView {
     func initialSetup() {
         configureCollectionView()
         setupDataSource()
+        setupLayout()
         setupUI()
         bindActions()
     }
@@ -69,7 +70,7 @@ private extension BrandListView {
     func bindActions() {
         collectionView.didSelectItemPublisher
             .compactMap { self.dataSource?.itemIdentifier(for: $0) }
-            .map { BrandListViewAction.cellDidTap($0) }
+            .map { FuelTypeListViewAction.cellDidTap($0) }
             .sink { [unowned self] in actionSubject.send($0) }
             .store(in: &cancellables)
     }
@@ -77,10 +78,11 @@ private extension BrandListView {
     func setupUI() {
         backgroundColor = .white
     }
+    
+    func setupLayout() {}
 }
-
 // MARK: - Configure collection view
-private extension BrandListView {
+private extension FuelTypeListView {
     func configureCollectionView() {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         addSubview(collectionView)
@@ -95,8 +97,8 @@ private extension BrandListView {
             
             let sections = dataSource.snapshot().sectionIdentifiers[sectionIndex]
             switch sections {
-            case .brandSection:
-                return self.createBrandSectionLayout()
+            case .carFuelTypeSection:
+                return self.createFuelTypeSectionLayout()
             }
         }
         
@@ -110,15 +112,15 @@ private extension BrandListView {
         
         dataSource = .init(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
             switch item {
-            case .carBrandRow(let brand):
+            case .carFuelTypeRow(let type):
                 let cell: SearchPlainCell = collectionView.dequeueReusableCell(for: indexPath)
-                cell.setBrand(from: brand)
+                cell.setFuelType(fuelType: type)
                 return cell
             }
         })
     }
     
-    func createBrandSectionLayout() -> NSCollectionLayoutSection {
+    func createFuelTypeSectionLayout() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: Constant.itemSize)
         let group = NSCollectionLayoutGroup.vertical(layoutSize: Constant.layoutSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)

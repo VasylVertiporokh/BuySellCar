@@ -19,10 +19,14 @@ final class VehicleDataViewController: BaseViewController<VehicleDataViewModel> 
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
         setupBindings()
     }
-    
-    private func setupBindings() {
+}
+
+// MARK: - Private extension
+private extension VehicleDataViewController {
+    func setupBindings() {
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
@@ -37,5 +41,18 @@ final class VehicleDataViewController: BaseViewController<VehicleDataViewModel> 
                 contentView.setupSnapshot(sections: sections)
             }
             .store(in: &cancellables)
+        
+        viewModel.eventsPublisher
+            .sink { [unowned self] event in
+                switch event {
+                case .isAllFieldsValid(let isValid):
+                    contentView.configureToValidState(isValid)
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
+    func setupNavigationBar() {
+        title = "Vehicle data"
     }
 }

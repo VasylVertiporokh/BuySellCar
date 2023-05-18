@@ -48,6 +48,8 @@ extension BrandListViewModel {
         switch item {
         case .carBrandRow(let brand):
             addAdvertisementModel.getModelsById(brand.id)
+            addAdvertisementModel.setBrand(model: brand)
+            transitionSubject.send(.popToPreviousModule)
         }
     }
 }

@@ -45,6 +45,11 @@ extension Coordinator {
         self.navigationController.present(viewController, animated: animated)
     }
     
+    func presentPresentationStyle(_ viewController: UIViewController, animated: Bool = false, style: UIModalPresentationStyle) {
+        viewController.modalPresentationStyle = style
+        self.navigationController.present(viewController, animated: animated)
+    }
+    
     func presentWithStyle(_ viewController: UIViewController, animated: Bool = true, style: UIModalPresentationStyle) {
         viewController.modalPresentationStyle = style
         self.navigationController.present(viewController, animated: animated)

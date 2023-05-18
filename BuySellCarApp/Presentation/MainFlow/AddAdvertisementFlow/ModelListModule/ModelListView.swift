@@ -1,38 +1,38 @@
 //
-//  BrandListView.swift
+//  ModelListView.swift
 //  BuySellCarApp
 //
-//  Created by Vasil Vertiporokh on 16.05.2023.
+//  Created by Vasil Vertiporokh on 17.05.2023.
 //
 
 import UIKit
 import Combine
 
 // MARK: - BrandSection
-enum BrandSection: Hashable {
-    case brandSection
+enum CarModelSection: Hashable {
+    case carModelSection
 }
 
 // MARK: - VehicleDataRow
-enum BrandRow: Hashable {
-    case carBrandRow(BrandCellConfigurationModel)
+enum CarModelRow: Hashable {
+    case carModelRow(ModelCellConfigurationModel)
 }
 
-// MARK: - BrandListViewAction
-enum BrandListViewAction {
-    case cellDidTap(BrandRow)
+// MARK: - ModelListViewAction
+enum ModelListViewAction {
+    case cellDidTap(CarModelRow)
 }
 
-final class BrandListView: BaseView {
+final class ModelListView: BaseView {
     // MARK: - Subviews
     private var collectionView: UICollectionView!
     
     // MARK: - Private properties
-    private var dataSource: UICollectionViewDiffableDataSource<BrandSection, BrandRow>?
+    private var dataSource: UICollectionViewDiffableDataSource<CarModelSection, CarModelRow>?
     
     // MARK: - Action publisher
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<BrandListViewAction, Never>()
+    private let actionSubject = PassthroughSubject<ModelListViewAction, Never>()
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -46,9 +46,9 @@ final class BrandListView: BaseView {
 }
 
 // MARK: - Internal extension
-extension BrandListView {
-    func setupSnapshot(sections: [SectionModel<BrandSection, BrandRow>]) {
-        var snapShot = NSDiffableDataSourceSnapshot<BrandSection, BrandRow>()
+extension ModelListView {
+    func setupSnapshot(sections: [SectionModel<CarModelSection, CarModelRow>]) {
+        var snapShot = NSDiffableDataSourceSnapshot<CarModelSection, CarModelRow>()
         for section in sections {
             snapShot.appendSections([section.section])
             snapShot.appendItems(section.items, toSection: section.section)
@@ -58,10 +58,11 @@ extension BrandListView {
 }
 
 // MARK: - Private extension
-private extension BrandListView {
+private extension ModelListView {
     func initialSetup() {
         configureCollectionView()
         setupDataSource()
+        setupLayout()
         setupUI()
         bindActions()
     }
@@ -69,7 +70,7 @@ private extension BrandListView {
     func bindActions() {
         collectionView.didSelectItemPublisher
             .compactMap { self.dataSource?.itemIdentifier(for: $0) }
-            .map { BrandListViewAction.cellDidTap($0) }
+            .map { ModelListViewAction.cellDidTap($0) }
             .sink { [unowned self] in actionSubject.send($0) }
             .store(in: &cancellables)
     }
@@ -77,10 +78,12 @@ private extension BrandListView {
     func setupUI() {
         backgroundColor = .white
     }
+    
+    func setupLayout() {}
 }
 
 // MARK: - Configure collection view
-private extension BrandListView {
+private extension ModelListView {
     func configureCollectionView() {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         addSubview(collectionView)
@@ -95,8 +98,8 @@ private extension BrandListView {
             
             let sections = dataSource.snapshot().sectionIdentifiers[sectionIndex]
             switch sections {
-            case .brandSection:
-                return self.createBrandSectionLayout()
+            case .carModelSection:
+                return self.createCarModelSectionLayout()
             }
         }
         
@@ -110,15 +113,15 @@ private extension BrandListView {
         
         dataSource = .init(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
             switch item {
-            case .carBrandRow(let brand):
+            case .carModelRow(let model):
                 let cell: SearchPlainCell = collectionView.dequeueReusableCell(for: indexPath)
-                cell.setBrand(from: brand)
+                cell.setModel(from: model)
                 return cell
             }
         })
     }
     
-    func createBrandSectionLayout() -> NSCollectionLayoutSection {
+    func createCarModelSectionLayout() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: Constant.itemSize)
         let group = NSCollectionLayoutGroup.vertical(layoutSize: Constant.layoutSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
