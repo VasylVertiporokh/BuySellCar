@@ -22,6 +22,7 @@ enum VehicleDataRow: Hashable {
 // MARK: - VehicleDataViewAction
 enum VehicleDataViewAction {
     case cellDidTap(VehicleDataRow)
+    case continueButtonDidTapped
 }
 
 final class VehicleDataView: BaseView {
@@ -79,6 +80,10 @@ private extension VehicleDataView {
             .map { VehicleDataViewAction.cellDidTap($0) }
             .sink { [unowned self] in actionSubject.send($0) }
             .store(in: &cancellables)
+        
+        continueButton.tapPublisher
+            .sink { [unowned self] in actionSubject.send(.continueButtonDidTapped) }
+            .store(in: &cancellables)
     }
     
     func setupUI() {
@@ -100,7 +105,6 @@ private extension VehicleDataView {
             $0.leading.equalTo(snp.leading)
             $0.trailing.equalTo(snp.trailing)
         }
-        
         
         continueButton.snp.makeConstraints {
             $0.height.equalTo(Constant.continueButtonHeight)

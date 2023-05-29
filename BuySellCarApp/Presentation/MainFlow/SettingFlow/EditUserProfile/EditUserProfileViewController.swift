@@ -33,7 +33,6 @@ extension EditUserProfileViewController: UIImagePickerControllerDelegate, UINavi
         guard let image = info[.editedImage] as? UIImage else {
             return
         }
-        
         viewModel.updateUserAvatar(image.jpegData(compressionQuality: 0.5) ?? Data())
         dismiss(animated: true)
     }

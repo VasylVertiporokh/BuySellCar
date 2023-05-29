@@ -548,12 +548,6 @@ private enum Constant {
 
 
 
-
-
-
-
-
-
 //Section
 enum SearchSection: Hashable {
     case brands

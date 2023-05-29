@@ -14,6 +14,7 @@ enum VehicleDataTransition: Transition {
     case showRegistrationDate
     case showFuelType
     case showBodyColor
+    case showCreateAd
 }
 
 final class VehicleDataModuleBuilder {

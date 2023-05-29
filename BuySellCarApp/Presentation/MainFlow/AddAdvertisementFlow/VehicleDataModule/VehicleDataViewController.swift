@@ -30,8 +30,8 @@ private extension VehicleDataViewController {
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
-                case .cellDidTap(let vehicleData):
-                    viewModel.didSelect(vehicleData)
+                case .cellDidTap(let vehicleData):  viewModel.didSelect(vehicleData)
+                case .continueButtonDidTapped:      viewModel.continueCreating()
                 }
             }
             .store(in: &cancellables)

@@ -48,6 +48,7 @@ final class VehicleDataViewModel: BaseViewModel {
     // MARK: - Life cycle
     override func onViewDidLoad() {
         addAdvertisementModel.addAdsDomainModelPublisher
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] model in
                 guard let self = self else {
                     return
@@ -84,6 +85,10 @@ extension VehicleDataViewModel {
         case .fuelType:            transitionSubject.send(.showFuelType)
         case .bodyColor:           transitionSubject.send(.showBodyColor)
         }
+    }
+    
+    func continueCreating() {
+        transitionSubject.send(.showCreateAd)
     }
 }
 

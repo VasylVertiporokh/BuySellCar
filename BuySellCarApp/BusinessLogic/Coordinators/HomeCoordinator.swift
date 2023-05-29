@@ -65,12 +65,23 @@ private extension HomeCoordinator {
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
-                case .showResults:
-                    showSearchResult(model: model)
+                case .showResults:  showSearchResult(model: model)
+                case .showBrands:   showAllMakes()
                 }
             }
             .store(in: &cancellables)
         push(module.viewController)
+    }
+    
+    func showAllMakes() {
+        let module = AllMakesModuleBuilder.build(container: container)
+        module.transitionPublisher
+            .sink { [unowned self] transition in
+                
+            }
+            .store(in: &cancellables)
+        module.viewController.isModalInPresentation = true
+        present(module.viewController)
     }
 }
 

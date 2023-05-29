@@ -8,14 +8,8 @@
 import UIKit
 import SnapKit
 import Kingfisher
-import Combine
 
 final class UserAdsCell: UICollectionViewCell {
-    // MARK: - Action
-    enum UserAdsCellAction {
-        case deleteAd
-    }
-    
     // MARK: - Subviews
     private let containerStackView = UIStackView()
     private let mainInfoStackView = UIStackView()
@@ -29,19 +23,16 @@ final class UserAdsCell: UICollectionViewCell {
     private let fixedPriceLabel = UILabel()
     private let yearLabel = UILabel()
     private let productionYearLabel = UILabel()
-    
+    private let createdDateLabel = UILabel()
+    private let dataLabel = UILabel()
+        
     // MARK: - Internal properties
-    var cancellables = Set<AnyCancellable>()
-    
-    // MARK: - Action publisher
-    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<UserAdsCellAction, Never>()
+    var deleteAds: (() -> Void)?
     
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialSetup()
-        bindActions()
     }
     
     required init?(coder: NSCoder) {
@@ -53,12 +44,6 @@ final class UserAdsCell: UICollectionViewCell {
         super.layoutSubviews()
         setShadow()
     }
-    
-    // MARK: - Prepare for reuse
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        cancellables = .init()
-    }
 }
 
 // MARK: - Internal extension
@@ -68,6 +53,7 @@ extension UserAdsCell {
         brandNameLabel.text = "\(model.brandName) \(model.brandModel)"
         productionYearLabel.text = "\(model.year)"
         fixedPriceLabel.text = "\(model.price)€"
+        dataLabel.text = model.created.toDateType(dateType: "MM/dd/yyyy")
     }
 }
 
@@ -97,6 +83,7 @@ private extension UserAdsCell {
         previewImageView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         previewImageView.layer.cornerRadius = Constant.previewImageCornerRadius
         previewImageView.clipsToBounds = true
+        deleteButton.addTarget(self, action: #selector(deleteAction), for: .touchUpInside)
         deleteButton.setImage(Assets.trashIcon.image, for: .normal)
         deleteButton.tintColor = .red
         deleteButton.layer.cornerRadius = Constant.deleteButtonRadius
@@ -105,13 +92,14 @@ private extension UserAdsCell {
         brandLabel.text = "Car"
         yearLabel.text = "Year"
         priceLabel.text = "Price"
+        createdDateLabel.text = "Created"
         
-        [brandLabel, yearLabel, priceLabel].forEach {
+        [brandLabel, yearLabel, priceLabel, createdDateLabel].forEach {
             $0.font = FontFamily.Montserrat.semiBold.font(size: Constant.defaultFontSize)
             $0.textColor = Colors.buttonDarkGray.color
             
         }
-        [brandNameLabel, productionYearLabel, fixedPriceLabel].forEach {
+        [brandNameLabel, productionYearLabel, fixedPriceLabel, dataLabel].forEach {
             $0.font = FontFamily.Montserrat.regular.font(size: Constant.defaultFontSize)
             $0.textColor = .lightGray
         }
@@ -136,6 +124,7 @@ private extension UserAdsCell {
         infoParamStackView.addArrangedSubview(brandLabel)
         infoParamStackView.addArrangedSubview(yearLabel)
         infoParamStackView.addArrangedSubview(priceLabel)
+        infoParamStackView.addArrangedSubview(createdDateLabel)
         
         paramStackView.axis = .vertical
         paramStackView.spacing = Constant.defaultSpacing
@@ -143,6 +132,7 @@ private extension UserAdsCell {
         paramStackView.addArrangedSubview(brandNameLabel)
         paramStackView.addArrangedSubview(productionYearLabel)
         paramStackView.addArrangedSubview(fixedPriceLabel)
+        paramStackView.addArrangedSubview(dataLabel)
     }
     
     func setShadow() {
@@ -161,12 +151,13 @@ private extension UserAdsCell {
             cornerRadius: Constant.mainCornerRadius
         ).cgPath
     }
-    
-    func bindActions() {
-        deleteButton.tapPublisher
-            .map({ UserAdsCellAction.deleteAd })
-            .subscribe(actionSubject)
-            .store(in: &cancellables)
+}
+
+// MARK: - Action
+private extension UserAdsCell {
+    @objc
+    func deleteAction() {
+        deleteAds?()
     }
 }
 
@@ -175,7 +166,7 @@ private enum Constant {
     static let mainInfoStackViewMargins: UIEdgeInsets = .init(top: 8, left: 8, bottom: 8, right: 8)
     static let mainInfoStackViewSpacing: CGFloat = 8
     static let defaultSpacing: CGFloat = 4
-    static let previewImageViewHeight: CGFloat = 180
+    static let previewImageViewHeight: CGFloat = 220
     static let defaultFontSize: CGFloat = 12
     static let mainCornerRadius: CGFloat = 8
     static let shadowOpacity: Float = 0.5

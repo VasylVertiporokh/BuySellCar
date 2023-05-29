@@ -14,12 +14,14 @@ protocol AddAdvertisementModel {
     var modelsPublisher: AnyPublisher<[ModelsDomainModel], Never> { get }
     var isAllFieldsValidPublisher: AnyPublisher<Bool, Never> { get }
     var modelErrorPublisher: AnyPublisher<Error, Never> { get }
+    var successfulPublicationPublisher: AnyPublisher<Void, Never> { get }
     var carColorArray: [CarColor] { get }
     var fuelTypesArray: [FuelType] { get }
     var addAdsDomainModelPublisher: AnyPublisher<AddAdvertisementDomainModel, Never> { get }
     
     func getOwnAds()
     func getBrands()
+    func setAddAdvertisemenOwnerId()
     func getModelsById(_ brandId: String)
     func deleteAdvertisementByID(_ id: String)
     func setBrand(model: BrandCellConfigurationModel)
@@ -27,17 +29,22 @@ protocol AddAdvertisementModel {
     func setRegistrationData(date: Date)
     func setFuelType(type: FuelType)
     func setCarColor(color: CarColor)
+    func userLocationRequest()
+    func setAdvertisementPhoto(_ photoData: Data?, collageID: String)
+    func publishAdvertisement(technicalInfoModel: TechnicalInfoModel)
+    func deleteImageByID(_ id: String)
     func resetAdCreation()
 }
 
 final class AddAdvertisementModelImpl {
     // MARK: - Internal properties
-    private(set) var fuelTypesArray: [FuelType] = FuelType.fuelTypes
-    private(set) var carColorArray: [CarColor] = CarColor.colorsList
+    private(set) var fuelTypesArray: [FuelType] = FuelType.allCases
+    private(set) var carColorArray: [CarColor] = CarColor.allCases
     
     // MARK: - Private properties
     private let userService: UserService
     private let advertisementService: AdvertisementService
+    private let userLocationService: UserLocationService
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Subjects
@@ -45,6 +52,7 @@ final class AddAdvertisementModelImpl {
     private let brandsSubject = CurrentValueSubject<[BrandDomainModel], Never>([])
     private let modelsSubject = CurrentValueSubject<[ModelsDomainModel], Never>([])
     private let isAllFieldsValidSubject = CurrentValueSubject<Bool, Never>(false)
+    private let successfulPublicationSubject = PassthroughSubject<Void, Never>()
     private let modelErrorSubject = PassthroughSubject<Error, Never>()
     private let addAdsDomainModelSubject = CurrentValueSubject<AddAdvertisementDomainModel, Never>(.init())
     
@@ -53,13 +61,18 @@ final class AddAdvertisementModelImpl {
     lazy var brandsPublisher = brandsSubject.eraseToAnyPublisher()
     lazy var modelsPublisher = modelsSubject.eraseToAnyPublisher()
     lazy var modelErrorPublisher = modelErrorSubject.eraseToAnyPublisher()
+    lazy var successfulPublicationPublisher = successfulPublicationSubject.eraseToAnyPublisher()
     lazy var addAdsDomainModelPublisher = addAdsDomainModelSubject.eraseToAnyPublisher()
     lazy var isAllFieldsValidPublisher = isAllFieldsValidSubject.eraseToAnyPublisher()
     
+    // MARK: - For testing
+    private let dispatchGroup = DispatchGroup()
+    
     // MARK: - Init
-    init(userService: UserService, advertisementService: AdvertisementService) {
+    init(userService: UserService, advertisementService: AdvertisementService, userLocationService: UserLocationService) {
         self.userService = userService
-        self.advertisementService = advertisementService      
+        self.advertisementService = advertisementService
+        self.userLocationService = userLocationService
     }
 }
 
@@ -97,6 +110,11 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
                 self.brandsSubject.send(brandsDomainModel.sorted { $0.name < $1.name })
             }
             .store(in: &cancellables)
+    }
+    
+    func setAddAdvertisemenOwnerId() {
+        addAdsDomainModelSubject.value.ownerId = userService.user?.ownerID
+        addAdsDomainModelSubject.value.sellerName = userService.user?.userName
     }
     
     func getModelsById(_ brandId: String) {
@@ -141,7 +159,7 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
     func setModel(model: ModelCellConfigurationModel) {
         addAdsDomainModelSubject.value.model = model.modelName
         addAdsDomainModelSubject.value.firstRegistration = .init()
-        addAdsDomainModelSubject.value.fuelType = .petrol
+        addAdsDomainModelSubject.value.fuelType = .other
     }
     
     func setRegistrationData(date: Date) {
@@ -159,23 +177,81 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
         addAdsDomainModelSubject.value.bodyColor = color
     }
     
+    func userLocationRequest() {
+        userLocationService.requestLocation()
+        userLocationService.userAddressPublisher
+            .sink { [unowned self] address in
+                addAdsDomainModelSubject.value.location = address
+            }
+            .store(in: &cancellables)
+    }
+    
+    func setAdvertisementPhoto(_ photo: Data?, collageID: String) {
+        guard let index = addAdsDomainModelSubject.value.adsPhotoModel.firstIndex(where: { $0.id == collageID }) else {
+            return
+        }
+        addAdsDomainModelSubject.value.adsPhotoModel[index].selectedImage = photo
+    }
+    
+    func publishAdvertisement(technicalInfoModel: TechnicalInfoModel) {
+        guard let ownedID = userService.user?.ownerID else {
+            return
+        }
+        
+        let photos = addAdsDomainModelSubject.value.adsPhotoModel.compactMap { $0.selectedImage }
+        let multipartItems: [MultipartItem] = photos.map { .init(data: $0, fileName: "\(UUID().uuidString).png") }
+        
+        addAdsDomainModelSubject.value.mainTechnicalInfo = technicalInfoModel
+        guard !multipartItems.isEmpty else {
+            advertisementService.publishAdvertisement(model: addAdsDomainModelSubject.value)
+                .sink { [unowned self] completion in
+                    guard case let .failure(error) = completion else {
+                        return
+                    }
+                    modelErrorSubject.send(error)
+                } receiveValue: { [unowned self] in successfulPublicationSubject.send($0) }
+                .store(in: &self.cancellables)
+            return
+        }
+        var advertisementImages = AdvertisementImages(carImages: [])
+        
+        multipartItems.forEach { item in
+            dispatchGroup.enter()
+                self.advertisementService.uploadAdvertisementImage(item: item, userID: ownedID)
+                    .sink { [unowned self] completion in
+                        guard case let .failure(error) = completion else {
+                            return
+                        }
+                        modelErrorSubject.send(error)
+                    } receiveValue: { [unowned self] imageURL in
+                        advertisementImages.carImages?.append(imageURL.fileURL)
+                        self.dispatchGroup.leave()
+                    }
+                    .store(in: &self.cancellables)
+        }
+        
+        dispatchGroup.notify(queue: DispatchQueue.global(qos: .default)) {
+            self.addAdsDomainModelSubject.value.images = advertisementImages
+                self.advertisementService.publishAdvertisement(model: self.addAdsDomainModelSubject.value)
+                    .sink { [unowned self] completion in
+                        guard case let .failure(error) = completion else {
+                            return
+                        }
+                        self.modelErrorSubject.send(error)
+                    } receiveValue: { [unowned self] in successfulPublicationSubject.send($0) }
+                    .store(in: &self.cancellables)
+        }
+    }
+    
+    func deleteImageByID(_ id: String) {
+        guard let index = addAdsDomainModelSubject.value.adsPhotoModel.firstIndex(where: { $0.id == id }) else {
+            return
+        }
+        addAdsDomainModelSubject.value.adsPhotoModel[index].selectedImage = nil
+    }
+    
     func resetAdCreation() {
         addAdsDomainModelSubject.value = .init()
         isAllFieldsValidSubject.send(false)
     }
-}
-
-// TODO: - Replace with an existing domain model (after the demo)
-// MARK: - AddAdvertisementDomainModel
-struct AddAdvertisementDomainModel {
-    var make: String?
-    var model: String?
-    var firstRegistration: FirstRegistrationDataModel?
-    var fuelType: FuelType?
-    var bodyColor: CarColor?
-}
-
-struct FirstRegistrationDataModel {
-    var dateString: String = Date().convertToString(format: .monthYear)
-    var dateInt: Int = Date().convertToIntYear
 }

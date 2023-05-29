@@ -59,4 +59,16 @@ extension AdvertisementServiceImpl: AdvertisementService {
             .mapError { $0 as Error }
             .eraseToAnyPublisher()
     }
+    
+    func uploadAdvertisementImage(item: MultipartItem, userID: String) -> AnyPublisher<UploadingImageResponseModel, Error> {
+        advertisementNetworkService.uploadAdvertisementImage(data: item, userID: userID)
+            .mapError { $0 as Error }
+            .eraseToAnyPublisher()
+    }
+    
+    func publishAdvertisement(model: AddAdvertisementDomainModel) -> AnyPublisher<Void, Error> {
+        advertisementNetworkService.publishAdvertisement(model: model)
+            .mapError { $0 as Error }
+            .eraseToAnyPublisher()
+    }
 }

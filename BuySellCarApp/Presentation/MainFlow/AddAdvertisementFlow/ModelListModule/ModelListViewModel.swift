@@ -20,6 +20,9 @@ final class ModelListViewModel: BaseViewModel {
     private(set) lazy var sectionsPublisher = sectionsSubject.eraseToAnyPublisher()
     private let sectionsSubject = CurrentValueSubject<[SectionModel<CarModelSection, CarModelRow>], Never>([])
     
+    // MARK: - Subjects
+    private let searchTextSubject = CurrentValueSubject<String, Never>("")
+    
     // MARK: - Init
     init(addAdvertisementModel: AddAdvertisementModel) {
         self.addAdvertisementModel = addAdvertisementModel
@@ -28,10 +31,18 @@ final class ModelListViewModel: BaseViewModel {
     
     // MARK: - Life cycle
     override func onViewDidLoad() {
-        addAdvertisementModel.modelsPublisher
-            .sink { [unowned self] models in
-                let modelRow: [CarModelRow] = models.map { CarModelRow.carModelRow(.init(brandDomainModel: $0)) }
-                self.sectionsSubject.send([.init(section: .carModelSection, items: modelRow)])
+        isLoadingSubject.send(true)
+        searchTextSubject
+            .debounce(for: 0.5, scheduler: RunLoop.main)
+            .combineLatest(addAdvertisementModel.modelsPublisher)
+            .map { (searchText, brands) -> [ModelsDomainModel] in
+                if searchText.isEmpty {
+                    return brands
+                }
+                return brands.filter { $0.modelName.hasPrefix(searchText) }
+            }
+            .sink { [weak self] models in
+                self?.updateDataSource(models: models)
             }
             .store(in: &cancellables)
     }
@@ -45,5 +56,17 @@ extension ModelListViewModel {
             addAdvertisementModel.setModel(model: model)
             transitionSubject.send(.popToPreviousModule)
         }
+    }
+    
+    func filterByInputedText(_ brand: String) {
+        searchTextSubject.send(brand)
+    }
+}
+
+// MARK: - Private extension
+private extension ModelListViewModel {
+    func updateDataSource(models: [ModelsDomainModel]) {
+        let modelRow: [CarModelRow] = models.map { CarModelRow.carModelRow(.init(brandDomainModel: $0)) }
+        self.sectionsSubject.send([.init(section: .carModelSection, items: modelRow)])
     }
 }

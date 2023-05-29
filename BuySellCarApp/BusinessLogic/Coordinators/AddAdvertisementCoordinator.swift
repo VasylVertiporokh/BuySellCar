@@ -57,6 +57,7 @@ private extension AddAdvertisementCoordinator {
                 case .showRegistrationDate:   registrationDateModule()
                 case .showFuelType:           fuelTypeModule()
                 case .showBodyColor:          bodyColorModule()
+                case .showCreateAd:           adsVehicleDetailsModule()
                 }
             }
             .store(in: &cancellables)
@@ -69,8 +70,7 @@ private extension AddAdvertisementCoordinator {
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
-                case .popToPreviousModule:
-                    pop()
+                case .popToPreviousModule:   pop()
                 }
             }
             .store(in: &cancellables)
@@ -82,8 +82,7 @@ private extension AddAdvertisementCoordinator {
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
-                case .popToPreviousModule:
-                    pop()
+                case .popToPreviousModule:  pop()
                 }
             }
             .store(in: &cancellables)
@@ -100,8 +99,7 @@ private extension AddAdvertisementCoordinator {
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
-                case .popToPreviousModule:
-                    pop()
+                case .popToPreviousModule:  pop()
                 }
             }
             .store(in: &cancellables)
@@ -113,9 +111,32 @@ private extension AddAdvertisementCoordinator {
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
-                case .popToPreviousModule:
-                    pop()
+                case .popToPreviousModule:  pop()
                 }
+            }
+            .store(in: &cancellables)
+        push(module.viewController)
+    }
+    
+    func adsVehicleDetailsModule() {
+        let module = AdsVehicleDetailsModuleBuilder.build(container: container)
+        module.transitionPublisher
+            .sink { [unowned self] transition in
+                switch transition {
+                case .showRegistrationDate:   registrationDateModule()
+                case .showAddAdsPhotos:       addAdsPhoto()
+                case .popToRoot:              popToRoot()
+                }
+            }
+            .store(in: &cancellables)
+        push(module.viewController)
+    }
+    
+    func addAdsPhoto() {
+        let module = AddAdvertisementImageModuleBuilder.build(container: container)
+        module.transitionPublisher
+            .sink { [unowned self] transition in
+  
             }
             .store(in: &cancellables)
         push(module.viewController)

@@ -20,6 +20,9 @@ final class BrandListViewModel: BaseViewModel {
     private(set) lazy var sectionsPublisher = sectionsSubject.eraseToAnyPublisher()
     private let sectionsSubject = CurrentValueSubject<[SectionModel<BrandSection, BrandRow>], Never>([])
     
+    // MARK: - Subjects
+    private let searchTextSubject = CurrentValueSubject<String, Never>("")
+    
     // MARK: - Init
     init(addAdvertisementModel: AddAdvertisementModel) {
         self.addAdvertisementModel = addAdvertisementModel
@@ -28,15 +31,26 @@ final class BrandListViewModel: BaseViewModel {
     
     // MARK: - Life cycle
     override func onViewDidLoad() {
+        isLoadingSubject.send(true)
         addAdvertisementModel.getBrands()
-        addAdvertisementModel.brandsPublisher
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] brands in
-                guard let self = self else {
-                    return
+        searchTextSubject
+            .debounce(for: 0.5, scheduler: RunLoop.main)
+            .combineLatest(addAdvertisementModel.brandsPublisher)
+            .map { (searchText, brands) -> [BrandDomainModel] in
+                if searchText.isEmpty {
+                    return brands
                 }
-                let brandRow: [BrandRow] = brands.map { BrandRow.carBrandRow(.init(brandDomainModel: $0)) }
-                self.sectionsSubject.send([.init(section: .brandSection, items: brandRow)])
+                return brands.filter { $0.name.hasPrefix(searchText) }
+            }
+            .sink { [weak self] brans in
+                self?.updateDataSource(brands: brans)
+            }
+            .store(in: &cancellables)
+        
+        addAdvertisementModel.modelErrorPublisher
+            .sink { [unowned self] error in
+                isLoadingSubject.send(false)
+                errorSubject.send(error)
             }
             .store(in: &cancellables)
     }
@@ -51,5 +65,17 @@ extension BrandListViewModel {
             addAdvertisementModel.setBrand(model: brand)
             transitionSubject.send(.popToPreviousModule)
         }
+    }
+    
+    func filterByInputedText(_ brand: String) {
+        searchTextSubject.send(brand)
+    }
+}
+
+// MARK: - Private extension
+private extension BrandListViewModel {
+    func updateDataSource(brands: [BrandDomainModel]) {
+        let brandRow: [BrandRow] = brands.map { BrandRow.carBrandRow(.init(brandDomainModel: $0)) }
+        self.sectionsSubject.send([.init(section: .brandSection, items: brandRow)])
     }
 }

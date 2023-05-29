@@ -86,7 +86,7 @@ private extension AddNewAdvertisementView {
 
 // MARK: - Internal extension
 extension AddNewAdvertisementView {
-    func setupSnapshot(sections: [SectionModel<CreatedAdvertisementsSection, CreatedAdvertisementsRow>]) {        
+    func setupSnapshot(sections: [SectionModel<CreatedAdvertisementsSection, CreatedAdvertisementsRow>]) {
         var snapShot = NSDiffableDataSourceSnapshot<CreatedAdvertisementsSection, CreatedAdvertisementsRow>()
         for section in sections {
             snapShot.appendSections([section.section])
@@ -134,15 +134,7 @@ private extension AddNewAdvertisementView {
             case .createdAdvertisementsRow(let model):
                 let cell: UserAdsCell = collectionView.dequeueReusableCell(for: indexPath)
                 cell.configureCell(with: model)
-                cell.actionPublisher
-                    .map { action -> AddNewAdvertisementViewAction in
-                        switch action {
-                        case .deleteAd:
-                            return .deleteAd(item)
-                        }
-                    }
-                    .subscribe(actionSubject)
-                    .store(in: &cell.cancellables)
+                cell.deleteAds = { [unowned self] in actionSubject.send(.deleteAd(item)) }
                 return cell
             }
         })
@@ -162,7 +154,7 @@ private extension AddNewAdvertisementView {
 private enum Constant {
     static let layoutSize:NSCollectionLayoutSize = .init(widthDimension: .fractionalWidth(1.0),heightDimension: .estimated(1.0))
     static let itemSize:NSCollectionLayoutSize = .init(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(250))
-    static let sectionInsets: NSDirectionalEdgeInsets = .init(top: 16, leading: 16, bottom: .zero, trailing: 16)
+    static let sectionInsets: NSDirectionalEdgeInsets = .init(top: 16, leading: 16, bottom: 65, trailing: 16)
     static let emptyStateViewTopConstraint: CGFloat = 64
     static let sectionInterGroupSpacing: CGFloat = 16
     static let createAdButtonRadius: CGFloat = 8

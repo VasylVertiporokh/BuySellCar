@@ -10,6 +10,7 @@ import Combine
 
 enum SearchAdvertisementTransition: Transition {
     case showResults
+    case showBrands
 }
 
 final class SearchAdvertisementModuleBuilder {

@@ -28,6 +28,14 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>If you want to take a photo, you need to grant access to the camera</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Provide location access to improve your ads.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Provide location access to improve your ads.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Provide location access to improve your ads.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Montserrat-BlackItalic.ttf</string>

@@ -14,13 +14,14 @@ enum TextFieldType {
     case name
     case email
     case editable
+    case plain
 }
 
 // MARK: - Internal extension
 extension TextFieldType {
     var keyboardType: UIKeyboardType {
         switch self {
-        case .name:
+        case .name, .plain:
             return .alphabet
         case .password, .confirmPassword:
             return .default
@@ -41,7 +42,7 @@ extension TextFieldType {
             return Assets.addUserIcon.image
         case .email:
             return Assets.emailIcon.image
-        case .editable:
+        case .editable, .plain:
             return nil
         }
     }
@@ -59,7 +60,7 @@ extension TextFieldType {
             return Assets.editIcon.image
         case .name:
             return nil
-        case .email:
+        case .email, .plain:
             return nil
         }
         return UIImage(systemName: imageName)?.withRenderingMode(.alwaysTemplate)
@@ -68,18 +69,13 @@ extension TextFieldType {
     var placeholder: NSAttributedString {
         var text: String!
         switch self {
-        case .nickname:
-            text = "Nickname (e-mail address)"
-        case .password:
-            text = "Password"
-        case .confirmPassword:
-            text = "Confirm password"
-        case .name:
-            text = "Name"
-        case .email:
-            text = "Email"
-        case .editable:
-            text = "Field not valid"
+        case .nickname:        text = "Nickname (e-mail address)"
+        case .password:        text = "Password"
+        case .confirmPassword: text = "Confirm password"
+        case .name:            text = "Name"
+        case .email:           text = "Email"
+        case .editable:        text = "Field not valid"
+        case .plain:           text = ""
         }
         
         let attibutes: [NSAttributedString.Key: Any] = [
@@ -110,7 +106,7 @@ extension TextFieldType {
             return "Invalid name"
         case .email:
             return "Invalid email"
-        case .editable:
+        case .editable, .plain:
             return "Field is empty"
         }
     }

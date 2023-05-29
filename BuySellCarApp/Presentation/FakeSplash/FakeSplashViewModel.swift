@@ -29,9 +29,14 @@ final class FakeSplashViewModel: BaseViewModel {
     // MARK: - Life cycle
     override func onViewDidLoad() {
         guard let token = tokenStorage.token else {
-            transitionSubject.send(.didFinish(status: .nonAuthorized))
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.transitionSubject.send(.didFinish(status: .nonAuthorized))
+            }
             return
         }
-        transitionSubject.send(.didFinish(status: .authorized))
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.transitionSubject.send(.didFinish(status: .authorized))
+        }
     }
 }

@@ -19,6 +19,7 @@ final class BodyColorViewController: BaseViewController<BodyColorViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBindings()
+        setupNavigationBar()
     }
 }
 
@@ -39,5 +40,9 @@ private extension BodyColorViewController {
                 contentView.setupSnapshot(sections: sections)
             }
             .store(in: &cancellables)
+    }
+    
+    func setupNavigationBar() {
+        title = "Body color"
     }
 }

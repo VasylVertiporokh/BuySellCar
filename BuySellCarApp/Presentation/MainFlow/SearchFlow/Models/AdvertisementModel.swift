@@ -9,7 +9,9 @@ import Foundation
 import Combine
 
 protocol AdvertisementModel {
+    var modelErrorPublisher: AnyPublisher<Error, Never> { get }
     var advertisementSearchParamsPublisher: AnyPublisher<SearchParamsDomainModel, Never> { get }
+    var brandsPublisher: AnyPublisher<[BrandDomainModel], Never> { get }
     
     func getRecommendedAdvertisements(searchModel: SearchParamsDomainModel) -> AnyPublisher<[AdvertisementDomainModel], Error>
     func findAdvertisements(searchModel: SearchParamsDomainModel) -> AnyPublisher<[AdvertisementDomainModel], Error>
@@ -20,19 +22,25 @@ protocol AdvertisementModel {
     func deleteSearchParam(_ param: SearchParamsDomainModel)
     func resetSearchParams()
     func addSearchParam(_ param: SearchParam)
+    func getAllBrands()
     func rangeValue(_ range: TechnicalSpecCellModel.SelectedRange, searchKey: SearchKey)
 }
 
 final class AdvertisementModelImpl {
-    // MARK: - Internal properties
-    private(set) lazy var advertisementSearchParamsPublisher = searchParamsSubjects.eraseToAnyPublisher()
-    
     // MARK: - Private properties
     private let advertisementService: AdvertisementService
     private var numberOfAdvertisements: Int = Constant.countDefaultValue
+    private var cancellables = Set<AnyCancellable>()
+    
+    // MARK: - Publishers
+    lazy var modelErrorPublisher = modelErrorSubject.eraseToAnyPublisher()
+    lazy var advertisementSearchParamsPublisher = searchParamsSubjects.eraseToAnyPublisher()
+    lazy var brandsPublisher = brandsSubjects.eraseToAnyPublisher()
     
     // MARK: - Subjects
+    private let modelErrorSubject = PassthroughSubject<Error, Never>()
     private let searchParamsSubjects = CurrentValueSubject<SearchParamsDomainModel, Never>(.init())
+    private let brandsSubjects = CurrentValueSubject<[BrandDomainModel], Never>([])
     
     // MARK: - Init
     init(advertisementService: AdvertisementService) {
@@ -90,6 +98,22 @@ extension AdvertisementModelImpl: AdvertisementModel {
         searchParamsSubjects.value.searchParams.removeAll { $0 == param }
     }
     
+    func getAllBrands() {
+        advertisementService.getBrands()
+            .sink { [weak self] completion in
+                guard case let .failure(error) = completion else {
+                    return
+                }
+                self?.modelErrorSubject.send(error)
+            } receiveValue: { [weak self] brandModel in
+                guard let self = self else {
+                    return
+                }
+                self.brandsSubjects.send(brandModel.sorted { $0.name < $1.name })
+            }
+            .store(in: &cancellables)
+    }
+    
     func rangeValue(_ range: TechnicalSpecCellModel.SelectedRange, searchKey: SearchKey) {
         if let max = range.maxRangeValue {
             let maxSearchParams = SearchParam(key: searchKey, value: .lessOrEqualTo(intValue: Int(max)), valueType: .max)
@@ -122,4 +146,16 @@ extension AdvertisementModelImpl: AdvertisementModel {
 private enum Constant {
     static let nextPageSize: Int = 3
     static let countDefaultValue: Int = 0
+}
+
+
+struct TestDomainModel {
+    var basicBrand = BrandCellModel.basicBrands()
+    var bodyType = BodyTypeCellModel.basicBodyTypes()
+    var fuelType = FuelTypeModel.fuelTypes()
+    var transmissionType = TransmissionTypeModel.transmissionTypes()
+    var selectedBrand: [SelectedBrandModel] = []
+//    var year = TechnicalSpecCellModel.year(selectedRange: selectedYearRangeSubject)
+//    var millage = TechnicalSpecCellModel.millage(selectedRange: millageSelectedRangeSubject)
+//    var power = TechnicalSpecCellModel.power(selectedRange: powerSelectedRangeSubject)
 }

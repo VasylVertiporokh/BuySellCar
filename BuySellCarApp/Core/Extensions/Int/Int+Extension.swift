@@ -19,4 +19,12 @@ extension Int {
     var isZero: Bool {
         self == .zero
     }
+        
+    func toDateType(dateType: String) -> String {
+        let millisecondsToDate = Date(milliseconds: Int64(self))
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = dateType
+        let result = dateFormatter.string(from: millisecondsToDate)
+        return result
+    }
 }

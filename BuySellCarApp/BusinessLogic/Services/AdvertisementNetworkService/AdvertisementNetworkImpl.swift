@@ -47,4 +47,12 @@ extension AdvertisementNetworkImpl: AdvertisementNetworkService {
     func getModelsByBrandId(_ brandId: String) -> AnyPublisher<[ModelResponseModel], NetworkError> {
         provider.performWithResponseModel(.getModel(brandId: brandId))
     }
+    
+    func uploadAdvertisementImage(data: MultipartItem, userID: String) -> AnyPublisher<UploadingImageResponseModel, NetworkError> {
+        provider.performWithResponseModel(.uploadAdvertisementImage(item: data, userId: userID))
+    }
+    
+    func publishAdvertisement(model: AddAdvertisementDomainModel) -> AnyPublisher<Void, NetworkError> {
+        provider.performWithProcessingResult(.publishAdvertisement(.init(domainModel: model)))
+    }
 }

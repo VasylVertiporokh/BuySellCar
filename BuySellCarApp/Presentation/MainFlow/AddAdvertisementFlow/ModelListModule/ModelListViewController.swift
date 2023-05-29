@@ -20,6 +20,18 @@ final class ModelListViewController: BaseViewController<ModelListViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBindings()
+        setupNavigationBar()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.hidesSearchBarWhenScrolling = false
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupSearchBarBinding()
+        navigationItem.hidesSearchBarWhenScrolling = true
     }
 }
 
@@ -40,5 +52,16 @@ private extension ModelListViewController {
                 contentView.setupSnapshot(sections: section)
             }
             .store(in: &cancellables)
+    }
+    
+    func setupSearchBarBinding() {
+        navigationItem.searchController?.searchBar.textDidChangePublisher
+            .sink { [unowned self] in viewModel.filterByInputedText($0) }
+            .store(in: &cancellables)
+    }
+    
+    func setupNavigationBar() {
+        title = "Model"
+        navigationItem.searchController = UISearchController(searchResultsController: nil)
     }
 }

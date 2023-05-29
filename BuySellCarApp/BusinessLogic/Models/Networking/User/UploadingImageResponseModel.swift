@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct UserAvatarResponseModel: Decodable {
+struct UploadingImageResponseModel: Decodable {
     var fileURL: String
 }

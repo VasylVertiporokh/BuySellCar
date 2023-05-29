@@ -26,6 +26,11 @@ enum ModelListViewAction {
 final class ModelListView: BaseView {
     // MARK: - Subviews
     private var collectionView: UICollectionView!
+    private let searchStackView = UIStackView()
+    private let buttonsStackView = UIStackView()
+    private let cancelButton = UIButton(type: .system)
+    private let doneButton = UIButton(type: .system)
+    private let searchBarView = UISearchBar()
     
     // MARK: - Private properties
     private var dataSource: UICollectionViewDiffableDataSource<CarModelSection, CarModelRow>?
@@ -55,6 +60,10 @@ extension ModelListView {
         }
         dataSource?.apply(snapShot, animatingDifferences: false)
     }
+    
+    func configureWithSearchView() {
+        searchStackView.isHidden = false
+    }
 }
 
 // MARK: - Private extension
@@ -62,6 +71,7 @@ private extension ModelListView {
     func initialSetup() {
         configureCollectionView()
         setupDataSource()
+        configureStackViews()
         setupLayout()
         setupUI()
         bindActions()
@@ -77,9 +87,40 @@ private extension ModelListView {
     
     func setupUI() {
         backgroundColor = .white
+        searchStackView.isHidden = true
+        searchBarView.backgroundImage = UIImage()
+        searchStackView.backgroundColor = .white
+        cancelButton.setTitle(Localization.cancel, for: .normal)
+        cancelButton.setTitleColor(Colors.buttonDarkGray.color, for: .normal)
+        cancelButton.titleLabel?.font = Constant.cancelButtonFont
+        doneButton.setTitle(Localization.done, for: .normal)
+        doneButton.setTitleColor(Colors.buttonDarkGray.color, for: .normal)
+        doneButton.titleLabel?.font = Constant.doneButtonFont
     }
     
-    func setupLayout() {}
+    func setupLayout() {
+        addSubview(searchStackView)
+        searchStackView.addArrangedSubview(buttonsStackView)
+        searchStackView.addArrangedSubview(searchBarView)
+        
+        buttonsStackView.addArrangedSubview(cancelButton)
+        buttonsStackView.addArrangedSubview(doneButton)
+        
+        searchStackView.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide.snp.top)
+            $0.leading.equalTo(snp.leading)
+            $0.trailing.equalTo(snp.trailing)
+        }
+    }
+    
+    func configureStackViews() {
+        searchStackView.axis = .vertical
+        buttonsStackView.axis = .horizontal
+        buttonsStackView.distribution = .equalSpacing
+        buttonsStackView.isLayoutMarginsRelativeArrangement = true
+        buttonsStackView.layoutMargins = Constant.buttonsStackViewMargins
+        searchBarView.layoutMargins = Constant.searchBarViewMargins
+    }
 }
 
 // MARK: - Configure collection view
@@ -125,6 +166,7 @@ private extension ModelListView {
         let item = NSCollectionLayoutItem(layoutSize: Constant.itemSize)
         let group = NSCollectionLayoutGroup.vertical(layoutSize: Constant.layoutSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets.top = searchStackView.isHidden ? .zero : searchStackView.bounds.height
         return section
     }
 }
@@ -133,4 +175,8 @@ private extension ModelListView {
 private enum Constant {
     static let layoutSize:NSCollectionLayoutSize = .init(widthDimension: .fractionalWidth(1.0),heightDimension: .estimated(1.0))
     static let itemSize:NSCollectionLayoutSize = .init(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(47))
+    static let buttonsStackViewMargins: UIEdgeInsets = .init(top: 8, left: 16, bottom: .zero, right: 16)
+    static let searchBarViewMargins: UIEdgeInsets = .init(top: .zero, left: 16, bottom: .zero, right: 16)
+    static let cancelButtonFont: UIFont = FontFamily.Montserrat.regular.font(size: 14)
+    static let doneButtonFont: UIFont = FontFamily.Montserrat.semiBold.font(size: 14)
 }

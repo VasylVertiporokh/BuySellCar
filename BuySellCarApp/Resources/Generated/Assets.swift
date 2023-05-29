@@ -22,6 +22,14 @@ internal typealias AssetImageTypeAlias = ImageAsset.Image
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Assets {
+  internal static let addMoreIcon = ImageAsset(name: "addMoreIcon")
+  internal static let backRightSideIcon = ImageAsset(name: "backRightSideIcon")
+  internal static let backSideIcon = ImageAsset(name: "backSideIcon")
+  internal static let bodySideIcon = ImageAsset(name: "bodySideIcon")
+  internal static let dashboardIcon = ImageAsset(name: "dashboardIcon")
+  internal static let frontLeftSizeIcon = ImageAsset(name: "frontLeftSizeIcon")
+  internal static let frontSideIcon = ImageAsset(name: "frontSideIcon")
+  internal static let interiorIcon = ImageAsset(name: "interiorIcon")
   internal static let cabrioBody = ImageAsset(name: "cabrioBody")
   internal static let compactBody = ImageAsset(name: "compactBody")
   internal static let hatchbackBody = ImageAsset(name: "hatchbackBody")
@@ -48,8 +56,10 @@ internal enum Assets {
   internal static let vintage = ImageAsset(name: "vintage")
   internal static let addAdv = ImageAsset(name: "addAdv")
   internal static let addAvatarIcon = ImageAsset(name: "addAvatarIcon")
+  internal static let addIcon = ImageAsset(name: "addIcon")
   internal static let addUserIcon = ImageAsset(name: "addUserIcon")
   internal static let arrow = ImageAsset(name: "arrow")
+  internal static let camera = ImageAsset(name: "camera")
   internal static let carImage = ImageAsset(name: "carImage")
   internal static let carPlaceholder = ImageAsset(name: "carPlaceholder")
   internal static let carSellIcon = ImageAsset(name: "carSellIcon")
@@ -71,6 +81,7 @@ internal enum Assets {
   internal static let user1 = ImageAsset(name: "user1")
   internal static let userIcon = ImageAsset(name: "userIcon")
   internal static let userPlaceholder = ImageAsset(name: "userPlaceholder")
+  internal static let vehicleDataIcon = ImageAsset(name: "vehicleDataIcon")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 

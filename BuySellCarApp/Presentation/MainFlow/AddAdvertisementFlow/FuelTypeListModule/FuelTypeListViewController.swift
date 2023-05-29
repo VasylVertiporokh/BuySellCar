@@ -19,6 +19,7 @@ final class FuelTypeListViewController: BaseViewController<FuelTypeListViewModel
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBindings()
+        setupNavigationBar()
     }
 }
 
@@ -39,5 +40,9 @@ private extension FuelTypeListViewController {
                 contentView.setupSnapshot(sections: sections)
             }
             .store(in: &cancellables)
+    }
+    
+    func setupNavigationBar() {
+        title = "Fuel type"
     }
 }

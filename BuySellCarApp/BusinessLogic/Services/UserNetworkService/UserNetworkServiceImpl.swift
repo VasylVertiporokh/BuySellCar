@@ -33,7 +33,7 @@ extension UserNetworkServiceImpl: UserNetworkService {
         return provider.performWithProcessingResult(.deleteAvatar(userId: userId))
     }
     
-    func addUserAvatar(data: MultipartItem, userId: String) -> AnyPublisher<UserAvatarResponseModel, NetworkError> {
+    func addUserAvatar(data: MultipartItem, userId: String) -> AnyPublisher<UploadingImageResponseModel, NetworkError> {
         return provider.performWithResponseModel(.addUserAvatar(item: data, userId: userId))
     }
     

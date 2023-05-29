@@ -33,7 +33,7 @@ private extension SearchAdvertisementViewController {
                 case .rowSelected(let searchRow):
                     viewModel.didSelect(searchRow)
                 case .showAllMakes:
-                    print("showAllMakes")
+                    viewModel.showAllMakes()
                 case .deleteSelectedBrands(let searchRow):
                     guard case let .selectedBrandRow(selectedBrand) = searchRow else { return }
                     viewModel.deleteSelectedBrand(selectedBrand)

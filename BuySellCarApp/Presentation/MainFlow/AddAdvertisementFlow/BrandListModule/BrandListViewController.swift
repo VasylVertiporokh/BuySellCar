@@ -21,6 +21,17 @@ final class BrandListViewController: BaseViewController<BrandListViewModel> {
         setupBindings()
         setupNavigationBar()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.hidesSearchBarWhenScrolling = false
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupSearchBarBinding()
+        navigationItem.hidesSearchBarWhenScrolling = true
+    }
 }
 
 // MARK: - Private extension
@@ -29,8 +40,7 @@ private extension BrandListViewController {
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
-                case .cellDidTap(let row):
-                    viewModel.setSelectedBrand(item: row)
+                case .cellDidTap(let row):  viewModel.setSelectedBrand(item: row)
                 }
             }
             .store(in: &cancellables)
@@ -44,5 +54,12 @@ private extension BrandListViewController {
     
     func setupNavigationBar() {
         title = "Make"
+        navigationItem.searchController = UISearchController(searchResultsController: nil)
+    }
+    
+    func setupSearchBarBinding() {
+        navigationItem.searchController?.searchBar.textDidChangePublisher
+            .sink { [unowned self] in viewModel.filterByInputedText($0) }
+            .store(in: &cancellables)
     }
 }

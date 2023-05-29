@@ -16,4 +16,6 @@ protocol AdvertisementNetworkService {
     func deleteAdvertisement(objectID: String) -> AnyPublisher<Void, NetworkError>
     func getBrands() -> AnyPublisher<[BrandResponseModel], NetworkError>
     func getModelsByBrandId(_ brandId: String) -> AnyPublisher<[ModelResponseModel], NetworkError>
+    func uploadAdvertisementImage(data: MultipartItem, userID: String) -> AnyPublisher<UploadingImageResponseModel, NetworkError>
+    func publishAdvertisement(model: AddAdvertisementDomainModel) -> AnyPublisher<Void, NetworkError>
 }

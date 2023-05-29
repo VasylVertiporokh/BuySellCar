@@ -49,6 +49,7 @@ final class SearchAdvertisementViewModel: BaseViewModel {
     
     // MARK: - Life cycle
     override func onViewDidLoad() {
+        advertisementModel.getAllBrands()
         updateDataSource()
         
         millageSelectedRangeSubject
@@ -201,6 +202,10 @@ extension SearchAdvertisementViewModel {
         millage = TechnicalSpecCellModel.millage(selectedRange: millageSelectedRangeSubject)
         power = TechnicalSpecCellModel.power(selectedRange: powerSelectedRangeSubject)
         updateDataSource()
+    }
+    
+    func showAllMakes() {
+        transitionSubject.send(.showBrands)
     }
 }
 

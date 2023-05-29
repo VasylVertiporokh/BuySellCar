@@ -13,6 +13,8 @@ final class CreatingProgressView: UIView {
     enum CreatingProgressViewStep {
         case vehicleData
         case createAd
+        case creatingInProgress
+        case created
     }
     
     // MARK: - Subviews
@@ -40,10 +42,21 @@ extension CreatingProgressView {
             stepLabel.text = "Step 1 from 3"
             stepDescriptionLabel.text = "Enter basic data via:"
             progressAnimationView.setupProgress(progress: Constant.firstProgressValue)
+            
         case .vehicleData:
             stepLabel.text = "Step 2 from 3"
             stepDescriptionLabel.text = "Complete and check your data"
             progressAnimationView.setupProgress(progress: Constant.secondProgressValue)
+            
+        case .creatingInProgress:
+            stepLabel.text = "In the process of creation"
+            stepDescriptionLabel.text = "The ad is being created"
+            progressAnimationView.setupProgress(progress: Constant.creatingInProgress)
+            
+        case .created:
+            stepLabel.text = "Finished!"
+            stepDescriptionLabel.text = "Congratulations, the ad has been published"
+            progressAnimationView.setupProgress(progress: Constant.created)
         }
     }
 }
@@ -82,7 +95,9 @@ private extension CreatingProgressView {
 // MARK: - Constant
 private enum Constant {
     static let firstProgressValue: Double = 0.3
-    static let secondProgressValue: Double = 0.3
+    static let secondProgressValue: Double = 0.6
+    static let creatingInProgress: Double = 0.8
+    static let created: Double = 1.0
     static let containerStackViewSpacing: CGFloat = 8
     static let defaultMargins: CGFloat = 16
     static let progressAnimationViewHeight: CGFloat = 8

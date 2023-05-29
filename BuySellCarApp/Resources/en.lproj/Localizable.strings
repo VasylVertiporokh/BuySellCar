@@ -25,6 +25,10 @@
 "edited-successfully" = "User edited successfully";
 "delete-ads-title" = "The ad will be removed";
 "delete-ads-message" = "Are you sure you want to delete the ad?";
+"ads-created-successfully" = "Ad successfully created! Now you can see your ad in the list Selling.";
+"continue" = "Continue";
+"discard-creation-title" = "Do you want cancel creation";
+"discard-creation-message" = "If you continue all data will be lost";
 
 "search" = "Search";
 "settings" = "Settings";

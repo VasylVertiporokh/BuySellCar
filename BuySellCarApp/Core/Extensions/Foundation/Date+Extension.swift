@@ -28,3 +28,29 @@ extension Date {
         return intYear
     }
 }
+
+extension Date {
+    var millisecondsSince1970: Int {
+        Int((self.timeIntervalSince1970 * 1000.0).rounded())
+    }
+
+    init(milliseconds: Int64) {
+        self = Date(timeIntervalSince1970: TimeInterval(milliseconds) / 1000)
+    }
+
+    var startOfDay: Date {
+        return Calendar.current.startOfDay(for: self)
+    }
+}
+
+extension TimeInterval {
+    var miliseconds: Int {
+        Int((self * 1000).rounded())
+    }
+}
+
+extension Int {
+    var seconds: TimeInterval {
+        TimeInterval(self) / 1000
+    }
+}

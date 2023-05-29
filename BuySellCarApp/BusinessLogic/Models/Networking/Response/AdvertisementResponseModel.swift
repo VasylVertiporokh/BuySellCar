@@ -34,6 +34,7 @@ struct AdvertisementResponseModel: Decodable {
     let location: String?
     let sellerType: SellerType
     let updated: Int?
+    let sellerName: String
     var images: AdvertisementImages?
 
     enum CodingKeys: String, CodingKey {
@@ -43,12 +44,11 @@ struct AdvertisementResponseModel: Decodable {
         case transmissionType, power
         case objectID = "objectId"
         case mileage, doorCount, yearOfManufacture, created, transportModel, interiorFittings, photo,
-             shortDescription, numberOfSeats, condition, fuelType, location, sellerType, updated, images
+             shortDescription, numberOfSeats, condition, fuelType, location, sellerType, updated, images, sellerName
     }
 }
 
-struct AdvertisementImages: Decodable {
-    var objectId: String?
+struct AdvertisementImages: Codable {
     var carImages: [String]?
 }
 
@@ -63,12 +63,12 @@ enum BodyType: String, Codable {
     case transporter = "Transporter"
 }
 
-enum Condition: String, Decodable {
+enum Condition: String, Codable {
     case new = "New"
     case used = "Used"
 }
 
-enum FuelType: String, Decodable {
+enum FuelType: String, Codable, CaseIterable {
     case disel = "Disel"
     case electro = "Electro"
     case petrol = "Petrol"
@@ -77,16 +77,9 @@ enum FuelType: String, Decodable {
     case hydrogen = "Hydrogen"
     case lpg = "LPG"
     case other = "Other"
-    
-    static var fuelTypes: [Self] {
-        return [
-            FuelType.disel, FuelType.electro, FuelType.petrol, FuelType.hybrid,
-            FuelType.ethanol, FuelType.hydrogen, FuelType.lpg, FuelType.other
-        ]
-    }
 }
 
-enum CarColor: String, Decodable {
+enum CarColor: String, Codable, CaseIterable {
     case black = "Black"
     case gray = "Gray"
     case white = "White"
@@ -112,21 +105,14 @@ enum CarColor: String, Decodable {
         case .silver:    return .lightGray
         }
     }
-    
-    static var colorsList: [Self] {
-        return [
-            CarColor.black, CarColor.gray, CarColor.white, CarColor.red, CarColor.brown,
-            CarColor.blue, CarColor.yellow, CarColor.orange, CarColor.green, CarColor.silver
-        ]
-    }
 }
 
-enum SellerType: String, Decodable {
+enum SellerType: String, Codable {
     case diller = "Diller"
     case owner = "Owner"
 }
 
-enum TransmissionType: String, Decodable {
+enum TransmissionType: String, Codable {
     case automatic = "Automatic"
     case manual = "Manual"
     case semiAutomatic = "Semi-automatic"

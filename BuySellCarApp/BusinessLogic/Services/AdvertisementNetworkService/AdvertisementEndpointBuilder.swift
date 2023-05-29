@@ -15,13 +15,15 @@ enum AdvertisementEndpointBuilder {
     case deleteAdvertisement(objectID: String)
     case getBrand
     case getModel(brandId: String)
+    case uploadAdvertisementImage(item: MultipartItem, userId: String)
+    case publishAdvertisement(CreateAdvertisementRequestModel)
 }
 
 // MARK: - EndpointBuilderProtocol
 extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
     var path: String {
         switch self {
-        case .searchAdvertisement, .getAdvertisement, .getOwnAds:
+        case .searchAdvertisement, .getAdvertisement, .getOwnAds, .publishAdvertisement:
             return "/data/Advertisement"
         case .getAdvertisementCount:
             return "/data/Advertisement/count"
@@ -31,14 +33,18 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
             return "/data/Brands"
         case .getModel:
             return "/data/Model"
+        case .uploadAdvertisementImage(let dataItem, let userId):
+            return "/files/images/users/\(userId)/\(dataItem.fileName)"
         }
     }
     
     var headerFields: [String : String] {
         switch self {
         case .searchAdvertisement, .getAdvertisement, .getAdvertisementCount,
-                .getOwnAds, .deleteAdvertisement, .getBrand, .getModel: // TODO: - Need plugin
+                .getOwnAds, .deleteAdvertisement, .getBrand, .getModel, .publishAdvertisement: // TODO: - Need plugin
             return ["Content-Type" : "application/json"]
+        case .uploadAdvertisementImage:
+            return ["" : ""]
         }
     }
     
@@ -66,7 +72,7 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
         case .getOwnAds(let ownerID):
             return ["where" : "ownerId = '\(ownerID)'"] // TODO: - Fix
         
-        case .deleteAdvertisement:
+        case .deleteAdvertisement, .uploadAdvertisementImage, .publishAdvertisement:
             return nil
         case .getBrand:
             return ["pageSize" : "100"]
@@ -78,12 +84,26 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
         }
     }
     
+    var body: RequestBody? {
+        switch self {
+        case .uploadAdvertisementImage(let item, _):       return .multipartBody([item])
+        case .publishAdvertisement(let adsModel):          return .encodable(adsModel)
+            
+        default:
+            return nil
+        }
+    }
+    
     var method: HTTPMethod {
         switch self {
         case .searchAdvertisement, .getAdvertisement, .getAdvertisementCount, .getOwnAds, .getBrand, .getModel:
             return .get
+            
         case .deleteAdvertisement:
             return .delete
+            
+        case .uploadAdvertisementImage, .publishAdvertisement:
+            return .post
         }
     }
 }

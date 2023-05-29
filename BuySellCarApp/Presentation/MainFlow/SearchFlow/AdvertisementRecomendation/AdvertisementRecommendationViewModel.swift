@@ -26,8 +26,13 @@ final class AdvertisementRecommendationViewModel: BaseViewModel {
         super.init()
     }
     
+    let locationService = UserLocationServiceImpl()
+    
     // MARK: - Life cycle
     override func onViewWillAppear() {
+        
+        locationService.requestLocation()
+        
         isLoadingSubject.send(true)
         advertisementModel.getRecommendedAdvertisements(
             searchModel: .init(pageSize: .zero, offset: .zero, searchParams: [])

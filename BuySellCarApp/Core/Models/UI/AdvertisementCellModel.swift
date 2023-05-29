@@ -20,9 +20,10 @@ struct AdvertisementCellModel: Hashable {
     let fuelType: String
     let color: String
     let sellerName: String
-    let location: String
+    var location: String? = ""
     let objectID: String
     let imageArray: [String]
+    let created: Int
     
     // MARK: - Init from AdvertisementCellModel
     init(model: AdvertisementDomainModel) {
@@ -37,9 +38,10 @@ struct AdvertisementCellModel: Hashable {
         condition = model.condition.rawValue
         fuelType = model.fuelType.rawValue
         color = model.bodyColor.rawValue
-        sellerName = "Alex" // TODO: - add this fields
-        location = "Berlin"
+        sellerName = model.sellerName
+        location = model.location
         objectID = model.objectID
         imageArray = model.images?.carImages ?? []
+        created = model.created
     }
 }

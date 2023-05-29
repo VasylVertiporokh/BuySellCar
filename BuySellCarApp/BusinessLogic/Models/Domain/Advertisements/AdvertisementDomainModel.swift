@@ -34,6 +34,7 @@ struct AdvertisementDomainModel {
     let sellerType: SellerType
     let updated: Int?
     var images: AdvertisementImages?
+    let sellerName: String
     
     // MARK: - Init
     init(advertisementResponseModel: AdvertisementResponseModel) {
@@ -63,5 +64,6 @@ struct AdvertisementDomainModel {
         sellerType = advertisementResponseModel.sellerType
         updated = advertisementResponseModel.updated
         images = advertisementResponseModel.images
+        sellerName = advertisementResponseModel.sellerName
     }
 }
