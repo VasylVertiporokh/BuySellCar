@@ -44,7 +44,7 @@ private extension SearchAdvertisementViewController {
             .store(in: &cancellables)
         
         viewModel.sectionsPublisher
-            .sink { [unowned self]  in contentView.setupSnapshot(sections: $0) }
+            .sink { [weak self]  in self?.contentView.setupSnapshot(sections: $0) }
             .store(in: &cancellables)
         
         viewModel.eventsPublisher

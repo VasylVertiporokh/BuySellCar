@@ -96,16 +96,11 @@ private extension AdsVehicleDetailsView {
         mainInfoView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
-                case .price(let price):
-                    actionSubject.send(.priceEntered(price))
-                case .power(let power):
-                    actionSubject.send(.powerEntered(power))
-                case .millage(let millage):
-                    actionSubject.send(.millageEntered(millage))
-                case .addPhotoDidTapped:
-                    actionSubject.send(.addPhotoDidTapped)
-                case .changeRegistrationDidTapped:
-                    actionSubject.send(.changeFirstRegistrationDidTapped)
+                case .price(let price):             actionSubject.send(.priceEntered(price))
+                case .power(let power):             actionSubject.send(.powerEntered(power))
+                case .millage(let millage):         actionSubject.send(.millageEntered(millage))
+                case .addPhotoDidTapped:            actionSubject.send(.addPhotoDidTapped)
+                case .changeRegistrationDidTapped:  actionSubject.send(.changeFirstRegistrationDidTapped)
                 }
             }
             .store(in: &cancellables)

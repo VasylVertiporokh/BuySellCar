@@ -9,8 +9,10 @@ import Foundation
 
 struct ModelCellConfigurationModel: Hashable {
     let modelName: String
+    let brandID: String
     
     init(brandDomainModel: ModelsDomainModel) {
         self.modelName = brandDomainModel.modelName
+        self.brandID = brandDomainModel.brandID
     }
 }

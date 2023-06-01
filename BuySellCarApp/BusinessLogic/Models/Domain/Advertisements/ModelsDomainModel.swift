@@ -11,6 +11,7 @@ struct ModelsDomainModel {
     let brandID: String
     let modelName: String
     
+    // MARK: - Init
     init(modelResponseModel: ModelResponseModel) {
         self.brandID = modelResponseModel.brandID
         self.modelName = modelResponseModel.modelName

@@ -138,6 +138,8 @@ private extension CreateAccountView {
         textFieldStackView.axis = .vertical
         textFieldStackView.spacing = Constant.stackViewSpacing
         
+        emailTextField.textField.autocapitalizationType = .none
+        
         phoneTextFieldView.layer.borderWidth = Constant.borderWidth
         phoneTextFieldView.layer.borderColor = Colors.buttonDarkGray.color.cgColor
         phoneTextFieldView.layer.cornerRadius = Constant.phoneTextFieldOffset

@@ -19,34 +19,52 @@ final class AllMakesViewController: BaseViewController<AllMakesViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBindings()
-        contentView.configureWithSearchView()
+        setupNavigationBar()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
 
-    private func setupBindings() {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupSearchBarBinding()
+        navigationItem.hidesSearchBarWhenScrolling = true
+    }
+}
+
+// MARK: - Private extension
+private extension AllMakesViewController {
+    func setupBindings() {
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
                 case .cellDidTap(let row):
-                    print(row)
+                    viewModel.setSelectedBrand(item: row)
                 }
             }
-            .store(in: &cancellables)
-        
-        contentView.filterPublisher
-            .sink(receiveValue: { [unowned self] action in
-                switch action {
-                case .cancelDidTapped:
-                    self.dismiss(animated: true)
-                case .doneDidTapped:
-                    self.dismiss(animated: true)
-                case .filterTextDidEntered(let filterText):
-                    viewModel.filterByBrand(filterText)
-                }
-            })
             .store(in: &cancellables)
         
         viewModel.sectionsPublisher
             .sink { [unowned self] sections in contentView.setupSnapshot(sections: sections) }
             .store(in: &cancellables)
+    }
+    
+    func setupSearchBarBinding() {
+        navigationItem.searchController?.searchBar.textDidChangePublisher
+            .sink { [unowned self] in viewModel.filterByBrand($0) }
+            .store(in: &cancellables)
+        
+        navigationItem.searchController?.searchBar.cancelButtonClickedPublisher
+            .sink(receiveValue: { [unowned self] in
+                viewModel.filterByBrand()
+            })
+            .store(in: &cancellables)
+    }
+    
+    func setupNavigationBar() {
+        title = "Make"
+        navigationItem.searchController = UISearchController(searchResultsController: nil)
     }
 }

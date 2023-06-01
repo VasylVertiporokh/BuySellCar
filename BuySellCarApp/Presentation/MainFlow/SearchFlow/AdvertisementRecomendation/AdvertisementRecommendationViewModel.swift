@@ -26,13 +26,8 @@ final class AdvertisementRecommendationViewModel: BaseViewModel {
         super.init()
     }
     
-    let locationService = UserLocationServiceImpl()
-    
     // MARK: - Life cycle
     override func onViewWillAppear() {
-        
-        locationService.requestLocation()
-        
         isLoadingSubject.send(true)
         advertisementModel.getRecommendedAdvertisements(
             searchModel: .init(pageSize: .zero, offset: .zero, searchParams: [])
@@ -64,7 +59,6 @@ extension AdvertisementRecommendationViewModel {
         switch row {
         case .recommended(let model):
             let testFilteredResult = advertisementResponseModel.filter { $0.objectID == model.objectID }
-            print(testFilteredResult)
         case .trending(let model):
             advertisementModel.setFastSearсhParams(model.searchParameters)
             transitionSubject.send(.showResult(advertisementModel))
@@ -126,8 +120,7 @@ private enum QuickSearchParams { // TODO: - Add search params array to backend a
     
     static let roadTripSearchParams: [SearchParam] = [
         .init(key: .bodyType, value: .equalToString(stringValue: BodyType.sedan.rawValue)),
-        .init(key: .bodyType, value: .equalToString(stringValue: BodyType.hatchback.rawValue)),
-        .init(key: .price, value: .equalToInt(intValue: 9000))
+        .init(key: .price, value: .lessOrEqualTo(intValue: 9000))
     ]
     
     static let suvSearchParams: [SearchParam] = [
@@ -136,7 +129,7 @@ private enum QuickSearchParams { // TODO: - Add search params array to backend a
     ]
     
     static let vintageSearchParams: [SearchParam] = [
-        .init(key: .yearOfManufacture, value: .lessOrEqualTo(intValue: 1920))
+        .init(key: .yearOfManufacture, value: .lessOrEqualTo(intValue: 1970))
     ]
     
     static let compactSearchParams: [SearchParam] = [

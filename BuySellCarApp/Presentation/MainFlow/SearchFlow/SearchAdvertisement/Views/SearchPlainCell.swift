@@ -13,6 +13,7 @@ final class SearchPlainCell: UICollectionViewCell {
     private let colorIndicatorView = UIView()
     private let containerStackView = UIStackView()
     private let arrowImageView = UIImageView()
+    private let checkMarkImageView = UIImageView() //checkMark
     private let cellLabel = UILabel()
     
     // MARK: - Init
@@ -35,6 +36,7 @@ extension SearchPlainCell {
     
     func setBrand(from model: BrandCellConfigurationModel) {
         cellLabel.text = model.brandName
+        checkMarkImageView.isHidden = !model.isSelected
     }
     
     func setModel(from model: ModelCellConfigurationModel) {
@@ -65,6 +67,7 @@ private extension SearchPlainCell {
         containerStackView.addArrangedSubview(cellLabel)
         containerStackView.addSpacer()
         containerStackView.addArrangedSubview(arrowImageView)
+        containerStackView.addArrangedSubview(checkMarkImageView)
         containerStackView.isLayoutMarginsRelativeArrangement = true
         containerStackView.layoutMargins = Constant.containerStackViewLayoutMargins
         containerStackView.axis = .horizontal
@@ -77,6 +80,8 @@ private extension SearchPlainCell {
             $0.height.equalTo(Constant.arrowImageHeight)
             $0.width.equalTo(Constant.arrowImageWidth)
         }
+        
+        checkMarkImageView.snp.makeConstraints { $0.size.equalTo(24) }
     }
     
     func configureUI() {
@@ -86,6 +91,8 @@ private extension SearchPlainCell {
         colorIndicatorView.layer.cornerRadius = Constant.colorIndicatorViewRadius
         arrowImageView.isHidden = true
         colorIndicatorView.isHidden = true
+        checkMarkImageView.isHidden = true
+        checkMarkImageView.image = Assets.checkMark.image
         arrowImageView.image = Assets.arrow.image
         cellLabel.font = Constant.cellLabelFont
         contentView.layer.borderWidth = Constant.contentViewBorderWidth

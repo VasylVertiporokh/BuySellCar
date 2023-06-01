@@ -57,6 +57,7 @@ final class MainCarInfoView: BaseView {
     private let registrationTextField = MainTextField(type: .editable)
     private let fakeFooterStackView = UIStackView()
     private let fakeFooterImageView = UIImageView()
+    private let rulesLabel = UILabel()
     private let fakeFooterTitleLabel = UILabel()
         
     // MARK: - Private properties
@@ -108,7 +109,23 @@ extension MainCarInfoView {
     }
     
     func shakeTextFields() {
-        [priceTextField, millageTextField, powerTextField].forEach { $0.shake() }
+        [priceTextField, millageTextField, powerTextField].forEach {
+            $0.shake()
+            $0.animateBorderToErrorState()
+        }
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension MainCarInfoView: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let maxLength = 7
+        let minLength = 3
+        
+        guard priceTextField == textField || millageTextField == textField else {
+            return range.location < minLength
+        }
+        return range.location < maxLength
     }
 }
 
@@ -179,6 +196,7 @@ private extension MainCarInfoView {
         millageStackView.addArrangedSubview(millageTextField)
         registrationDateStackView.addArrangedSubview(registrationTitleLabel)
         registrationDateStackView.addArrangedSubview(registrationTextField)
+        carDetailsStackView.addArrangedSubview(rulesLabel)
         carDetailsStackView.addArrangedSubview(fakeFooterStackView)
         fakeFooterStackView.addArrangedSubview(fakeFooterImageView)
         fakeFooterStackView.addArrangedSubview(fakeFooterTitleLabel)
@@ -240,10 +258,12 @@ private extension MainCarInfoView {
         counterLabel.textColor = .white
         counterLabel.font = Constant.counterLabelFont
         fakeFooterTitleLabel.text = "Vehicle details"
-        powerTitleLabel.text = "Power"
-        priceTitleLabel.text = "Final price"
-        millageTitleLabel.text = "Millage"
+        powerTitleLabel.text = "Power *"
+        priceTitleLabel.text = "Final price *"
+        millageTitleLabel.text = "Millage *"
         registrationTitleLabel.text = "First registration"
+        rulesLabel.text = "All fields with * are required"
+        rulesLabel.font = Constant.fulesLabelFont
         
         [brandModelLabel, fakeFooterTitleLabel].forEach {
             $0.textColor = Colors.buttonDarkGray.color
@@ -257,14 +277,21 @@ private extension MainCarInfoView {
     }
     
     func configureTextFields() {
+        priceTextField.delegate = self
+        millageTextField.delegate = self
+        powerTextField.delegate = self
+        priceTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
+        millageTextField.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
         registrationTextField.isEnabled = false
         shortDescriptionTextField.isEnabled = false
+        priceTextField.placeholder = "20 000 €"
+        powerTextField.placeholder = "250 (hp)"
+        millageTextField.placeholder = "100 000 (km)"
         [shortDescriptionTextField, priceTextField, powerTextField, millageTextField, registrationTextField].forEach {
             $0.backgroundColor = .white
             $0.layer.borderColor = UIColor.lightGray.cgColor
             $0.layer.borderWidth = Constant.textFieldBorderWidth
             $0.layer.cornerRadius = Constant.textFieldRadius
-            $0.placeholder = "Please insert"
             $0.keyboardType = .numberPad
             $0.rightView = nil
         }
@@ -278,7 +305,7 @@ private extension MainCarInfoView {
     func bindAction() {
         priceTextField.textPublisher
             .replaceNil(with: "")
-            .map { Int($0) }
+            .map { Int($0.replacingOccurrences(of: " ", with: "")) }
             .replaceNil(with: .zero)
             .sink { [unowned self] in actionSubject.send(.price($0))}
             .store(in: &cancellables)
@@ -292,7 +319,7 @@ private extension MainCarInfoView {
         
         millageTextField.textPublisher
             .replaceNil(with: "")
-            .map { Int($0) }
+            .map { Int($0.replacingOccurrences(of: " ", with: "")) }
             .replaceNil(with: .zero)
             .sink { [unowned self] in actionSubject.send(.millage($0))}
             .store(in: &cancellables)
@@ -308,6 +335,15 @@ private extension MainCarInfoView {
     @objc
     func registrationTextFieldDidTapped() {
         actionSubject.send(.changeRegistrationDidTapped)
+    }
+    
+    @objc
+    func textFieldEditingChanged(_ textField: UITextField) {
+        guard let text = textField.text else {
+            return
+        }
+        let formattedText = text.toSimpleNumberFormat()
+        textField.text = formattedText
     }
 }
 
@@ -391,9 +427,10 @@ private enum Constant {
     static let containerStackViewSpacing: CGFloat = 8
     static let detailsStackViewSpacing: CGFloat = 16
     static let collectionViewLayoutSize: CGFloat = 1.0
-    static let titleLabeleFont: UIFont = FontFamily.Montserrat.regular.font(size: 12)
+    static let titleLabeleFont: UIFont = FontFamily.Montserrat.regular.font(size: 14)
     static let defaultTitleFont: UIFont = FontFamily.Montserrat.regular.font(size: 16)
     static let counterLabelFont: UIFont = FontFamily.Montserrat.semiBold.font(size: 10)
+    static let fulesLabelFont: UIFont = FontFamily.Montserrat.semiBold.font(size: 12)
     static let collectionContainerViewHeight: CGFloat = 250
     static let counterLabelBorderWidth: CGFloat = 0.5
     static let counterLabelRadius: CGFloat = 4

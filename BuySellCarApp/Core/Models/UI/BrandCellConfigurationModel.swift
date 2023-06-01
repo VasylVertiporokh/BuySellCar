@@ -10,9 +10,11 @@ import Foundation
 struct BrandCellConfigurationModel: Hashable {
     let brandName: String
     let id: String
+    var isSelected: Bool
     
     init(brandDomainModel: BrandDomainModel) {
         self.brandName = brandDomainModel.name
         self.id = brandDomainModel.id
+        self.isSelected = brandDomainModel.isSelected
     }
 }

@@ -45,4 +45,15 @@ extension UIView {
         animation.values = [-5.0, 5.0, -5.0, 5.0, -2.5, 2.5, -2.5, 2.5, 0.0 ]
         layer.add(animation, forKey: "shake")
     }
+    
+    func animateBorderToErrorState() {
+        let borderColorAnimation: CABasicAnimation = CABasicAnimation(keyPath: "borderColor")
+        borderColorAnimation.fromValue = layer.borderColor
+        borderColorAnimation.toValue = UIColor.red.cgColor
+        borderColorAnimation.duration = 0.6
+        borderColorAnimation.repeatCount = 3
+        layer.add(borderColorAnimation, forKey: "borderColor")
+        layer.borderColor = layer.borderColor
+
+    }
 }

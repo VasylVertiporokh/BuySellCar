@@ -11,11 +11,12 @@ import Combine
 enum SearchAdvertisementTransition: Transition {
     case showResults
     case showBrands
+    case showModels
 }
 
 final class SearchAdvertisementModuleBuilder {
-    class func build(container: AppContainer, model: AdvertisementModel) -> Module<SearchAdvertisementTransition, UIViewController> {
-        let viewModel = SearchAdvertisementViewModel(advertisementModel: model)
+    class func build(container: AppContainer) -> Module<SearchAdvertisementTransition, UIViewController> {
+        let viewModel = SearchAdvertisementViewModel(advertisementModel: container.searchAdvertisementModel)
         let viewController = SearchAdvertisementViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

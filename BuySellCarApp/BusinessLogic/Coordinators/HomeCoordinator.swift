@@ -50,7 +50,7 @@ private extension HomeCoordinator {
     }
     
     func showSearchResult(model: AdvertisementModel) {
-        let module = SearchResultModuleBuilder.build(container: container, model: model)
+        let module = SearchResultModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] transition in
                 
@@ -61,12 +61,13 @@ private extension HomeCoordinator {
     }
     
     func startSearch(model: AdvertisementModel) {
-        let module = SearchAdvertisementModuleBuilder.build(container: container, model: model)
+        let module = SearchAdvertisementModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
-                case .showResults:  showSearchResult(model: model)
-                case .showBrands:   showAllMakes()
+                case .showResults:              showSearchResult(model: model)
+                case .showBrands:               showAllMakes()
+                case .showModels:               showBrandModels()
                 }
             }
             .store(in: &cancellables)
@@ -77,7 +78,21 @@ private extension HomeCoordinator {
         let module = AllMakesModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] transition in
-                
+                switch transition {
+                case .showModels:               showBrandModels()
+                }
+            }
+            .store(in: &cancellables)
+        push(module.viewController)
+    }
+    
+    func showBrandModels() {
+        let module = BrandModelsModuleBuilder.build(container: container)
+        module.transitionPublisher
+            .sink { [unowned self] transition in
+                switch transition {
+                case .dissmiss:                dismiss()
+                }
             }
             .store(in: &cancellables)
         module.viewController.isModalInPresentation = true

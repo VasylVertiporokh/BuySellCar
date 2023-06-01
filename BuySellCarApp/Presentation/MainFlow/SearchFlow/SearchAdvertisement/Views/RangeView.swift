@@ -207,13 +207,13 @@ private extension RangeView {
         leftThumbView.widthAnchor.constraint(equalTo: leftThumbView.heightAnchor).isActive = true
         leftThumbView.widthAnchor.constraint(equalToConstant: Constant.thumbSize).isActive = true
         leftThumbView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        leftLeadingConstraint = leftThumbView.centerXAnchor.constraint(equalTo: leadingAnchor)
+        leftLeadingConstraint = leftThumbView.centerXAnchor.constraint(equalTo: leadingAnchor, constant: +12)
         leftLeadingConstraint.isActive = true
         
         rightThumbView.widthAnchor.constraint(equalTo: rightThumbView.heightAnchor).isActive = true
         rightThumbView.widthAnchor.constraint(equalTo: leftThumbView.widthAnchor).isActive = true
         rightThumbView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        rightTrailingConstraint = rightThumbView.centerXAnchor.constraint(equalTo: trailingAnchor)
+        rightTrailingConstraint = rightThumbView.centerXAnchor.constraint(equalTo: trailingAnchor, constant: -12)
         rightTrailingConstraint.isActive = true
         
         selectedRangeView.backgroundColor = Constant.selectionColor
@@ -258,6 +258,7 @@ private extension RangeView {
         rightTrailingConstraint.constant = newValue
         animateUpdates(duration: duration)
     }
+    
     func animationDuration(for distance: CGFloat) -> TimeInterval {
         return Constant.halfThumbKoef * TimeInterval(distance / bounds.width)
     }

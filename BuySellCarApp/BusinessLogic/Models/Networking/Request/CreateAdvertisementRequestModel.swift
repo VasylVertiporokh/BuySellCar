@@ -35,7 +35,7 @@ struct CreateAdvertisementRequestModel: Encodable {
     init(domainModel: AddAdvertisementDomainModel) {
         self.mileage = domainModel.mainTechnicalInfo?.millage
         self.price = domainModel.mainTechnicalInfo?.price
-        self.power = domainModel.mainTechnicalInfo?.price
+        self.power = domainModel.mainTechnicalInfo?.power
         self.ownerId = domainModel.ownerId
         self.fuelType = domainModel.fuelType
         self.transportName = domainModel.make

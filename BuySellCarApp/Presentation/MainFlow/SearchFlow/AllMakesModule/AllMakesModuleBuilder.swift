@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 enum AllMakesTransition: Transition {
-    
+    case showModels
 }
 
 final class AllMakesModuleBuilder {

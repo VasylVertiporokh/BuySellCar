@@ -61,10 +61,10 @@ final class SearchResultCell: UICollectionViewCell {
 extension SearchResultCell {
     func setInfo(_ model: AdvertisementCellModel) {
         modelNameLabel.text = "\(model.brandName) \(model.brandModel)"
-        priceLabel.text = "€ \(model.price).-"
-        mileageLabel.text = "\(model.mileage) km"
-        powerLabel.text = "\(model.power) hp"
-        numberOfOwners.text = "\(Int.random(in: 1...5))"
+        priceLabel.text = "€ \("\(model.price)".toSimpleNumberFormat()).-"
+        mileageLabel.text = "\("\(model.mileage)".toSimpleNumberFormat()) km"
+        powerLabel.text = "\("\(model.power)".toSimpleNumberFormat()) hp"
+        numberOfOwners.text = "\(Int.random(in: 1...5)) previous owners"
         fuelConsumptionLabel.text = "\(model.fuelConsumption) L/100 km (comb)*"
         yearLabel.text = String(model.year)
         conditionLabel.text = model.condition

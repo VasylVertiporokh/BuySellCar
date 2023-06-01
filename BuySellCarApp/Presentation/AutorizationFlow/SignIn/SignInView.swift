@@ -81,6 +81,8 @@ final class SignInView: BaseView {
         bottomStackView.distribution = .fillEqually
         bottomStackView.spacing = Constant.standartConstraint
         
+        nickNameTextField.textField.autocapitalizationType = .none
+        
         restorePasswordButton.setTitle(Localization.forgotPassword, for: .normal)
         restorePasswordButton.setTitleColor(Colors.buttonDarkGray.color, for: .normal)
         

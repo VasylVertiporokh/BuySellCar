@@ -11,6 +11,7 @@ struct BrandDomainModel {
     let dataType: VehicleDataType = .make
     let id: String
     let name: String
+    var isSelected: Bool = false
     
     init(brandResponseModel: BrandResponseModel) {
         self.id = brandResponseModel.id

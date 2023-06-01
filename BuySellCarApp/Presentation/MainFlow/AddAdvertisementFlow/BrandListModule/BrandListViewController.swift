@@ -61,5 +61,9 @@ private extension BrandListViewController {
         navigationItem.searchController?.searchBar.textDidChangePublisher
             .sink { [unowned self] in viewModel.filterByInputedText($0) }
             .store(in: &cancellables)
+        
+        navigationItem.searchController?.searchBar.cancelButtonClickedPublisher
+            .sink { [unowned self] in viewModel.filterByInputedText() }
+            .store(in: &cancellables)
     }
 }

@@ -125,7 +125,7 @@ private extension SearchResultView {
                 cell.setInfo(model)
                 guard let carRow = self.dataSource?.itemIdentifier(for: indexPath) else { return cell }
                 cell.setupSnapshot(sections: [
-                    .init(section: .images, items: carRow.carImages.compactMap { CarImageRow.carImage($0) })
+                    .init(section: .images, items: carRow.carImages.map { CarImageRow.carImage($0) })
                 ])
                 return cell
             }
@@ -182,17 +182,18 @@ private extension SearchResultView {
         )
         section.interGroupSpacing = Constant.defaultSpace
         
-        let footerSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(Constant.fractionalValue),
-            heightDimension: .estimated(30)
-        )
-        
-        let footerElement = NSCollectionLayoutBoundarySupplementaryItem(
-            layoutSize: footerSize,
-            elementKind: UICollectionView.elementKindSectionFooter,
-            alignment: .bottom
-        )
-        section.boundarySupplementaryItems = [footerElement]
+        // TODO: - Fix after demo
+//        let footerSize = NSCollectionLayoutSize(
+//            widthDimension: .fractionalWidth(Constant.fractionalValue),
+//            heightDimension: .estimated(30)
+//        )
+//
+//        let footerElement = NSCollectionLayoutBoundarySupplementaryItem(
+//            layoutSize: footerSize,
+//            elementKind: UICollectionView.elementKindSectionFooter,
+//            alignment: .bottom
+//        )
+//        section.boundarySupplementaryItems = [footerElement]
         
         return section
     }

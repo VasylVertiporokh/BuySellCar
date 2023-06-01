@@ -58,7 +58,7 @@ extension ModelListViewModel {
         }
     }
     
-    func filterByInputedText(_ brand: String) {
+    func filterByInputedText(_ brand: String = "") {
         searchTextSubject.send(brand)
     }
 }

@@ -39,6 +39,10 @@ final class ModelListView: BaseView {
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
     private let actionSubject = PassthroughSubject<ModelListViewAction, Never>()
     
+    // MARK: - Filter publisher
+    private(set) lazy var filterPublisher = filterSubject.eraseToAnyPublisher()
+    private let filterSubject = PassthroughSubject<FiterViewAction, Never>()
+    
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -82,6 +86,18 @@ private extension ModelListView {
             .compactMap { self.dataSource?.itemIdentifier(for: $0) }
             .map { ModelListViewAction.cellDidTap($0) }
             .sink { [unowned self] in actionSubject.send($0) }
+            .store(in: &cancellables)
+        
+        searchBarView.textDidChangePublisher
+            .sink{ [unowned self] in filterSubject.send(.filterTextDidEntered($0)) }
+            .store(in: &cancellables)
+        
+        cancelButton.tapPublisher
+            .sink { [unowned self] in filterSubject.send(.cancelDidTapped) }
+            .store(in: &cancellables)
+        
+        doneButton.tapPublisher
+            .sink { [unowned self] in filterSubject.send(.doneDidTapped) }
             .store(in: &cancellables)
     }
     

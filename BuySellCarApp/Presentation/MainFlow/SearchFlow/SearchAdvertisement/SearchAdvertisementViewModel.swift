@@ -14,7 +14,8 @@ enum SearchAdvertisementViewModelEvents {
 
 final class SearchAdvertisementViewModel: BaseViewModel {
     // MARK: - Private properties
-    private let advertisementModel: AdvertisementModel
+    private var advertisementModel: AdvertisementModel
+    private var searchDomainModel = SearchAdvertismentDomainModel()
     
     // MARK: - Publisher
     private(set) lazy var sectionsPublisher = sectionsSubject.eraseToAnyPublisher()
@@ -32,11 +33,6 @@ final class SearchAdvertisementViewModel: BaseViewModel {
     private let transitionSubject = PassthroughSubject<SearchAdvertisementTransition, Never>()
     
     // MARK: - Sections item
-    private let basicBrand = BrandCellModel.basicBrands()
-    private var bodyType = BodyTypeCellModel.basicBodyTypes()
-    private var fuelType = FuelTypeModel.fuelTypes()
-    private var transmissionType = TransmissionTypeModel.transmissionTypes()
-    private var selectedBrand: [SelectedBrandModel] = []
     private lazy var year = TechnicalSpecCellModel.year(selectedRange: selectedYearRangeSubject)
     private lazy var millage = TechnicalSpecCellModel.millage(selectedRange: millageSelectedRangeSubject)
     private lazy var power = TechnicalSpecCellModel.power(selectedRange: powerSelectedRangeSubject)
@@ -47,11 +43,13 @@ final class SearchAdvertisementViewModel: BaseViewModel {
         super.init()
     }
     
+    // MARK: - Deinit
+    deinit {
+        resetSearch()
+    }
+    
     // MARK: - Life cycle
     override func onViewDidLoad() {
-        advertisementModel.getAllBrands()
-        updateDataSource()
-        
         millageSelectedRangeSubject
             .dropFirst()
             .removeDuplicates()
@@ -98,17 +96,24 @@ final class SearchAdvertisementViewModel: BaseViewModel {
                     .store(in: &self.cancellables)
             }
             .store(in: &cancellables)
+        
+        advertisementModel.tempDomainModelPublisher
+            .sink { [weak self] model in
+                self?.searchDomainModel = model
+                self?.updateDataSource()
+            }
+            .store(in: &cancellables)
     }
     
     func updateDataSource() {
-        let basicBrand: [SearchRow] = self.basicBrand.compactMap {  SearchRow.brandsRow($0) }
-        let selectedBrand: [SearchRow] = self.selectedBrand.compactMap { SearchRow.selectedBrandRow($0) }
-        let bodyTypes: [SearchRow] = self.bodyType.compactMap { SearchRow.bodyTypeRow($0) }
-        let fuelTypes: [SearchRow] = self.fuelType.compactMap { SearchRow.fuelTypeRow($0) }
-        let yearRange: [SearchRow] = self.year.compactMap { SearchRow.firstRegistrationRow($0) }
-        let milageRange: [SearchRow] = self.millage.compactMap { SearchRow.millageRow($0) }
-        let powerRange: [SearchRow] = self.power.compactMap { SearchRow.powerRow($0) }
-        let transmissionTypes: [SearchRow] = self.transmissionType.compactMap { SearchRow.transmissionTypeRow($0) }
+        let basicBrand: [SearchRow] = searchDomainModel.basicBrand.map {  SearchRow.brandsRow($0) }
+        let selectedBrand: [SearchRow] = searchDomainModel.selectedBrand.map { SearchRow.selectedBrandRow($0) }
+        let bodyTypes: [SearchRow] = searchDomainModel.bodyType.map { SearchRow.bodyTypeRow($0) }
+        let fuelTypes: [SearchRow] = searchDomainModel.fuelType.map { SearchRow.fuelTypeRow($0) }
+        let transmissionTypes: [SearchRow] = searchDomainModel.transmissionType.map { SearchRow.transmissionTypeRow($0) }
+        let yearRange: [SearchRow] = year.map { SearchRow.firstRegistrationRow($0) }
+        let milageRange: [SearchRow] = millage.map { SearchRow.millageRow($0) }
+        let powerRange: [SearchRow] = power.map { SearchRow.powerRow($0) }
         let isAddingAvailable = selectedBrand.count < 3
         
         guard !selectedBrand.isEmpty else {
@@ -143,38 +148,22 @@ extension SearchAdvertisementViewModel {
     func didSelect(_ item: SearchRow) {
         switch item {
         case .brandsRow(let brandCellModel):
-            selectedBrand.append(.init(brand: brandCellModel.brandName))
-            updateDataSource()
+            transitionSubject.send(.showModels)
+            advertisementModel.getBrandModels(id: brandCellModel.id)
+            
+        case .selectedBrandRow(let selectedBrandModel):
+            transitionSubject.send(.showModels)
+            advertisementModel.getBrandModels(id: selectedBrandModel.id)
             
         case .bodyTypeRow(let bodyTypeCellModel):
-            guard let index = self.bodyType.firstIndex(of: bodyTypeCellModel) else { return }
-            bodyType[index].isSelected.toggle()
-            
-            advertisementModel.addSearchParam(
-                .init(key: .bodyType, value: .equalToString(stringValue: bodyTypeCellModel.bodyTypeLabel))
-            )
-            
-            updateDataSource()
+            advertisementModel.setBodyType(bodyTypeCellModel)
                     
         case .fuelTypeRow(let fuelTypeModel):
-            guard let index = self.fuelType.firstIndex(of: fuelTypeModel) else { return }
-            fuelType[index].isSelected.toggle()
-            
-            advertisementModel.addSearchParam(
-                .init(key: .fuelType, value: .equalToString(stringValue: fuelTypeModel.fuelType))
-            )
-            updateDataSource()
+            advertisementModel.setFuelType(fuelTypeModel)
     
         case .transmissionTypeRow(let transmissionTypeModel):
-            guard let index = self.transmissionType.firstIndex(of: transmissionTypeModel) else { return }
-            transmissionType[index].isSelected.toggle()
+            advertisementModel.setTransmissionType(transmissionTypeModel)
             
-            advertisementModel.addSearchParam(
-                .init(
-                    key: .transmissionType, value: .equalToString(stringValue: transmissionTypeModel.transmissionType)
-                )
-            )
-            updateDataSource()
         default:
             break
         }
@@ -185,19 +174,15 @@ extension SearchAdvertisementViewModel {
     }
     
     func deleteSelectedBrand(_ brand: SelectedBrandModel) {
-        selectedBrand.removeAll { $0 == brand }
-        updateDataSource()
+        advertisementModel.deleteSelectedBrand(brand)
     }
 
     func resetSearch() {
         advertisementModel.resetSearchParams()
-        bodyType = BodyTypeCellModel.basicBodyTypes()
-        selectedBrand.removeAll()
-        fuelType = FuelTypeModel.fuelTypes()
-        transmissionType = TransmissionTypeModel.transmissionTypes()
         selectedYearRangeSubject.value = .init()
         millageSelectedRangeSubject.value = .init()
         powerSelectedRangeSubject.value = .init()
+          
         year = TechnicalSpecCellModel.year(selectedRange: selectedYearRangeSubject)
         millage = TechnicalSpecCellModel.millage(selectedRange: millageSelectedRangeSubject)
         power = TechnicalSpecCellModel.power(selectedRange: powerSelectedRangeSubject)

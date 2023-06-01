@@ -593,17 +593,18 @@ extension SearchSection {
 struct BrandCellModel: Hashable {
     let logoImage: UIImage
     let brandName: String
+    let id: String
     
     static func basicBrands() -> [Self] {
         return [
-            .init(logoImage: Assets.bmwLogo.image, brandName: "BMW"),
-            .init(logoImage: Assets.volkswagenLogo.image, brandName: "Volkswagen"),
-            .init(logoImage: Assets.audiLogo.image, brandName: "Audi"),
-            .init(logoImage: Assets.mercedesLogo.image, brandName: "Mercedes"),
-            .init(logoImage: Assets.fordLogo.image, brandName: "Ford"),
-            .init(logoImage: Assets.fiatLogo.image, brandName: "Fiat"),
-            .init(logoImage: Assets.renaultLogo.image, brandName: "Renault"),
-            .init(logoImage: Assets.fiatLogo.image, brandName: "Nissan")
+            .init(logoImage: Assets.bmwLogo.image, brandName: "BMW", id: "4"),
+            .init(logoImage: Assets.volkswagenLogo.image, brandName: "Volkswagen",id: "52"),
+            .init(logoImage: Assets.audiLogo.image, brandName: "Audi", id: "2"),
+            .init(logoImage: Assets.mercedesLogo.image, brandName: "Mercedes", id: "32"),
+            .init(logoImage: Assets.fordLogo.image, brandName: "Ford", id: "17"),
+            .init(logoImage: Assets.fiatLogo.image, brandName: "Fiat", id: "16"),
+            .init(logoImage: Assets.renaultLogo.image, brandName: "Renault", id: "40"),
+            .init(logoImage: Assets.nissanLogo.image, brandName: "Nissan", id: "35")
         ]
     }
 }
@@ -636,7 +637,7 @@ struct FuelTypeModel: Hashable {
             .init(fuelType: "Petrol"),
             .init(fuelType: "Electro"),
             .init(fuelType: "Hybrid"),
-            .init(fuelType: "Diesel"),
+            .init(fuelType: "Disel"),
             .init(fuelType: "LPG"),
             .init(fuelType: "Ethanol"),
             .init(fuelType: "Hydrogen"),
@@ -664,7 +665,19 @@ struct SellerDetails: Hashable {
 
 struct SelectedBrandModel: Hashable {
     let brand: String
+    let id: String
     var model: String?
+    
+    init(model: BrandCellConfigurationModel) {
+        self.brand = model.brandName
+        self.id = model.id
+    }
+    
+    init(brand: String, id: String, model: String? = nil) {
+        self.brand = brand
+        self.id = id
+        self.model = model
+    }
 }
 
 struct TechnicalSpecCellModel {

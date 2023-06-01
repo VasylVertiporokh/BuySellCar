@@ -116,7 +116,10 @@ private extension TechnicalSpecCell {
     
     func setupUI() {
         toLabel.text = Constant.toLabelText
-        [minValueTextField, maxValueTextField].forEach { $0.placeholder = Constant.textFieldPlaceholder }
+        [minValueTextField, maxValueTextField].forEach {
+            $0.placeholder = Constant.textFieldPlaceholder
+            $0.keyboardType = .numberPad
+        }
     }
 }
 

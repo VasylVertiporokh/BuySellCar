@@ -41,7 +41,7 @@ struct AdvertisementCellModel: Hashable {
         sellerName = model.sellerName
         location = model.location
         objectID = model.objectID
-        imageArray = model.images?.carImages ?? []
+        imageArray = model.images?.carImages ?? [""]
         created = model.created
     }
 }

@@ -23,7 +23,7 @@ enum BrandListViewAction {
     case cellDidTap(BrandRow)
 }
 
-enum FiterViewAction {
+enum FiterViewAction { // TODO: - fix naming
     case filterTextDidEntered(String)
     case cancelDidTapped
     case doneDidTapped

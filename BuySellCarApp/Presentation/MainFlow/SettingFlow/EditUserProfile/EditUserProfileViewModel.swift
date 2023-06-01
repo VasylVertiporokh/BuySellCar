@@ -38,7 +38,7 @@ final class EditUserProfileViewModel: BaseViewModel {
     }
     
     // MARK: - Life cycle
-    override func onViewWillAppear() {
+    override func onViewDidLoad() {
         userService.userDomainPublisher
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] userModel in

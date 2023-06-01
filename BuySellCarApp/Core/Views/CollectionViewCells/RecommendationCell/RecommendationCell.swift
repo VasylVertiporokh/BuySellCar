@@ -69,11 +69,11 @@ final class RecommendationCell: UICollectionViewCell {
 extension RecommendationCell {
     func setInfo(model: AdvertisementCellModel) {
         carImageView.kf.setImage(with: URL(string: model.imageArray.first ?? ""), placeholder: Assets.carPlaceholder.image)
-        brandNameLabel.text = model.brandName
-        priceLabel.text = "€ \(model.price).-"
-        mileageLabel.text = "\(model.mileage) km"
+        brandNameLabel.text = "\(model.brandName) \(model.brandModel)"
+        priceLabel.text = "€ \("\(model.price)".toSimpleNumberFormat()).-"
+        mileageLabel.text = "\("\(model.mileage)".toSimpleNumberFormat()) km"
         powerLabel.text = "\(model.power) hp"
-        numberOfOwners.text = "\(Int.random(in: 1...5))"
+        numberOfOwners.text = "\(Int.random(in: 1...3)) previous owners"
         fuelConsumptionLabel.text = "\(model.fuelConsumption) L/100 km (comb)*"
         yearLabel.text = String(model.year)
         conditionLabel.text = model.condition
