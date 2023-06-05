@@ -157,9 +157,7 @@
 		D48BE09C29CB0C9D00E7F159 /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = D48BE09B29CB0C9D00E7F159 /* PhoneNumberKit */; };
 		D48BE09E29CB5E9200E7F159 /* TextFieldValidationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BE09D29CB5E9200E7F159 /* TextFieldValidationState.swift */; };
 		D48BE0A129CB861300E7F159 /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BE0A029CB861300E7F159 /* UIResponder+Extension.swift */; };
-		D48BE0A429CB887E00E7F159 /* CreateAccountValidationForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BE0A329CB887E00E7F159 /* CreateAccountValidationForm.swift */; };
 		D48BE0A629CB8A7E00E7F159 /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BE0A529CB8A7E00E7F159 /* UICollectionView+Extension.swift */; };
-		D48BE0A929CC476D00E7F159 /* EditProfileValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BE0A829CC476D00E7F159 /* EditProfileValidation.swift */; };
 		D48BE0AF29CC958700E7F159 /* AdvertisementRecomendationModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BE0AB29CC958700E7F159 /* AdvertisementRecomendationModuleBuilder.swift */; };
 		D48BE0B029CC958700E7F159 /* AdvertisementRecommendationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BE0AC29CC958700E7F159 /* AdvertisementRecommendationViewController.swift */; };
 		D48BE0B129CC958700E7F159 /* AdvertisementRecommendationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48BE0AD29CC958700E7F159 /* AdvertisementRecommendationView.swift */; };
@@ -228,6 +226,7 @@
 		D4E374D22A15375C001E0D7A /* FirstRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E374CE2A15375C001E0D7A /* FirstRegistrationViewController.swift */; };
 		D4E374D32A15375C001E0D7A /* FirstRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E374CF2A15375C001E0D7A /* FirstRegistrationView.swift */; };
 		D4E374D42A15375C001E0D7A /* FirstRegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E374D02A15375C001E0D7A /* FirstRegistrationViewModel.swift */; };
+		D4E41B172A2E73FA00484FBD /* ValidationForms.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E41B162A2E73FA00484FBD /* ValidationForms.swift */; };
 		D4E647392A0E244700D838F0 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E647382A0E244700D838F0 /* EmptyStateView.swift */; };
 		D4E6473C2A0E42CF00D838F0 /* AddAdvertisementModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E6473B2A0E42CF00D838F0 /* AddAdvertisementModel.swift */; };
 		D4E647422A0E5D6600D838F0 /* UserAdsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E647412A0E5D6600D838F0 /* UserAdsCell.swift */; };
@@ -421,9 +420,7 @@
 		D47CD5E429A5324C00C3ECC6 /* RequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBody.swift; sourceTree = "<group>"; };
 		D48BE09D29CB5E9200E7F159 /* TextFieldValidationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldValidationState.swift; sourceTree = "<group>"; };
 		D48BE0A029CB861300E7F159 /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
-		D48BE0A329CB887E00E7F159 /* CreateAccountValidationForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountValidationForm.swift; sourceTree = "<group>"; };
 		D48BE0A529CB8A7E00E7F159 /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
-		D48BE0A829CC476D00E7F159 /* EditProfileValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileValidation.swift; sourceTree = "<group>"; };
 		D48BE0AB29CC958700E7F159 /* AdvertisementRecomendationModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementRecomendationModuleBuilder.swift; sourceTree = "<group>"; };
 		D48BE0AC29CC958700E7F159 /* AdvertisementRecommendationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementRecommendationViewController.swift; sourceTree = "<group>"; };
 		D48BE0AD29CC958700E7F159 /* AdvertisementRecommendationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementRecommendationView.swift; sourceTree = "<group>"; };
@@ -490,6 +487,7 @@
 		D4E374CE2A15375C001E0D7A /* FirstRegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstRegistrationViewController.swift; sourceTree = "<group>"; };
 		D4E374CF2A15375C001E0D7A /* FirstRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstRegistrationView.swift; sourceTree = "<group>"; };
 		D4E374D02A15375C001E0D7A /* FirstRegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstRegistrationViewModel.swift; sourceTree = "<group>"; };
+		D4E41B162A2E73FA00484FBD /* ValidationForms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationForms.swift; sourceTree = "<group>"; };
 		D4E647382A0E244700D838F0 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		D4E6473B2A0E42CF00D838F0 /* AddAdvertisementModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAdvertisementModel.swift; sourceTree = "<group>"; };
 		D4E647412A0E5D6600D838F0 /* UserAdsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAdsCell.swift; sourceTree = "<group>"; };
@@ -1153,22 +1151,6 @@
 			path = UIResponder;
 			sourceTree = "<group>";
 		};
-		D48BE0A229CB887100E7F159 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				D48BE0A329CB887E00E7F159 /* CreateAccountValidationForm.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		D48BE0A729CC475800E7F159 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				D48BE0A829CC476D00E7F159 /* EditProfileValidation.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		D48BE0AA29CC956800E7F159 /* AdvertisementRecomendation */ = {
 			isa = PBXGroup;
 			children = (
@@ -1201,7 +1183,6 @@
 		D495004129C8EA73009CECA9 /* EditUserProfile */ = {
 			isa = PBXGroup;
 			children = (
-				D48BE0A729CC475800E7F159 /* Models */,
 				D495004229C8EA89009CECA9 /* EditUserProfileModuleBuilder.swift */,
 				D495004329C8EA89009CECA9 /* EditUserProfileViewController.swift */,
 				D495004429C8EA89009CECA9 /* EditUserProfileView.swift */,
@@ -1320,7 +1301,6 @@
 				D4ADEC1E29AE407800D7CE53 /* CreateAccountViewController.swift */,
 				D4ADEC1F29AE407800D7CE53 /* CreateAccountView.swift */,
 				D4ADEC2029AE407800D7CE53 /* CreateAccountViewModel.swift */,
-				D48BE0A229CB887100E7F159 /* Models */,
 			);
 			path = CreateAccount;
 			sourceTree = "<group>";
@@ -1401,6 +1381,7 @@
 		D4B0A3D629DD827C00BCB8A7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D4E41B152A2E73DE00484FBD /* ValidationForms */,
 				D4B0A3D729DD828400BCB8A7 /* UI */,
 			);
 			path = Models;
@@ -1459,6 +1440,14 @@
 				D4E374D02A15375C001E0D7A /* FirstRegistrationViewModel.swift */,
 			);
 			path = FirstRedistrationModule;
+			sourceTree = "<group>";
+		};
+		D4E41B152A2E73DE00484FBD /* ValidationForms */ = {
+			isa = PBXGroup;
+			children = (
+				D4E41B162A2E73FA00484FBD /* ValidationForms.swift */,
+			);
+			path = ValidationForms;
 			sourceTree = "<group>";
 		};
 		D4E647372A0E235500D838F0 /* EmptyStateView */ = {
@@ -1793,7 +1782,6 @@
 				D4ADEC2129AE407800D7CE53 /* CreateAccountModuleBuilder.swift in Sources */,
 				D3E3F7BEE84A06C1CA57A0F5 /* BaseViewController.swift in Sources */,
 				D4623DFF29D444EE003B4020 /* SearchResultViewController.swift in Sources */,
-				D48BE0A929CC476D00E7F159 /* EditProfileValidation.swift in Sources */,
 				D46CC3C529A92958003BCB24 /* MainTextFieldView.swift in Sources */,
 				D495004829C8EA89009CECA9 /* EditUserProfileView.swift in Sources */,
 				D41C5D422A1F99C500755CA5 /* AddAdvertisementDomainModel.swift in Sources */,
@@ -1934,6 +1922,7 @@
 				D49D0E2D29EED03000C67E96 /* SearchAdvertisementViewController.swift in Sources */,
 				7EB4B3410B43ED90D532A613 /* SettingsViewController.swift in Sources */,
 				D453B3882A24B6AA00B17A99 /* AllMakesViewController.swift in Sources */,
+				D4E41B172A2E73FA00484FBD /* ValidationForms.swift in Sources */,
 				D49D0E1F29EEB09A00C67E96 /* FakeSplashModuleBuilder.swift in Sources */,
 				D50B0DC3B906281FFB3C6A3F /* SettingsViewModel.swift in Sources */,
 				D43E8E4A2A12B24300DFC444 /* BrandDomainModel.swift in Sources */,
@@ -1946,7 +1935,6 @@
 				DD94FE48CDF5D4260353B893 /* UIStackView+Ext.swift in Sources */,
 				D42925FF2A1647FC0047F6CB /* BodyColorModuleBuilder.swift in Sources */,
 				D44AF14129D1931100C7E756 /* QuickSearchCell.swift in Sources */,
-				D48BE0A429CB887E00E7F159 /* CreateAccountValidationForm.swift in Sources */,
 				D4EA6E63299E87A1009F7DBD /* SignInModuleBuilder.swift in Sources */,
 				D48BE0B129CC958700E7F159 /* AdvertisementRecommendationView.swift in Sources */,
 				D41C5D342A1CCCEE00755CA5 /* AddAdvertisementImageViewController.swift in Sources */,

@@ -16,6 +16,8 @@ enum CreateAccountViewModelEvents {
 final class CreateAccountViewModel: BaseViewModel {
     // MARK: - Private properties
     private let authService: AuthNetworkServiceProtocol
+    private let userService: UserService
+    private let tokenStorage: TokenStorage
     private var userPhoneNumber: String = ""
     
     // MARK: - Subjects
@@ -35,35 +37,41 @@ final class CreateAccountViewModel: BaseViewModel {
     private(set) lazy var validationPublisher = validationSubject.eraseToAnyPublisher()
     
     // MARK: - Init
-    init(authService: AuthNetworkServiceProtocol) {
+    init(authService: AuthNetworkServiceProtocol, userService: UserService, tokenStorage: TokenStorage) {
         self.authService = authService
+        self.userService = userService
+        self.tokenStorage = tokenStorage
         super.init()
     }
     
     // MARK: - Lifecycle
     override func onViewDidLoad() {
         nameSubject
-            .map { RegEx.nickname.checkString(text: $0) }
+            .debounce(for: 2, scheduler: RunLoop.main)
             .dropFirst()
             .removeDuplicates()
-            .sink { [unowned self] in validationSubject.value.name = $0 ? .valid : .invalid }
+            .sink { [unowned self] in
+                validationSubject.value.name = $0.isEmpty ? .notChecked : ( RegEx.nickname.checkString(text: $0) ? .valid : .invalid )}
             .store(in: &cancellables)
         
         emailSubject
-            .map { RegEx.email.checkString(text: $0) }
+            .debounce(for: 2, scheduler: RunLoop.main)
             .dropFirst()
             .removeDuplicates()
-            .sink { [unowned self] in validationSubject.value.email = $0 ? .valid : .invalid }
+            .sink { [unowned self] in
+                validationSubject.value.email = $0.isEmpty ? .notChecked : (RegEx.email.checkString(text: $0) ? .valid : .invalid) }
             .store(in: &cancellables)
         
         passwordSubject
-            .map {  RegEx.password.checkString(text: $0) }
+            .debounce(for: 2, scheduler: RunLoop.main)
             .dropFirst()
             .removeDuplicates()
-            .sink { [unowned self] in validationSubject.value.password = $0 ? .valid : .invalid }
+            .sink { [unowned self] in
+                validationSubject.value.password = $0.isEmpty ? .notChecked : (RegEx.password.checkString(text: $0) ? .valid : .invalid) }
             .store(in: &cancellables)
         
         repeatPasswordSubject.combineLatest(passwordSubject)
+            .debounce(for: 2, scheduler: RunLoop.main)
             .map { $0 == $1 }
             .dropFirst()
             .removeDuplicates()
@@ -80,7 +88,7 @@ final class CreateAccountViewModel: BaseViewModel {
 extension CreateAccountViewModel {
     func createAccount() {
         isLoadingSubject.send(true)
-        authService.creteUser(
+        authService.createUserAndLogin(
             userModel: .init(email: emailSubject.value,
                              password: passwordSubject.value,
                              name: nameSubject.value,
@@ -93,12 +101,17 @@ extension CreateAccountViewModel {
             }
             self?.errorSubject.send(error)
             self?.isLoadingSubject.send(false)
-        } receiveValue: { [weak self] result in
+        } receiveValue: { [weak self] userModel in
             guard let self = self else {
                 return
             }
-            self.isLoadingSubject.send(false)
-            self.eventsSubject.send(.userCreatedSuccessfully)
+            guard let token = userModel.userToken else {
+                return
+            }
+            self.userService.saveUser(.init(responseModel: userModel))
+            self.tokenStorage.set(token: Token(value: token))
+            self.transitionSubject.send(.showMainFlow)
+            
         }
         .store(in: &cancellables)
     }

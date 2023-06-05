@@ -105,7 +105,6 @@ extension EditUserProfileView {
         case .invalid:
             phoneTextFieldStackView.layer.borderColor = UIColor.red.cgColor
         }
-        
         saveChangesButton.isEnabled = form.isAllValid
     }
     

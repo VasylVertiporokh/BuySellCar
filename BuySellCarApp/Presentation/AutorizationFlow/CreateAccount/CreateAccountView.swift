@@ -62,17 +62,9 @@ extension CreateAccountView {
     }
     
     func applyValidation(form: CreateAccountValidationForm) {
-        if form.name != .notChecked {
-            nameTextField.setErrorState(form.name.isValid)
-        }
-
-        if form.email != .notChecked {
-            emailTextField.setErrorState(form.email.isValid)
-        }
-        
-        if form.password != .notChecked {
-            passwordTextField.setErrorState(form.password.isValid)
-        }
+        form.name == .notChecked ? nameTextField.dropErrorState() : nameTextField.setErrorState(form.name.isValid)
+        form.email == .notChecked ? emailTextField.dropErrorState() : emailTextField.setErrorState(form.email.isValid)
+        form.password == .notChecked ? passwordTextField.dropErrorState() : passwordTextField.setErrorState(form.password.isValid)
         
         if form.confirmPassword != .notChecked {
             repeatPasswordTextField.setErrorState(form.confirmPassword.isValid)
@@ -131,7 +123,7 @@ private extension CreateAccountView {
         
         containerStackView.axis = .vertical
         containerStackView.spacing = Constant.mainSpacing
-        containerStackView.distribution = .fillProportionally
+        containerStackView.distribution = .fill
         containerStackView.isLayoutMarginsRelativeArrangement = true
         containerStackView.layoutMargins = Constant.containerStackViewMargins
         

@@ -51,6 +51,7 @@ final class SearchResultViewModel: BaseViewModel {
     
     // MARK: - Deinit
     deinit {
+        sectionsSubject.value = []
         advertisementModel.resetSearchParams()
     }
 }

@@ -147,6 +147,7 @@ private extension SearchResultCell {
         
         separatorView.backgroundColor = .lightGray
         shareButton.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
+        shareButton.isHidden = true
     }
     
     func setShadow() {

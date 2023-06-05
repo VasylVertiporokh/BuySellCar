@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 final class MainTextFieldView: UIStackView {
-    // MARK: - Privtae properties
+    // MARK: - Private properties
     private let type: TextFieldType
     
     // MARK: - Subviews
@@ -29,14 +29,9 @@ final class MainTextFieldView: UIStackView {
 }
 
 // MARK: - Internal extension
-extension MainTextFieldView {    
+extension MainTextFieldView {
     func setErrorState(_ isFieldValid: Bool) {
-        textField.layer.borderColor = isFieldValid ? Colors.buttonDarkGray.color.cgColor : UIColor.red.cgColor
-        errorLabel.alpha = isFieldValid ? .zero : Constants.initialSpringVelocity
-        errorLabel.isHidden = isFieldValid
-    }
-    
-    func setErrorStateWithAnimation(_ isFieldValid: Bool) {
+        errorLabel.isHidden = !isFieldValid
         UIView.animate(withDuration: Constants.animationDuration,
                        delay: .zero,
                        usingSpringWithDamping: Constants.animationDamping,
@@ -46,6 +41,20 @@ extension MainTextFieldView {
             self.textField.layer.borderColor = isFieldValid ? Colors.buttonDarkGray.color.cgColor : UIColor.red.cgColor
             self.errorLabel.alpha = isFieldValid ? .zero : Constants.initialSpringVelocity
             self.errorLabel.isHidden = isFieldValid
+            self.layoutIfNeeded()
+        }, completion: nil)
+    }
+    
+    func dropErrorState() {
+        UIView.animate(withDuration: Constants.animationDuration,
+                       delay: .zero,
+                       usingSpringWithDamping: Constants.animationDamping,
+                       initialSpringVelocity: Constants.initialSpringVelocity,
+                       options: [],
+                       animations: {
+            self.textField.layer.borderColor = Colors.buttonDarkGray.color.cgColor
+            self.errorLabel.alpha = .zero
+            self.errorLabel.isHidden = true
             self.layoutIfNeeded()
         }, completion: nil)
     }
