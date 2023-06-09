@@ -7,9 +7,13 @@
 
 import Foundation
 
-struct ModelsDomainModel {
+struct ModelsDomainModel: SearchableModelProtocol, Hashable {
     let brandID: String
     let modelName: String
+    var isSelected: Bool = false
+    var searchParam: SearchParam {
+        .init(key: .transportModel, value: .equalToString(stringValue: modelName))
+    }
     
     // MARK: - Init
     init(modelResponseModel: ModelResponseModel) {

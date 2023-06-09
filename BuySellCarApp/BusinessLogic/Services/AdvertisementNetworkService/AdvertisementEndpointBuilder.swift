@@ -74,8 +74,10 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
         
         case .deleteAdvertisement, .uploadAdvertisementImage, .publishAdvertisement:
             return nil
+            
         case .getBrand:
             return ["pageSize" : "100"]
+            
         case .getModel(let brandId):
             return [
                 "pageSize" : "100",

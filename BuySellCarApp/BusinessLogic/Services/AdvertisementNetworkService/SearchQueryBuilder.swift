@@ -57,7 +57,7 @@ extension SearchKey {
         case .sellerType:        return "Seller:"
         case .mileage:           return "km"
         case .power:             return "hp"
-        case .transportName:     return ""
+        case .transportName:     return "Model"
         case .transportModel:    return "model"
         }
     }
@@ -85,4 +85,19 @@ extension SearchValue {
             return "to \(intValue)"
         }
     }
+    
+    var rangeType: RangeValueType {
+        switch self {
+        case .greaterOrEqualTo: return .min
+        case .lessOrEqualTo:    return .max
+        default:                return .none
+        }
+    }
+}
+
+
+enum RangeValueType {
+    case none
+    case min
+    case max
 }

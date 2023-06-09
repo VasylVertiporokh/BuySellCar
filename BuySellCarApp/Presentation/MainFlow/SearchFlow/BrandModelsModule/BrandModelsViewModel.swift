@@ -70,7 +70,7 @@ extension BrandModelsViewModel {
         switch model {
         case .carModelRow(let model):
             advertisementModel.setModel(model)
-            transitionSubject.send(.dissmiss)
+//            transitionSubject.send(.dissmiss)
         }
     }
 }

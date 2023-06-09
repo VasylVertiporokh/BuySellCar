@@ -7,11 +7,14 @@
 
 import Foundation
 
-struct BrandDomainModel {
-    let dataType: VehicleDataType = .make
+struct BrandDomainModel: SearchableModelProtocol {
     let id: String
     let name: String
     var isSelected: Bool = false
+    
+    var searchParam: SearchParam {
+        .init(key: .transportName, value: .equalToString(stringValue: name))
+    }
     
     init(brandResponseModel: BrandResponseModel) {
         self.id = brandResponseModel.id

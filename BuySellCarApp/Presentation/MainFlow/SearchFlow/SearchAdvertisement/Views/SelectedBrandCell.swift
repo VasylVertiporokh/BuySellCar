@@ -37,7 +37,7 @@ extension SelectedBrandCell {
     func setBrand(_ brandModel: SelectedBrandModel) {
         firstLetterBrandLabel.text = brandModel.brand.first?.uppercased()
         brandNameLabel.text = brandModel.brand
-        modelLabel.text = brandModel.model ?? Constant.modelLabelDefaultText
+        modelLabel.text = brandModel.model.isEmpty ? Constant.modelLabelDefaultText : brandModel.model.joined(separator: ", ")
     }
 }
 

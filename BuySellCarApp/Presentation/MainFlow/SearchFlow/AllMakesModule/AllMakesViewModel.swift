@@ -66,8 +66,9 @@ extension AllMakesViewModel {
     func setSelectedBrand(item: BrandRow) {
         switch item {
         case .carBrandRow(let model):
-            advertisementModel.setBrand(.init(model: model))
+            advertisementModel.setBrand(.init(id: model.id, brand: model.brandName))
             advertisementModel.getBrandModels(id: model.id)
+            transitionSubject.send(.pop)
         }
     }
     

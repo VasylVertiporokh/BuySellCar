@@ -55,7 +55,7 @@ final class SearchAdvertisementViewModel: BaseViewModel {
             .removeDuplicates()
             .debounce(for: 2, scheduler: RunLoop.main)
             .sink { [unowned self] value in
-                advertisementModel.rangeValue(value, searchKey: .mileage)
+                advertisementModel.rangeValue(value, .millage)
             }
             .store(in: &cancellables)
         
@@ -64,7 +64,7 @@ final class SearchAdvertisementViewModel: BaseViewModel {
             .removeDuplicates()
             .debounce(for: 2, scheduler: RunLoop.main)
             .sink { [unowned self] value in
-                advertisementModel.rangeValue(value, searchKey: .yearOfManufacture)
+                advertisementModel.rangeValue(value, .registration)
             }
             .store(in: &cancellables)
         
@@ -73,7 +73,7 @@ final class SearchAdvertisementViewModel: BaseViewModel {
             .removeDuplicates()
             .debounce(for: 2, scheduler: RunLoop.main)
             .sink { [unowned self] value in
-                advertisementModel.rangeValue(value, searchKey: .power)
+                advertisementModel.rangeValue(value, .power)
             }
             .store(in: &cancellables)
     
@@ -114,7 +114,7 @@ final class SearchAdvertisementViewModel: BaseViewModel {
         let yearRange: [SearchRow] = year.map { SearchRow.firstRegistrationRow($0) }
         let milageRange: [SearchRow] = millage.map { SearchRow.millageRow($0) }
         let powerRange: [SearchRow] = power.map { SearchRow.powerRow($0) }
-        let isAddingAvailable = selectedBrand.count < 3
+        let isAddingAvailable = selectedBrand.count < 1
         
         guard !selectedBrand.isEmpty else {
             sectionsSubject.value = [
@@ -132,7 +132,8 @@ final class SearchAdvertisementViewModel: BaseViewModel {
         
         sectionsSubject.value = [
             .init(section: .selectedBrand(isAddAvailable: isAddingAvailable), items: selectedBrand),
-            .init(section: .bodyType, items: bodyTypes), .init(section: .fuelType, items: fuelTypes),
+            .init(section: .bodyType, items: bodyTypes),
+            .init(section: .fuelType, items: fuelTypes),
             .init(section: .firstRegistration, items: yearRange),
             .init(section: .millage, items: milageRange),
             .init(section: .power, items: powerRange),
@@ -178,15 +179,7 @@ extension SearchAdvertisementViewModel {
     }
 
     func resetSearch() {
-        advertisementModel.resetSearchParams()
-        selectedYearRangeSubject.value = .init()
-        millageSelectedRangeSubject.value = .init()
-        powerSelectedRangeSubject.value = .init()
-          
-        year = TechnicalSpecCellModel.year(selectedRange: selectedYearRangeSubject)
-        millage = TechnicalSpecCellModel.millage(selectedRange: millageSelectedRangeSubject)
-        power = TechnicalSpecCellModel.power(selectedRange: powerSelectedRangeSubject)
-        updateDataSource()
+
     }
     
     func showAllMakes() {

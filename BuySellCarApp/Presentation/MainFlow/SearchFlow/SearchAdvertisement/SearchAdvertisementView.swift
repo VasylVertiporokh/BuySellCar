@@ -591,6 +591,7 @@ extension SearchSection {
 }
 
 struct BrandCellModel: Hashable {
+    var isSelected: Bool = false
     let logoImage: UIImage
     let brandName: String
     let id: String
@@ -609,10 +610,19 @@ struct BrandCellModel: Hashable {
     }
 }
 
-struct BodyTypeCellModel: Hashable {
+protocol SearchableModelProtocol {
+    var searchParam: SearchParam { get }
+    var isSelected: Bool { get set }
+}
+
+struct BodyTypeCellModel: Hashable, SearchableModelProtocol {
     let bodyTypeImage: UIImage
     let bodyTypeLabel: String
     var isSelected: Bool = false
+    
+    var searchParam: SearchParam {
+        .init(key: .bodyType, value: .equalToString(stringValue: bodyTypeLabel))
+    }
     
     static func basicBodyTypes() -> [Self] {
         return [
@@ -628,9 +638,13 @@ struct BodyTypeCellModel: Hashable {
     }
 }
 
-struct FuelTypeModel: Hashable {
+struct FuelTypeModel: Hashable, SearchableModelProtocol {
     let fuelType: String
     var isSelected: Bool = false
+    
+    var searchParam: SearchParam {
+        .init(key: .fuelType, value: .equalToString(stringValue: fuelType))
+    }
     
     static func fuelTypes() -> [Self] {
         return [
@@ -646,9 +660,13 @@ struct FuelTypeModel: Hashable {
     }
 }
 
-struct TransmissionTypeModel: Hashable {
+struct TransmissionTypeModel: Hashable, SearchableModelProtocol {
     let transmissionType: String
     var isSelected: Bool = false
+    
+    var searchParam: SearchParam {
+        .init(key: .transmissionType, value: .equalToString(stringValue: transmissionType))
+    }
     
     static func transmissionTypes() -> [Self] {
         return [
@@ -663,20 +681,22 @@ struct SellerDetails: Hashable {
     let cellTitle: String
 }
 
-struct SelectedBrandModel: Hashable {
-    let brand: String
+struct SelectedBrandModel: Hashable, SearchableModelProtocol {
     let id: String
-    var model: String?
-    
-    init(model: BrandCellConfigurationModel) {
-        self.brand = model.brandName
-        self.id = model.id
+    let brand: String
+    var model: [String] = []
+    var isSelected: Bool = true
+    var brandModelSearchParams: [SearchParam] = []
+    var searchParam: SearchParam {
+        .init(key: .transportName, value: .equalToString(stringValue: brand))
     }
     
-    init(brand: String, id: String, model: String? = nil) {
-        self.brand = brand
+    init(id: String, brand: String, model: [String] = [], isSelected: Bool = true, brandModelSearchParams: [SearchParam] = []) {
         self.id = id
+        self.brand = brand
         self.model = model
+        self.isSelected = isSelected
+        self.brandModelSearchParams = brandModelSearchParams
     }
 }
 

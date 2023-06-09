@@ -36,11 +36,11 @@ extension SearchPlainCell {
     
     func setBrand(from model: BrandCellConfigurationModel) {
         cellLabel.text = model.brandName
-        checkMarkImageView.isHidden = !model.isSelected
     }
     
     func setModel(from model: ModelCellConfigurationModel) {
         cellLabel.text = model.modelName
+        checkMarkImageView.isHidden = !model.isSelected
     }
     
     func setFuelType(fuelType: FuelType) {

@@ -80,6 +80,7 @@ private extension HomeCoordinator {
             .sink { [unowned self] transition in
                 switch transition {
                 case .showModels:               showBrandModels()
+                case .pop:                 pop()
                 }
             }
             .store(in: &cancellables)

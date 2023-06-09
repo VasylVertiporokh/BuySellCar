@@ -10,6 +10,7 @@ import Combine
 
 enum AllMakesTransition: Transition {
     case showModels
+    case pop
 }
 
 final class AllMakesModuleBuilder {
