@@ -10,7 +10,14 @@ import SnapKit
 import Combine
 
 enum SearchResultViewAction {
-    case deleteSearchParam(SearchParam)
+    case deleteBrandTapped(SelectedBrandModel)
+    case deleteModelTapped(ModelCellConfigurationModel)
+    case deleteBodyTapped(BodyTypeModel)
+    case deleteFuelTypeTapped(FuelTypeModel)
+    case deleteTransmissionTypeTapped(TransmissionTypeModel)
+    case deleteRegistrationTapped(SearchParam)
+    case deleteMillageTapped(SearchParam)
+    case deletePowerTapped(SearchParam)
     case needLoadNextPage(Bool)
 }
 
@@ -49,7 +56,11 @@ extension SearchResultView {
         dataSource?.apply(snapShot, animatingDifferences: false)
     }
     
-    func setupSearchSnapshot(sections: [SectionModel<FilteredSection, FilteredRow>]) {
+//    func setupSearchSnapshot(sections: [SectionModel<FilteredSection, FilteredRow>]) {
+//        filterView.setupSnapshot(sections: sections)
+//    }
+    
+    func setupSearchSnapshot(sections: [SectionModel<SelectedFilterSection, SelectedFilterRow>]) {
         filterView.setupSnapshot(sections: sections)
     }
     
@@ -72,8 +83,14 @@ private extension SearchResultView {
         filterView.filterViewActionAction
             .sink { [unowned self] action in
                 switch action {
-                case .deleteSearchParam(let param):
-                    actionSubject.send(.deleteSearchParam(param))
+                case .deleteBrandTapped(let brand):                actionSubject.send(.deleteBrandTapped(brand))
+                case .deleteModelTapped(let model):                actionSubject.send(.deleteModelTapped(.init(brandDomainModel: model)))
+                case .deleteBodyTapped(let bodyType):              actionSubject.send(.deleteBodyTapped(bodyType))
+                case .deleteFuelTypeTapped(let fuelType):          actionSubject.send(.deleteFuelTypeTapped(fuelType))
+                case .deleteRegistrationTapped(let registration):  actionSubject.send(.deleteRegistrationTapped(registration))
+                case .deleteMillageTapped(let millage):            actionSubject.send(.deleteMillageTapped(millage))
+                case .deletePowerTapped(let power):                actionSubject.send(.deletePowerTapped(power))
+                case .deleteTransmissionTapped(let transmission):  actionSubject.send(.deleteTransmissionTypeTapped(transmission))
                 }
             }
             .store(in: &cancellables)

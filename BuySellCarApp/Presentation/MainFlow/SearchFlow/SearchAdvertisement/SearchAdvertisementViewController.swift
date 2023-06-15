@@ -32,13 +32,25 @@ private extension SearchAdvertisementViewController {
                 switch action {
                 case .rowSelected(let searchRow):
                     viewModel.didSelect(searchRow)
+                    
                 case .showAllMakes:
                     viewModel.showAllMakes()
+                    
                 case .deleteSelectedBrands(let searchRow):
                     guard case let .selectedBrandRow(selectedBrand) = searchRow else { return }
                     viewModel.deleteSelectedBrand(selectedBrand)
+                    
                 case .showResults:
                     viewModel.showSearchResults()
+                    
+                case .yearRange(let yearRange):
+                    viewModel.setYearRange(yearRange)
+                    
+                case .millageRange(let millageRange):
+                    viewModel.setMillageRange(millageRange)
+                    
+                case .powerRange(let powerRange):
+                    viewModel.setPowerRange(powerRange)
                 }
             }
             .store(in: &cancellables)

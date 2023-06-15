@@ -10,7 +10,6 @@ import Foundation
 struct SearchParam: Hashable {
     let key: SearchKey
     var value: SearchValue
-    var valueType: ValueType = .min
     
     var queryString: String {
         switch value {
@@ -23,11 +22,6 @@ struct SearchParam: Hashable {
         case .lessOrEqualTo(let intValue):
             return "\(key) <= \(intValue)"
         }
-    }
-    
-    enum ValueType {
-        case min
-        case max
     }
 }
 
@@ -55,10 +49,10 @@ extension SearchKey {
         case .yearOfManufacture: return "Year:"
         case .fuelType:          return "Fuel:"
         case .sellerType:        return "Seller:"
-        case .mileage:           return "km"
-        case .power:             return "hp"
-        case .transportName:     return "Model"
-        case .transportModel:    return "model"
+        case .mileage:           return "Km:"
+        case .power:             return "Hp:"
+        case .transportName:     return "Brand:"
+        case .transportModel:    return "Model:"
         }
     }
 }
@@ -85,19 +79,4 @@ extension SearchValue {
             return "to \(intValue)"
         }
     }
-    
-    var rangeType: RangeValueType {
-        switch self {
-        case .greaterOrEqualTo: return .min
-        case .lessOrEqualTo:    return .max
-        default:                return .none
-        }
-    }
-}
-
-
-enum RangeValueType {
-    case none
-    case min
-    case max
 }

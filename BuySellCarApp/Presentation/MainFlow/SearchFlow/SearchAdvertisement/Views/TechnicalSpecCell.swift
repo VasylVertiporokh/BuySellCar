@@ -14,9 +14,12 @@ final class TechnicalSpecCell: UICollectionViewCell {
     private let containerStackView = UIStackView()
     private let textFieldsStackView = UIStackView()
     private let toLabel = UILabel()
-    private let minValueTextField = UITextField()
-    private let maxValueTextField = UITextField()
+    private let minValueTextField = MainTextField(type: .plain)
+    private let maxValueTextField = MainTextField(type: .plain)
+    
     private var rangeSlider = RangeView()
+    
+    var rangeHandler: ((TechnicalSpecCellModel.SelectedRange) -> Void)?
     
     // MARK: - Private properties
     private var cancellables = Set<AnyCancellable>()
@@ -25,18 +28,24 @@ final class TechnicalSpecCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialSetup()
-        minValueTextField.textPublisher
-            .dropFirst()
-            .debounce(for: Constant.inputDebounce, scheduler: RunLoop.main)
-            .replaceNil(with: Constant.emptyString)
-            .sink { [unowned self] in rangeSlider.updateMinRange($0) }
+        minValueTextField.controlEventPublisher(for: .editingDidEnd)
+            .sink { [unowned self] in
+                rangeSlider.updateMinRange(minValueTextField.text ?? Constant.emptyString)
+            }
+            .store(in: &cancellables)
+        
+        maxValueTextField.controlEventPublisher(for: .editingDidEnd)
+            .sink { [unowned self] in
+                rangeSlider.updateMaxRange(maxValueTextField.text ?? Constant.emptyString)
+            }
+            .store(in: &cancellables)
+        
+        minValueTextField.doneButtonActionPublisher
+            .sink { [unowned self] in endEditing(true) }
             .store(in: &cancellables)
 
-        maxValueTextField.textPublisher
-            .dropFirst()
-            .debounce(for: Constant.inputDebounce, scheduler: RunLoop.main)
-            .replaceNil(with: Constant.emptyString)
-            .sink { [unowned self] in rangeSlider.updateMaxRange($0) }
+        maxValueTextField.doneButtonActionPublisher
+            .sink { [unowned self] in endEditing(true) }
             .store(in: &cancellables)
     }
     
@@ -60,18 +69,27 @@ extension TechnicalSpecCell {
         rangeSlider.actionPublisher
             .sink { [unowned self] action in
                 switch action {
-                case .selectedRange(let range):
+                case .rangeUpdatingInProgress(let range):
                     let isMinValuesEqual = range.lowerBound == model.inRange.lowerBound
                     let isMaxValuesEqual = range.upperBound == model.inRange.upperBound
                     
                     minValueTextField.text = isMinValuesEqual ? Constant.emptyString : "\(Int(range.lowerBound))"
                     maxValueTextField.text = isMaxValuesEqual ? Constant.emptyString : "\(Int(range.upperBound))"
                     
-                    model.selectedRange.value.minRangeValue = isMinValuesEqual ? nil : range.lowerBound
-                    model.selectedRange.value.maxRangeValue = isMaxValuesEqual ? nil : range.upperBound
+                case .rangeUpdated(let range):
+                    let isMinValuesEqual = range.lowerBound == model.inRange.lowerBound
+                    let isMaxValuesEqual = range.upperBound == model.inRange.upperBound
+                    
+                    rangeHandler?(
+                        .init(minRangeValue: isMinValuesEqual ? nil : range.lowerBound,
+                              maxRangeValue: isMaxValuesEqual ? nil : range.upperBound)
+                    )
                     
                 case .inputError:
+                    rangeHandler?(.init(minRangeValue: nil, maxRangeValue: nil))
                     rangeSlider.dropFilter(selectedRange: model.inRange)
+                    minValueTextField.text = Constant.emptyString
+                    maxValueTextField.text = Constant.emptyString
                 }
             }
             .store(in: &cancellables)
@@ -119,6 +137,7 @@ private extension TechnicalSpecCell {
         [minValueTextField, maxValueTextField].forEach {
             $0.placeholder = Constant.textFieldPlaceholder
             $0.keyboardType = .numberPad
+            $0.showToolbar = true
         }
     }
 }

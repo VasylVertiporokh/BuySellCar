@@ -15,28 +15,18 @@ enum SearchAdvertisementViewModelEvents {
 final class SearchAdvertisementViewModel: BaseViewModel {
     // MARK: - Private properties
     private var advertisementModel: AdvertisementModel
-    private var searchDomainModel = SearchAdvertismentDomainModel()
+    private var searchDomainModel = FilterDomainModel()
     
     // MARK: - Publisher
     private(set) lazy var sectionsPublisher = sectionsSubject.eraseToAnyPublisher()
     private let sectionsSubject = CurrentValueSubject<[SectionModel<SearchSection, SearchRow>], Never>([])
     private(set) lazy var eventsPublisher = eventsSubject.eraseToAnyPublisher()
     private let eventsSubject = PassthroughSubject<SearchAdvertisementViewModelEvents, Never>()
-    
-    // MARK: - Subjects
-    private let selectedYearRangeSubject = CurrentValueSubject<TechnicalSpecCellModel.SelectedRange, Never>(.init())
-    private let millageSelectedRangeSubject = CurrentValueSubject<TechnicalSpecCellModel.SelectedRange, Never>(.init())
-    private let powerSelectedRangeSubject = CurrentValueSubject<TechnicalSpecCellModel.SelectedRange, Never>(.init())
-    
+        
     // MARK: - Transition publiser
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<SearchAdvertisementTransition, Never>()
     
-    // MARK: - Sections item
-    private lazy var year = TechnicalSpecCellModel.year(selectedRange: selectedYearRangeSubject)
-    private lazy var millage = TechnicalSpecCellModel.millage(selectedRange: millageSelectedRangeSubject)
-    private lazy var power = TechnicalSpecCellModel.power(selectedRange: powerSelectedRangeSubject)
-        
     // MARK: - Init
     init(advertisementModel: AdvertisementModel) {
         self.advertisementModel = advertisementModel
@@ -49,58 +39,21 @@ final class SearchAdvertisementViewModel: BaseViewModel {
     }
     
     // MARK: - Life cycle
-    override func onViewDidLoad() {
-        millageSelectedRangeSubject
-            .dropFirst()
-            .removeDuplicates()
-            .debounce(for: 2, scheduler: RunLoop.main)
-            .sink { [unowned self] value in
-                advertisementModel.rangeValue(value, .millage)
-            }
-            .store(in: &cancellables)
-        
-        selectedYearRangeSubject
-            .dropFirst()
-            .removeDuplicates()
-            .debounce(for: 2, scheduler: RunLoop.main)
-            .sink { [unowned self] value in
-                advertisementModel.rangeValue(value, .registration)
-            }
-            .store(in: &cancellables)
-        
-        powerSelectedRangeSubject
-            .dropFirst()
-            .removeDuplicates()
-            .debounce(for: 2, scheduler: RunLoop.main)
-            .sink { [unowned self] value in
-                advertisementModel.rangeValue(value, .power)
-            }
-            .store(in: &cancellables)
-    
-        advertisementModel.advertisementSearchParamsPublisher
-            .sink { [weak self] params in
-                guard let self = self else { return }
-                
-                self.advertisementModel.getAdvertisementCount(searchParams: params.searchParams)
-                    .receive(on: DispatchQueue.main)
-                    .sink { [weak self] completion in
-                        guard let self = self,
-                              case let .failure(error) = completion else {
-                            return
-                        }
-                        self.errorSubject.send(error)
-                    } receiveValue: { [weak self] count in
-                        guard let self = self else { return }
-                        self.eventsSubject.send(.numberOfAdvertisements(count))
-                    }
-                    .store(in: &self.cancellables)
-            }
-            .store(in: &cancellables)
-        
+    override func onViewDidLoad() {        
         advertisementModel.tempDomainModelPublisher
             .sink { [weak self] model in
                 self?.searchDomainModel = model
                 self?.updateDataSource()
+            }
+            .store(in: &cancellables)
+        
+        advertisementModel.numberOfAdvertisementsPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                self.eventsSubject.send(.numberOfAdvertisements($0))
             }
             .store(in: &cancellables)
     }
@@ -111,10 +64,10 @@ final class SearchAdvertisementViewModel: BaseViewModel {
         let bodyTypes: [SearchRow] = searchDomainModel.bodyType.map { SearchRow.bodyTypeRow($0) }
         let fuelTypes: [SearchRow] = searchDomainModel.fuelType.map { SearchRow.fuelTypeRow($0) }
         let transmissionTypes: [SearchRow] = searchDomainModel.transmissionType.map { SearchRow.transmissionTypeRow($0) }
-        let yearRange: [SearchRow] = year.map { SearchRow.firstRegistrationRow($0) }
-        let milageRange: [SearchRow] = millage.map { SearchRow.millageRow($0) }
-        let powerRange: [SearchRow] = power.map { SearchRow.powerRow($0) }
-        let isAddingAvailable = selectedBrand.count < 1
+        let yearRange: [SearchRow] = searchDomainModel.year.map { SearchRow.firstRegistrationRow($0) }
+        let milageRange: [SearchRow] = searchDomainModel.millage.map { SearchRow.millageRow($0) }
+        let powerRange: [SearchRow] = searchDomainModel.power.map { SearchRow.powerRow($0) }
+        let isAddingAvailable: Bool = selectedBrand.count < 1
         
         guard !selectedBrand.isEmpty else {
             sectionsSubject.value = [
@@ -179,11 +132,23 @@ extension SearchAdvertisementViewModel {
     }
 
     func resetSearch() {
-
+        advertisementModel.resetSearchParams()
     }
     
     func showAllMakes() {
         transitionSubject.send(.showBrands)
+    }
+    
+    func setYearRange(_ range: TechnicalSpecCellModel.SelectedRange) {
+        advertisementModel.rangeValue(range, .registration)
+    }
+    
+    func setMillageRange(_ range: TechnicalSpecCellModel.SelectedRange) {
+        advertisementModel.rangeValue(range, .millage)
+    }
+    
+    func setPowerRange(_ range: TechnicalSpecCellModel.SelectedRange) {
+        advertisementModel.rangeValue(range, .power)
     }
 }
 

@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+// MARK: - RangeParametersType
 enum RangeParametersType {
     case registration
     case millage
@@ -16,30 +17,30 @@ enum RangeParametersType {
 
 protocol AdvertisementModel {
     var modelErrorPublisher: AnyPublisher<Error, Never> { get }
-    var advertisementSearchParamsPublisher: AnyPublisher<SearchParamsDomainModel, Never> { get }
-    var brandsPublisher: AnyPublisher<[BrandDomainModel], Never> { get }
-    var brandModelPublisher: AnyPublisher<[ModelsDomainModel], Never> { get }
-    var tempDomainModelPublisher: AnyPublisher<SearchAdvertismentDomainModel, Never> { get }
+    var tempDomainModelPublisher: AnyPublisher<FilterDomainModel, Never> { get }
+    var searchModelPublisher: AnyPublisher<AdsSearchModel, Never> { get }
+    var numberOfAdvertisementsPublisher: AnyPublisher<Int, Never> { get }
+    var advertisementPublisher: AnyPublisher<[AdvertisementDomainModel]?, Never> { get }
+    var updatingInProgressPublisher: AnyPublisher<Void, Never> { get }
     
-    func getRecommendedAdvertisements(searchModel: SearchParamsDomainModel) -> AnyPublisher<[AdvertisementDomainModel], Error>
-    func findAdvertisements(searchModel: SearchParamsDomainModel) -> AnyPublisher<[AdvertisementDomainModel], Error>
-    func getAdvertisementCount(searchParams: [SearchParam]) -> AnyPublisher<Int, Error>
+    func getRecommendedAdvertisements(searchModel: AdsSearchModel) -> AnyPublisher<[AdvertisementDomainModel], Error>
+    func findAdvertisements(searchModel: AdsSearchModel)
+    func getAdvertisementCount(searchParams: String)
     func loadNextPage()
     
     func setFastSearсhParams(_ param: [SearchParam])
-    func deleteSearchParam(_ param: SearchParamsDomainModel)
     func resetSearchParams()
-    func addSearchParam(_ param: SearchParam)
     func getAllBrands()
     func getBrandModels(id: String)
     func rangeValue(_ range: TechnicalSpecCellModel.SelectedRange, _ type: RangeParametersType)
     
-    func setBodyType(_ type: BodyTypeCellModel)
+    func setBodyType(_ type: BodyTypeModel)
     func setFuelType(_ type: FuelTypeModel)
     func setTransmissionType(_ type: TransmissionTypeModel)
     func setBrand(_ brand: SelectedBrandModel)
     func setModel(_ model: ModelCellConfigurationModel)
     func deleteSelectedBrand(_ brand: SelectedBrandModel)
+    func deleteRangeParams(param: SearchParam, type: RangeParametersType)
 }
 
 final class AdvertisementModelImpl {
@@ -50,28 +51,29 @@ final class AdvertisementModelImpl {
     
     // MARK: - Publishers
     lazy var modelErrorPublisher = modelErrorSubject.eraseToAnyPublisher()
-    lazy var advertisementSearchParamsPublisher = searchParamsSubjects.eraseToAnyPublisher()
-    lazy var brandsPublisher = brandsSubjects.eraseToAnyPublisher()
-    lazy var brandModelPublisher = brandModelSubject.eraseToAnyPublisher()
     lazy var tempDomainModelPublisher = searchDomainModel.eraseToAnyPublisher()
+    lazy var searchModelPublisher = searchModelSubject.eraseToAnyPublisher()
+    lazy var numberOfAdvertisementsPublisher = numberOfAdvertisementsSubject.eraseToAnyPublisher()
+    lazy var advertisementPublisher = advertisementSubject.eraseToAnyPublisher()
+    lazy var updatingInProgressPublisher = updatingInProgressSubject.eraseToAnyPublisher()
     
     // MARK: - Subjects
     private let modelErrorSubject = PassthroughSubject<Error, Never>()
-    private let searchParamsSubjects = CurrentValueSubject<SearchParamsDomainModel, Never>(.init())
-    private let brandsSubjects = CurrentValueSubject<[BrandDomainModel], Never>([])
-    private let brandModelSubject = CurrentValueSubject<[ModelsDomainModel], Never>([])
-    private let searchDomainModel = CurrentValueSubject<SearchAdvertismentDomainModel, Never>(.init())
-    
-    private let testSearchModelSubject = CurrentValueSubject<SearchTestModel, Never>(.init())
+    private let searchDomainModel = CurrentValueSubject<FilterDomainModel, Never>(.init())
+    private let searchModelSubject = CurrentValueSubject<AdsSearchModel, Never>(.init())
+    private let numberOfAdvertisementsSubject = CurrentValueSubject<Int, Never>(Constant.countDefaultValue)
+    private let advertisementSubject = CurrentValueSubject<[AdvertisementDomainModel]?, Never>(nil)
+    private let updatingInProgressSubject = PassthroughSubject<Void, Never>()
     
     // MARK: - Init
     init(advertisementService: AdvertisementService) {
         self.advertisementService = advertisementService
         getAllBrands()
         
-        testSearchModelSubject
+        searchModelSubject
             .sink { [unowned self] model in
-                print("STRING \(model.queryString)")
+                getAdvertisementCount(searchParams: model.queryString)
+                findAdvertisements(searchModel: model)
             }
             .store(in: &cancellables)
     }
@@ -79,53 +81,56 @@ final class AdvertisementModelImpl {
 
 // MARK: - AdvertisementModel protocol
 extension AdvertisementModelImpl: AdvertisementModel {
-    func getRecommendedAdvertisements(searchModel: SearchParamsDomainModel) -> AnyPublisher<[AdvertisementDomainModel], Error> {
+    func getRecommendedAdvertisements(searchModel: AdsSearchModel) -> AnyPublisher<[AdvertisementDomainModel], Error> {
         advertisementService.searchAdvertisement(searchParams: searchModel)
     }
     
-    func findAdvertisements(searchModel: SearchParamsDomainModel) -> AnyPublisher<[AdvertisementDomainModel], Error> {
+    func findAdvertisements(searchModel: AdsSearchModel) {
         advertisementService.searchAdvertisement(searchParams: searchModel)
-    }
-    
-    func getAdvertisementCount(searchParams: [SearchParam]) -> AnyPublisher<Int, Error> {
-        return advertisementService.getAdvertisementCount(searchParams: searchParams)
-            .flatMap { [unowned self] addCount -> AnyPublisher<Int, Error> in
-                let stringValue = String(data: addCount, encoding: .utf8) ?? "\(Constant.countDefaultValue)"
-                numberOfAdvertisements = Int(stringValue) ?? Constant.countDefaultValue
-                return Just(Int(stringValue))
-                    .replaceNil(with: Constant.countDefaultValue)
-                    .setFailureType(to: Error.self)
-                    .eraseToAnyPublisher()
+            .sink {  [weak self] completion in
+                guard case let .failure(error) = completion else {
+                    return
+                }
+                self?.modelErrorSubject.send(error)
+            } receiveValue: { [weak self] adsModel in
+                guard let self = self else { return }
+                self.advertisementSubject.value = adsModel
             }
-            .eraseToAnyPublisher()
+            .store(in: &cancellables)
+
+    }
+    
+    func getAdvertisementCount(searchParams: String) {
+        advertisementService.getAdvertisementCount(searchParams: searchParams)
+            .sink { [weak self] completion in
+                guard case let .failure(error) = completion else {
+                    return
+                }
+                self?.modelErrorSubject.send(error)
+            } receiveValue: { [weak self] data in
+                guard let self = self else {
+                    return
+                }
+                let stringValue = String(data: data, encoding: .utf8) ?? "\(Constant.countDefaultValue)"
+                self.numberOfAdvertisementsSubject.send(Int(stringValue) ?? Constant.countDefaultValue)
+            }
+            .store(in: &cancellables)
     }
     
     func loadNextPage() {
-        guard numberOfAdvertisements > searchParamsSubjects.value.offset + Constant.nextPageSize else {
+        guard numberOfAdvertisementsSubject.value > searchModelSubject.value.offset + Constant.nextPageSize else {
             return
         }
-        searchParamsSubjects.value.offset += Constant.nextPageSize
+        searchModelSubject.value.offset += Constant.nextPageSize
     }
     
     func setFastSearсhParams(_ param: [SearchParam]) {
-        searchParamsSubjects.value.searchParams = param
-    }
-    
-    func deleteSearchParam(_ param: SearchParamsDomainModel) {
-        searchParamsSubjects.value = param
+
     }
     
     func resetSearchParams() {
         searchDomainModel.value = .init()
-        searchParamsSubjects.value = SearchParamsDomainModel()
-    }
-    
-    func addSearchParam(_ param: SearchParam) {
-        guard searchParamsSubjects.value.searchParams.contains(param) else {
-            searchParamsSubjects.value.searchParams.append(param)
-            return
-        }
-        searchParamsSubjects.value.searchParams.removeAll { $0 == param }
+        generateQueryString()
     }
     
     func getAllBrands() {
@@ -140,16 +145,16 @@ extension AdvertisementModelImpl: AdvertisementModel {
                 guard let self = self else {
                     return
                 }
-                self.brandsSubjects.send(brandModel.sorted { $0.name < $1.name })
+                self.searchDomainModel.value.allBrands = brandModel.sorted { $0.name < $1.name }
             }
             .store(in: &cancellables)
     }
     
     func getBrandModels(id: String) {
-        guard !brandModelSubject.value.contains(where: { $0.brandID == id }) else {
+        guard !searchDomainModel.value.brandModels.contains(where: { $0.brandID == id }) else {
             return
         }
-        
+
         advertisementService.getModelsByBrandId(id)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
@@ -161,7 +166,7 @@ extension AdvertisementModelImpl: AdvertisementModel {
                 guard let self = self else {
                     return
                 }
-                self.brandModelSubject.send(models.sorted { $0.modelName < $1.modelName })
+                self.searchDomainModel.value.brandModels = models.sorted { $0.modelName < $1.modelName }
             }
             .store(in: &cancellables)
     }
@@ -201,19 +206,19 @@ extension AdvertisementModelImpl: AdvertisementModel {
     
     func setModel(_ model: ModelCellConfigurationModel) {
         // get selected index
-        guard let tappedCellIndex = brandModelSubject.value.firstIndex(where: { $0.modelName == model.modelName }) else {
+        guard let tappedCellIndex = searchDomainModel.value.brandModels.firstIndex(where: { $0.modelName == model.modelName }) else {
             return
         }
         
         // perform last
         defer {
             generateQueryString()
-            brandModelSubject.value[tappedCellIndex].isSelected.toggle()
+            searchDomainModel.value.brandModels[tappedCellIndex].isSelected.toggle()
         }
         
         // create new brand if selected brand is empty
         guard let brandIndex = searchDomainModel.value.selectedBrand.firstIndex(where: { $0.id == model.brandID }) else {
-            if let brand = brandsSubjects.value.first(where: { $0.id == model.brandID }) {
+            if let brand = searchDomainModel.value.allBrands.first(where: { $0.id == model.brandID }) {
                 let selectedBrand = SelectedBrandModel(
                     id: brand.id,
                     brand: brand.name,
@@ -243,7 +248,7 @@ extension AdvertisementModelImpl: AdvertisementModel {
         generateQueryString()
     }
     
-    func setBodyType(_ type: BodyTypeCellModel) {
+    func setBodyType(_ type: BodyTypeModel) {
         guard let index = searchDomainModel.value.bodyType.firstIndex(where: { $0 == type }) else {
             return
         }
@@ -270,7 +275,34 @@ extension AdvertisementModelImpl: AdvertisementModel {
     
     func deleteSelectedBrand(_ brand: SelectedBrandModel) {
         searchDomainModel.value.selectedBrand.removeAll()
-        brandModelSubject.value.removeAll()
+        searchDomainModel.value.brandModels.removeAll()
+        generateQueryString()
+    }
+    
+    // TODO: - Fix this
+    func deleteRangeParams(param: SearchParam, type: RangeParametersType) {
+        switch type {
+        case .registration:
+            if searchDomainModel.value.minYearSearchParam?.value == param.value {
+                searchDomainModel.value.minYearSearchParam = nil
+            } else if searchDomainModel.value.maxYearSearchParam?.value == param.value {
+                searchDomainModel.value.maxYearSearchParam = nil
+            }
+            
+        case .power:
+            if searchDomainModel.value.minPowerSearchParam?.value == param.value {
+                searchDomainModel.value.minPowerSearchParam = nil
+            } else if searchDomainModel.value.maxPowerSearchParam?.value == param.value {
+                searchDomainModel.value.maxPowerSearchParam = nil
+            }
+            
+        case .millage:
+            if searchDomainModel.value.minMillageSearchParam?.value == param.value {
+                searchDomainModel.value.minMillageSearchParam = nil
+            } else if searchDomainModel.value.maxMillageSearchParam?.value == param.value {
+                searchDomainModel.value.maxMillageSearchParam = nil
+            }
+        }
         generateQueryString()
     }
 }
@@ -278,6 +310,7 @@ extension AdvertisementModelImpl: AdvertisementModel {
 // MARK: - Private extension
 private extension AdvertisementModelImpl {
     func generateQueryString() {
+        updatingInProgressSubject.send()
         let body: [SearchParam] = searchDomainModel.value.bodyType
             .filter { $0.isSelected }
             .map { $0.searchParam }
@@ -297,7 +330,7 @@ private extension AdvertisementModelImpl {
         let model: [SearchParam] = searchDomainModel.value.selectedBrand
             .flatMap { $0.brandModelSearchParams }
         
-        let paramsArray: [[SearchParam]] = [body, fuel, transmission, brand, model]
+        let paramsArray: [[SearchParam]] = [brand, model, body, fuel, transmission]
         
         let rangeParams: [String] = [
             searchDomainModel.value.minPowerSearchParam,
@@ -311,13 +344,14 @@ private extension AdvertisementModelImpl {
             .map { $0.queryString }
         
         var joinedParams: [String] = paramsArray.map { params in
-            params.map { $0.queryString }.joined(separator: " or ")
+            let joinedString = params.map { $0.queryString }.joined(separator: " or ")
+             return params.isEmpty ? joinedString : "(\(joinedString))"
         }
         
         joinedParams.append(contentsOf: rangeParams)
         
         let queryString = joinedParams.filter { !$0.isEmpty }.joined(separator: " and ")
-        testSearchModelSubject.value = .init(params: paramsArray.flatMap({ $0 }), queryString: queryString)
+        searchModelSubject.value = .init(queryString: queryString)
     }
 }
 
@@ -327,25 +361,28 @@ private enum Constant {
     static let countDefaultValue: Int = 0
 }
 
-struct SearchAdvertismentDomainModel {
-    let basicBrand = BrandCellModel.basicBrands()
-    var bodyType = BodyTypeCellModel.basicBodyTypes()
-    var fuelType = FuelTypeModel.fuelTypes()
-    var transmissionType = TransmissionTypeModel.transmissionTypes()
-    var selectedBrand: [SelectedBrandModel] = []
-    
-    var maxYearSearchParam: SearchParam?
-    var minYearSearchParam: SearchParam?
-    
-    var minPowerSearchParam: SearchParam?
-    var maxPowerSearchParam: SearchParam?
-    
-    var minMillageSearchParam: SearchParam?
-    var maxMillageSearchParam: SearchParam?
-}
-
-
-struct SearchTestModel {
-    var params: [SearchParam] = []
+struct AdsSearchModel {
     var queryString: String = ""
+    var pageSize: Int = 3
+    var offset: Int = 0
 }
+
+
+//struct FilterDomainModel {
+//    var allBrands: [BrandDomainModel] = []
+//    var brandModels: [ModelsDomainModel] = []
+//    var selectedBrand: [SelectedBrandModel] = []
+//    let basicBrand = BrandCellModel.basicBrands()
+//    let year = TechnicalSpecCellModel.year()
+//    let millage = TechnicalSpecCellModel.millage()
+//    let power = TechnicalSpecCellModel.power()
+//    var bodyType = BodyTypeModel.basicBodyTypes()
+//    var fuelType = FuelTypeModel.fuelTypes()
+//    var transmissionType = TransmissionTypeModel.transmissionTypes()
+//    var maxYearSearchParam: SearchParam?
+//    var minYearSearchParam: SearchParam?
+//    var minPowerSearchParam: SearchParam?
+//    var maxPowerSearchParam: SearchParam?
+//    var minMillageSearchParam: SearchParam?
+//    var maxMillageSearchParam: SearchParam?
+//}

@@ -20,13 +20,13 @@ final class AdvertisementServiceImpl {
 
 // MARK: - AdvertisementService
 extension AdvertisementServiceImpl: AdvertisementService {
-    func getAdvertisementCount(searchParams: [SearchParam]) -> AnyPublisher<Data, Error> {
+    func getAdvertisementCount(searchParams: String) -> AnyPublisher<Data, Error> {
         advertisementNetworkService.getAdvertisementCount(searchParams: searchParams)
             .mapError { $0 as Error }
             .eraseToAnyPublisher()
     }
     
-    func searchAdvertisement(searchParams: SearchParamsDomainModel) -> AnyPublisher<[AdvertisementDomainModel], Error> {
+    func searchAdvertisement(searchParams: AdsSearchModel) -> AnyPublisher<[AdvertisementDomainModel], Error> {
         advertisementNetworkService.searchAdvertisement(searchParams: searchParams)
             .mapError { $0 as Error }
             .map { $0.map { AdvertisementDomainModel(advertisementResponseModel: $0) } }

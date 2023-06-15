@@ -14,6 +14,9 @@ enum SearchAdvertisementViewAction {
     case deleteSelectedBrands(SearchRow)
     case showAllMakes
     case showResults
+    case yearRange(TechnicalSpecCellModel.SelectedRange)
+    case millageRange(TechnicalSpecCellModel.SelectedRange)
+    case powerRange(TechnicalSpecCellModel.SelectedRange)
 }
 
 final class SearchAdvertisementView: BaseView {
@@ -466,14 +469,32 @@ private extension SearchAdvertisementView {
                 return cell
             case .firstRegistrationRow(let dataModel):
                 let cell: TechnicalSpecCell = collectionView.dequeueReusableCell(for: indexPath)
+                cell.rangeHandler = { [weak self] range in
+                    guard let self = self else {
+                        return
+                    }
+                    self.actionSubject.send(.yearRange(range))
+                }
                 cell.setDataModel(dataModel)
                 return cell
             case .millageRow(let dataModel):
                 let cell: TechnicalSpecCell = collectionView.dequeueReusableCell(for: indexPath)
+                cell.rangeHandler = { [weak self] range in
+                    guard let self = self else {
+                        return
+                    }
+                    self.actionSubject.send(.millageRange(range))
+                }
                 cell.setDataModel(dataModel)
                 return cell
             case .powerRow(let dataModel):
                 let cell: TechnicalSpecCell = collectionView.dequeueReusableCell(for: indexPath)
+                cell.rangeHandler = { [weak self] range in
+                    guard let self = self else {
+                        return
+                    }
+                    self.actionSubject.send(.powerRange(range))
+                }
                 cell.setDataModel(dataModel)
                 return cell
             }
@@ -546,8 +567,6 @@ private enum Constant {
 
 
 
-
-
 //Section
 enum SearchSection: Hashable {
     case brands
@@ -564,7 +583,7 @@ enum SearchSection: Hashable {
 enum SearchRow: Hashable {
     case brandsRow(BrandCellModel)
     case selectedBrandRow(SelectedBrandModel)
-    case bodyTypeRow(BodyTypeCellModel)
+    case bodyTypeRow(BodyTypeModel)
     case fuelTypeRow(FuelTypeModel)
     case firstRegistrationRow(TechnicalSpecCellModel)
     case millageRow(TechnicalSpecCellModel)
@@ -615,7 +634,7 @@ protocol SearchableModelProtocol {
     var isSelected: Bool { get set }
 }
 
-struct BodyTypeCellModel: Hashable, SearchableModelProtocol {
+struct BodyTypeModel: Hashable, SearchableModelProtocol {
     let bodyTypeImage: UIImage
     let bodyTypeLabel: String
     var isSelected: Bool = false
@@ -700,7 +719,7 @@ struct SelectedBrandModel: Hashable, SearchableModelProtocol {
     }
 }
 
-struct TechnicalSpecCellModel {
+struct TechnicalSpecCellModel: Hashable {
     // MARK: - Nested entity
     struct SelectedRange: Hashable {
         var minRangeValue: Double?
@@ -711,40 +730,25 @@ struct TechnicalSpecCellModel {
     private let uuid = UUID().uuidString
     let inRange: RangeView.Range
     let rangeStep: Double
-    let selectedRange: CurrentValueSubject<SelectedRange, Never>
     
     var newRange: RangeView.Range {
-        return .init(
-            lowerBound: selectedRange.value.minRangeValue ?? inRange.lowerBound,
-            upperBound: selectedRange.value.maxRangeValue ?? inRange.upperBound
-        )
+        return .init(lowerBound: inRange.lowerBound, upperBound: inRange.upperBound)
     }
     
     // MARK: - TechnicalSpecCell models    
-    static func year(selectedRange: CurrentValueSubject<SelectedRange, Never>) -> [Self] {
+    static func year() -> [Self] {
         let year = Calendar.current.component(.year, from: Date())
         let yearRange: RangeView.Range = .init(lowerBound: 1920, upperBound: Double(year))
-        return [.init(inRange: yearRange, rangeStep: 1, selectedRange: selectedRange)]
+        return [.init(inRange: yearRange, rangeStep: 1)]
     }
     
-    static func millage(selectedRange: CurrentValueSubject<SelectedRange, Never>) -> [Self] {
+    static func millage() -> [Self] {
         let millageRange: RangeView.Range = .init(lowerBound: 0, upperBound: 250000)
-        return [.init(inRange: millageRange, rangeStep: 500, selectedRange: selectedRange)]
+        return [.init(inRange: millageRange, rangeStep: 500)]
     }
-    
-    static func power(selectedRange: CurrentValueSubject<SelectedRange, Never>) -> [Self] {
-        let powerRange: RangeView.Range = .init(lowerBound: 20, upperBound: 1000)
-        return [.init(inRange: powerRange, rangeStep: 10, selectedRange: selectedRange)]
-    }
-}
 
-// MARK: - Conform to Hashable
-extension TechnicalSpecCellModel: Hashable {
-    static func == (lhs: TechnicalSpecCellModel, rhs: TechnicalSpecCellModel) -> Bool {
-        return lhs.uuid == rhs.uuid
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(uuid)
+    static func power() -> [Self] {
+        let powerRange: RangeView.Range = .init(lowerBound: 20, upperBound: 1000)
+        return [.init(inRange: powerRange, rangeStep: 10)]
     }
 }

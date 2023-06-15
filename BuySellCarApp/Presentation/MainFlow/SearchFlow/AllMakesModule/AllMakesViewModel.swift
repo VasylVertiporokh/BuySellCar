@@ -34,12 +34,12 @@ final class AllMakesViewModel: BaseViewModel {
         searchTextSubject
             .receive(on: DispatchQueue.main)
             .debounce(for: 0.5, scheduler: RunLoop.main)
-            .combineLatest(advertisementModel.brandsPublisher)
+            .combineLatest(advertisementModel.tempDomainModelPublisher)
             .map { (searchText, brands) -> [BrandDomainModel] in
                 if searchText.isEmpty {
-                    return brands
+                    return brands.allBrands
                 }
-                return brands.filter { $0.name.hasPrefix(searchText) }
+                return brands.allBrands.filter { $0.name.hasPrefix(searchText) }
             }
             .sink { [weak self] brans in
                 self?.updateDataSource(brands: brans)

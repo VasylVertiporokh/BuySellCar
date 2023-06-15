@@ -9,8 +9,8 @@ import Foundation
 
 enum AdvertisementEndpointBuilder {
     case getAdvertisement(pageSize: String)
-    case searchAdvertisement(SearchParamsDomainModel)
-    case getAdvertisementCount([SearchParam])
+    case searchAdvertisement(AdsSearchModel)
+    case getAdvertisementCount(String)
     case getOwnAds(ownedId: String)
     case deleteAdvertisement(objectID: String)
     case getBrand
@@ -51,11 +51,8 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
     var query: [String : String]? {
         switch self {
         case .searchAdvertisement(let searchParams):
-            let query = searchParams.searchParams
-                .map { $0.queryString }
-                .joined(separator: " and ")
             return [
-                "where" : query,
+                "where" : searchParams.queryString,
                 "pageSize" : "\(searchParams.pageSize)",
                 "offset" : "\(searchParams.offset)"
             ]
@@ -64,10 +61,7 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
             return pageSize.isEmpty ? nil : ["pageSize" : "\(pageSize)"]
             
         case .getAdvertisementCount(let searchParams):
-            let query = searchParams
-                .map { $0.queryString }
-                .joined(separator: " and ")
-            return ["where" : query]
+            return ["where" : searchParams]
             
         case .getOwnAds(let ownerID):
             return ["where" : "ownerId = '\(ownerID)'"] // TODO: - Fix

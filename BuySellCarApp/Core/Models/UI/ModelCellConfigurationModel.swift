@@ -7,18 +7,16 @@
 
 import Foundation
 
-struct ModelCellConfigurationModel: Hashable, SearchableModelProtocol {
+struct ModelCellConfigurationModel: Hashable {
     let modelName: String
     let brandID: String
-    
     var isSelected: Bool = false
-    var searchParam: SearchParam {
-        .init(key: .transportModel, value: .equalToString(stringValue: modelName))
-    }
+    var searchParam: SearchParam
     
     init(brandDomainModel: ModelsDomainModel) {
         self.modelName = brandDomainModel.modelName
         self.brandID = brandDomainModel.brandID
         self.isSelected = brandDomainModel.isSelected
+        self.searchParam = brandDomainModel.searchParam
     }
 }

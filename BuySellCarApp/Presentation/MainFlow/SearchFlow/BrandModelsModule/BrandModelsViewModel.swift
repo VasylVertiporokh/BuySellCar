@@ -33,12 +33,12 @@ final class BrandModelsViewModel: BaseViewModel {
         searchTextSubject
             .receive(on: DispatchQueue.main)
             .debounce(for: 0.5, scheduler: RunLoop.main)
-            .combineLatest(advertisementModel.brandModelPublisher)
-            .map { (searchText, models) -> [ModelsDomainModel] in
+            .combineLatest(advertisementModel.tempDomainModelPublisher)
+            .map { (searchText, domainModel) -> [ModelsDomainModel] in
                 if searchText.isEmpty {
-                    return models
+                    return domainModel.brandModels
                 }
-                return models.filter { $0.modelName.hasPrefix(searchText) }
+                return domainModel.brandModels.filter { $0.modelName.hasPrefix(searchText) }
             }
             .sink { [weak self] models in
                 self?.updateDataSource(models: models)
@@ -70,7 +70,6 @@ extension BrandModelsViewModel {
         switch model {
         case .carModelRow(let model):
             advertisementModel.setModel(model)
-//            transitionSubject.send(.dissmiss)
         }
     }
 }

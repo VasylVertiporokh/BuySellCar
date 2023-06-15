@@ -24,11 +24,11 @@ extension AdvertisementNetworkImpl: AdvertisementNetworkService {
         provider.performWithResponseModel(.getAdvertisement(pageSize: pageSize))
     }
     
-    func searchAdvertisement(searchParams: SearchParamsDomainModel) -> AnyPublisher<[AdvertisementResponseModel], NetworkError> {
+    func searchAdvertisement(searchParams: AdsSearchModel) -> AnyPublisher<[AdvertisementResponseModel], NetworkError> {
         provider.performWithResponseModel(.searchAdvertisement(searchParams))
     }
     
-    func getAdvertisementCount(searchParams: [SearchParam]) -> AnyPublisher<Data, NetworkError> {
+    func getAdvertisementCount(searchParams: String) -> AnyPublisher<Data, NetworkError> {
         provider.performWithRawData(.getAdvertisementCount(searchParams))
     }
     

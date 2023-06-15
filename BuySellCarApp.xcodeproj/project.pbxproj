@@ -99,6 +99,7 @@
 		D43E8E482A12B03300DFC444 /* BrandResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43E8E472A12B03300DFC444 /* BrandResponseModel.swift */; };
 		D43E8E4A2A12B24300DFC444 /* BrandDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43E8E492A12B24300DFC444 /* BrandDomainModel.swift */; };
 		D43E8E4C2A12B4B600DFC444 /* ModelResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D43E8E4B2A12B4B600DFC444 /* ModelResponseModel.swift */; };
+		D4402C872A39CDB70086A86F /* FilterDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4402C862A39CDB70086A86F /* FilterDomainModel.swift */; };
 		D44AF14129D1931100C7E756 /* QuickSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AF14029D1931100C7E756 /* QuickSearchCell.swift */; };
 		D44AF14429D2054000C7E756 /* AdvertisementHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AF14329D2054000C7E756 /* AdvertisementHeaderView.swift */; };
 		D44AF14829D21D4100C7E756 /* RecommendationBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44AF14729D21D4100C7E756 /* RecommendationBadgeView.swift */; };
@@ -171,7 +172,6 @@
 		D495004929C8EA89009CECA9 /* EditUserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D495004529C8EA89009CECA9 /* EditUserProfileViewModel.swift */; };
 		D495004B29C9BFF8009CECA9 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D495004A29C9BFF8009CECA9 /* UIView+Extension.swift */; };
 		D495004E29C9EE50009CECA9 /* Optional+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D495004D29C9EE50009CECA9 /* Optional+Extension.swift */; };
-		D49D0E1929EEA8FF00C67E96 /* SearchParamsDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D0E1829EEA8FF00C67E96 /* SearchParamsDomainModel.swift */; };
 		D49D0E1F29EEB09A00C67E96 /* FakeSplashModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D0E1B29EEB09900C67E96 /* FakeSplashModuleBuilder.swift */; };
 		D49D0E2029EEB09A00C67E96 /* FakeSplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D0E1C29EEB09900C67E96 /* FakeSplashViewController.swift */; };
 		D49D0E2129EEB09A00C67E96 /* FakeSplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49D0E1D29EEB09900C67E96 /* FakeSplashView.swift */; };
@@ -363,6 +363,7 @@
 		D43E8E472A12B03300DFC444 /* BrandResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandResponseModel.swift; sourceTree = "<group>"; };
 		D43E8E492A12B24300DFC444 /* BrandDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandDomainModel.swift; sourceTree = "<group>"; };
 		D43E8E4B2A12B4B600DFC444 /* ModelResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelResponseModel.swift; sourceTree = "<group>"; };
+		D4402C862A39CDB70086A86F /* FilterDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDomainModel.swift; sourceTree = "<group>"; };
 		D44AF14029D1931100C7E756 /* QuickSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSearchCell.swift; sourceTree = "<group>"; };
 		D44AF14329D2054000C7E756 /* AdvertisementHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementHeaderView.swift; sourceTree = "<group>"; };
 		D44AF14729D21D4100C7E756 /* RecommendationBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationBadgeView.swift; sourceTree = "<group>"; };
@@ -434,7 +435,6 @@
 		D495004529C8EA89009CECA9 /* EditUserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserProfileViewModel.swift; sourceTree = "<group>"; };
 		D495004A29C9BFF8009CECA9 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		D495004D29C9EE50009CECA9 /* Optional+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Extension.swift"; sourceTree = "<group>"; };
-		D49D0E1829EEA8FF00C67E96 /* SearchParamsDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchParamsDomainModel.swift; sourceTree = "<group>"; };
 		D49D0E1B29EEB09900C67E96 /* FakeSplashModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeSplashModuleBuilder.swift; sourceTree = "<group>"; };
 		D49D0E1C29EEB09900C67E96 /* FakeSplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeSplashViewController.swift; sourceTree = "<group>"; };
 		D49D0E1D29EEB09900C67E96 /* FakeSplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeSplashView.swift; sourceTree = "<group>"; };
@@ -1202,7 +1202,7 @@
 		D49D0E1729EEA8F300C67E96 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				D49D0E1829EEA8FF00C67E96 /* SearchParamsDomainModel.swift */,
+				D4402C862A39CDB70086A86F /* FilterDomainModel.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1849,6 +1849,7 @@
 				3C5521BC30F2E1DB2DA1E3FC /* Localization.swift in Sources */,
 				D4E374C82A151CFC001E0D7A /* ModelListViewModel.swift in Sources */,
 				D42925F82A1633D60047F6CB /* FuelTypeListView.swift in Sources */,
+				D4402C872A39CDB70086A86F /* FilterDomainModel.swift in Sources */,
 				65A829DAAD75E4B54CCFB4C4 /* MainTabBarCoordinator.swift in Sources */,
 				D42F78FE29C0C2BF00339DA2 /* UserInfoListCell.swift in Sources */,
 				D41C5D362A1CCCEE00755CA5 /* AddAdvertisementImageViewModel.swift in Sources */,
@@ -1927,7 +1928,6 @@
 				D50B0DC3B906281FFB3C6A3F /* SettingsViewModel.swift in Sources */,
 				D43E8E4A2A12B24300DFC444 /* BrandDomainModel.swift in Sources */,
 				D41C5D3B2A1E2B4400755CA5 /* CreateAdvertisementRequestModel.swift in Sources */,
-				D49D0E1929EEA8FF00C67E96 /* SearchParamsDomainModel.swift in Sources */,
 				D4E374D42A15375C001E0D7A /* FirstRegistrationViewModel.swift in Sources */,
 				56416D56E142574FE2DD1D99 /* UIEdgeInsets+Ext.swift in Sources */,
 				D4EA6E73299E935F009F7DBD /* UserResponseModel.swift in Sources */,

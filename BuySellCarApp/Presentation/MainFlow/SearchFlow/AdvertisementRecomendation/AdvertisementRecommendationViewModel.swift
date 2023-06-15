@@ -29,9 +29,7 @@ final class AdvertisementRecommendationViewModel: BaseViewModel {
     // MARK: - Life cycle
     override func onViewWillAppear() {
         isLoadingSubject.send(true)
-        advertisementModel.getRecommendedAdvertisements(
-            searchModel: .init(pageSize: .zero, offset: .zero, searchParams: [])
-        )
+        advertisementModel.getRecommendedAdvertisements(searchModel: .init())
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard case let .failure(error) = completion else {

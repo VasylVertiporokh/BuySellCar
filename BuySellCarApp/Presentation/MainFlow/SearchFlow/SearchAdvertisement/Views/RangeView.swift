@@ -9,7 +9,8 @@ import UIKit
 import Combine
 
 enum RangeViewAction {
-    case selectedRange(RangeView.Range)
+    case rangeUpdatingInProgress(RangeView.Range)
+    case rangeUpdated(RangeView.Range)
     case inputError
 }
 
@@ -58,7 +59,7 @@ final class RangeView: UIView {
         lastValidRange
             .sink { [unowned self] range in
                 if leftInputError == false && rightInputError == false {
-                    actionSubject.send(.selectedRange(range))
+                    actionSubject.send(.rangeUpdatingInProgress(range))
                 }
             }
             .store(in: &cancellables)
@@ -119,7 +120,12 @@ final class RangeView: UIView {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
         selectedSide = .none
+        
+        if leftInputError == false && rightInputError == false {
+            actionSubject.send(.rangeUpdated(lastValidRange.value))
+        }
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -168,6 +174,7 @@ extension RangeView {
         }
         
         lastValidRange.value = Range(lowerBound: value, upperBound: lastValidRange.value.upperBound)
+        actionSubject.send(.rangeUpdated(lastValidRange.value))
         updateLeftThumb(animated: true)
     }
     
@@ -188,6 +195,7 @@ extension RangeView {
             return
         }
         lastValidRange.value = Range(lowerBound: lastValidRange.value.lowerBound, upperBound: upperBound)
+        actionSubject.send(.rangeUpdated(lastValidRange.value))
         updateRightThumb(animated: true)
     }
 }

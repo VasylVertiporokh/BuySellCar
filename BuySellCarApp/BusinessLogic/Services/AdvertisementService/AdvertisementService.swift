@@ -9,8 +9,8 @@ import Foundation
 import Combine
 
 protocol AdvertisementService: AnyObject {
-    func getAdvertisementCount(searchParams: [SearchParam]) -> AnyPublisher<Data, Error>
-    func searchAdvertisement(searchParams: SearchParamsDomainModel) -> AnyPublisher<[AdvertisementDomainModel], Error>
+    func getAdvertisementCount(searchParams: String) -> AnyPublisher<Data, Error>
+    func searchAdvertisement(searchParams: AdsSearchModel) -> AnyPublisher<[AdvertisementDomainModel], Error>
     func getOwnAds(byID: String) -> AnyPublisher<[AdvertisementDomainModel], Error>
     func getBrands() -> AnyPublisher<[BrandDomainModel], Error>
     func getModelsByBrandId(_ brandId: String) -> AnyPublisher<[ModelsDomainModel], Error>

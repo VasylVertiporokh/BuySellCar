@@ -28,7 +28,7 @@ final class BodyTypeCell: UICollectionViewCell {
 
 // MARK: - Internal extension
 extension BodyTypeCell {
-    func setData(_ model: BodyTypeCellModel) {
+    func setData(_ model: BodyTypeModel) {
         bodyTypeImageView.image = model.bodyTypeImage
         bodyTypeLabel.text = model.bodyTypeLabel
         containerStackView.backgroundColor = model.isSelected ? Constant.selectedColor : .white
