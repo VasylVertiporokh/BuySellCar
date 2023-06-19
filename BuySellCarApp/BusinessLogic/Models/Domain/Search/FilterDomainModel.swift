@@ -12,16 +12,10 @@ struct FilterDomainModel {
     var brandModels: [ModelsDomainModel] = []
     var selectedBrand: [SelectedBrandModel] = []
     let basicBrand = BrandCellModel.basicBrands()
-    let year = TechnicalSpecCellModel.year()
-    let millage = TechnicalSpecCellModel.millage()
-    let power = TechnicalSpecCellModel.power()
+    var year = TechnicalSpecCellModel.year()
+    var millage = TechnicalSpecCellModel.millage()
+    var power = TechnicalSpecCellModel.power()
     var bodyType = BodyTypeModel.basicBodyTypes()
     var fuelType = FuelTypeModel.fuelTypes()
     var transmissionType = TransmissionTypeModel.transmissionTypes()
-    var maxYearSearchParam: SearchParam?
-    var minYearSearchParam: SearchParam?
-    var minPowerSearchParam: SearchParam?
-    var maxPowerSearchParam: SearchParam?
-    var minMillageSearchParam: SearchParam?
-    var maxMillageSearchParam: SearchParam?
 }

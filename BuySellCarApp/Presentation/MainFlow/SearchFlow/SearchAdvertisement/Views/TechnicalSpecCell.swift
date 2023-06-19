@@ -16,7 +16,6 @@ final class TechnicalSpecCell: UICollectionViewCell {
     private let toLabel = UILabel()
     private let minValueTextField = MainTextField(type: .plain)
     private let maxValueTextField = MainTextField(type: .plain)
-    
     private var rangeSlider = RangeView()
     
     var rangeHandler: ((TechnicalSpecCellModel.SelectedRange) -> Void)?
@@ -29,29 +28,20 @@ final class TechnicalSpecCell: UICollectionViewCell {
         super.init(frame: frame)
         initialSetup()
         minValueTextField.controlEventPublisher(for: .editingDidEnd)
-            .sink { [unowned self] in
-                rangeSlider.updateMinRange(minValueTextField.text ?? Constant.emptyString)
-            }
+            .sink { [unowned self] in rangeSlider.updateMinRange(minValueTextField.text ?? Constant.emptyString) }
             .store(in: &cancellables)
         
         maxValueTextField.controlEventPublisher(for: .editingDidEnd)
-            .sink { [unowned self] in
-                rangeSlider.updateMaxRange(maxValueTextField.text ?? Constant.emptyString)
-            }
+            .sink { [unowned self] in rangeSlider.updateMaxRange(maxValueTextField.text ?? Constant.emptyString) }
             .store(in: &cancellables)
         
         minValueTextField.doneButtonActionPublisher
             .sink { [unowned self] in endEditing(true) }
             .store(in: &cancellables)
-
+        
         maxValueTextField.doneButtonActionPublisher
             .sink { [unowned self] in endEditing(true) }
             .store(in: &cancellables)
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        cancellables.removeAll()
     }
     
     required init?(coder: NSCoder) {
@@ -62,9 +52,10 @@ final class TechnicalSpecCell: UICollectionViewCell {
 // MARK: - Internal extension
 extension TechnicalSpecCell {
     func setDataModel(_ model: TechnicalSpecCellModel) {
-        rangeSlider.configure(valuesRange: model.inRange, selectedRange: model.newRange, step: model.rangeStep)
-        minValueTextField.text = Constant.emptyString
-        maxValueTextField.text = Constant.emptyString
+        rangeSlider.configure(model: model)
+        
+        minValueTextField.text = model.minSelected.map { "\(Int($0))" }
+        maxValueTextField.text = model.maxSelected.map { "\(Int($0))" }
         
         rangeSlider.actionPublisher
             .sink { [unowned self] action in

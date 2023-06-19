@@ -171,15 +171,15 @@ private extension SearchResultViewModel {
             .filter { $0.isSelected }
             .map { SelectedFilterRow.transmissionTypeRow($0) }
         
-        let registrationRange: [SelectedFilterRow] = [filtersModel.minYearSearchParam, filtersModel.maxYearSearchParam]
+        let registrationRange: [SelectedFilterRow] = [filtersModel.year.minSearchValue, filtersModel.year.maxSearchValue]
             .compactMap { $0 }
             .map { SelectedFilterRow.firstRegistrationRow($0) }
         
-        let millageRange: [SelectedFilterRow] = [filtersModel.minMillageSearchParam, filtersModel.maxMillageSearchParam]
+        let millageRange: [SelectedFilterRow] = [filtersModel.millage.minSearchValue, filtersModel.millage.maxSearchValue]
             .compactMap { $0 }
             .map { SelectedFilterRow.millageRow($0) }
         
-        let powerRange: [SelectedFilterRow] = [filtersModel.minPowerSearchParam, filtersModel.maxPowerSearchParam]
+        let powerRange: [SelectedFilterRow] = [filtersModel.power.minSearchValue, filtersModel.power.maxSearchValue]
             .compactMap { $0 }
             .map { SelectedFilterRow.powerRow($0) }
         

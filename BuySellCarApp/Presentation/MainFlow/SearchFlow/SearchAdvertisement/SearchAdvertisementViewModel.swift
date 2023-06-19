@@ -64,9 +64,9 @@ final class SearchAdvertisementViewModel: BaseViewModel {
         let bodyTypes: [SearchRow] = searchDomainModel.bodyType.map { SearchRow.bodyTypeRow($0) }
         let fuelTypes: [SearchRow] = searchDomainModel.fuelType.map { SearchRow.fuelTypeRow($0) }
         let transmissionTypes: [SearchRow] = searchDomainModel.transmissionType.map { SearchRow.transmissionTypeRow($0) }
-        let yearRange: [SearchRow] = searchDomainModel.year.map { SearchRow.firstRegistrationRow($0) }
-        let milageRange: [SearchRow] = searchDomainModel.millage.map { SearchRow.millageRow($0) }
-        let powerRange: [SearchRow] = searchDomainModel.power.map { SearchRow.powerRow($0) }
+        let yearRange: [SearchRow] = [.firstRegistrationRow(searchDomainModel.year)]
+        let milageRange: [SearchRow] = [.millageRow(searchDomainModel.millage)]
+        let powerRange: [SearchRow] = [.powerRow(searchDomainModel.power)]
         let isAddingAvailable: Bool = selectedBrand.count < 1
         
         guard !selectedBrand.isEmpty else {
@@ -136,6 +136,7 @@ extension SearchAdvertisementViewModel {
     }
     
     func showAllMakes() {
+        advertisementModel.getAllBrands()
         transitionSubject.send(.showBrands)
     }
     

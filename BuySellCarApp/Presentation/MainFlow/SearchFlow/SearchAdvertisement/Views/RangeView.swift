@@ -49,7 +49,6 @@ final class RangeView: UIView {
     private var sliderStep = Constant.defaultStep
     private var selectedSide = RangeSide.none
     private var valuesRange = Constant.defaultRange
-    private var selectedRange = Constant.defaultRange
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -106,13 +105,11 @@ final class RangeView: UIView {
         case .left:
             newValue = min(max(newValue, valuesRange.lowerBound), lastValidRange.value.upperBound - sliderStep)
             lastValidRange.value = Range(lowerBound: newValue, upperBound: lastValidRange.value.upperBound)
-            selectedRange = Range(lowerBound: newValue, upperBound: lastValidRange.value.upperBound)
             updateLeftThumb(animated: true)
         case .right:
             newValue = max(min(newValue, valuesRange.upperBound), lastValidRange.value.lowerBound + sliderStep)
             
             lastValidRange.value = Range(lowerBound: lastValidRange.value.lowerBound, upperBound: newValue)
-            selectedRange = Range(lowerBound: lastValidRange.value.lowerBound, upperBound: newValue)
             updateRightThumb(animated: true)
         default:
             return
@@ -135,18 +132,20 @@ final class RangeView: UIView {
 
 // MARK: - Internal extension
 extension RangeView {
-    func configure(valuesRange: Range, selectedRange: Range, step: Double = Constant.defaultStep) {
-        self.valuesRange = valuesRange
-        self.selectedRange = selectedRange
-        lastValidRange.value = selectedRange
-        sliderStep = step
-        
-        updateLeftThumb(animated: true)
-        updateRightThumb(animated: true)
+    func configure(model: TechnicalSpecCellModel) {
+        self.valuesRange = model.inRange
+        lastValidRange.value = .init(
+            lowerBound: model.minSelected ?? model.inRange.lowerBound,
+            upperBound: model.maxSelected ?? model.inRange.upperBound
+        )
+        sliderStep = model.rangeStep
+
+        layoutIfNeeded()
+        updateLeftThumb(animated: false)
+        updateRightThumb(animated: false)
     }
     
     func dropFilter(selectedRange: Range) {
-        self.selectedRange = selectedRange
         lastValidRange.value = selectedRange
         updateLeftThumb(animated: true)
         updateRightThumb(animated: true)
@@ -161,10 +160,8 @@ extension RangeView {
             return
         }
         
-        selectedRange = Range(lowerBound: value, upperBound: selectedRange.upperBound)
-        
-        let validInput = value <= selectedRange.upperBound && value <= valuesRange.upperBound
-        let isSelectedRangeValid = selectedRange.lowerBound >= valuesRange.lowerBound
+        let validInput = value <= lastValidRange.value.upperBound && value <= valuesRange.upperBound
+        let isSelectedRangeValid = lastValidRange.value.lowerBound >= valuesRange.lowerBound
         
         leftInputError = !validInput
         
@@ -174,8 +171,12 @@ extension RangeView {
         }
         
         lastValidRange.value = Range(lowerBound: value, upperBound: lastValidRange.value.upperBound)
-        actionSubject.send(.rangeUpdated(lastValidRange.value))
-        updateLeftThumb(animated: true)
+        updateLeftThumb(animated: true) { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.actionSubject.send(.rangeUpdated(self.lastValidRange.value))
+        }
     }
     
     func updateMaxRange(_ maxRange: String) {
@@ -184,9 +185,8 @@ extension RangeView {
             updateRightThumb(animated: true)
             return
         }
-        selectedRange = Range(lowerBound: selectedRange.lowerBound, upperBound: value)
         
-        let validInput = value >= selectedRange.lowerBound
+        let validInput = value >= lastValidRange.value.lowerBound
         let upperBound = min(value, valuesRange.upperBound)
         rightInputError = !validInput
         
@@ -195,8 +195,12 @@ extension RangeView {
             return
         }
         lastValidRange.value = Range(lowerBound: lastValidRange.value.lowerBound, upperBound: upperBound)
-        actionSubject.send(.rangeUpdated(lastValidRange.value))
-        updateRightThumb(animated: true)
+        updateRightThumb(animated: true) { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.actionSubject.send(.rangeUpdated(self.lastValidRange.value))
+        }
     }
 }
 
@@ -247,39 +251,38 @@ private extension RangeView {
         }
     }
     
-    func updateLeftThumb(animated: Bool) {
+    func updateLeftThumb(animated: Bool, _ animationDidEndHandler: (() -> Void)? = nil) {
         guard bounds != .zero else { return }
         
         let newValue = selection(in: bounds).lowerBound
         let duration = animated ? animationDuration(for: abs(leftLeadingConstraint.constant - newValue)) : .zero
         
         leftLeadingConstraint.constant = newValue
-        animateUpdates(duration: duration)
+        animateUpdates(duration: duration, animationDidEndHandler)
     }
     
-    func updateRightThumb(animated: Bool) {
+    func updateRightThumb(animated: Bool, _ animationDidEndHandler: (() -> Void)? = nil) {
         guard bounds.width != .zero else { return }
         
         let newValue = selection(in: bounds).upperBound - bounds.width
         let duration = animated ? animationDuration(for: abs(rightTrailingConstraint.constant - newValue)) : .zero
         
         rightTrailingConstraint.constant = newValue
-        animateUpdates(duration: duration)
+        animateUpdates(duration: duration, animationDidEndHandler)
     }
     
     func animationDuration(for distance: CGFloat) -> TimeInterval {
         return Constant.halfThumbKoef * TimeInterval(distance / bounds.width)
     }
     
-    func animateUpdates(duration: TimeInterval) {
+    func animateUpdates(duration: TimeInterval, _ animationDidEndHandler: (() -> Void)? = nil) {
         UIView.animate(
             withDuration: duration,
             delay: .zero,
             options: [.beginFromCurrentState, .curveEaseInOut],
             animations: {
                 self.layoutIfNeeded()
-            }, completion: nil
-        )
+            }) { _ in animationDidEndHandler?() }
     }
     
     func findClosestThumb(at location: CGPoint, left: () -> Void, right: () -> Void) {

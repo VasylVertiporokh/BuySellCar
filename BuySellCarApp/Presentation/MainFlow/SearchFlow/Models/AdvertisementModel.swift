@@ -97,7 +97,7 @@ extension AdvertisementModelImpl: AdvertisementModel {
                 self.advertisementSubject.value = adsModel
             }
             .store(in: &cancellables)
-
+        
     }
     
     func getAdvertisementCount(searchParams: String) {
@@ -125,7 +125,7 @@ extension AdvertisementModelImpl: AdvertisementModel {
     }
     
     func setFastSearсhParams(_ param: [SearchParam]) {
-
+        
     }
     
     func resetSearchParams() {
@@ -154,7 +154,7 @@ extension AdvertisementModelImpl: AdvertisementModel {
         guard !searchDomainModel.value.brandModels.contains(where: { $0.brandID == id }) else {
             return
         }
-
+        
         advertisementService.getModelsByBrandId(id)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
@@ -174,33 +174,17 @@ extension AdvertisementModelImpl: AdvertisementModel {
     func rangeValue(_ range: TechnicalSpecCellModel.SelectedRange, _ type: RangeParametersType) {
         switch type {
         case .registration:
-            searchDomainModel.value.minYearSearchParam = range.minRangeValue.map { min in
-                    .init(key: .yearOfManufacture, value: .greaterOrEqualTo(intValue: Int(min)))
-            }
-            
-            searchDomainModel.value.maxYearSearchParam = range.maxRangeValue.map { max in
-                    .init(key: .yearOfManufacture, value: .lessOrEqualTo(intValue: Int(max)))
-            }
+            searchDomainModel.value.year.minSelected = range.minRangeValue
+            searchDomainModel.value.year.maxSelected = range.maxRangeValue
             
         case .millage:
-            searchDomainModel.value.minMillageSearchParam = range.minRangeValue.map { min in
-                    .init(key: .mileage, value: .greaterOrEqualTo(intValue: Int(min)))
-            }
-            
-            searchDomainModel.value.maxMillageSearchParam = range.maxRangeValue.map { max in
-                    .init(key: .mileage, value: .lessOrEqualTo(intValue: Int(max)))
-            }
+            searchDomainModel.value.millage.minSelected = range.minRangeValue
+            searchDomainModel.value.millage.maxSelected = range.maxRangeValue
             
         case .power:
-            searchDomainModel.value.minPowerSearchParam = range.minRangeValue.map { min in
-                    .init(key: .power, value: .greaterOrEqualTo(intValue: Int(min)))
-            }
-            
-            searchDomainModel.value.maxPowerSearchParam = range.maxRangeValue.map { max in
-                    .init(key: .power, value: .lessOrEqualTo(intValue: Int(max)))
-            }
+            searchDomainModel.value.power.minSelected = range.minRangeValue
+            searchDomainModel.value.power.maxSelected = range.maxRangeValue
         }
-        
         generateQueryString()
     }
     
@@ -279,29 +263,19 @@ extension AdvertisementModelImpl: AdvertisementModel {
         generateQueryString()
     }
     
-    // TODO: - Fix this
     func deleteRangeParams(param: SearchParam, type: RangeParametersType) {
         switch type {
         case .registration:
-            if searchDomainModel.value.minYearSearchParam?.value == param.value {
-                searchDomainModel.value.minYearSearchParam = nil
-            } else if searchDomainModel.value.maxYearSearchParam?.value == param.value {
-                searchDomainModel.value.maxYearSearchParam = nil
-            }
+            let isMinValue = searchDomainModel.value.year.minSearchValue?.value == param.value
+            isMinValue ? (searchDomainModel.value.year.minSelected = nil) : (searchDomainModel.value.year.maxSelected = nil)
             
         case .power:
-            if searchDomainModel.value.minPowerSearchParam?.value == param.value {
-                searchDomainModel.value.minPowerSearchParam = nil
-            } else if searchDomainModel.value.maxPowerSearchParam?.value == param.value {
-                searchDomainModel.value.maxPowerSearchParam = nil
-            }
+            let isMinValue = searchDomainModel.value.power.minSearchValue?.value == param.value
+            isMinValue ? (searchDomainModel.value.power.minSelected = nil) : (searchDomainModel.value.power.maxSelected = nil)
             
         case .millage:
-            if searchDomainModel.value.minMillageSearchParam?.value == param.value {
-                searchDomainModel.value.minMillageSearchParam = nil
-            } else if searchDomainModel.value.maxMillageSearchParam?.value == param.value {
-                searchDomainModel.value.maxMillageSearchParam = nil
-            }
+            let isMinValue = searchDomainModel.value.millage.minSearchValue?.value == param.value
+            isMinValue ? (searchDomainModel.value.millage.minSelected = nil) : (searchDomainModel.value.millage.maxSelected = nil)
         }
         generateQueryString()
     }
@@ -333,19 +307,19 @@ private extension AdvertisementModelImpl {
         let paramsArray: [[SearchParam]] = [brand, model, body, fuel, transmission]
         
         let rangeParams: [String] = [
-            searchDomainModel.value.minPowerSearchParam,
-            searchDomainModel.value.maxPowerSearchParam,
-            searchDomainModel.value.minYearSearchParam,
-            searchDomainModel.value.maxYearSearchParam,
-            searchDomainModel.value.minMillageSearchParam,
-            searchDomainModel.value.maxMillageSearchParam
+            searchDomainModel.value.year.minSearchValue,
+            searchDomainModel.value.year.maxSearchValue,
+            searchDomainModel.value.millage.minSearchValue,
+            searchDomainModel.value.millage.maxSearchValue,
+            searchDomainModel.value.power.minSearchValue,
+            searchDomainModel.value.power.maxSearchValue
         ]
             .compactMap { $0 }
             .map { $0.queryString }
         
         var joinedParams: [String] = paramsArray.map { params in
             let joinedString = params.map { $0.queryString }.joined(separator: " or ")
-             return params.isEmpty ? joinedString : "(\(joinedString))"
+            return params.isEmpty ? joinedString : "(\(joinedString))"
         }
         
         joinedParams.append(contentsOf: rangeParams)
@@ -366,23 +340,3 @@ struct AdsSearchModel {
     var pageSize: Int = 3
     var offset: Int = 0
 }
-
-
-//struct FilterDomainModel {
-//    var allBrands: [BrandDomainModel] = []
-//    var brandModels: [ModelsDomainModel] = []
-//    var selectedBrand: [SelectedBrandModel] = []
-//    let basicBrand = BrandCellModel.basicBrands()
-//    let year = TechnicalSpecCellModel.year()
-//    let millage = TechnicalSpecCellModel.millage()
-//    let power = TechnicalSpecCellModel.power()
-//    var bodyType = BodyTypeModel.basicBodyTypes()
-//    var fuelType = FuelTypeModel.fuelTypes()
-//    var transmissionType = TransmissionTypeModel.transmissionTypes()
-//    var maxYearSearchParam: SearchParam?
-//    var minYearSearchParam: SearchParam?
-//    var minPowerSearchParam: SearchParam?
-//    var maxPowerSearchParam: SearchParam?
-//    var minMillageSearchParam: SearchParam?
-//    var maxMillageSearchParam: SearchParam?
-//}
