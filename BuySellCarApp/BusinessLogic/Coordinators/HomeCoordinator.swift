@@ -9,24 +9,29 @@ import UIKit
 import Combine
 
 final class HomeCoordinator: Coordinator {
+    // MARK: - Internal properties
     var childCoordinators: [Coordinator] = []
-    
     var navigationController: UINavigationController
     private(set) lazy var didFinishPublisher = didFinishSubject.eraseToAnyPublisher()
+    
+    // MARK: - Private properties 
     private let didFinishSubject = PassthroughSubject<Void, Never>()
     private let container: AppContainer
     private var cancellables = Set<AnyCancellable>()
 
+    // MARK: - Init
     init(navigationController: UINavigationController, container: AppContainer) {
         self.navigationController = navigationController
         self.container = container
         setupNavigationBar()
     }
 
+    // MARK: - Start flow
     func start() {
         searchRoot()
     }
     
+    // MARK: - Deinit
     deinit {
         print("Deinit of \(String(describing: self))")
     }
@@ -53,21 +58,24 @@ private extension HomeCoordinator {
         let module = SearchResultModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] transition in
-                
+                switch transition {
+                case .showSearch:              startSearch(model: model, flow: .inCurrentFlow)
+                }
             }
             .store(in: &cancellables)
         module.viewController.hidesBottomBarWhenPushed = true
         push(module.viewController)
     }
     
-    func startSearch(model: AdvertisementModel) {
-        let module = SearchAdvertisementModuleBuilder.build(container: container)
+    func startSearch(model: AdvertisementModel, flow: SearchFlow = .newFlow) {
+        let module = SearchAdvertisementModuleBuilder.build(container: container, flow: flow)
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
                 case .showResults:              showSearchResult(model: model)
                 case .showBrands:               showAllMakes()
                 case .showModels:               showBrandModels()
+                case .popModule:                pop()
                 }
             }
             .store(in: &cancellables)
@@ -80,7 +88,7 @@ private extension HomeCoordinator {
             .sink { [unowned self] transition in
                 switch transition {
                 case .showModels:               showBrandModels()
-                case .pop:                 pop()
+                case .pop:                      pop()
                 }
             }
             .store(in: &cancellables)

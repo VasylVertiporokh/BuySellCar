@@ -11,6 +11,7 @@ import SnapKit
 import Combine
 
 enum FilterViewAction {
+    case showFilters
     case deleteBrandTapped(SelectedBrandModel)
     case deleteModelTapped(ModelsDomainModel)
     case deleteBodyTapped(BodyTypeModel)
@@ -91,6 +92,7 @@ private extension FilterView {
         configureCollectionView()
         setupDataSource()
         setupLayout()
+        setupBindings()
     }
     
     func setupUI() {
@@ -116,6 +118,12 @@ private extension FilterView {
         containerStackView.addArrangedSubview(collectionContainer)
         
         containerStackView.snp.makeConstraints { $0.edges.equalToSuperview() }
+    }
+    
+    func setupBindings() {
+        filterButton.tapPublisher
+            .sink { [unowned self] in filterViewActionSubject.send(.showFilters) }
+            .store(in: &cancellables)
     }
 }
 

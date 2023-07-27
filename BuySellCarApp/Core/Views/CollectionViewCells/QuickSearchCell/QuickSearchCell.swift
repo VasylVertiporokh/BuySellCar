@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class QuickSearchCell: UICollectionViewCell {
     // MARK: - Subviews
@@ -46,8 +47,11 @@ final class QuickSearchCell: UICollectionViewCell {
 
 // MARK: - Internal extension
 extension QuickSearchCell {
-    func setInfo(_ model: TrendingCategoriesModel) {
-        carImageView.image = model.categoriesImage
+    func setInfo(_ model: TrendingCategoriesCellModel) {
+        guard let imageURL = model.categoriesImage else {
+            return
+        }
+        carImageView.kf.setImage(with: imageURL, placeholder: Assets.carPlaceholder.image)
         descriptionLabel.text = model.categoriesName
     }
 }

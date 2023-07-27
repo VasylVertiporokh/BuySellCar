@@ -10,6 +10,7 @@ import SnapKit
 import Combine
 
 enum SearchResultViewAction {
+    case showSearch
     case deleteBrandTapped(SelectedBrandModel)
     case deleteModelTapped(ModelCellConfigurationModel)
     case deleteBodyTapped(BodyTypeModel)
@@ -56,10 +57,6 @@ extension SearchResultView {
         dataSource?.apply(snapShot, animatingDifferences: false)
     }
     
-//    func setupSearchSnapshot(sections: [SectionModel<FilteredSection, FilteredRow>]) {
-//        filterView.setupSnapshot(sections: sections)
-//    }
-    
     func setupSearchSnapshot(sections: [SectionModel<SelectedFilterSection, SelectedFilterRow>]) {
         filterView.setupSnapshot(sections: sections)
     }
@@ -83,6 +80,7 @@ private extension SearchResultView {
         filterView.filterViewActionAction
             .sink { [unowned self] action in
                 switch action {
+                case .showFilters:                                 actionSubject.send(.showSearch)
                 case .deleteBrandTapped(let brand):                actionSubject.send(.deleteBrandTapped(brand))
                 case .deleteModelTapped(let model):                actionSubject.send(.deleteModelTapped(.init(brandDomainModel: model)))
                 case .deleteBodyTapped(let bodyType):              actionSubject.send(.deleteBodyTapped(bodyType))

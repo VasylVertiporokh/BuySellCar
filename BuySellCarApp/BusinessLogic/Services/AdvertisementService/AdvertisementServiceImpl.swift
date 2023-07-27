@@ -71,4 +71,22 @@ extension AdvertisementServiceImpl: AdvertisementService {
             .mapError { $0 as Error }
             .eraseToAnyPublisher()
     }
+    
+    func getRecommendationAdvertisement() -> AnyPublisher<RecommendationDomainModel, Error> {
+        let defaultModel = Constant.defaultModel
+        return advertisementNetworkService.searchAdvertisement(searchParams: defaultModel)
+            .combineLatest(advertisementNetworkService.getTrandingCategories())
+            .map { (ads, categories) -> RecommendationDomainModel in
+                return .init(
+                    recommendationAds: ads.map { .init(advertisementResponseModel: $0) },
+                    trendingCategories: categories.map { .init(trandingResponseModel: $0) })
+            }
+            .mapError { $0 as Error }
+            .eraseToAnyPublisher()
+    }
+}
+
+// MARK: - Constant
+private enum Constant {
+    static let defaultModel: AdsSearchModel = .init(pageSize: 15, offset: 0)
 }

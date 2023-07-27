@@ -8,6 +8,13 @@
 import Combine
 import Foundation
 
+// MARK: - Search flow
+enum SearchFlow {
+    case newFlow
+    case inCurrentFlow
+}
+
+// MARK: - Model events
 enum SearchAdvertisementViewModelEvents {
     case numberOfAdvertisements(Int)
 }
@@ -16,6 +23,7 @@ final class SearchAdvertisementViewModel: BaseViewModel {
     // MARK: - Private properties
     private var advertisementModel: AdvertisementModel
     private var searchDomainModel = FilterDomainModel()
+    private var searchFlow: SearchFlow = .newFlow
     
     // MARK: - Publisher
     private(set) lazy var sectionsPublisher = sectionsSubject.eraseToAnyPublisher()
@@ -28,34 +36,20 @@ final class SearchAdvertisementViewModel: BaseViewModel {
     private let transitionSubject = PassthroughSubject<SearchAdvertisementTransition, Never>()
     
     // MARK: - Init
-    init(advertisementModel: AdvertisementModel) {
+    init(advertisementModel: AdvertisementModel, flow: SearchFlow) {
         self.advertisementModel = advertisementModel
+        self.searchFlow = flow
         super.init()
     }
     
     // MARK: - Deinit
     deinit {
-        resetSearch()
+        handleSearchParamUpdating()
     }
     
     // MARK: - Life cycle
-    override func onViewDidLoad() {        
-        advertisementModel.tempDomainModelPublisher
-            .sink { [weak self] model in
-                self?.searchDomainModel = model
-                self?.updateDataSource()
-            }
-            .store(in: &cancellables)
-        
-        advertisementModel.numberOfAdvertisementsPublisher
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] in
-                guard let self = self else {
-                    return
-                }
-                self.eventsSubject.send(.numberOfAdvertisements($0))
-            }
-            .store(in: &cancellables)
+    override func onViewDidLoad() {
+        setupBindings()
     }
     
     func updateDataSource() {
@@ -124,7 +118,10 @@ extension SearchAdvertisementViewModel {
     }
     
     func showSearchResults() {
-        transitionSubject.send(.showResults)
+        switch searchFlow {
+        case .newFlow:         transitionSubject.send(.showResults)
+        case .inCurrentFlow:   transitionSubject.send(.popModule)
+        }
     }
     
     func deleteSelectedBrand(_ brand: SelectedBrandModel) {
@@ -132,7 +129,7 @@ extension SearchAdvertisementViewModel {
     }
 
     func resetSearch() {
-        advertisementModel.resetSearchParams()
+        advertisementModel.startNewSearch()
     }
     
     func showAllMakes() {
@@ -155,5 +152,36 @@ extension SearchAdvertisementViewModel {
 
 // MARK: - Private extension
 private extension SearchAdvertisementViewModel {
+    func setupBindings() {
+        advertisementModel.searchModelPublisher
+            .sink { [weak self] model in
+                self?.advertisementModel.getAdvertisementCount(searchParams: model.queryString)
+                self?.advertisementModel.findAdvertisements(searchModel: model)
+            }
+            .store(in: &cancellables)
+
+        advertisementModel.tempDomainModelPublisher
+            .sink { [weak self] model in
+                self?.searchDomainModel = model
+                self?.updateDataSource()
+            }
+            .store(in: &cancellables)
+        
+        advertisementModel.numberOfAdvertisementsPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                self.eventsSubject.send(.numberOfAdvertisements($0))
+            }
+            .store(in: &cancellables)
+    }
     
+    func handleSearchParamUpdating() {
+        guard case .newFlow = searchFlow else {
+            return
+        }
+        advertisementModel.deleteSearchResult()
+    }
 }

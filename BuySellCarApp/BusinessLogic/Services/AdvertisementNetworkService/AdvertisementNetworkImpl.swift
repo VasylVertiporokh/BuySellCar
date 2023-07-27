@@ -55,4 +55,8 @@ extension AdvertisementNetworkImpl: AdvertisementNetworkService {
     func publishAdvertisement(model: AddAdvertisementDomainModel) -> AnyPublisher<Void, NetworkError> {
         provider.performWithProcessingResult(.publishAdvertisement(.init(domainModel: model)))
     }
+    
+    func getTrandingCategories() -> AnyPublisher<[TrandingCategoriesResponseModel], NetworkError> {
+        provider.performWithResponseModel(.getTrandingCategories)
+    }
 }

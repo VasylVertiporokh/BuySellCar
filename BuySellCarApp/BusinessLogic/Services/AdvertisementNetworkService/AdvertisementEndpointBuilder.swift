@@ -17,6 +17,7 @@ enum AdvertisementEndpointBuilder {
     case getModel(brandId: String)
     case uploadAdvertisementImage(item: MultipartItem, userId: String)
     case publishAdvertisement(CreateAdvertisementRequestModel)
+    case getTrandingCategories
 }
 
 // MARK: - EndpointBuilderProtocol
@@ -35,13 +36,15 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
             return "/data/Model"
         case .uploadAdvertisementImage(let dataItem, let userId):
             return "/files/images/users/\(userId)/\(dataItem.fileName)"
+        case .getTrandingCategories:
+            return "/files/fastSearch/trandingCategories"
         }
     }
     
     var headerFields: [String : String] {
         switch self {
         case .searchAdvertisement, .getAdvertisement, .getAdvertisementCount,
-                .getOwnAds, .deleteAdvertisement, .getBrand, .getModel, .publishAdvertisement: // TODO: - Need plugin
+                .getOwnAds, .deleteAdvertisement, .getBrand, .getModel, .publishAdvertisement, .getTrandingCategories: // TODO: - Need plugin
             return ["Content-Type" : "application/json"]
         case .uploadAdvertisementImage:
             return ["" : ""]
@@ -66,7 +69,7 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
         case .getOwnAds(let ownerID):
             return ["where" : "ownerId = '\(ownerID)'"] // TODO: - Fix
         
-        case .deleteAdvertisement, .uploadAdvertisementImage, .publishAdvertisement:
+        case .deleteAdvertisement, .uploadAdvertisementImage, .publishAdvertisement, .getTrandingCategories:
             return nil
             
         case .getBrand:
@@ -92,7 +95,7 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
     
     var method: HTTPMethod {
         switch self {
-        case .searchAdvertisement, .getAdvertisement, .getAdvertisementCount, .getOwnAds, .getBrand, .getModel:
+        case .searchAdvertisement, .getAdvertisement, .getAdvertisementCount, .getOwnAds, .getBrand, .getModel, .getTrandingCategories:
             return .get
             
         case .deleteAdvertisement:

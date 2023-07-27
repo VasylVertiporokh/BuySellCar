@@ -8,10 +8,10 @@
 import Foundation
 import UIKit
 
-struct TrendingCategoriesModel: Hashable {
-    let categoriesImage: UIImage
+struct TrendingCategoriesCellModel: Hashable {
+    let id: Int
+    let categoriesImage: URL?
     let categoriesName: String
-    let searchParameters: [SearchParam]
 }
 
 // MARK: - Sections
@@ -32,5 +32,5 @@ enum AdvertisementSection: Int, CaseIterable {
 // MARK: - Settings rows
 enum AdvertisementRow: Hashable {
     case recommended(model: AdvertisementCellModel)
-    case trending(model: TrendingCategoriesModel)
+    case trending(model: TrendingCategoriesCellModel)
 }

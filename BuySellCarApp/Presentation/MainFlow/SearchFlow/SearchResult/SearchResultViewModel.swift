@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 
+// MARK: - Model events
 enum SearchResultViewModelEvents {
     case advertisementCount(count: Int)
 }
@@ -43,26 +44,32 @@ final class SearchResultViewModel: BaseViewModel {
     // MARK: - Life cycle
     override func onViewDidLoad() {
         setupBindings()
-    }
-    
-    override func onViewWillAppear() {
-        isLoadingSubject.send(true)
+        advertisementModel.searchModelPublisher
+            .sink { [weak self] model in
+                self?.advertisementModel.getAdvertisementCount(searchParams: model.queryString)
+                self?.advertisementModel.findAdvertisements(searchModel: model)
+            }
+            .store(in: &cancellables)
     }
     
     // MARK: - Deinit
     deinit {
-//        sectionsSubject.value = []
+        advertisementModel.deleteSearchResult()
     }
 }
 
 // MARK: - Internal extension
 extension SearchResultViewModel {
+    func showSearch() {
+        transitionSubject.send(.showSearch)
+    }
+    
     func loadNextPage(_ startPaging: Bool) {
         advertisementModel.loadNextPage()
         isPagingInProgressSubject.send(true)
     }
     
-    func deleteSelectedBrand(_ brand: SelectedBrandModel ) {
+    func deleteSelectedBrand(_ brand: SelectedBrandModel) {
         advertisementModel.deleteSelectedBrand(brand)
     }
     
@@ -95,7 +102,9 @@ private extension SearchResultViewModel {
             self.sectionsSubject.value = [.init(section: .searchResult, items: newItems)]
         } else {
             if let sectionIndex = sectionsSubject.value.firstIndex(where: { $0.section == .searchResult }) {
-                sectionsSubject.value[sectionIndex].items.append(contentsOf: newItems)
+                let existingItems = sectionsSubject.value[sectionIndex].items
+                let uniqueNewItems = newItems.filter { !existingItems.contains($0) }
+                sectionsSubject.value[sectionIndex].items.append(contentsOf: uniqueNewItems)
             }
         }
     }
@@ -143,9 +152,12 @@ private extension SearchResultViewModel {
             .store(in: &cancellables)
 
         advertisementModel.updatingInProgressPublisher
-            .sink { [unowned self] in
-                sectionsSubject.value = []
-                isLoadingSubject.send(true)
+            .sink { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                self.sectionsSubject.value = []
+                self.isLoadingSubject.send(true)
             }
             .store(in: &cancellables)
     }

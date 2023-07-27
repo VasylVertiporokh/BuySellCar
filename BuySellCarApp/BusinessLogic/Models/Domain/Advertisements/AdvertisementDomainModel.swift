@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct AdvertisementDomainModel {
+struct AdvertisementDomainModel: Equatable {
+    static func == (lhs: AdvertisementDomainModel, rhs: AdvertisementDomainModel) -> Bool {
+        lhs.objectID == rhs.objectID
+    }
+    
     let bodyType: BodyType
     let transportName: String
     let bodyColor: CarColor

@@ -16,6 +16,7 @@ enum RangeParametersType {
 }
 
 protocol AdvertisementModel {
+    var recommendationPublisher: AnyPublisher<RecommendationDomainModel, Never> { get }
     var modelErrorPublisher: AnyPublisher<Error, Never> { get }
     var tempDomainModelPublisher: AnyPublisher<FilterDomainModel, Never> { get }
     var searchModelPublisher: AnyPublisher<AdsSearchModel, Never> { get }
@@ -23,13 +24,14 @@ protocol AdvertisementModel {
     var advertisementPublisher: AnyPublisher<[AdvertisementDomainModel]?, Never> { get }
     var updatingInProgressPublisher: AnyPublisher<Void, Never> { get }
     
-    func getRecommendedAdvertisements(searchModel: AdsSearchModel) -> AnyPublisher<[AdvertisementDomainModel], Error>
+    func getRecommendedAdvertisements()
     func findAdvertisements(searchModel: AdsSearchModel)
     func getAdvertisementCount(searchParams: String)
     func loadNextPage()
+    func startNewSearch()
     
-    func setFastSearсhParams(_ param: [SearchParam])
-    func resetSearchParams()
+    func setFastSearсhParamsById(_ id: Int)
+    func deleteSearchResult()
     func getAllBrands()
     func getBrandModels(id: String)
     func rangeValue(_ range: TechnicalSpecCellModel.SelectedRange, _ type: RangeParametersType)
@@ -50,6 +52,7 @@ final class AdvertisementModelImpl {
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Publishers
+    lazy var recommendationPublisher = recommendationSubject.eraseToAnyPublisher()
     lazy var modelErrorPublisher = modelErrorSubject.eraseToAnyPublisher()
     lazy var tempDomainModelPublisher = searchDomainModel.eraseToAnyPublisher()
     lazy var searchModelPublisher = searchModelSubject.eraseToAnyPublisher()
@@ -58,6 +61,7 @@ final class AdvertisementModelImpl {
     lazy var updatingInProgressPublisher = updatingInProgressSubject.eraseToAnyPublisher()
     
     // MARK: - Subjects
+    private let recommendationSubject = CurrentValueSubject<RecommendationDomainModel, Never>(.init())
     private let modelErrorSubject = PassthroughSubject<Error, Never>()
     private let searchDomainModel = CurrentValueSubject<FilterDomainModel, Never>(.init())
     private let searchModelSubject = CurrentValueSubject<AdsSearchModel, Never>(.init())
@@ -69,25 +73,30 @@ final class AdvertisementModelImpl {
     init(advertisementService: AdvertisementService) {
         self.advertisementService = advertisementService
         getAllBrands()
-        
-        searchModelSubject
-            .sink { [unowned self] model in
-                getAdvertisementCount(searchParams: model.queryString)
-                findAdvertisements(searchModel: model)
-            }
-            .store(in: &cancellables)
     }
 }
 
 // MARK: - AdvertisementModel protocol
 extension AdvertisementModelImpl: AdvertisementModel {
-    func getRecommendedAdvertisements(searchModel: AdsSearchModel) -> AnyPublisher<[AdvertisementDomainModel], Error> {
-        advertisementService.searchAdvertisement(searchParams: searchModel)
+    func getRecommendedAdvertisements() {
+        advertisementService.getRecommendationAdvertisement()
+            .sink { [weak self] completion in
+                guard case let .failure(error) = completion else {
+                    return
+                }
+                self?.modelErrorSubject.send(error)
+            } receiveValue: { [weak self] recommendationModel in
+                guard let self = self else {
+                    return
+                }
+                self.recommendationSubject.send(recommendationModel)
+            }
+            .store(in: &cancellables)
     }
     
     func findAdvertisements(searchModel: AdsSearchModel) {
         advertisementService.searchAdvertisement(searchParams: searchModel)
-            .sink {  [weak self] completion in
+            .sink { [weak self] completion in
                 guard case let .failure(error) = completion else {
                     return
                 }
@@ -124,13 +133,50 @@ extension AdvertisementModelImpl: AdvertisementModel {
         searchModelSubject.value.offset += Constant.nextPageSize
     }
     
-    func setFastSearсhParams(_ param: [SearchParam]) {
+    func setFastSearсhParamsById(_ id: Int) {
+        searchDomainModel.value = .init()
+        let params = recommendationSubject.value.trendingCategories[id]
+        params.bodyType.forEach { bodyType in
+            guard let index = searchDomainModel.value.bodyType.firstIndex(where: { $0.bodyTypeLabel == bodyType }) else {
+                return
+            }
+            searchDomainModel.value.bodyType[index].isSelected = true
+        }
         
+        params.fuelType.forEach { fuelType in
+            guard let index = searchDomainModel.value.fuelType.firstIndex(where: { $0.fuelType == fuelType }) else {
+                return
+            }
+            searchDomainModel.value.fuelType[index].isSelected = true
+        }
+
+        params.transmissionType.forEach { transmissionType in
+            guard let index = searchDomainModel.value.transmissionType.firstIndex(where: {
+                $0.transmissionType == transmissionType
+            }) else {
+                return
+            }
+            searchDomainModel.value.transmissionType[index].isSelected = true
+        }
+        
+        searchDomainModel.value.year.maxSelected = params.year.maxSelected
+        searchDomainModel.value.year.minSelected = params.year.minSelected
+        searchDomainModel.value.power.maxSelected = params.power.maxSelected
+        searchDomainModel.value.power.minSelected = params.power.minSelected
+        searchDomainModel.value.millage.maxSelected = params.millage.maxSelected
+        searchDomainModel.value.millage.minSelected = params.millage.minSelected
+        generateQueryString()
     }
     
-    func resetSearchParams() {
+    func startNewSearch() {
         searchDomainModel.value = .init()
+        searchModelSubject.value = .init()
+        advertisementSubject.value = nil
         generateQueryString()
+    }
+    
+    func deleteSearchResult() {
+        advertisementSubject.value = nil
     }
     
     func getAllBrands() {

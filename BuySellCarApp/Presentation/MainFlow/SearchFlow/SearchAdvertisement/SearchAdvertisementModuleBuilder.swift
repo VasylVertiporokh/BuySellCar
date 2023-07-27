@@ -12,11 +12,12 @@ enum SearchAdvertisementTransition: Transition {
     case showResults
     case showBrands
     case showModels
+    case popModule
 }
 
 final class SearchAdvertisementModuleBuilder {
-    class func build(container: AppContainer) -> Module<SearchAdvertisementTransition, UIViewController> {
-        let viewModel = SearchAdvertisementViewModel(advertisementModel: container.searchAdvertisementModel)
+    class func build(container: AppContainer, flow: SearchFlow) -> Module<SearchAdvertisementTransition, UIViewController> {
+        let viewModel = SearchAdvertisementViewModel(advertisementModel: container.searchAdvertisementModel, flow: flow)
         let viewController = SearchAdvertisementViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

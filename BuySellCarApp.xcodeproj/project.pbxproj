@@ -15,6 +15,9 @@
 		0B5369933285BD6E6AE60FE1 /* MainTabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C11CDAFE6ACE00F9D45F4C8 /* MainTabBarViewModel.swift */; };
 		0D38D12AC75458E87F590FD0 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F94F525E684B577C82B92F /* UIView+Constraints.swift */; };
 		154720384BE7D4D605505B04 /* Montserrat-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B5D092F58D96AE8251693F /* Montserrat-ThinItalic.ttf */; };
+		1F78F7502A6FC5BF006E920D /* TrandingCategoriesResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F78F74F2A6FC5BF006E920D /* TrandingCategoriesResponseModel.swift */; };
+		1F78F7532A6FE3BD006E920D /* TrandingCategoriesDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F78F7522A6FE3BD006E920D /* TrandingCategoriesDomainModel.swift */; };
+		1F78F7562A6FEA1B006E920D /* RecommendationDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F78F7552A6FEA1B006E920D /* RecommendationDomainModel.swift */; };
 		20E6443F2CF0FE7E640D0DDF /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF210A01E50E3A0070C899D /* AuthCoordinator.swift */; };
 		2174305FA29F27D7BC4E5DD5 /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB41F88AEA6C275FF542C14 /* AppContainer.swift */; };
 		2E0A948A1F95B389F8C78963 /* KeyboardLayoutGuide in Frameworks */ = {isa = PBXBuildFile; productRef = 6F28DE4B19DE8160C318C5F1 /* KeyboardLayoutGuide */; };
@@ -269,6 +272,9 @@
 		11ED46B0B0B628F67D24DAFE /* Config-PROD.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Config-PROD.xcconfig"; sourceTree = "<group>"; };
 		173BE34A90FB549143B439D2 /* TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStorage.swift; sourceTree = "<group>"; };
 		181A1538B0C4BFDAEC64312F /* Montserrat-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		1F78F74F2A6FC5BF006E920D /* TrandingCategoriesResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrandingCategoriesResponseModel.swift; sourceTree = "<group>"; };
+		1F78F7522A6FE3BD006E920D /* TrandingCategoriesDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrandingCategoriesDomainModel.swift; sourceTree = "<group>"; };
+		1F78F7552A6FEA1B006E920D /* RecommendationDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationDomainModel.swift; sourceTree = "<group>"; };
 		227779459FE6ACE005F31BFD /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		2434A8CDE974A11EF75DAF57 /* Montserrat-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BlackItalic.ttf"; sourceTree = "<group>"; };
 		25C862345ACB3CDEC2F442ED /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -555,6 +561,22 @@
 				F2C12EDFCDBED61BB33C9E7B /* SettingsCoordinator.swift */,
 			);
 			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		1F78F7512A6FE3A3006E920D /* TrandingCategoriesDomainModel */ = {
+			isa = PBXGroup;
+			children = (
+				1F78F7522A6FE3BD006E920D /* TrandingCategoriesDomainModel.swift */,
+			);
+			path = TrandingCategoriesDomainModel;
+			sourceTree = "<group>";
+		};
+		1F78F7542A6FEA14006E920D /* RecommendationDomainModel */ = {
+			isa = PBXGroup;
+			children = (
+				1F78F7552A6FEA1B006E920D /* RecommendationDomainModel.swift */,
+			);
+			path = RecommendationDomainModel;
 			sourceTree = "<group>";
 		};
 		22D4565EE1CBBAE2316CA7D0 /* Products */ = {
@@ -1370,6 +1392,8 @@
 		D4B0A3D529DD826000BCB8A7 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				1F78F7542A6FEA14006E920D /* RecommendationDomainModel */,
+				1F78F7512A6FE3A3006E920D /* TrandingCategoriesDomainModel */,
 				D41C5D3C2A1E414F00755CA5 /* AddAdvertismentsDomainModel */,
 				D49D0E1729EEA8F300C67E96 /* Search */,
 				D43554D629E018E30002A406 /* Advertisements */,
@@ -1516,6 +1540,7 @@
 			isa = PBXGroup;
 			children = (
 				D4EA6E7A299FAF31009F7DBD /* ApiErrorResponseModel.swift */,
+				1F78F74F2A6FC5BF006E920D /* TrandingCategoriesResponseModel.swift */,
 				D4623DF229D363F0003B4020 /* AdvertisementResponseModel.swift */,
 				D4623E0A29D4968E003B4020 /* AdvertisementCountResponseModel.swift */,
 				D43E8E472A12B03300DFC444 /* BrandResponseModel.swift */,
@@ -1638,7 +1663,8 @@
 		1077D717878BB76AE9C00358 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1200;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
 			};
 			buildConfigurationList = 5418F0C21191E5A00ECFB5AA /* Build configuration list for PBXProject "BuySellCarApp" */;
 			compatibilityVersion = "Xcode 11.0";
@@ -1705,7 +1731,7 @@
 		D49544AC299BC22F003BA187 /* SwiftGen */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -1762,11 +1788,13 @@
 				E44F561A32F1479708D65A55 /* Assets.swift in Sources */,
 				D45250C12A2770860018BDF6 /* String+Extension.swift in Sources */,
 				D453B3872A24B6AA00B17A99 /* AllMakesModuleBuilder.swift in Sources */,
+				1F78F7562A6FEA1B006E920D /* RecommendationDomainModel.swift in Sources */,
 				D429260F2A1668350047F6CB /* AdsVehicleDetailsViewController.swift in Sources */,
 				D4623DF829D36FBA003B4020 /* RecommendationDataSource.swift in Sources */,
 				D453B39A2A261CBB00B17A99 /* BrandModelsViewController.swift in Sources */,
 				D4EA6E58299E617A009F7DBD /* NetworkProviderProtocol.swift in Sources */,
 				D44AF14829D21D4100C7E756 /* RecommendationBadgeView.swift in Sources */,
+				1F78F7502A6FC5BF006E920D /* TrandingCategoriesResponseModel.swift in Sources */,
 				20E6443F2CF0FE7E640D0DDF /* AuthCoordinator.swift in Sources */,
 				D42926002A1647FC0047F6CB /* BodyColorViewController.swift in Sources */,
 				D4ADEC2329AE407800D7CE53 /* CreateAccountView.swift in Sources */,
@@ -1827,6 +1855,7 @@
 				D4EA6E6E299E9260009F7DBD /* AuthNetworkServiceProtocol.swift in Sources */,
 				D4EA6E5A299E619F009F7DBD /* NetworkServiceProvider.swift in Sources */,
 				D47839C82A141FC00003FD83 /* BrandListView.swift in Sources */,
+				1F78F7532A6FE3BD006E920D /* TrandingCategoriesDomainModel.swift in Sources */,
 				D4EA6E70299E92CE009F7DBD /* AuthNetworkServiceImpl.swift in Sources */,
 				D4ADEBFB29ACBF9400D7CE53 /* MainTextField.swift in Sources */,
 				D4EA6E52299E5E9F009F7DBD /* NetworkError.swift in Sources */,

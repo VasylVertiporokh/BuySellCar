@@ -29,6 +29,7 @@ final class SearchResultViewController: BaseViewController<SearchResultViewModel
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
+                case .showSearch:                                     viewModel.showSearch()
                 case .deleteBrandTapped(let brand):                   viewModel.deleteSelectedBrand(brand)
                 case .deleteModelTapped(let model):                   viewModel.deleteModel(model)
                 case .deleteBodyTapped(let type):                     viewModel.deleteBodyType(type)
@@ -45,8 +46,7 @@ final class SearchResultViewController: BaseViewController<SearchResultViewModel
         viewModel.eventsPublisher
             .sink { [unowned self] events in
                 switch events {
-                case .advertisementCount(let count):
-                    navigationView.setResultCount(count)
+                case .advertisementCount(let count):                  navigationView.setResultCount(count)
                 }
             }
             .store(in: &cancellables)
