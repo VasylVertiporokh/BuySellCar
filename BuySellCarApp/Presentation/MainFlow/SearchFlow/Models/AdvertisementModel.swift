@@ -15,6 +15,13 @@ enum RangeParametersType {
     case power
 }
 
+// MARK: - AdsSearchModel
+struct AdsSearchModel {
+    var queryString: String = ""
+    var pageSize: Int = 3
+    var offset: Int = 0
+}
+
 protocol AdvertisementModel {
     var recommendationPublisher: AnyPublisher<RecommendationDomainModel, Never> { get }
     var modelErrorPublisher: AnyPublisher<Error, Never> { get }
@@ -379,10 +386,4 @@ private extension AdvertisementModelImpl {
 private enum Constant {
     static let nextPageSize: Int = 3
     static let countDefaultValue: Int = 0
-}
-
-struct AdsSearchModel {
-    var queryString: String = ""
-    var pageSize: Int = 3
-    var offset: Int = 0
 }
