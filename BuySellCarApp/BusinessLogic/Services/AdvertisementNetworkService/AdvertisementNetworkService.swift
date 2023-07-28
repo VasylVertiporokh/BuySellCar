@@ -10,8 +10,13 @@ import Combine
 
 protocol AdvertisementNetworkService {
     func getAdvertisementObjects(pageSize: String) -> AnyPublisher<[AdvertisementResponseModel], NetworkError>
-    func searchAdvertisement(searchParams: SearchResultDomainModel) -> AnyPublisher<[AdvertisementResponseModel], NetworkError>
-    func getAdvertisementCount(searchParams: [SearchParam]) -> AnyPublisher<Data, NetworkError>
+    func searchAdvertisement(searchParams: AdsSearchModel) -> AnyPublisher<[AdvertisementResponseModel], NetworkError>
+    func getAdvertisementCount(searchParams: String) -> AnyPublisher<Data, NetworkError>
+    func getOwnAds(ownerID: String) -> AnyPublisher<[AdvertisementResponseModel], NetworkError>
+    func deleteAdvertisement(objectID: String) -> AnyPublisher<Void, NetworkError>
+    func getBrands() -> AnyPublisher<[BrandResponseModel], NetworkError>
+    func getModelsByBrandId(_ brandId: String) -> AnyPublisher<[ModelResponseModel], NetworkError>
+    func uploadAdvertisementImage(data: MultipartItem, userID: String) -> AnyPublisher<UploadingImageResponseModel, NetworkError>
+    func publishAdvertisement(model: AddAdvertisementDomainModel) -> AnyPublisher<Void, NetworkError>
+    func getTrandingCategories() -> AnyPublisher<[TrandingCategoriesResponseModel], NetworkError>
 }
-
-// TODO: - need add delete and edit func...

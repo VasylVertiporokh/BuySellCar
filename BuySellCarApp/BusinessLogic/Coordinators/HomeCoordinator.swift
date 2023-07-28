@@ -9,23 +9,29 @@ import UIKit
 import Combine
 
 final class HomeCoordinator: Coordinator {
+    // MARK: - Internal properties
     var childCoordinators: [Coordinator] = []
-    
     var navigationController: UINavigationController
     private(set) lazy var didFinishPublisher = didFinishSubject.eraseToAnyPublisher()
+    
+    // MARK: - Private properties 
     private let didFinishSubject = PassthroughSubject<Void, Never>()
     private let container: AppContainer
     private var cancellables = Set<AnyCancellable>()
 
+    // MARK: - Init
     init(navigationController: UINavigationController, container: AppContainer) {
         self.navigationController = navigationController
         self.container = container
+        setupNavigationBar()
     }
 
+    // MARK: - Start flow
     func start() {
         searchRoot()
     }
     
+    // MARK: - Deinit
     deinit {
         print("Deinit of \(String(describing: self))")
     }
@@ -40,6 +46,8 @@ private extension HomeCoordinator {
                 switch transition {
                 case .showResult(let model):
                     showSearchResult(model: model)
+                case .startSearch(let model):
+                    startSearch(model: model)
                 }
             }
             .store(in: &cancellables)
@@ -47,13 +55,63 @@ private extension HomeCoordinator {
     }
     
     func showSearchResult(model: AdvertisementModel) {
-        let module = SearchResultModuleBuilder.build(container: container, model: model)
+        let module = SearchResultModuleBuilder.build(container: container)
         module.transitionPublisher
             .sink { [unowned self] transition in
-                
+                switch transition {
+                case .showSearch:              startSearch(model: model, flow: .inCurrentFlow)
+                }
             }
             .store(in: &cancellables)
         module.viewController.hidesBottomBarWhenPushed = true
         push(module.viewController)
+    }
+    
+    func startSearch(model: AdvertisementModel, flow: SearchFlow = .newFlow) {
+        let module = SearchAdvertisementModuleBuilder.build(container: container, flow: flow)
+        module.transitionPublisher
+            .sink { [unowned self] transition in
+                switch transition {
+                case .showResults:              showSearchResult(model: model)
+                case .showBrands:               showAllMakes()
+                case .showModels:               showBrandModels()
+                case .popModule:                pop()
+                }
+            }
+            .store(in: &cancellables)
+        push(module.viewController)
+    }
+    
+    func showAllMakes() {
+        let module = AllMakesModuleBuilder.build(container: container)
+        module.transitionPublisher
+            .sink { [unowned self] transition in
+                switch transition {
+                case .showModels:               showBrandModels()
+                case .pop:                      pop()
+                }
+            }
+            .store(in: &cancellables)
+        push(module.viewController)
+    }
+    
+    func showBrandModels() {
+        let module = BrandModelsModuleBuilder.build(container: container)
+        module.transitionPublisher
+            .sink { [unowned self] transition in
+                switch transition {
+                case .dissmiss:                dismiss()
+                }
+            }
+            .store(in: &cancellables)
+        module.viewController.isModalInPresentation = true
+        present(module.viewController)
+    }
+}
+
+// MARK: - NavigationControler configuration
+private extension HomeCoordinator {
+    func setupNavigationBar() {
+        navigationController.navigationBar.tintColor = Colors.buttonDarkGray.color
     }
 }

@@ -10,6 +10,6 @@ import Combine
 
 protocol AuthNetworkServiceProtocol {
     func login(loginModel: LoginRequestModel) -> AnyPublisher<UserResponseModel, NetworkError>
-    func creteUser(userModel: CreateUserRequsetModel) -> AnyPublisher<CreateUserResponseModel, NetworkError>
+    func createUserAndLogin(userModel: CreateUserRequsetModel) -> AnyPublisher<UserResponseModel, NetworkError>
     func restorePassword(userEmail: String) -> AnyPublisher<Void, NetworkError>
 }

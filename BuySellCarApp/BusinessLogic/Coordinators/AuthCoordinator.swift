@@ -58,6 +58,7 @@ private extension AuthCoordinator {
                 case .popToRoot:
                     dismiss()
                 case .showMainFlow:
+                    dismiss()
                     didFinishSubject.send()
                     didFinishSubject.send(completion: .finished)
                 }

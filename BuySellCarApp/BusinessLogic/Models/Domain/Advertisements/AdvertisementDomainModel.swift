@@ -10,11 +10,11 @@ import Foundation
 struct AdvertisementDomainModel {
     let bodyType: BodyType
     let transportName: String
-    let bodyColor: String
+    let bodyColor: CarColor
     let description: String?
     let avarageFuelConsumption: Double
     let ownerID: String?
-    let interiorColor: InteriorColor
+    let interiorColor: CarColor
     let price: Int
     let transmissionType: TransmissionType
     let power: Int
@@ -34,6 +34,7 @@ struct AdvertisementDomainModel {
     let sellerType: SellerType
     let updated: Int?
     var images: AdvertisementImages?
+    let sellerName: String
     
     // MARK: - Init
     init(advertisementResponseModel: AdvertisementResponseModel) {
@@ -63,5 +64,6 @@ struct AdvertisementDomainModel {
         sellerType = advertisementResponseModel.sellerType
         updated = advertisementResponseModel.updated
         images = advertisementResponseModel.images
+        sellerName = advertisementResponseModel.sellerName
     }
 }

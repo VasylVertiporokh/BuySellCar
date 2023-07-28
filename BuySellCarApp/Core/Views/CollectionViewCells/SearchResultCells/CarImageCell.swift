@@ -29,6 +29,14 @@ extension CarImageCell {
     func setImageURL(_ stringURL: String?) {
         carImageView.kf.setImage(with: URL(string: stringURL ?? ""), placeholder: Assets.carPlaceholder.image)
     }
+    
+    func setImageFromData(_ data: Data) {
+        guard let image = UIImage(data: data) else {
+            carImageView.image = Assets.carPlaceholder.image
+            return
+        }
+        carImageView.image = image
+    }
 }
 
 // MARK: - Private extension

@@ -33,7 +33,6 @@ extension EditUserProfileViewController: UIImagePickerControllerDelegate, UINavi
         guard let image = info[.editedImage] as? UIImage else {
             return
         }
-        
         viewModel.updateUserAvatar(image.jpegData(compressionQuality: 0.5) ?? Data())
         dismiss(animated: true)
     }
@@ -42,7 +41,7 @@ extension EditUserProfileViewController: UIImagePickerControllerDelegate, UINavi
 // MARK: - Private extension
 private extension EditUserProfileViewController {
     func configureNavigationBar() {
-        title = Localization.editProfile.uppercased()
+        title = Localization.editProfile
         navigationController?.navigationBar.tintColor = .black
     }
     

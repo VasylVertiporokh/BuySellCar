@@ -10,18 +10,32 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum Localization {
+  /// Ad successfully created! Now you can see your ad in the list Selling.
+  internal static let adsCreatedSuccessfully = Localization.tr("Localizable", "ads-created-successfully", fallback: "Ad successfully created! Now you can see your ad in the list Selling.")
   /// Cancel
   internal static let cancel = Localization.tr("Localizable", "cancel", fallback: "Cancel")
   /// Choose option
   internal static let chooseOption = Localization.tr("Localizable", "choose-option", fallback: "Choose option")
   /// Confirm password
   internal static let confirmPassword = Localization.tr("Localizable", "confirm-password", fallback: "Confirm password")
+  /// Continue
+  internal static let `continue` = Localization.tr("Localizable", "continue", fallback: "Continue")
   /// Create account
   internal static let createAccountTitle = Localization.tr("Localizable", "create-account-title", fallback: "Create account")
   /// You can create new account
   internal static let createNewAccount = Localization.tr("Localizable", "create-new-account", fallback: "You can create new account")
+  /// Create ad
+  internal static let createAdButtonTitle = Localization.tr("Localizable", "createAdButtonTitle", fallback: "Create ad")
   /// Oops something went wrong
   internal static let defaultMessage = Localization.tr("Localizable", "defaultMessage", fallback: "Oops something went wrong")
+  /// Are you sure you want to delete the ad?
+  internal static let deleteAdsMessage = Localization.tr("Localizable", "delete-ads-message", fallback: "Are you sure you want to delete the ad?")
+  /// The ad will be removed
+  internal static let deleteAdsTitle = Localization.tr("Localizable", "delete-ads-title", fallback: "The ad will be removed")
+  /// If you continue all data will be lost
+  internal static let discardCreationMessage = Localization.tr("Localizable", "discard-creation-message", fallback: "If you continue all data will be lost")
+  /// Do you want cancel creation
+  internal static let discardCreationTitle = Localization.tr("Localizable", "discard-creation-title", fallback: "Do you want cancel creation")
   /// Done
   internal static let done = Localization.tr("Localizable", "done", fallback: "Done")
   /// Edit profile
@@ -39,8 +53,6 @@ internal enum Localization {
   internal static let error = Localization.tr("Localizable", "error", fallback: "Error")
   /// Forgot password?
   internal static let forgotPassword = Localization.tr("Localizable", "forgot-password", fallback: "Forgot password?")
-  /// Home
-  internal static let home = Localization.tr("Localizable", "home", fallback: "Home")
   /// Logout
   internal static let logout = Localization.tr("Localizable", "logout", fallback: "Logout")
   /// Name
@@ -51,14 +63,20 @@ internal enum Localization {
   internal static let or = Localization.tr("Localizable", "or", fallback: "OR")
   /// Password
   internal static let password = Localization.tr("Localizable", "password", fallback: "Password")
-  /// Profile
-  internal static let profile = Localization.tr("Localizable", "profile", fallback: "Profile")
   /// Recommendation
   internal static let recommendation = Localization.tr("Localizable", "recommendation", fallback: "Recommendation")
   /// Restore
   internal static let restore = Localization.tr("Localizable", "restore", fallback: "Restore")
   /// Search
   internal static let search = Localization.tr("Localizable", "search", fallback: "Search")
+  /// %@ results
+  internal static func searchResultButton(_ p1: Any) -> String {
+    return Localization.tr("Localizable", "search-Result-Button", String(describing: p1), fallback: "%@ results")
+  }
+  /// Selling
+  internal static let selling = Localization.tr("Localizable", "selling", fallback: "Selling")
+  /// Settings
+  internal static let settings = Localization.tr("Localizable", "settings", fallback: "Settings")
   /// Sign In
   internal static let signIn = Localization.tr("Localizable", "sign-in", fallback: "Sign In")
   /// Sign Up

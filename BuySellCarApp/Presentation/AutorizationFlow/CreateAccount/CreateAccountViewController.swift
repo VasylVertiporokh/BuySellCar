@@ -26,22 +26,14 @@ final class CreateAccountViewController: BaseViewController<CreateAccountViewMod
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
-                case .nameEntered(let name):
-                    viewModel.setName(name)
-                case .emailEntered(let email):
-                    viewModel.setEmail(email)
-                case .passwordEntered(let password):
-                    viewModel.setPassword(password)
-                case .repeatPasswordEntered(let password):
-                    viewModel.setRepeatPassword(password)
-                case .phoneEntered(let phoneNumber):
-                    viewModel.setUserPhone(phoneNumber)
-                case .isPhoneValid(let isPhoneValid):
-                    viewModel.setIsPhoneValid(isPhoneValid)
-                case .createAccountButtonDidTap:
-                    viewModel.createAccount()
-                case .backButtonDidTap:
-                    viewModel.backToLogin()
+                case .nameEntered(let name):                 viewModel.setName(name)
+                case .emailEntered(let email):               viewModel.setEmail(email)
+                case .passwordEntered(let password):         viewModel.setPassword(password)
+                case .repeatPasswordEntered(let password):   viewModel.setRepeatPassword(password)
+                case .phoneEntered(let phoneNumber):         viewModel.setUserPhone(phoneNumber)
+                case .isPhoneValid(let isPhoneValid):        viewModel.setIsPhoneValid(isPhoneValid)
+                case .createAccountButtonDidTap:             viewModel.createAccount()
+                case .backButtonDidTap:                      viewModel.backToLogin()
                 }
             }
             .store(in: &cancellables)
@@ -56,7 +48,6 @@ final class CreateAccountViewController: BaseViewController<CreateAccountViewMod
             .store(in: &cancellables)
         
         viewModel.validationPublisher
-            .removeDuplicates()
             .sink { [unowned self] in contentView.applyValidation(form: $0) }
             .store(in: &cancellables)
         

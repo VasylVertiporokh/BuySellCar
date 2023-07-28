@@ -11,7 +11,7 @@ import Foundation
 final class AdvertisementRecommendationViewModel: BaseViewModel {
     // MARK: - Private properties
     private let advertisementModel: AdvertisementModel
-    private var advertisementResponseModel: [AdvertisementDomainModel] = []
+    private var advertisementResponseModel: RecommendationDomainModel?
     
     // MARK: - Subjects
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -28,10 +28,33 @@ final class AdvertisementRecommendationViewModel: BaseViewModel {
     
     // MARK: - Life cycle
     override func onViewWillAppear() {
+        setupBindings()
         isLoadingSubject.send(true)
-        advertisementModel.getRecommendedAdvertisements(
-            searchModel: .init(pageSize: .zero, offset: .zero, searchParams: [])
-        )
+        advertisementModel.getRecommendedAdvertisements()
+    }
+}
+
+// MARK: - Internal extension
+extension AdvertisementRecommendationViewModel {
+    func startSearch() {
+        transitionSubject.send(.startSearch(advertisementModel))
+    }
+    
+    func showSelected(_ row: AdvertisementRow) {
+        switch row {
+        case .recommended:
+            print("Need open detail screen")
+        case .trending(let model):
+            advertisementModel.setFastSearсhParamsById(model.id)
+            transitionSubject.send(.showResult(advertisementModel))
+        }
+    }
+}
+
+// MARK: - Private extension
+private extension AdvertisementRecommendationViewModel {
+    func setupBindings() {
+        advertisementModel.recommendationPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard case let .failure(error) = completion else {
@@ -46,106 +69,29 @@ final class AdvertisementRecommendationViewModel: BaseViewModel {
                 self.updateDataSource(model: advertisementDomainModel)
             }
             .store(in: &cancellables)
-    }
-}
-
-// MARK: - Internal extension
-extension AdvertisementRecommendationViewModel {
-    func startSearch() {
-        print(#function)
-    }
-    
-    func showSelected(_ row: AdvertisementRow) {
-        switch row {
-        case .recommended(let model):
-            let testFilteredResult = advertisementResponseModel.filter { $0.objectID == model.objectID }
-            print(testFilteredResult)
-        case .trending(let model):
-            advertisementModel.setFastSearсhParams(model.searchParameters)
-            transitionSubject.send(.showResult(advertisementModel))
-        }
-    }
-}
-
-// MARK: - Private extension
-private extension AdvertisementRecommendationViewModel {
-    func updateDataSource(model: [AdvertisementDomainModel]) {
-        let userProfileSection: SectionModel<AdvertisementSection, AdvertisementRow> = {
-            let recommendedItems = model.map { AdvertisementRow.recommended(model: .init(model: $0)) }
-            return .init(section: .recommended, items: recommendedItems)
-        }()
         
-        let trending: SectionModel<AdvertisementSection, AdvertisementRow> = {
-            return .init(section: .trendingCategories, items: [
-                .trending( model: .init(categoriesImage: Assets.premium.image,
-                                        categoriesName: "Premium brands",
-                                        searchParameters: QuickSearchParams.premiumSearchParams)),
-                .trending (model: .init(categoriesImage: Assets.hybrid.image,
-                                        categoriesName: "Hybrid cars",
-                                        searchParameters: QuickSearchParams.hybridSearchParams)),
-                .trending(model: .init(categoriesImage: Assets.roadTrip.image,
-                                       categoriesName: "Road trip cars up to € 9000",
-                                       searchParameters: QuickSearchParams.roadTripSearchParams)),
-                .trending(model: .init(categoriesImage: Assets.suv.image,
-                                       categoriesName: "Exciting SUV",
-                                       searchParameters: QuickSearchParams.suvSearchParams)),
-                .trending(model: .init(categoriesImage: Assets.vintage.image,
-                                       categoriesName: "Vintage cars",
-                                       searchParameters: QuickSearchParams.vintageSearchParams)),
-                .trending(model: .init(categoriesImage: Assets.compact.image,
-                                       categoriesName: "Compact cars",
-                                       searchParameters: QuickSearchParams.compactSearchParams)),
-                .trending(model: .init(categoriesImage: Assets.family.image,
-                                       categoriesName: "FamilyCars",
-                                       searchParameters: QuickSearchParams.familySearchParams)),
-                .trending(model: .init(categoriesImage: Assets.electric.image,
-                                       categoriesName: "Electric Cars",
-                                       searchParameters: QuickSearchParams.electricSearchParams)),
-            ])
-        }()
-        self.sectionsSubject.value = [userProfileSection, trending]
+        advertisementModel.modelErrorPublisher
+            .sink { [weak self] error in
+                guard let self = self else {
+                    return
+                }
+                self.errorSubject.send(error)
+            }
+            .store(in: &cancellables)
+    }
+    
+    func updateDataSource(model: RecommendationDomainModel) {
+        let recommended = model.recommendationAds.map { AdvertisementRow.recommended(model: .init(model: $0)) }
+        let trending = model.trendingCategories.map {
+            AdvertisementRow.trending(model: .init(
+                id: $0.id,
+                categoriesImage: URL(string: $0.categoryImageURL),
+                categoriesName: $0.categoryTitle)
+            )
+        }
+        sectionsSubject.value = [
+            .init(section: .recommended, items: recommended),
+            .init(section: .trendingCategories, items: trending)
+        ]
     }
 }
-
-// MARK: - QuickSearchParams
-private enum QuickSearchParams { // TODO: - Add search params array to backend as JSON
-    static let premiumSearchParams: [SearchParam] = [
-        .init(key: .price, value: .greaterOrEqualTo(intValue: 30000)),
-        .init(key: .transmissionType, value: .equalToString(stringValue: TransmissionType.automatic.rawValue)),
-        .init(key: .yearOfManufacture, value: .greaterOrEqualTo(intValue: 2010))
-    ]
-    
-    static let hybridSearchParams: [SearchParam] = [
-        .init(key: .fuelType, value: .equalToString(stringValue: FuelType.hybrid.rawValue))
-    ]
-    
-    static let roadTripSearchParams: [SearchParam] = [
-        .init(key: .doorCount, value: .greaterOrEqualTo(intValue: 4)),
-        .init(key: .bodyType, value: .equalToString(stringValue: BodyType.sedan.rawValue)),
-        .init(key: .bodyType, value: .equalToString(stringValue: BodyType.hatchback.rawValue)),
-        .init(key: .price, value: .equalToInt(intValue: 9000))
-    ]
-    
-    static let suvSearchParams: [SearchParam] = [
-        .init(key: .bodyType, value: .equalToString(stringValue: BodyType.suv.rawValue)),
-        .init(key: .price, value: .greaterOrEqualTo(intValue: 20000))
-    ]
-    
-    static let vintageSearchParams: [SearchParam] = [
-        .init(key: .yearOfManufacture, value: .lessOrEqualTo(intValue: 1920))
-    ]
-    
-    static let compactSearchParams: [SearchParam] = [
-        .init(key: .bodyType, value: .equalToString(stringValue: BodyType.hatchback.rawValue))
-    ]
-    
-    static let familySearchParams: [SearchParam] = [
-        .init(key: .doorCount, value: .greaterOrEqualTo(intValue: 4)),
-        .init(key: .bodyType, value: .equalToString(stringValue: BodyType.sedan.rawValue))
-    ]
-    
-    static let electricSearchParams: [SearchParam] = [
-        .init(key: .fuelType, value: .equalToString(stringValue: FuelType.electro.rawValue))
-    ]
-}
-

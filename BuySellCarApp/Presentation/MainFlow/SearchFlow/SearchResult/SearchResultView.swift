@@ -10,7 +10,15 @@ import SnapKit
 import Combine
 
 enum SearchResultViewAction {
-    case deleteSearchParam(SearchParam)
+    case showSearch
+    case deleteBrandTapped(SelectedBrandModel)
+    case deleteModelTapped(ModelCellConfigurationModel)
+    case deleteBodyTapped(BodyTypeModel)
+    case deleteFuelTypeTapped(FuelTypeModel)
+    case deleteTransmissionTypeTapped(TransmissionTypeModel)
+    case deleteRegistrationTapped(SearchParam)
+    case deleteMillageTapped(SearchParam)
+    case deletePowerTapped(SearchParam)
     case needLoadNextPage(Bool)
 }
 
@@ -49,7 +57,7 @@ extension SearchResultView {
         dataSource?.apply(snapShot, animatingDifferences: false)
     }
     
-    func setupSearchSnapshot(sections: [SectionModel<FilteredSection, FilteredRow>]) {
+    func setupSearchSnapshot(sections: [SectionModel<SelectedFilterSection, SelectedFilterRow>]) {
         filterView.setupSnapshot(sections: sections)
     }
     
@@ -72,8 +80,15 @@ private extension SearchResultView {
         filterView.filterViewActionAction
             .sink { [unowned self] action in
                 switch action {
-                case .deleteSearchParam(let param):
-                    actionSubject.send(.deleteSearchParam(param))
+                case .showFilters:                                 actionSubject.send(.showSearch)
+                case .deleteBrandTapped(let brand):                actionSubject.send(.deleteBrandTapped(brand))
+                case .deleteModelTapped(let model):                actionSubject.send(.deleteModelTapped(.init(brandDomainModel: model)))
+                case .deleteBodyTapped(let bodyType):              actionSubject.send(.deleteBodyTapped(bodyType))
+                case .deleteFuelTypeTapped(let fuelType):          actionSubject.send(.deleteFuelTypeTapped(fuelType))
+                case .deleteRegistrationTapped(let registration):  actionSubject.send(.deleteRegistrationTapped(registration))
+                case .deleteMillageTapped(let millage):            actionSubject.send(.deleteMillageTapped(millage))
+                case .deletePowerTapped(let power):                actionSubject.send(.deletePowerTapped(power))
+                case .deleteTransmissionTapped(let transmission):  actionSubject.send(.deleteTransmissionTypeTapped(transmission))
                 }
             }
             .store(in: &cancellables)
@@ -125,7 +140,7 @@ private extension SearchResultView {
                 cell.setInfo(model)
                 guard let carRow = self.dataSource?.itemIdentifier(for: indexPath) else { return cell }
                 cell.setupSnapshot(sections: [
-                    .init(section: .images, items: carRow.carImages.compactMap { CarImageRow.carImage($0) })
+                    .init(section: .images, items: carRow.carImages.map { CarImageRow.carImage($0) })
                 ])
                 return cell
             }
@@ -182,17 +197,18 @@ private extension SearchResultView {
         )
         section.interGroupSpacing = Constant.defaultSpace
         
-        let footerSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(Constant.fractionalValue),
-            heightDimension: .estimated(30)
-        )
-        
-        let footerElement = NSCollectionLayoutBoundarySupplementaryItem(
-            layoutSize: footerSize,
-            elementKind: UICollectionView.elementKindSectionFooter,
-            alignment: .bottom
-        )
-        section.boundarySupplementaryItems = [footerElement]
+        // TODO: - Fix after demo
+//        let footerSize = NSCollectionLayoutSize(
+//            widthDimension: .fractionalWidth(Constant.fractionalValue),
+//            heightDimension: .estimated(30)
+//        )
+//
+//        let footerElement = NSCollectionLayoutBoundarySupplementaryItem(
+//            layoutSize: footerSize,
+//            elementKind: UICollectionView.elementKindSectionFooter,
+//            alignment: .bottom
+//        )
+//        section.boundarySupplementaryItems = [footerElement]
         
         return section
     }

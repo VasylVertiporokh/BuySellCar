@@ -24,7 +24,7 @@ struct MultipartBody {
 // MARK: - MultipartItem
 struct MultipartItem {
     let data: Data
-    let attachmentKey: String
+    var attachmentKey: String = ""
     let fileName: String
     var mimeType: MimeType = .defaultType
 }

@@ -24,8 +24,12 @@ extension AuthNetworkServiceImpl: AuthNetworkServiceProtocol {
         return provider.performWithResponseModel(.login(model: loginModel))
     }
     
-    func creteUser(userModel: CreateUserRequsetModel) -> AnyPublisher<CreateUserResponseModel, NetworkError> {
-        return provider.performWithResponseModel(.createUser(model: userModel))
+    func createUserAndLogin(userModel: CreateUserRequsetModel) -> AnyPublisher<UserResponseModel, NetworkError> {
+        provider.performWithProcessingResult(.createUser(model: userModel))
+              .flatMap { [unowned self] _ -> AnyPublisher<UserResponseModel, NetworkError> in
+                  return provider.performWithResponseModel(.login(model: .init(login: userModel.email, password: userModel.password)))
+              }
+              .eraseToAnyPublisher()
     }
     
     func restorePassword(userEmail: String) -> AnyPublisher<Void, NetworkError> {

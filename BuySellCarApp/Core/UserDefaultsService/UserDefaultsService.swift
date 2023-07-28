@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class UserDefaultsServiceImpl: UserDefaultsServiceProtocol {    
+final class UserDefaultsServiceImpl: UserDefaultsServiceProtocol {
     // MARK: - Private properties
     private let userDefaults = UserDefaults.standard
     // MARK: - Save object

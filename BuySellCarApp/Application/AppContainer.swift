@@ -17,10 +17,12 @@ protocol AppContainer: AnyObject {
     var userNetworkService: UserNetworkService { get }
     var advertisementNetworkService: AdvertisementNetworkService { get }
     var advertisementService: AdvertisementService { get }
+    var addAdvertisementModel: AddAdvertisementModel { get }
+    var searchAdvertisementModel: AdvertisementModel { get }
+    var userLocationService: UserLocationService { get }
 }
 
 final class AppContainerImpl: AppContainer {
-    // TODO: - Change to lazy var
     let appConfiguration: AppConfiguration
     let tokenStorage: TokenStorage
     let appSettingsService: AppSettingsService
@@ -30,6 +32,11 @@ final class AppContainerImpl: AppContainer {
     let userNetworkService: UserNetworkService
     let advertisementNetworkService: AdvertisementNetworkService
     let advertisementService: AdvertisementService
+    let addAdvertisementModel: AddAdvertisementModel
+    let searchAdvertisementModel: AdvertisementModel
+    var userLocationService: UserLocationService = {
+        return UserLocationServiceImpl()
+    }()
     
     init() {
         let appConfiguration = AppConfigurationImpl()
@@ -51,7 +58,7 @@ final class AppContainerImpl: AppContainer {
             networkManager: networkManager
         )
         self.userNetworkService = UserNetworkServiceImpl(userNetworkProvider)
-        
+        // TODO: -  add keychain
         let userService = UserServiceImpl(
             tokenStorage: tokenStorage,
             userDefaultsService: userDefaultsService,
@@ -64,13 +71,20 @@ final class AppContainerImpl: AppContainer {
         )
         self.authNetworkService = AuthNetworkServiceImpl(loginNetworkService)
         
-        
         let advertisementNetworkServiceProvider = NetworkServiceProvider<AdvertisementEndpointBuilder> (
             apiInfo: appConfiguration,
             networkManager: networkManager
         )
-        self.advertisementNetworkService = AdvertisementNetworkImpl(provider: advertisementNetworkServiceProvider)
         
+        self.advertisementNetworkService = AdvertisementNetworkImpl(provider: advertisementNetworkServiceProvider)
         self.advertisementService = AdvertisementServiceImpl(advertisementNetworkService: advertisementNetworkService)
+        
+        self.searchAdvertisementModel = AdvertisementModelImpl(advertisementService: advertisementService)
+        
+        self.addAdvertisementModel = AddAdvertisementModelImpl(
+            userService: userService,
+            advertisementService: advertisementService,
+            userLocationService: userLocationService
+        )
     }
 }

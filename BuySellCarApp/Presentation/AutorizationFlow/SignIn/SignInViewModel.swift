@@ -8,24 +8,19 @@
 import Combine
 import Foundation
 
-enum SignInViewModelEvents {
-    case isFieldsValid(Bool)
-    case isNicknameValis(Bool)
-    case isPasswordValid(Bool)
-}
-
 final class SignInViewModel: BaseViewModel {
     // MARK: - Private properties
     private let networkService: AuthNetworkServiceProtocol
     private let userService: UserService
     private let tokenStorage: TokenStorage
     
-    // MARK: - PassthroughSubjects
+    // MARK: - Transition publisher
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<SignInTransition, Never>()
     
-    private(set) lazy var eventsPublisher = eventsSubject.eraseToAnyPublisher()
-    private let eventsSubject = PassthroughSubject<SignInViewModelEvents, Never>()
+    // MARK: - Validation publisher
+    private let validationSubject = CurrentValueSubject<SignInValidationForm, Never>(.init())
+    private(set) lazy var validationPublisher = validationSubject.eraseToAnyPublisher()
     
     // MARK: - CurrentValueSubjects
     private let passwordSubject = CurrentValueSubject<String, Never>("")
@@ -44,31 +39,21 @@ final class SignInViewModel: BaseViewModel {
     // MARK: - LifeCycle
     override func onViewDidLoad() {
         nicknameSubject
-            .map { RegEx.email.checkString(text: $0) }
             .dropFirst()
+            .debounce(for: 2, scheduler: RunLoop.main)
             .removeDuplicates()
-            .sink { [unowned self] in eventsSubject.send(.isNicknameValis($0)) }
+            .sink { [unowned self] in
+                validationSubject.value.email = $0.isEmpty ? .notChecked : (RegEx.email.checkString(text: $0) ? .valid : .invalid)
+            }
             .store(in: &cancellables)
+        
         passwordSubject
-            .map { RegEx.password.checkString(text: $0) }
             .dropFirst()
+            .debounce(for: 2, scheduler: RunLoop.main)
             .removeDuplicates()
-            .sink { [unowned self] in eventsSubject.send(.isPasswordValid($0)) }
-            .store(in: &cancellables)
-    }
-    
-    override func onViewWillAppear() {
-        passwordSubject
-            .map { RegEx.password.checkString(text: $0) }
-            .sink { [unowned self] in isPasswordValid.value = $0 }
-            .store(in: &cancellables)
-        nicknameSubject
-            .map { RegEx.email.checkString(text: $0) }
-            .sink { [unowned self] in isNicknameValid.value = $0 }
-            .store(in: &cancellables)
-        isNicknameValid.combineLatest(isPasswordValid)
-            .map { $1 && $0 }
-            .sink { [unowned self] in eventsSubject.send(.isFieldsValid($0)) }
+            .sink { [unowned self] in
+                validationSubject.value.password = $0.isEmpty ? .notChecked : (RegEx.password.checkString(text: $0) ? .valid : .invalid)
+            }
             .store(in: &cancellables)
     }
 }
@@ -83,10 +68,8 @@ extension SignInViewModel {
                 guard case let .failure(error) = error else {
                     return
                 }
-                
                 self?.isLoadingSubject.send(false)
                 self?.errorSubject.send(error)
-        
             } receiveValue: { [weak self] model in
                 guard let self = self else {
                     return

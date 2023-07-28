@@ -9,12 +9,12 @@ import UIKit
 import Combine
 
 enum SearchResultTransition: Transition {
-    
+    case showSearch
 }
 
 final class SearchResultModuleBuilder {
-    class func build(container: AppContainer, model: AdvertisementModel) -> Module<SearchResultTransition, UIViewController> {
-        let viewModel = SearchResultViewModel(advertisementModel: model)
+    class func build(container: AppContainer) -> Module<SearchResultTransition, UIViewController> {
+        let viewModel = SearchResultViewModel(advertisementModel: container.searchAdvertisementModel)
         let viewController = SearchResultViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

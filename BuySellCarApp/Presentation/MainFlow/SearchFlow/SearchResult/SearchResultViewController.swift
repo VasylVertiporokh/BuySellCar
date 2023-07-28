@@ -29,10 +29,16 @@ final class SearchResultViewController: BaseViewController<SearchResultViewModel
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
-                case .deleteSearchParam(let searchParam):
-                    viewModel.deleteSearchParam(searchParam)
-                case.needLoadNextPage(let startPaging):
-                    viewModel.loadNextPage(startPaging)
+                case .showSearch:                                     viewModel.showSearch()
+                case .deleteBrandTapped(let brand):                   viewModel.deleteSelectedBrand(brand)
+                case .deleteModelTapped(let model):                   viewModel.deleteModel(model)
+                case .deleteBodyTapped(let type):                     viewModel.deleteBodyType(type)
+                case .deleteFuelTypeTapped(let fuelType):             viewModel.deleteFuelType(fuelType)
+                case .deleteTransmissionTypeTapped(let transmission): viewModel.deleteTransmissionType(transmission)
+                case .deleteRegistrationTapped(let registration):     viewModel.deleteRangeParams(param: registration, type: .registration)
+                case .deleteMillageTapped(let millage):               viewModel.deleteRangeParams(param: millage, type: .millage)
+                case .deletePowerTapped(let power):                   viewModel.deleteRangeParams(param: power, type: .power)
+                case .needLoadNextPage(let startPaging):              viewModel.loadNextPage(startPaging)
                 }
             }
             .store(in: &cancellables)
@@ -40,8 +46,7 @@ final class SearchResultViewController: BaseViewController<SearchResultViewModel
         viewModel.eventsPublisher
             .sink { [unowned self] events in
                 switch events {
-                case .advertisementCount(let count):
-                    navigationView.setResultCount(count)
+                case .advertisementCount(let count):                  navigationView.setResultCount(count)
                 }
             }
             .store(in: &cancellables)
