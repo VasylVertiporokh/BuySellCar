@@ -1801,7 +1801,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftgen >/dev/null; then\n    swiftgen\nelse\n    echo \"warning: SwiftGen not installed, download from https://github.com/SwiftGen/SwiftGen\"\nfi\n";
+			shellScript = "if arch -arm64e /opt/homebrew/bin/swiftgen >/dev/null; then\n    # M1 (arm64)\n    /opt/homebrew/bin/swiftgen\nelif arch -x86_64 /usr/local/bin/swiftgen >/dev/null; then\n    # Intel (x86_64)\n    /usr/local/bin/swiftgen\nelse\n    echo \"warning: SwiftGen not installed, download from https://github.com/SwiftGen/SwiftGen\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
