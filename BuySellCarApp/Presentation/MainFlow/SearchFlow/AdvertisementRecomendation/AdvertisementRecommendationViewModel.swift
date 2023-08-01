@@ -43,7 +43,7 @@ extension AdvertisementRecommendationViewModel {
     func showSelected(_ row: AdvertisementRow) {
         switch row {
         case .recommended:
-            print("Need open detail screen")
+            transitionSubject.send(.showDetails)
         case .trending(let model):
             advertisementModel.setFastSearсhParamsById(model.id)
             transitionSubject.send(.showResult(advertisementModel))
