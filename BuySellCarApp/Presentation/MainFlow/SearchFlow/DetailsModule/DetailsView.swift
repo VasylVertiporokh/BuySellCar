@@ -19,6 +19,8 @@ final class DetailsView: BaseView {
     private let containerStackView = UIStackView()
     private let adsImagesView = AdsImagesView()
     private let priceLocationView = PriceLocationView()
+    private let basicDetailsView = BasicDetailsView()
+    private let socialNetworkView = SocialNetworkView()
 
     // MARK: - Action publisher
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
@@ -37,6 +39,12 @@ final class DetailsView: BaseView {
         let a = AdvertisementDomainModel.init(advertisementResponseModel: .init(bodyType: .cabrio, transportName: "Nissan", bodyColor: .red, description: "", avarageFuelConsumption: 3, ownerID: "33", interiorColor: .black, price: 3333, transmissionType: .automatic, power: 333, objectID: "33", mileage: 3333, doorCount: 3, yearOfManufacture: 3, created: 3, transportModel: "X TRAIL", interiorFittings: "", photo: "", shortDescription: "", numberOfSeats: 2, condition: .new, fuelType: .petrol, location: "Alkmar, NL", sellerType: .diller, updated: 333, sellerName: "NIK"))
         
         priceLocationView.configure(model: .init(domainModel: a))
+        basicDetailsView.configure(model: .init(domainModel: a))
+        socialNetworkView.configure(model: .init(image: Assets.chat.image,
+                                                 title: "Chat or video call",
+                                                 subtitle: "Contact this dealer using WhatsApp.",
+                                                 titleButton: "Go to WhatsApp",
+                                                 buttonImage: Assets.whatsAppIcon.image))
     }
 
     required init?(coder: NSCoder) {
@@ -67,6 +75,8 @@ private extension DetailsView {
         containerStackView.axis = .vertical
         containerStackView.addArrangedSubview(adsImagesView)
         containerStackView.addArrangedSubview(priceLocationView)
+        containerStackView.addArrangedSubview(basicDetailsView)
+        containerStackView.addArrangedSubview(socialNetworkView)
         containerStackView.addSpacer()
         
         scrollView.snp.makeConstraints {
@@ -81,10 +91,11 @@ private extension DetailsView {
             $0.edges.equalTo(scrollView)
             $0.width.equalTo(scrollView.snp.width)
         }
-        adsImagesView.snp.makeConstraints { $0.height.equalTo(250) }
+        adsImagesView.snp.makeConstraints { $0.height.equalTo(Constant.adsImagesViewHeight) }
     }
 }
 
 // MARK: - View constants
 private enum Constant {
+    static let adsImagesViewHeight: CGFloat = 250
 }

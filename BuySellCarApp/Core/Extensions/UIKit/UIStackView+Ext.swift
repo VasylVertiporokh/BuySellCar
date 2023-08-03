@@ -2,7 +2,6 @@
 //  UIStackView+Ext.swift
 //  MVVMSkeleton
 //
-//  Created by Roman Savchenko on 28.11.2021.
 //
 
 import UIKit
@@ -26,6 +25,12 @@ extension UIStackView {
         let spacer = UIView()
         spacer.backgroundColor = .clear
         addArranged(spacer, size: size)
+    }
+    
+    func addSeparator(_ size: CGFloat = 0.6, _ color: UIColor = .lightGray) {
+        let separator = UIView()
+        separator.backgroundColor = color
+        addArranged(separator, size: size)
     }
 
     func addArranged(_ view: UIView, size: CGFloat? = nil) {

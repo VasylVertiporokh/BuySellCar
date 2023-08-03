@@ -2,7 +2,6 @@
 //  AppDelegate.swift
 //  MVVMSkeleton
 //
-//  Created by Roman Savchenko on 24.10.2021.
 //
 
 import UIKit

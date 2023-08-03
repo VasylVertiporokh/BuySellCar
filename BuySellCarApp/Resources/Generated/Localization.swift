@@ -48,8 +48,6 @@ internal enum Localization {
   internal static let emailHeader = Localization.tr("Localizable", "emailHeader", fallback: "You can send your feedback and recommendations, it is very important for us")
   /// Localizable.strings
   ///   MVVMSkeleton
-  /// 
-  ///   Created by Roman Savchenko on 12.12.2021.
   internal static let error = Localization.tr("Localizable", "error", fallback: "Error")
   /// Forgot password?
   internal static let forgotPassword = Localization.tr("Localizable", "forgot-password", fallback: "Forgot password?")

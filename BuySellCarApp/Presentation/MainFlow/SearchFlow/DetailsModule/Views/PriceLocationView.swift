@@ -16,7 +16,6 @@ final class PriceLocationView: BaseView {
     private let titleLabel = UILabel()
     private let priceLabel = UILabel()
     private let locationButton = UIButton(type: .system)
-    private let separatorView = UIView()
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -69,10 +68,9 @@ private extension PriceLocationView {
         containerStackView.layoutMargins = Constant.containerStackViewMargins
         containerStackView.spacing = Constant.containerStackViewSpacing
         containerStackView.axis = .vertical
-        containerStackView.snp.makeConstraints { $0.edges.equalToSuperview() }
         containerStackView.addArrangedSubview(infoStackView)
-        containerStackView.addArrangedSubview(separatorView)
-        
+        containerStackView.addSeparator()
+                
         // infoStackView
         infoStackView.axis = .vertical
         infoStackView.spacing = Constant.mainInfoStackViewSpacing
@@ -85,12 +83,11 @@ private extension PriceLocationView {
         buttonStackView.addArrangedSubview(locationButton)
         buttonStackView.addSpacer()
         
+        containerStackView.snp.makeConstraints { $0.edges.equalToSuperview() }
         locationButton.snp.makeConstraints { $0.height.equalTo(Constant.locationButtonHeight) }
-        separatorView.snp.makeConstraints { $0.height.equalTo(Constant.separatorViewHeight) }
     }
     
     func setupUI() {
-        separatorView.backgroundColor = .lightGray
         [titleLabel, priceLabel].forEach { $0.textColor = .black }
         titleLabel.font = Constant.titleLabelFont
         priceLabel.font = Constant.priceLabelFont
@@ -104,13 +101,12 @@ private extension PriceLocationView {
 
 // MARK: - Constant
 private enum Constant {
-    static let containerStackViewMargins: UIEdgeInsets = .init(top: 16, left: 16, bottom: 8, right: 16)
+    static let containerStackViewMargins: UIEdgeInsets = .init(top: 16, left: 20, bottom: 8, right: 20)
     static let locationButtonFont: UIFont = FontFamily.Montserrat.regular.font(size: 14)
     static let locationButtonInset: CGFloat = 8
     static let titleLabelFont: UIFont = FontFamily.Montserrat.semiBold.font(size: 14)
     static let priceLabelFont: UIFont = FontFamily.Montserrat.semiBold.font(size: 18)
-    static let separatorViewHeight: CGFloat = 0.5
     static let locationButtonHeight: CGFloat = 20
     static let mainInfoStackViewSpacing: CGFloat = 6
-    static let containerStackViewSpacing: CGFloat = 12
+    static let containerStackViewSpacing: CGFloat = 8
 }

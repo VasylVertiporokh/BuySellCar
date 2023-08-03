@@ -15,6 +15,9 @@
 		0B5369933285BD6E6AE60FE1 /* MainTabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C11CDAFE6ACE00F9D45F4C8 /* MainTabBarViewModel.swift */; };
 		0D38D12AC75458E87F590FD0 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F94F525E684B577C82B92F /* UIView+Constraints.swift */; };
 		154720384BE7D4D605505B04 /* Montserrat-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B5D092F58D96AE8251693F /* Montserrat-ThinItalic.ttf */; };
+		1F4DAAF32A7A526800387F97 /* BasicDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4DAAF22A7A526800387F97 /* BasicDetailsView.swift */; };
+		1F4DAAF72A7A622500387F97 /* DetailViewSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4DAAF62A7A622500387F97 /* DetailViewSegmentView.swift */; };
+		1F4DAAF92A7A959C00387F97 /* SocialNetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4DAAF82A7A959C00387F97 /* SocialNetworkView.swift */; };
 		1F78F7502A6FC5BF006E920D /* TrandingCategoriesResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F78F74F2A6FC5BF006E920D /* TrandingCategoriesResponseModel.swift */; };
 		1F78F7532A6FE3BD006E920D /* TrandingCategoriesDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F78F7522A6FE3BD006E920D /* TrandingCategoriesDomainModel.swift */; };
 		1F78F7562A6FEA1B006E920D /* RecommendationDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F78F7552A6FEA1B006E920D /* RecommendationDomainModel.swift */; };
@@ -288,6 +291,9 @@
 		11ED46B0B0B628F67D24DAFE /* Config-PROD.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Config-PROD.xcconfig"; sourceTree = "<group>"; };
 		173BE34A90FB549143B439D2 /* TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStorage.swift; sourceTree = "<group>"; };
 		181A1538B0C4BFDAEC64312F /* Montserrat-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		1F4DAAF22A7A526800387F97 /* BasicDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicDetailsView.swift; sourceTree = "<group>"; };
+		1F4DAAF62A7A622500387F97 /* DetailViewSegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewSegmentView.swift; sourceTree = "<group>"; };
+		1F4DAAF82A7A959C00387F97 /* SocialNetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialNetworkView.swift; sourceTree = "<group>"; };
 		1F78F74F2A6FC5BF006E920D /* TrandingCategoriesResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrandingCategoriesResponseModel.swift; sourceTree = "<group>"; };
 		1F78F7522A6FE3BD006E920D /* TrandingCategoriesDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrandingCategoriesDomainModel.swift; sourceTree = "<group>"; };
 		1F78F7552A6FEA1B006E920D /* RecommendationDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationDomainModel.swift; sourceTree = "<group>"; };
@@ -627,7 +633,10 @@
 			isa = PBXGroup;
 			children = (
 				1F990F282A78F822000EB3D0 /* AdsImagesView.swift */,
+				1F4DAAF82A7A959C00387F97 /* SocialNetworkView.swift */,
+				1F4DAAF62A7A622500387F97 /* DetailViewSegmentView.swift */,
 				1F990F2A2A7915D9000EB3D0 /* PriceLocationView.swift */,
+				1F4DAAF22A7A526800387F97 /* BasicDetailsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1872,6 +1881,7 @@
 				D451E88729B63A1E00CE75D2 /* NetworkLogger.swift in Sources */,
 				BD82759C5143808E98B62201 /* AppConfiguration.swift in Sources */,
 				D49D0E4F29F146FF00C67E96 /* RangeView.swift in Sources */,
+				1F4DAAF32A7A526800387F97 /* BasicDetailsView.swift in Sources */,
 				2174305FA29F27D7BC4E5DD5 /* AppContainer.swift in Sources */,
 				D42926152A1780B60047F6CB /* MainCarInfoView.swift in Sources */,
 				D47839B82A13B5090003FD83 /* CreatingProgressView.swift in Sources */,
@@ -1941,6 +1951,7 @@
 				D4CE253D43E79AE86BD92491 /* BaseViewModel.swift in Sources */,
 				D4623E0B29D4968E003B4020 /* AdvertisementCountResponseModel.swift in Sources */,
 				38853001D5E53B861428DCB1 /* Colors.swift in Sources */,
+				1F4DAAF92A7A959C00387F97 /* SocialNetworkView.swift in Sources */,
 				D49D0E2C29EED03000C67E96 /* SearchAdvertisementModuleBuilder.swift in Sources */,
 				D49D0E2F29EED03000C67E96 /* SearchAdvertisementViewModel.swift in Sources */,
 				D47839B42A13A3CB0003FD83 /* VehicleDataCell.swift in Sources */,
@@ -2040,6 +2051,7 @@
 				D44AF14429D2054000C7E756 /* AdvertisementHeaderView.swift in Sources */,
 				D47839C72A141FC00003FD83 /* BrandListViewController.swift in Sources */,
 				D47A8EB629D6D63900500259 /* Int+Extension.swift in Sources */,
+				1F4DAAF72A7A622500387F97 /* DetailViewSegmentView.swift in Sources */,
 				D49D0E2429EEBBEF00C67E96 /* AdvertisementCellModel.swift in Sources */,
 				D42F790329C35C8600339DA2 /* UserInfoUpdateRequestModel.swift in Sources */,
 				D4EA6E65299E87A1009F7DBD /* SignInView.swift in Sources */,

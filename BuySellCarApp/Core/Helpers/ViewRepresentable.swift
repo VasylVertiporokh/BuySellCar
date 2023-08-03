@@ -2,7 +2,6 @@
 //  ViewRepresentable.swift
 //  MVVMSkeleton
 //
-//  Created by Roman Savchenko on 14.11.2021.
 //
 
 import SwiftUI
