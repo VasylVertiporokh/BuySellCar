@@ -11,7 +11,7 @@ import Foundation
 final class AdvertisementRecommendationViewModel: BaseViewModel {
     // MARK: - Private properties
     private let advertisementModel: AdvertisementModel
-    private var advertisementResponseModel: RecommendationDomainModel?
+    private var recommendationDomainModel: RecommendationDomainModel?
     
     // MARK: - Subjects
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -42,7 +42,12 @@ extension AdvertisementRecommendationViewModel {
     
     func showSelected(_ row: AdvertisementRow) {
         switch row {
-        case .recommended:
+        case .recommended(let model):
+            let recommendationAds = recommendationDomainModel?.recommendationAds
+            guard let ads = recommendationAds?.first(where: { $0.objectID == model.objectID }) else {
+                return
+            }
+    
             transitionSubject.send(.showDetails)
         case .trending(let model):
             advertisementModel.setFastSearсhParamsById(model.id)
@@ -65,7 +70,7 @@ private extension AdvertisementRecommendationViewModel {
             } receiveValue: { [weak self] advertisementDomainModel in
                 guard let self = self else { return }
                 self.isLoadingSubject.send(false)
-                self.advertisementResponseModel = advertisementDomainModel
+                self.recommendationDomainModel = advertisementDomainModel
                 self.updateDataSource(model: advertisementDomainModel)
             }
             .store(in: &cancellables)

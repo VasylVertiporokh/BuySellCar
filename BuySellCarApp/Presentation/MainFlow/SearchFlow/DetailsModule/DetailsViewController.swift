@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
 final class DetailsViewController: BaseViewController<DetailsViewModel> {
     // MARK: - Views
@@ -15,12 +16,13 @@ final class DetailsViewController: BaseViewController<DetailsViewModel> {
     override func loadView() {
         view = contentView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBindings()
+        contentView.showAds(self)
     }
-
+    
     private func setupBindings() {
         contentView.actionPublisher
             .sink { [unowned self] action in

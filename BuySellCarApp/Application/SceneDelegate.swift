@@ -6,6 +6,7 @@
 
 import UIKit
 import Combine
+import GoogleMobileAds
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -16,6 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var appContainer: AppContainer!
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        setupGADMobileAds()
         guard let windowScene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: windowScene)
         self.appContainer = AppContainerImpl()
@@ -54,3 +56,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 }
 
+// MARK: - Private extension
+private extension SceneDelegate {
+    func setupGADMobileAds() {
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
+        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers =
+            [ "7b35564148c7b5c285242ec7e42ed9a2" ]
+    }
+}

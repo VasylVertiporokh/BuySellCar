@@ -18,6 +18,8 @@
 		1F4DAAF32A7A526800387F97 /* BasicDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4DAAF22A7A526800387F97 /* BasicDetailsView.swift */; };
 		1F4DAAF72A7A622500387F97 /* DetailViewSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4DAAF62A7A622500387F97 /* DetailViewSegmentView.swift */; };
 		1F4DAAF92A7A959C00387F97 /* SocialNetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4DAAF82A7A959C00387F97 /* SocialNetworkView.swift */; };
+		1F4DAAFC2A7BA09E00387F97 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 1F4DAAFB2A7BA09E00387F97 /* GoogleMobileAds */; };
+		1F4DAB002A7BE24900387F97 /* SpecsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4DAAFF2A7BE24900387F97 /* SpecsView.swift */; };
 		1F78F7502A6FC5BF006E920D /* TrandingCategoriesResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F78F74F2A6FC5BF006E920D /* TrandingCategoriesResponseModel.swift */; };
 		1F78F7532A6FE3BD006E920D /* TrandingCategoriesDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F78F7522A6FE3BD006E920D /* TrandingCategoriesDomainModel.swift */; };
 		1F78F7562A6FEA1B006E920D /* RecommendationDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F78F7552A6FEA1B006E920D /* RecommendationDomainModel.swift */; };
@@ -294,6 +296,7 @@
 		1F4DAAF22A7A526800387F97 /* BasicDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicDetailsView.swift; sourceTree = "<group>"; };
 		1F4DAAF62A7A622500387F97 /* DetailViewSegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewSegmentView.swift; sourceTree = "<group>"; };
 		1F4DAAF82A7A959C00387F97 /* SocialNetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialNetworkView.swift; sourceTree = "<group>"; };
+		1F4DAAFF2A7BE24900387F97 /* SpecsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecsView.swift; sourceTree = "<group>"; };
 		1F78F74F2A6FC5BF006E920D /* TrandingCategoriesResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrandingCategoriesResponseModel.swift; sourceTree = "<group>"; };
 		1F78F7522A6FE3BD006E920D /* TrandingCategoriesDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrandingCategoriesDomainModel.swift; sourceTree = "<group>"; };
 		1F78F7552A6FEA1B006E920D /* RecommendationDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationDomainModel.swift; sourceTree = "<group>"; };
@@ -571,6 +574,7 @@
 				D4E77B2729C8AC0100CC899E /* Kingfisher in Frameworks */,
 				D4ADEC0B29AD4F6100D7CE53 /* Lottie in Frameworks */,
 				F2445A8385E0C54ABC40104F /* CombineCocoa in Frameworks */,
+				1F4DAAFC2A7BA09E00387F97 /* GoogleMobileAds in Frameworks */,
 				D4EA6E5D299E86EB009F7DBD /* SnapKit in Frameworks */,
 				2E0A948A1F95B389F8C78963 /* KeyboardLayoutGuide in Frameworks */,
 				EA652AE85CDC79FA5E05BDBA /* KeychainAccess in Frameworks */,
@@ -637,6 +641,7 @@
 				1F4DAAF62A7A622500387F97 /* DetailViewSegmentView.swift */,
 				1F990F2A2A7915D9000EB3D0 /* PriceLocationView.swift */,
 				1F4DAAF22A7A526800387F97 /* BasicDetailsView.swift */,
+				1F4DAAFF2A7BE24900387F97 /* SpecsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1773,6 +1778,7 @@
 				D4ADEC0A29AD4F6100D7CE53 /* Lottie */,
 				D4E77B2629C8AC0100CC899E /* Kingfisher */,
 				D48BE09B29CB0C9D00E7F159 /* PhoneNumberKit */,
+				1F4DAAFB2A7BA09E00387F97 /* GoogleMobileAds */,
 			);
 			productName = BuySellCarApp;
 			productReference = 37A711F212A38CCE683FBCC6 /* BuySellCarApp.app */;
@@ -1804,6 +1810,7 @@
 				D4ADEC0929AD4F6100D7CE53 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 				D4E77B2529C8AC0100CC899E /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				D48BE09A29CB0C9D00E7F159 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */,
+				1F4DAAFA2A7BA09E00387F97 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 			);
 			projectDirPath = "";
 			projectRoot = "";
@@ -1943,6 +1950,7 @@
 				D4520CCE29DB103A00EECE8B /* FilteredCell.swift in Sources */,
 				D42925F92A1633D60047F6CB /* FuelTypeListViewModel.swift in Sources */,
 				D451E88E29B7A58F00CE75D2 /* AdvertisementNetworkImpl.swift in Sources */,
+				1F4DAB002A7BE24900387F97 /* SpecsView.swift in Sources */,
 				D4623DEF29D2F116003B4020 /* AdvertisementService.swift in Sources */,
 				D4EA6E66299E87A1009F7DBD /* SignInViewModel.swift in Sources */,
 				D495003E29C8E5D8009CECA9 /* SettingsCollectionView.swift in Sources */,
@@ -2158,6 +2166,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chisw.BuySellCarApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -2179,6 +2188,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chisw.BuySellCarApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -2260,6 +2270,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chisw.BuySellCarApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -2281,6 +2292,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chisw.BuySellCarApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -2369,6 +2381,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chisw.BuySellCarApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -2584,6 +2597,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chisw.BuySellCarApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -2691,6 +2705,14 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		1F4DAAFA2A7BA09E00387F97 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
 		40D4EC2F46FEE68B4A900071 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa.git";
@@ -2746,6 +2768,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 40D4EC2F46FEE68B4A900071 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
 			productName = CombineCocoa;
+		};
+		1F4DAAFB2A7BA09E00387F97 /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1F4DAAFA2A7BA09E00387F97 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
 		};
 		6F28DE4B19DE8160C318C5F1 /* KeyboardLayoutGuide */ = {
 			isa = XCSwiftPackageProductDependency;

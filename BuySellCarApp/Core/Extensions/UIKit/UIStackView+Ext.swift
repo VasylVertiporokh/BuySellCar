@@ -27,7 +27,7 @@ extension UIStackView {
         addArranged(spacer, size: size)
     }
     
-    func addSeparator(_ size: CGFloat = 0.6, _ color: UIColor = .lightGray) {
+    func addSeparator(_ size: CGFloat = 0.7, _ color: UIColor = .lightGray) {
         let separator = UIView()
         separator.backgroundColor = color
         addArranged(separator, size: size)
