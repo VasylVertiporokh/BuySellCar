@@ -36,6 +36,7 @@ struct AdvertisementResponseModel: Decodable {
     let updated: Int?
     let sellerName: String
     var images: AdvertisementImages?
+    let contactsInfo: ContactsInfo
 
     enum CodingKeys: String, CodingKey {
         case bodyType, transportName, bodyColor, description, avarageFuelConsumption
@@ -43,13 +44,21 @@ struct AdvertisementResponseModel: Decodable {
         case interiorColor, price
         case transmissionType, power
         case objectID = "objectId"
-        case mileage, doorCount, yearOfManufacture, created, transportModel, interiorFittings, photo,
-             shortDescription, numberOfSeats, condition, fuelType, location, sellerType, updated, images, sellerName
+        case mileage, doorCount, yearOfManufacture, created,
+             transportModel, interiorFittings, photo,
+             shortDescription, numberOfSeats, condition,
+             fuelType, location, sellerType, updated,
+             images, sellerName, contactsInfo
     }
 }
 
 struct AdvertisementImages: Codable {
     var carImages: [String]?
+}
+
+struct ContactsInfo: Codable {
+    let email: String
+    let phoneNumber: String
 }
 
 enum BodyType: String, Codable {

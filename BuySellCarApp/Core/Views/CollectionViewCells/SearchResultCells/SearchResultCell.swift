@@ -37,7 +37,6 @@ final class SearchResultCell: UICollectionViewCell {
     private let sellerStackView = UIStackView()
     private let sellerNameLabel = UILabel()
     private let locationLabel = UILabel()
-    
     private var carImageCollectionView: UICollectionView!
     
     // MARK: - Init

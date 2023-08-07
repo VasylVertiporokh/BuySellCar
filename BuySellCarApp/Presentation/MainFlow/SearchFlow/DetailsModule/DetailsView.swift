@@ -62,6 +62,7 @@ extension DetailsView: ModelConfigurableView {
                                                  buttonImage: Assets.whatsAppIcon.image))
         priceLocationView.configure(model: .init(domainModel: model.adsDomainModel))
         basicDetailsView.configure(model: .init(domainModel: model.adsDomainModel))
+        specsView.configure(model: .init(domainModel: model.adsDomainModel))
     }
     
     struct ViewModel {

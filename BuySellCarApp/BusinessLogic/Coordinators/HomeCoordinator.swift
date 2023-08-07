@@ -45,7 +45,7 @@ private extension HomeCoordinator {
                 switch transition {
                 case .showResult(let model):    showSearchResult(model: model)
                 case .startSearch(let model):   startSearch(model: model)
-                case .showDetails:              showDetails()
+                case .showDetails(let model):   showDetails(adsModel: model)
                 }
             }
             .store(in: &cancellables)
@@ -58,6 +58,7 @@ private extension HomeCoordinator {
             .sink { [unowned self] transition in
                 switch transition {
                 case .showSearch:              startSearch(model: model, flow: .inCurrentFlow)
+                case .showDetails(let ads):    showDetails(adsModel: ads)
                 }
             }
             .store(in: &cancellables)
@@ -106,8 +107,8 @@ private extension HomeCoordinator {
         present(module.viewController)
     }
     
-    func showDetails() {
-        let module = DetailsModuleBuilder.build(container: container)
+    func showDetails(adsModel: AdvertisementDomainModel) {
+        let module = DetailsModuleBuilder.build(container: container, adsModel: adsModel)
         push(module.viewController)
     }
 }

@@ -113,8 +113,12 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
     }
     
     func setAddAdvertisemenOwnerId() {
-        addAdsDomainModelSubject.value.ownerId = userService.user?.ownerID
-        addAdsDomainModelSubject.value.sellerName = userService.user?.userName
+        guard let user = userService.user else {
+            return
+        }
+        addAdsDomainModelSubject.value.ownerId = user.ownerID
+        addAdsDomainModelSubject.value.sellerName = user.userName
+        addAdsDomainModelSubject.value.contactsInfo = .init(email: user.email, phoneNumber: user.phoneNumber)
     }
     
     func getModelsById(_ brandId: String) {

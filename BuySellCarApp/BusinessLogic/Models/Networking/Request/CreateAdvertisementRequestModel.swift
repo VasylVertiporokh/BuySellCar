@@ -31,6 +31,7 @@ struct CreateAdvertisementRequestModel: Encodable {
     let interiorColor: CarColor = .gray
     var power: Int?
     var sellerName: String?
+    var contactsInfo: ContactsInfo?
     
     init(domainModel: AddAdvertisementDomainModel) {
         self.mileage = domainModel.mainTechnicalInfo?.millage
@@ -49,5 +50,6 @@ struct CreateAdvertisementRequestModel: Encodable {
         self.transportModel = domainModel.model
         self.location = domainModel.location
         self.sellerName = domainModel.sellerName
+        self.contactsInfo = domainModel.contactsInfo
     }
 }

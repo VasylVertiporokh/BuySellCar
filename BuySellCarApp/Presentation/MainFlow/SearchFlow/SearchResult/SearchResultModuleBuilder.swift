@@ -10,6 +10,7 @@ import Combine
 
 enum SearchResultTransition: Transition {
     case showSearch
+    case showDetails(AdvertisementDomainModel)
 }
 
 final class SearchResultModuleBuilder {

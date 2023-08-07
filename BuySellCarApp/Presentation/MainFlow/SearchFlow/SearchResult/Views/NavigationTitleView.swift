@@ -11,8 +11,8 @@ import SnapKit
 final class NavigationTitleView: UIView {
     // MARK: - Subviews
     private let containerStackView = UIStackView()
-    private let numberOfItemsLabel = UILabel()
-    private let resultsTitleLabel = UILabel()
+    private let titleLabel = UILabel()
+    private let subtitleLabel = UILabel()
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -25,10 +25,18 @@ final class NavigationTitleView: UIView {
     }
 }
 
-// MARK: - Internal extension
-extension NavigationTitleView {
-    func setResultCount(_ count: Int) {
-        numberOfItemsLabel.text = "\(count)"
+// MARK: - ModelConfigurableView
+extension NavigationTitleView: ModelConfigurableView {
+    typealias Model = ViewModel
+    
+    func configure(model: ViewModel) {
+        titleLabel.text = model.title
+        subtitleLabel.text = model.subtitle
+    }
+    
+    struct ViewModel {
+        var title: String?
+        var subtitle: String?
     }
 }
 
@@ -41,8 +49,8 @@ private extension NavigationTitleView {
     
     func setupLayout() {
         addSubview(containerStackView)
-        containerStackView.addArrangedSubview(numberOfItemsLabel)
-        containerStackView.addArrangedSubview(resultsTitleLabel)
+        containerStackView.addArrangedSubview(titleLabel)
+        containerStackView.addArrangedSubview(subtitleLabel)
         
         containerStackView.axis = .vertical
         containerStackView.distribution = .fillEqually
@@ -52,9 +60,7 @@ private extension NavigationTitleView {
     }
     
     func configureUI() {
-        resultsTitleLabel.text = "Results"
-        
-        [numberOfItemsLabel, resultsTitleLabel].forEach {
+        [titleLabel, subtitleLabel].forEach {
             $0.textAlignment = .center
             $0.font = FontFamily.Montserrat.regular.font(size: 13)
         }

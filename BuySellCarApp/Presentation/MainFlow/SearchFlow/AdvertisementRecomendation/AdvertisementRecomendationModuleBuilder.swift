@@ -11,7 +11,7 @@ import Combine
 enum AdvertisementRecomendationTransition: Transition {
     case showResult(AdvertisementModel)
     case startSearch(AdvertisementModel)
-    case showDetails
+    case showDetails(AdvertisementDomainModel)
 }
 
 final class AdvertisementRecomendationModuleBuilder {

@@ -8,12 +8,25 @@
 import Combine
 
 final class DetailsViewModel: BaseViewModel {
+    // MARK: - Private properties
+    private let adsDomainModel: AdvertisementDomainModel
+    
+    // MARK: - Transition subject
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<DetailsTransition, Never>()
     
-//    init() {
-//
-//        super.init()
-//    }
+    // MARK: - AdvertisementDomainModel subject
+    private(set) lazy var advertisementDomainModelPublisher = advertisementDomainModelSubject.eraseToAnyPublisher()
+    private let advertisementDomainModelSubject = CurrentValueSubject<AdvertisementDomainModel?, Never>(nil)
     
+    // MARK: - Init
+    init(adsDomainModel: AdvertisementDomainModel) {
+        self.adsDomainModel = adsDomainModel
+        super.init()
+    }
+    
+    // MARK: - Life cycle
+    override func onViewDidLoad() {
+        advertisementDomainModelSubject.value = adsDomainModel
+    }
 }

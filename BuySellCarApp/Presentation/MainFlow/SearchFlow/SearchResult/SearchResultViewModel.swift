@@ -60,6 +60,16 @@ final class SearchResultViewModel: BaseViewModel {
 
 // MARK: - Internal extension
 extension SearchResultViewModel {
+    func showDetailsByRow(_ row: AdvertisementResultRow) {
+        switch row {
+        case .searchResultRow(let model):
+            guard let selectedAds = searchResultModel.first(where: { $0.objectID == model.objectID }) else {
+                return
+            }
+            transitionSubject.send(.showDetails(selectedAds))
+        }
+    }
+    
     func showSearch() {
         transitionSubject.send(.showSearch)
     }
@@ -145,7 +155,7 @@ private extension SearchResultViewModel {
                       let advertisement = advertisement else {
                     return
                 }
-                self.searchResultModel = advertisement
+                self.searchResultModel.append(contentsOf: advertisement) 
                 self.updateSearchResultDataSource()
                 self.isLoadingSubject.send(false)
             }
@@ -163,6 +173,7 @@ private extension SearchResultViewModel {
     }
     
     func updateFitersDataSource() {
+        dropSearchResultModel()
         let selectedBrand: [SelectedFilterRow] = filtersModel.selectedBrand
             .filter { $0.isSelected }
             .map { SelectedFilterRow.selectedBrandRow($0) }
@@ -205,5 +216,9 @@ private extension SearchResultViewModel {
             .init(section: .millage, items: millageRange),
             .init(section: .power, items: powerRange)
         ]
+    }
+    
+    func dropSearchResultModel() {
+        searchResultModel = []
     }
 }

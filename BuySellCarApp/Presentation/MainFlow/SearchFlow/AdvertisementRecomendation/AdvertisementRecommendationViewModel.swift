@@ -47,8 +47,7 @@ extension AdvertisementRecommendationViewModel {
             guard let ads = recommendationAds?.first(where: { $0.objectID == model.objectID }) else {
                 return
             }
-    
-            transitionSubject.send(.showDetails)
+            transitionSubject.send(.showDetails(ads))
         case .trending(let model):
             advertisementModel.setFastSearсhParamsById(model.id)
             transitionSubject.send(.showResult(advertisementModel))
