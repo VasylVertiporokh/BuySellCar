@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Foundation
 
 final class DetailsViewModel: BaseViewModel {
     // MARK: - Private properties
@@ -28,5 +29,21 @@ final class DetailsViewModel: BaseViewModel {
     // MARK: - Life cycle
     override func onViewDidLoad() {
         advertisementDomainModelSubject.value = adsDomainModel
+    }
+}
+
+// MARK: - Internal extension
+extension DetailsViewModel {
+    func showSelectedImage(imageRow: AdsImageRow) {
+        guard let images = self.adsDomainModel.images?.carImages else {
+            return
+        }
+
+        let items: [AdsImageRow] = images.map { .adsImageRow($0) }
+        let model = CarouselImageView.ViewModel(
+            sections: [.init(section: .adsImageSection, items: items)],
+            selectedRow: imageRow
+        )
+        transitionSubject.send(.showImages(model))
     }
 }

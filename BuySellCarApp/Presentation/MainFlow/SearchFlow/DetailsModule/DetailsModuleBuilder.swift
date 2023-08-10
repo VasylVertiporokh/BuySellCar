@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 enum DetailsTransition: Transition {
-    
+    case showImages(CarouselImageView.ViewModel)
 }
 
 final class DetailsModuleBuilder {

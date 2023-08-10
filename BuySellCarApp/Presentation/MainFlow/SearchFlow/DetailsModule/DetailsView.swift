@@ -11,7 +11,7 @@ import Combine
 import GoogleMobileAds
 
 enum DetailsViewAction {
-    
+    case imageRowSelected(AdsImageRow)
 }
 
 final class DetailsView: BaseView {
@@ -92,7 +92,11 @@ private extension DetailsView {
     }
     
     func bindActions() {
-        
+        adsImagesView.rowSelectedPublisher
+            .sink { [unowned self] in
+                actionSubject.send(.imageRowSelected($0))
+            }
+            .store(in: &cancellables)
     }
     
     func setupUI() {

@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Combine
 
 // MARK: - AdsImageSection
 enum AdsImageSection: Hashable {
@@ -27,6 +28,10 @@ final class AdsImagesView: BaseView {
     // MARK: - Private properties
     private var dataSource: UICollectionViewDiffableDataSource<AdsImageSection, AdsImageRow>?
     
+    // MARK: - Selected image publisher
+    private(set) lazy var rowSelectedPublisher = rowSelectedSubject.eraseToAnyPublisher()
+    private let rowSelectedSubject = PassthroughSubject<AdsImageRow, Never>()
+    
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,7 +41,6 @@ final class AdsImagesView: BaseView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 // MARK: - Internal extension
@@ -58,6 +62,7 @@ private extension AdsImagesView {
         setupDataSource()
         setupLayout()
         setupUI()
+        bindActions()
     }
     
     func setupLayout() {
@@ -86,6 +91,13 @@ private extension AdsImagesView {
         counterLabel.clipsToBounds = true
         counterLabel.textColor = .white
         counterLabel.font = Constant.counterLabelFont
+    }
+    
+    func bindActions() {
+        collectionView.didSelectItemPublisher
+            .compactMap { self.dataSource?.itemIdentifier(for: $0) }
+            .sink { [unowned self] in rowSelectedSubject.send($0) }
+            .store(in: &cancellables)
     }
 }
 

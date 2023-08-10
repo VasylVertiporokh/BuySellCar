@@ -109,7 +109,20 @@ private extension HomeCoordinator {
     
     func showDetails(adsModel: AdvertisementDomainModel) {
         let module = DetailsModuleBuilder.build(container: container, adsModel: adsModel)
+        module.transitionPublisher
+            .sink { [unowned self] transition in
+                switch transition {
+                case .showImages(let advertisementImages):
+                    showImageCarousel(model: advertisementImages)
+                }
+            }
+            .store(in: &cancellables)
         push(module.viewController)
+    }
+    
+    func showImageCarousel(model: CarouselImageView.ViewModel) {
+        let module = CarouselImageModuleBuilder.build(container: container, model: model)
+        presentWithStyle(module.viewController, animated: true, style: .overFullScreen)
     }
 }
 
