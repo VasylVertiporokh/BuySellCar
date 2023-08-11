@@ -10,6 +10,7 @@ import SnapKit
 import Combine
 
 enum SearchResultViewAction {
+    case adsDidTap(AdvertisementResultRow)
     case showSearch
     case deleteBrandTapped(SelectedBrandModel)
     case deleteModelTapped(ModelCellConfigurationModel)
@@ -97,6 +98,12 @@ private extension SearchResultView {
             .sink { [unowned self] _ in
                 actionSubject.send(.needLoadNextPage(true))
             }
+            .store(in: &cancellables)
+        
+        collectionView.didSelectItemPublisher
+            .compactMap { self.dataSource?.itemIdentifier(for: $0) }
+            .map { SearchResultViewAction.adsDidTap($0) }
+            .sink { [unowned self] in actionSubject.send($0) }
             .store(in: &cancellables)
     }
     

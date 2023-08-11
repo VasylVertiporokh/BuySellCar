@@ -2,7 +2,6 @@
 //  AppEnvironment.swift
 //  MVVMSkeleton
 //
-//  Created by Roman Savchenko on 16.12.2021.
 //
 
 import Foundation

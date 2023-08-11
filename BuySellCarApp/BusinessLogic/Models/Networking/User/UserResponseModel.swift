@@ -16,12 +16,14 @@ struct UserResponseModel: Decodable {
     let objectID: String
     let phoneNumber: String
     let updated: Int?
+    let withWhatsAppAccount: Bool
+    let isCommercialSales: Bool
     var userAvatar: String?
     
     enum CodingKeys: String, CodingKey {
         case ownerID = "ownerId"
         case objectID = "objectId"
         case userToken = "user-token"
-        case name, blUserLocale, email, userAvatar, updated, phoneNumber
+        case name, blUserLocale, email, userAvatar, updated, phoneNumber, withWhatsAppAccount, isCommercialSales
     }
 }

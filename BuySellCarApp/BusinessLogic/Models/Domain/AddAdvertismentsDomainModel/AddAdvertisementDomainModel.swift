@@ -26,6 +26,7 @@ struct AddAdvertisementDomainModel {
     var adsPhotoModel: [AdsPhotoModel] = AdsPhotoModel.photoModel
     var images: AdvertisementImages?
     var location: String?
+    var contactsInfo: ContactsInfo?
 }
 
 struct FirstRegistrationDataModel {

@@ -113,8 +113,12 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
     }
     
     func setAddAdvertisemenOwnerId() {
-        addAdsDomainModelSubject.value.ownerId = userService.user?.ownerID
-        addAdsDomainModelSubject.value.sellerName = userService.user?.userName
+        guard let user = userService.user else {
+            return
+        }
+        addAdsDomainModelSubject.value.ownerId = user.ownerID
+        addAdsDomainModelSubject.value.sellerName = user.userName
+        addAdsDomainModelSubject.value.contactsInfo = .init(email: user.email, phoneNumber: user.phoneNumber)
     }
     
     func getModelsById(_ brandId: String) {
@@ -203,7 +207,7 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
         
         addAdsDomainModelSubject.value.mainTechnicalInfo = technicalInfoModel
         guard !multipartItems.isEmpty else {
-            advertisementService.publishAdvertisement(model: addAdsDomainModelSubject.value)
+            advertisementService.publishAdvertisement(model: addAdsDomainModelSubject.value, ownerId: ownedID)
                 .sink { [unowned self] completion in
                     guard case let .failure(error) = completion else {
                         return
@@ -232,7 +236,7 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
         
         dispatchGroup.notify(queue: DispatchQueue.global(qos: .default)) {
             self.addAdsDomainModelSubject.value.images = advertisementImages
-                self.advertisementService.publishAdvertisement(model: self.addAdsDomainModelSubject.value)
+                self.advertisementService.publishAdvertisement(model: self.addAdsDomainModelSubject.value, ownerId: ownedID)
                     .sink { [unowned self] completion in
                         guard case let .failure(error) = completion else {
                             return

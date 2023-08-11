@@ -2,7 +2,6 @@
 //  SettingsView.swift
 //  MVVMSkeleton
 //
-//  Created by Roman Savchenko on 14.12.2021.
 //
 
 import UIKit

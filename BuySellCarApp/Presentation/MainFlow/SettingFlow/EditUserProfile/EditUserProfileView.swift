@@ -18,6 +18,8 @@ enum EditUserProfileViewAction {
     case saveChanges
     case nameChanged(String)
     case phoneChanged(phoneNumber:String, isValid: Bool)
+    case isOwner(Bool)
+    case withWhatsAppAccount(Bool)
 }
 
 final class EditUserProfileView: BaseView {
@@ -39,6 +41,16 @@ final class EditUserProfileView: BaseView {
     private let logoutButton = MainButton(type: .logout)
     private let saveChangesButton = MainButton(type: .save)
     private let editAvatarButton = UIButton(type: .system)
+    
+    private let additionalInfoTitleLabel = UILabel()
+    private let additionalInfoStackView = UIStackView()
+    private let dealerStackView = UIStackView()
+    private let dealerTitleLabel = UILabel()
+    private let dealerSwitch = UISwitch()
+    
+    private let whatsAppStackView = UIStackView()
+    private let whatsAppTitleLabel = UILabel()
+    private let whatsAppSwitch = UISwitch()
     
     // MARK: - UIActions
     private lazy var uploadAvatarAction: UIAction = {
@@ -84,6 +96,8 @@ extension EditUserProfileView {
         userNameTextField.textField.text = model.userName
         userEmailLabel.text = model.email
         phoneTextField.text = model.phoneNumber
+        whatsAppSwitch.isOn = model.withWhatsAppAccount
+        dealerSwitch.isOn = model.isCommercialSales
         userAvatarImageView.kf.setImage(
             with: URL(string: model.userAvatar ?? ""),
             placeholder: Assets.userPlaceholder.image,
@@ -126,17 +140,32 @@ private extension EditUserProfileView {
         logoutButton.tapPublisher
             .sink { [unowned self] in actionSubject.send(.logout) }
             .store(in: &cancellables)
+        
         saveChangesButton.tapPublisher
             .sink { [unowned self] in actionSubject.send(.saveChanges) }
             .store(in: &cancellables)
+        
         userNameTextField.textField.textPublisher
             .replaceNil(with: "")
             .sink { [unowned self] in actionSubject.send(.nameChanged($0)) }
             .store(in: &cancellables)
+        
         phoneTextField.textPublisher
             .replaceNil(with: "")
             .sink { [unowned self] in
                 actionSubject.send(.phoneChanged(phoneNumber: $0, isValid: phoneTextField.isValidNumber))
+            }
+            .store(in: &cancellables)
+        
+        dealerSwitch.isOnPublisher
+            .sink { [unowned self] in
+                actionSubject.send(.isOwner($0))
+            }
+            .store(in: &cancellables)
+        
+        whatsAppSwitch.isOnPublisher
+            .sink { [unowned self] in
+                actionSubject.send(.withWhatsAppAccount($0))
             }
             .store(in: &cancellables)
     }
@@ -173,6 +202,9 @@ private extension EditUserProfileView {
         userNameTitleLabel.text = "Name"
         userEmailTitleLabel.text = "Email"
         phoneTitleLabel.text = "Phone"
+        dealerTitleLabel.text = "Commercial sales"
+        whatsAppTitleLabel.text = "Do you have a WhatsApp account?"
+        additionalInfoTitleLabel.text = "Additional info:"
         
         phoneTextFieldStackView.layer.borderColor = Colors.buttonDarkGray.color.cgColor
         phoneTextFieldStackView.layer.borderWidth = Constant.borderWidth
@@ -184,9 +216,19 @@ private extension EditUserProfileView {
         editAvatarButton.contentHorizontalAlignment = .fill
         editAvatarButton.imageEdgeInsets = .all(.zero)
         
-        [userNameTitleLabel, phoneTitleLabel].forEach {
+        [dealerSwitch, whatsAppSwitch].forEach {
+            $0.onTintColor = Colors.buttonDarkGray.color
+        }
+        
+        [userNameTitleLabel, phoneTitleLabel, additionalInfoTitleLabel].forEach {
             $0.font = Constant.titleLabelsFont
             $0.textAlignment = .left
+        }
+        
+        [dealerTitleLabel, whatsAppTitleLabel].forEach {
+            $0.font = Constant.additionalLabelFont
+            $0.textAlignment = .left
+            $0.textColor = Colors.buttonDarkGray.color.withAlphaComponent(0.8)
         }
         
         [userEmailTitleLabel, userEmailLabel].forEach {
@@ -247,12 +289,32 @@ private extension EditUserProfileView {
             right: Constant.standartConstraint
         )
         
+        additionalInfoStackView.axis = .vertical
+        additionalInfoStackView.spacing = Constant.additionalInfoStackViewSpacing
+        additionalInfoStackView.isLayoutMarginsRelativeArrangement = true
+        additionalInfoStackView.layoutMargins.top = Constant.additionalInfoStackViewTopInset
+        dealerStackView.axis = .horizontal
+        
         editUserStackView.addArrangedSubview(userNameTitleLabel)
         editUserStackView.addArrangedSubview(userNameTextField)
         editUserStackView.addArrangedSubview(phoneTitleLabel)
         editUserStackView.addArrangedSubview(phoneTextFieldStackView)
+        editUserStackView.addArrangedSubview(additionalInfoStackView)
+        
         phoneTextFieldStackView.addArrangedSubview(phoneTextField)
         phoneTextFieldStackView.addArrangedSubview(editImageView)
+    
+        additionalInfoStackView.addArrangedSubview(additionalInfoTitleLabel)
+        additionalInfoStackView.addArrangedSubview(dealerStackView)
+        additionalInfoStackView.addArrangedSubview(whatsAppStackView)
+        
+        dealerStackView.addArrangedSubview(dealerTitleLabel)
+        dealerStackView.addSpacer()
+        dealerStackView.addArrangedSubview(dealerSwitch)
+        
+        whatsAppStackView.addArrangedSubview(whatsAppTitleLabel)
+        whatsAppStackView.addSpacer()
+        whatsAppStackView.addArrangedSubview(whatsAppSwitch)
         
         scrollView.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide.snp.top)
@@ -311,5 +373,8 @@ private enum Constant {
     static let editAvatarButtonHeight: CGFloat = 24
     static let cornerRadius: CGFloat = 10
     static let borderWidth: CGFloat = 1
+    static let additionalInfoStackViewSpacing: CGFloat = 8
+    static let additionalInfoStackViewTopInset: CGFloat = 12
     static let titleLabelsFont: UIFont = FontFamily.Montserrat.semiBold.font(size: 14)
+    static let additionalLabelFont: UIFont = FontFamily.Montserrat.semiBold.font(size: 13)
 }

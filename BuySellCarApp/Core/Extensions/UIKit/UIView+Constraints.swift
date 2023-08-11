@@ -2,7 +2,6 @@
 //  UIView+Constraints.swift
 //  MVVMSkeleton
 //
-//  Created by Roman Savchenko on 12.12.2021.
 //
 
 import UIKit

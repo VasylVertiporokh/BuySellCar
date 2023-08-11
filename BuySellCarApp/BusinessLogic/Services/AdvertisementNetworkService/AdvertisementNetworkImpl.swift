@@ -52,8 +52,23 @@ extension AdvertisementNetworkImpl: AdvertisementNetworkService {
         provider.performWithResponseModel(.uploadAdvertisementImage(item: data, userId: userID))
     }
     
-    func publishAdvertisement(model: AddAdvertisementDomainModel) -> AnyPublisher<Void, NetworkError> {
-        provider.performWithProcessingResult(.publishAdvertisement(.init(domainModel: model)))
+    func publishAdvertisement(model: AddAdvertisementDomainModel) -> AnyPublisher<AdsPublishResponseModel, NetworkError> {
+        provider.performWithResponseModel(.publishAdvertisement(.init(domainModel: model)))
+    }
+    
+    func setAdsRrelation(ownerId: String, publishedResponse: AdsPublishResponseModel) -> AnyPublisher<Void, NetworkError> {
+        let ownerData: [String] = [ownerId]
+        do {
+            let data = try JSONSerialization.data(withJSONObject: ownerData, options: [])
+               return provider.performWithProcessingResult(.setAdsRelation(
+                   relationData: data,
+                   createdObjectId: publishedResponse.objectId)
+               )
+            
+        } catch {
+            return Fail(error: NetworkError.unexpectedError)
+                .eraseToAnyPublisher()
+        }
     }
     
     func getTrandingCategories() -> AnyPublisher<[TrandingCategoriesResponseModel], NetworkError> {

@@ -17,7 +17,7 @@ final class UserServiceImpl {
      var user: UserDomainModel? {
         userDomainSubject.value
     }
-    
+
     // MARK: - Private properties
     private let tokenStorage: TokenStorage
     private let userDefaultsService: UserDefaultsServiceProtocol

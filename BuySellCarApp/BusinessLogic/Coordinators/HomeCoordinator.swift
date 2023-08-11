@@ -2,7 +2,6 @@
 //  HomeCoordinator.swift
 //  MVVMSkeleton
 //
-//  Created by Roman Savchenko on 28.11.2021.
 //
 
 import UIKit
@@ -44,10 +43,9 @@ private extension HomeCoordinator {
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
-                case .showResult(let model):
-                    showSearchResult(model: model)
-                case .startSearch(let model):
-                    startSearch(model: model)
+                case .showResult(let model):    showSearchResult(model: model)
+                case .startSearch(let model):   startSearch(model: model)
+                case .showDetails(let model):   showDetails(adsModel: model)
                 }
             }
             .store(in: &cancellables)
@@ -60,6 +58,7 @@ private extension HomeCoordinator {
             .sink { [unowned self] transition in
                 switch transition {
                 case .showSearch:              startSearch(model: model, flow: .inCurrentFlow)
+                case .showDetails(let ads):    showDetails(adsModel: ads)
                 }
             }
             .store(in: &cancellables)
@@ -106,6 +105,24 @@ private extension HomeCoordinator {
             .store(in: &cancellables)
         module.viewController.isModalInPresentation = true
         present(module.viewController)
+    }
+    
+    func showDetails(adsModel: AdvertisementDomainModel) {
+        let module = DetailsModuleBuilder.build(container: container, adsModel: adsModel)
+        module.transitionPublisher
+            .sink { [unowned self] transition in
+                switch transition {
+                case .showImages(let advertisementImages):
+                    showImageCarousel(model: advertisementImages)
+                }
+            }
+            .store(in: &cancellables)
+        push(module.viewController)
+    }
+    
+    func showImageCarousel(model: CarouselImageView.ViewModel) {
+        let module = CarouselImageModuleBuilder.build(container: container, model: model)
+        presentWithStyle(module.viewController, animated: true, style: .overFullScreen)
     }
 }
 

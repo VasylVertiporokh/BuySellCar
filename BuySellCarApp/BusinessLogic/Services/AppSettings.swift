@@ -2,7 +2,6 @@
 //  AppSettings.swift
 //  MVVMSkeleton
 //
-//  Created by Roman Savchenko on 20.11.2021.
 //
 
 import Combine
