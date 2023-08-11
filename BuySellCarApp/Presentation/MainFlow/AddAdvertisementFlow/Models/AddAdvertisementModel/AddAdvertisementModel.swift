@@ -207,7 +207,7 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
         
         addAdsDomainModelSubject.value.mainTechnicalInfo = technicalInfoModel
         guard !multipartItems.isEmpty else {
-            advertisementService.publishAdvertisement(model: addAdsDomainModelSubject.value)
+            advertisementService.publishAdvertisement(model: addAdsDomainModelSubject.value, ownerId: ownedID)
                 .sink { [unowned self] completion in
                     guard case let .failure(error) = completion else {
                         return
@@ -236,7 +236,7 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
         
         dispatchGroup.notify(queue: DispatchQueue.global(qos: .default)) {
             self.addAdsDomainModelSubject.value.images = advertisementImages
-                self.advertisementService.publishAdvertisement(model: self.addAdsDomainModelSubject.value)
+                self.advertisementService.publishAdvertisement(model: self.addAdsDomainModelSubject.value, ownerId: ownedID)
                     .sink { [unowned self] completion in
                         guard case let .failure(error) = completion else {
                             return

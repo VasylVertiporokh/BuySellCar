@@ -61,6 +61,10 @@ private extension EditUserProfileViewController {
                     viewModel.setName(userName)
                 case .phoneChanged(phoneNumber: let phoneNumber, isValid: let isValid):
                     viewModel.setPhone(phoneNumber, isValid: isValid)
+                case .isOwner(let isOwner):
+                    viewModel.setIsOwner(isOwner)
+                case .withWhatsAppAccount(let withWhatsApp):
+                    viewModel.setWithWhatsAppAccount(withWhatsApp)
                 }
             }
             .store(in: &cancellables)

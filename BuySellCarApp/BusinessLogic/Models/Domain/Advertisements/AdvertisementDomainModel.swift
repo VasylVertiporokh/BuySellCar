@@ -35,6 +35,12 @@ struct AdvertisementDomainModel {
     let updated: Int?
     var images: AdvertisementImages?
     let sellerName: String
+    let ownerinfo: OwnerInfoModel
+    
+    // MARK: - Computed properties
+    var sellingType: SellerType {
+        ownerinfo.isCommercialSales ? .diller : .owner
+    }
     
     // MARK: - Init
     init(advertisementResponseModel: AdvertisementResponseModel) {
@@ -65,5 +71,25 @@ struct AdvertisementDomainModel {
         updated = advertisementResponseModel.updated
         images = advertisementResponseModel.images
         sellerName = advertisementResponseModel.sellerName
+        ownerinfo = .init(model: advertisementResponseModel.userData)
+    }
+}
+
+struct OwnerInfoModel {
+    let withWhatsAppAccount: Bool
+    let isCommercialSales: Bool
+    let ownerId: String
+    let phoneNumber: String
+    let name: String
+    let email: String
+    
+    // MARK: - Init from response model
+    init(model: OwnerInfo) {
+        self.withWhatsAppAccount = model.withWhatsAppAccount
+        self.isCommercialSales = model.isCommercialSales
+        self.ownerId = model.ownerId
+        self.phoneNumber = model.phoneNumber
+        self.name = model.name
+        self.email = model.email
     }
 }

@@ -16,6 +16,7 @@ enum AdvertisementEndpointBuilder {
     case getBrand
     case getModel(brandId: String)
     case uploadAdvertisementImage(item: MultipartItem, userId: String)
+    case setAdsRelation(relationData: Data, createdObjectId: String)
     case publishAdvertisement(CreateAdvertisementRequestModel)
     case getTrandingCategories
 }
@@ -26,16 +27,26 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
         switch self {
         case .searchAdvertisement, .getAdvertisement, .getOwnAds, .publishAdvertisement:
             return "/data/Advertisement"
+            
         case .getAdvertisementCount:
             return "/data/Advertisement/count"
+            
         case .deleteAdvertisement(objectID: let id):
             return "/data/Advertisement/\(id)"
+            
         case .getBrand:
             return "/data/Brands"
+            
         case .getModel:
             return "/data/Model"
+            
         case .uploadAdvertisementImage(let dataItem, let userId):
             return "/files/images/users/\(userId)/\(dataItem.fileName)"
+            
+        case .setAdsRelation(_, let ownerId):
+            return "/data/Advertisement/\(ownerId)/userData"
+            
+            
         case .getTrandingCategories:
             return "/files/fastSearch/trandingCategories"
         }
@@ -44,7 +55,8 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
     var headerFields: [String : String] {
         switch self {
         case .searchAdvertisement, .getAdvertisement, .getAdvertisementCount,
-                .getOwnAds, .deleteAdvertisement, .getBrand, .getModel, .publishAdvertisement, .getTrandingCategories: // TODO: - Need plugin
+                .getOwnAds, .deleteAdvertisement, .getBrand, .getModel,
+                .publishAdvertisement, .getTrandingCategories, .setAdsRelation: // TODO: - Need plugin
             return ["Content-Type" : "application/json"]
         case .uploadAdvertisementImage:
             return ["" : ""]
@@ -57,7 +69,8 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
             return [
                 "where" : searchParams.queryString,
                 "pageSize" : "\(searchParams.pageSize)",
-                "offset" : "\(searchParams.offset)"
+                "offset" : "\(searchParams.offset)",
+                "loadRelations" : "userData"
             ]
             
         case.getAdvertisement(let pageSize):
@@ -67,9 +80,12 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
             return ["where" : searchParams]
             
         case .getOwnAds(let ownerID):
-            return ["where" : "ownerId = '\(ownerID)'"] // TODO: - Fix
+            return [
+                "where" : "ownerId = '\(ownerID)'",
+                "loadRelations" : "userData"
+            ]
         
-        case .deleteAdvertisement, .uploadAdvertisementImage, .publishAdvertisement, .getTrandingCategories:
+        case .deleteAdvertisement, .uploadAdvertisementImage, .publishAdvertisement, .getTrandingCategories, .setAdsRelation:
             return nil
             
         case .getBrand:
@@ -87,6 +103,7 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
         switch self {
         case .uploadAdvertisementImage(let item, _):       return .multipartBody([item])
         case .publishAdvertisement(let adsModel):          return .encodable(adsModel)
+        case .setAdsRelation(let data, _):                 return .rawData(data)
             
         default:
             return nil
@@ -102,6 +119,9 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
             return .delete
             
         case .uploadAdvertisementImage, .publishAdvertisement:
+            return .post
+            
+        case .setAdsRelation:
             return .post
         }
     }

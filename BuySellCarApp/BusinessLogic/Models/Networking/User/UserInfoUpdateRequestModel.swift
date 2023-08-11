@@ -11,10 +11,6 @@ struct UserInfoUpdateRequestModel: Encodable {
     var phoneNumber: String?
     var name: String?
     var userAvatar: String?
-    
-    init(phoneNumber: String? = nil, name: String? = nil, userAvatar: String? = nil) {
-        self.phoneNumber = phoneNumber
-        self.name = name
-        self.userAvatar = userAvatar
-    }
+    var withWhatsAppAccount: Bool = false
+    var isCommercialSales: Bool = false
 }

@@ -112,7 +112,7 @@ extension BasicDetailsView: ModelConfigurableView {
             self.power = "\(domainModel.power) hp"
             self.transmission = domainModel.transmissionType.rawValue
             self.fuelType = domainModel.fuelType.rawValue
-            self.seller = domainModel.sellerType.rawValue
+            self.seller = domainModel.sellingType.rawValue
         }
     }
 }

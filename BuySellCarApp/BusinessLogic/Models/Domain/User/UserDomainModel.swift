@@ -16,6 +16,8 @@ struct UserDomainModel: Codable {
     var phoneNumber: String
     var userAvatar: String?
     var updated: Int?
+    let withWhatsAppAccount: Bool
+    let isCommercialSales: Bool
     
     // MARK: - Map from LoginResponseModel
     init(responseModel: UserResponseModel) {
@@ -27,5 +29,7 @@ struct UserDomainModel: Codable {
         phoneNumber = responseModel.phoneNumber
         userAvatar = responseModel.userAvatar
         updated = responseModel.updated
+        withWhatsAppAccount = responseModel.withWhatsAppAccount
+        isCommercialSales = responseModel.isCommercialSales
     }
 }

@@ -107,6 +107,7 @@ private extension AdsVehicleDetailsViewModel {
             .store(in: &cancellables)
         
         addAdvertisementModel.modelErrorPublisher
+            .receive(on: DispatchQueue.main)
             .sink { [unowned self] in errorSubject.send($0) }
             .store(in: &cancellables)
     }

@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import UIKit
 
 final class DetailsViewModel: BaseViewModel {
     // MARK: - Private properties
@@ -38,12 +39,30 @@ extension DetailsViewModel {
         guard let images = self.adsDomainModel.images?.carImages else {
             return
         }
-
+        
         let items: [AdsImageRow] = images.map { .adsImageRow($0) }
         let model = CarouselImageView.ViewModel(
             sections: [.init(section: .adsImageSection, items: items)],
             selectedRow: imageRow
         )
         transitionSubject.send(.showImages(model))
+    }
+    
+    // TODO: - Need change this logic?
+    func openWhatsApp() {
+        let phoneNumber = adsDomainModel.ownerinfo.phoneNumber.replacingOccurrences(of: " ", with: "")
+        let appURL = URL(string: "https://api.whatsapp.com/send?phone=\(phoneNumber)")!
+        if UIApplication.shared.canOpenURL(appURL) {
+            UIApplication.shared.open(appURL, options: [:], completionHandler: nil)
+        }
+    }
+    
+    func makeCall() {
+        let phone = adsDomainModel.ownerinfo.phoneNumber.replacingOccurrences(of: " ", with: "")
+        let url = URL(string: "tel://\(phone)")
+        guard let url = url else {
+            return
+        }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }

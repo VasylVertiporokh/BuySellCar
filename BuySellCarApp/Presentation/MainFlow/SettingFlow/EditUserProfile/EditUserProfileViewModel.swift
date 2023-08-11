@@ -16,6 +16,7 @@ enum EditUserProfileViewModelEvents {
 final class EditUserProfileViewModel: BaseViewModel {
     // MARK: - Private properties
     private let userService: UserService
+    private var userUpdateModel = UserInfoUpdateRequestModel()
     
     // MARK: - Subjects
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -89,9 +90,11 @@ extension EditUserProfileViewModel {
     
     func updateUserInfo() {
         guard let userId = userService.user?.objectID else { return }
+        userUpdateModel.phoneNumber = userPhoneNumber.value
+        userUpdateModel.name = userNameSubject.value
         isLoadingSubject.send(true)
         userService.updateUser(
-            userModel: .init(phoneNumber: userPhoneNumber.value, name: userNameSubject.value),
+            userModel: userUpdateModel,
             userId: userId
         )
         .receive(on: DispatchQueue.main)
@@ -171,5 +174,13 @@ extension EditUserProfileViewModel {
     func setPhone(_ phone: String, isValid: Bool) {
         userPhoneNumber.send(phone)
         isPhoneNumberValidSubject.send(isValid)
+    }
+    
+    func setIsOwner(_ IsOwner: Bool) {
+        userUpdateModel.isCommercialSales = IsOwner
+    }
+    
+    func setWithWhatsAppAccount(_ withAccount: Bool) {
+        userUpdateModel.withWhatsAppAccount = withAccount
     }
 }

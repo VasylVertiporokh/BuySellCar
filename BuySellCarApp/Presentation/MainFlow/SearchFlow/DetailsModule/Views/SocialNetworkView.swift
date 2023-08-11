@@ -6,7 +6,12 @@
 //
 
 import UIKit
+import Combine
 import SnapKit
+
+enum SocialNetworkViewAction {
+    case socialNetworkButtonDidTap
+}
 
 final class SocialNetworkView: BaseView {
     // MARK: - Subview
@@ -17,6 +22,10 @@ final class SocialNetworkView: BaseView {
     private let titleLable = UILabel()
     private let subtitleLabel = UILabel()
     private let socialButton = UIButton(type: .system)
+    
+    // MARK: - Action publisher
+    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
+    private let actionSubject = PassthroughSubject<SocialNetworkViewAction, Never>()
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -38,6 +47,7 @@ extension SocialNetworkView: ModelConfigurableView {
         socialButton.setImage(model.buttonImage, for: .normal)
         socialButton.tintColor = .white
         socialButton.backgroundColor = Colors.whatsAppColor.color
+        socialButton.isEnabled = model.isSocialButtonEnable
         imageView.image = model.image
         titleLable.text = model.title
         subtitleLabel.text = model.subtitle
@@ -49,6 +59,7 @@ extension SocialNetworkView: ModelConfigurableView {
         let subtitle: String
         let titleButton: String
         let buttonImage: UIImage
+        let isSocialButtonEnable: Bool
     }
 }
 
@@ -57,6 +68,7 @@ private extension SocialNetworkView {
     func initialSetup() {
         setupLayout()
         setupUI()
+        bindAction()
     }
     
     func setupLayout() {
@@ -93,6 +105,14 @@ private extension SocialNetworkView {
         socialButton.titleLabel?.font = Constant.socialButtonFont
         socialButton.centerTextAndImage(spacing: Constant.titleStackViewSpacing)
         socialButton.layer.cornerRadius = Constant.whatsAppButtonRadius
+    }
+    
+    func bindAction() {
+        socialButton.tapPublisher
+            .sink { [unowned self] in
+                actionSubject.send(.socialNetworkButtonDidTap)
+            }
+            .store(in: &cancellables)
     }
 }
 

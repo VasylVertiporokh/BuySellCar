@@ -66,9 +66,14 @@ extension AdvertisementServiceImpl: AdvertisementService {
             .eraseToAnyPublisher()
     }
     
-    func publishAdvertisement(model: AddAdvertisementDomainModel) -> AnyPublisher<Void, Error> {
+    func publishAdvertisement(model: AddAdvertisementDomainModel, ownerId: String) -> AnyPublisher<Void, Error> {
         advertisementNetworkService.publishAdvertisement(model: model)
             .mapError { $0 as Error }
+            .flatMap { [unowned self] model -> AnyPublisher<Void, Error> in
+                return advertisementNetworkService.setAdsRrelation(ownerId: ownerId, publishedResponse: model)
+                    .mapError { $0 as Error }
+                    .eraseToAnyPublisher()
+            }
             .eraseToAnyPublisher()
     }
     

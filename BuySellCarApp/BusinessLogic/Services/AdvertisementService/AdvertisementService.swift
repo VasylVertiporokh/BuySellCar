@@ -16,6 +16,6 @@ protocol AdvertisementService: AnyObject {
     func getModelsByBrandId(_ brandId: String) -> AnyPublisher<[ModelsDomainModel], Error>
     func deleteAdvertisementByID(_ id: String) -> AnyPublisher<Void, Error>
     func uploadAdvertisementImage(item: MultipartItem, userID: String) -> AnyPublisher<UploadingImageResponseModel, Error>
-    func publishAdvertisement(model: AddAdvertisementDomainModel) -> AnyPublisher<Void, Error>
+    func publishAdvertisement(model: AddAdvertisementDomainModel, ownerId: String) -> AnyPublisher<Void, Error>
     func getRecommendationAdvertisement() -> AnyPublisher<RecommendationDomainModel, Error>
 }

@@ -32,8 +32,9 @@ private extension DetailsViewController {
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
-                case .imageRowSelected(let imageRow):
-                    viewModel.showSelectedImage(imageRow: imageRow)
+                case .imageRowSelected(let imageRow):  viewModel.showSelectedImage(imageRow: imageRow)
+                case .socialNetworkButtonDidTap:       viewModel.openWhatsApp()
+                case .makeCallDidTap:                  viewModel.makeCall()
                 }
             }
             .store(in: &cancellables)

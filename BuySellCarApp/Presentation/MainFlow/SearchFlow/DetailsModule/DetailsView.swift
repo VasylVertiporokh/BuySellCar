@@ -12,6 +12,8 @@ import GoogleMobileAds
 
 enum DetailsViewAction {
     case imageRowSelected(AdsImageRow)
+    case socialNetworkButtonDidTap
+    case makeCallDidTap
 }
 
 final class DetailsView: BaseView {
@@ -59,7 +61,9 @@ extension DetailsView: ModelConfigurableView {
                                                  title: "Chat or video call",
                                                  subtitle: "Contact this dealer using WhatsApp.",
                                                  titleButton: "Go to WhatsApp",
-                                                 buttonImage: Assets.whatsAppIcon.image))
+                                                 buttonImage: Assets.whatsAppIcon.image,
+                                                 isSocialButtonEnable: model.adsDomainModel.ownerinfo.withWhatsAppAccount))
+        
         priceLocationView.configure(model: .init(domainModel: model.adsDomainModel))
         basicDetailsView.configure(model: .init(domainModel: model.adsDomainModel))
         specsView.configure(model: .init(domainModel: model.adsDomainModel))
@@ -95,6 +99,21 @@ private extension DetailsView {
         adsImagesView.rowSelectedPublisher
             .sink { [unowned self] in
                 actionSubject.send(.imageRowSelected($0))
+            }
+            .store(in: &cancellables)
+        
+        socialNetworkView.actionPublisher
+            .sink { [unowned self] action in
+                switch action {
+                case .socialNetworkButtonDidTap:
+                    actionSubject.send(.socialNetworkButtonDidTap)
+                }
+            }
+            .store(in: &cancellables)
+        
+        phoneButton.tapPublisher
+            .sink { [unowned self] in
+                actionSubject.send(.makeCallDidTap)
             }
             .store(in: &cancellables)
     }
