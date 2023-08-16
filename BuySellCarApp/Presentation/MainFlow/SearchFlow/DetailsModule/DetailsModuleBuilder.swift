@@ -10,6 +10,7 @@ import Combine
 
 enum DetailsTransition: Transition {
     case showImages(CarouselImageView.ViewModel)
+    case showSendEmail(adsDomainModel: AdvertisementDomainModel)
 }
 
 final class DetailsModuleBuilder {

@@ -51,6 +51,8 @@ internal enum Localization {
   internal static let error = Localization.tr("Localizable", "error", fallback: "Error")
   /// Forgot password?
   internal static let forgotPassword = Localization.tr("Localizable", "forgot-password", fallback: "Forgot password?")
+  /// The letter has been sent to the seller, wait for a reply!)
+  internal static let letterSentMessage = Localization.tr("Localizable", "letter-sent-message", fallback: "The letter has been sent to the seller, wait for a reply!)")
   /// Logout
   internal static let logout = Localization.tr("Localizable", "logout", fallback: "Logout")
   /// Name

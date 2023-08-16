@@ -39,13 +39,20 @@ extension DetailsViewModel {
         guard let images = self.adsDomainModel.images?.carImages else {
             return
         }
-        
+
         let items: [AdsImageRow] = images.map { .adsImageRow($0) }
         let model = CarouselImageView.ViewModel(
             sections: [.init(section: .adsImageSection, items: items)],
             selectedRow: imageRow
         )
         transitionSubject.send(.showImages(model))
+    }
+    
+    func openSendEmail() {
+        guard let ownerId = adsDomainModel.ownerID else {
+            return
+        }
+        transitionSubject.send(.showSendEmail(adsDomainModel: adsDomainModel))
     }
     
     // TODO: - Need change this logic?
