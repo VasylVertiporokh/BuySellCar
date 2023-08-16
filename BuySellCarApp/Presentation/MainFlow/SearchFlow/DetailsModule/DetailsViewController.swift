@@ -35,6 +35,7 @@ private extension DetailsViewController {
                 case .imageRowSelected(let imageRow):  viewModel.showSelectedImage(imageRow: imageRow)
                 case .socialNetworkButtonDidTap:       viewModel.openWhatsApp()
                 case .makeCallDidTap:                  viewModel.makeCall()
+                case .sendEmailDidTap:                 viewModel.openSendEmail()
                 }
             }
             .store(in: &cancellables)

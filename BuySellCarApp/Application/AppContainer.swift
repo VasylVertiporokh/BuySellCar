@@ -18,6 +18,8 @@ protocol AppContainer: AnyObject {
     var advertisementService: AdvertisementService { get }
     var addAdvertisementModel: AddAdvertisementModel { get }
     var searchAdvertisementModel: AdvertisementModel { get }
+    var emailNetworkService: EmailNetworkService { get }
+    var emailService: EmailService { get }
     var userLocationService: UserLocationService { get }
 }
 
@@ -33,9 +35,12 @@ final class AppContainerImpl: AppContainer {
     let advertisementService: AdvertisementService
     let addAdvertisementModel: AddAdvertisementModel
     let searchAdvertisementModel: AdvertisementModel
+    let emailNetworkService: EmailNetworkService
+    let emailService: EmailService
     var userLocationService: UserLocationService = {
         return UserLocationServiceImpl()
     }()
+    
     
     init() {
         let appConfiguration = AppConfigurationImpl()
@@ -75,9 +80,15 @@ final class AppContainerImpl: AppContainer {
             networkManager: networkManager
         )
         
+        let emailNetworkServiceProvider = NetworkServiceProvider<EmailEndpointsBuilder>(
+            apiInfo: appConfiguration,
+            networkManager: networkManager
+        )
+        self.emailNetworkService = EmailNetworkServiceImpl(emailNetworkServiceProvider)
+        self.emailService = EmailServiceImpl(emailNetworkService: emailNetworkService, userService: userService)
+        
         self.advertisementNetworkService = AdvertisementNetworkImpl(provider: advertisementNetworkServiceProvider)
         self.advertisementService = AdvertisementServiceImpl(advertisementNetworkService: advertisementNetworkService)
-        
         self.searchAdvertisementModel = AdvertisementModelImpl(advertisementService: advertisementService)
         
         self.addAdvertisementModel = AddAdvertisementModelImpl(

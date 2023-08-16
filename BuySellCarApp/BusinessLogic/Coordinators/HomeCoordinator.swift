@@ -114,6 +114,8 @@ private extension HomeCoordinator {
                 switch transition {
                 case .showImages(let advertisementImages):
                     showImageCarousel(model: advertisementImages)
+                case .showSendEmail(let adsModel):
+                    showSendEmail(adsDomainModel: adsModel)
                 }
             }
             .store(in: &cancellables)
@@ -123,6 +125,19 @@ private extension HomeCoordinator {
     func showImageCarousel(model: CarouselImageView.ViewModel) {
         let module = CarouselImageModuleBuilder.build(container: container, model: model)
         presentWithStyle(module.viewController, animated: true, style: .overFullScreen)
+    }
+    
+    func showSendEmail(adsDomainModel: AdvertisementDomainModel) {
+        let module = SendEmailModuleBuilder.build(container: container, adsDomainModel: adsDomainModel)
+        module.transitionPublisher
+            .sink { [unowned self] transition in
+                switch transition {
+                case .dismiss:
+                    dismiss()
+                }
+            }
+            .store(in: &cancellables)
+        present(module.viewController)
     }
 }
 

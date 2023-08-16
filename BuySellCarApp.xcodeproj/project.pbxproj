@@ -20,6 +20,17 @@
 		1F3548712A8284DF00A3E29C /* CarouselImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F35486D2A8284DF00A3E29C /* CarouselImageViewController.swift */; };
 		1F3548722A8284DF00A3E29C /* CarouselImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F35486E2A8284DF00A3E29C /* CarouselImageView.swift */; };
 		1F3548732A8284DF00A3E29C /* CarouselImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F35486F2A8284DF00A3E29C /* CarouselImageViewModel.swift */; };
+		1F3670642A8A612F00CBDCD2 /* SendEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3670632A8A612F00CBDCD2 /* SendEmailView.swift */; };
+		1F3670672A8A616F00CBDCD2 /* TextEditor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3670662A8A616F00CBDCD2 /* TextEditor+Extension.swift */; };
+		1F3670692A8A678D00CBDCD2 /* SendEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3670682A8A678D00CBDCD2 /* SendEmailViewModel.swift */; };
+		1F3670732A8BA05800CBDCD2 /* EmailNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3670722A8BA05800CBDCD2 /* EmailNetworkService.swift */; };
+		1F3670752A8BA07B00CBDCD2 /* EmailNetworkServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3670742A8BA07B00CBDCD2 /* EmailNetworkServiceImpl.swift */; };
+		1F3670772A8BA0B500CBDCD2 /* EmailEndpointsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3670762A8BA0B500CBDCD2 /* EmailEndpointsBuilder.swift */; };
+		1F36707B2A8BA73700CBDCD2 /* EmailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F36707A2A8BA73700CBDCD2 /* EmailService.swift */; };
+		1F36707E2A8CCDE200CBDCD2 /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F36707D2A8CCDE200CBDCD2 /* AlertModel.swift */; };
+		1F3670802A8CCFA100CBDCD2 /* EmailDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F36707F2A8CCFA100CBDCD2 /* EmailDomainModel.swift */; };
+		1F3670822A8CCFC500CBDCD2 /* EmailResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3670812A8CCFC500CBDCD2 /* EmailResponseModel.swift */; };
+		1F3670842A8CCFD600CBDCD2 /* EmailRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3670832A8CCFD600CBDCD2 /* EmailRequestModel.swift */; };
 		1F4DAAF32A7A526800387F97 /* BasicDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4DAAF22A7A526800387F97 /* BasicDetailsView.swift */; };
 		1F4DAAF72A7A622500387F97 /* DetailViewSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4DAAF62A7A622500387F97 /* DetailViewSegmentView.swift */; };
 		1F4DAAF92A7A959C00387F97 /* SocialNetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4DAAF82A7A959C00387F97 /* SocialNetworkView.swift */; };
@@ -29,6 +40,7 @@
 		1F78F7532A6FE3BD006E920D /* TrandingCategoriesDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F78F7522A6FE3BD006E920D /* TrandingCategoriesDomainModel.swift */; };
 		1F78F7562A6FEA1B006E920D /* RecommendationDomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F78F7552A6FEA1B006E920D /* RecommendationDomainModel.swift */; };
 		1F918AD22A864E26008E8057 /* AdsPublishResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F918AD12A864E26008E8057 /* AdsPublishResponseModel.swift */; };
+		1F918AF22A866FE5008E8057 /* SendEmailModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F918AEE2A866FE5008E8057 /* SendEmailModuleBuilder.swift */; };
 		1F990F242A78F34B000EB3D0 /* DetailsModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F990F202A78F34B000EB3D0 /* DetailsModuleBuilder.swift */; };
 		1F990F252A78F34B000EB3D0 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F990F212A78F34B000EB3D0 /* DetailsViewController.swift */; };
 		1F990F262A78F34B000EB3D0 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F990F222A78F34B000EB3D0 /* DetailsView.swift */; };
@@ -304,6 +316,17 @@
 		1F35486D2A8284DF00A3E29C /* CarouselImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselImageViewController.swift; sourceTree = "<group>"; };
 		1F35486E2A8284DF00A3E29C /* CarouselImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselImageView.swift; sourceTree = "<group>"; };
 		1F35486F2A8284DF00A3E29C /* CarouselImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselImageViewModel.swift; sourceTree = "<group>"; };
+		1F3670632A8A612F00CBDCD2 /* SendEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendEmailView.swift; sourceTree = "<group>"; };
+		1F3670662A8A616F00CBDCD2 /* TextEditor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextEditor+Extension.swift"; sourceTree = "<group>"; };
+		1F3670682A8A678D00CBDCD2 /* SendEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendEmailViewModel.swift; sourceTree = "<group>"; };
+		1F3670722A8BA05800CBDCD2 /* EmailNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailNetworkService.swift; sourceTree = "<group>"; };
+		1F3670742A8BA07B00CBDCD2 /* EmailNetworkServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailNetworkServiceImpl.swift; sourceTree = "<group>"; };
+		1F3670762A8BA0B500CBDCD2 /* EmailEndpointsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailEndpointsBuilder.swift; sourceTree = "<group>"; };
+		1F36707A2A8BA73700CBDCD2 /* EmailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailService.swift; sourceTree = "<group>"; };
+		1F36707D2A8CCDE200CBDCD2 /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
+		1F36707F2A8CCFA100CBDCD2 /* EmailDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailDomainModel.swift; sourceTree = "<group>"; };
+		1F3670812A8CCFC500CBDCD2 /* EmailResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailResponseModel.swift; sourceTree = "<group>"; };
+		1F3670832A8CCFD600CBDCD2 /* EmailRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailRequestModel.swift; sourceTree = "<group>"; };
 		1F4DAAF22A7A526800387F97 /* BasicDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicDetailsView.swift; sourceTree = "<group>"; };
 		1F4DAAF62A7A622500387F97 /* DetailViewSegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewSegmentView.swift; sourceTree = "<group>"; };
 		1F4DAAF82A7A959C00387F97 /* SocialNetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialNetworkView.swift; sourceTree = "<group>"; };
@@ -312,6 +335,7 @@
 		1F78F7522A6FE3BD006E920D /* TrandingCategoriesDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrandingCategoriesDomainModel.swift; sourceTree = "<group>"; };
 		1F78F7552A6FEA1B006E920D /* RecommendationDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationDomainModel.swift; sourceTree = "<group>"; };
 		1F918AD12A864E26008E8057 /* AdsPublishResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsPublishResponseModel.swift; sourceTree = "<group>"; };
+		1F918AEE2A866FE5008E8057 /* SendEmailModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendEmailModuleBuilder.swift; sourceTree = "<group>"; };
 		1F990F202A78F34B000EB3D0 /* DetailsModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsModuleBuilder.swift; sourceTree = "<group>"; };
 		1F990F212A78F34B000EB3D0 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		1F990F222A78F34B000EB3D0 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
@@ -629,6 +653,41 @@
 			path = CarouselImageModule;
 			sourceTree = "<group>";
 		};
+		1F3670652A8A615700CBDCD2 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				1F3670662A8A616F00CBDCD2 /* TextEditor+Extension.swift */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
+		1F3670712A8BA00E00CBDCD2 /* EmailNetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				1F3670722A8BA05800CBDCD2 /* EmailNetworkService.swift */,
+				1F3670742A8BA07B00CBDCD2 /* EmailNetworkServiceImpl.swift */,
+				1F3670762A8BA0B500CBDCD2 /* EmailEndpointsBuilder.swift */,
+			);
+			path = EmailNetworkService;
+			sourceTree = "<group>";
+		};
+		1F3670782A8BA35C00CBDCD2 /* EmailServices */ = {
+			isa = PBXGroup;
+			children = (
+				1F3670712A8BA00E00CBDCD2 /* EmailNetworkService */,
+				1F36707A2A8BA73700CBDCD2 /* EmailService.swift */,
+			);
+			path = EmailServices;
+			sourceTree = "<group>";
+		};
+		1F36707C2A8CCDC600CBDCD2 /* SwiftUIAlertModel */ = {
+			isa = PBXGroup;
+			children = (
+				1F36707D2A8CCDE200CBDCD2 /* AlertModel.swift */,
+			);
+			path = SwiftUIAlertModel;
+			sourceTree = "<group>";
+		};
 		1F78F7512A6FE3A3006E920D /* TrandingCategoriesDomainModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -643,6 +702,16 @@
 				1F78F7552A6FEA1B006E920D /* RecommendationDomainModel.swift */,
 			);
 			path = RecommendationDomainModel;
+			sourceTree = "<group>";
+		};
+		1F918AED2A866FCC008E8057 /* EmailModule */ = {
+			isa = PBXGroup;
+			children = (
+				1F918AEE2A866FE5008E8057 /* SendEmailModuleBuilder.swift */,
+				1F3670682A8A678D00CBDCD2 /* SendEmailViewModel.swift */,
+				1F3670632A8A612F00CBDCD2 /* SendEmailView.swift */,
+			);
+			path = EmailModule;
 			sourceTree = "<group>";
 		};
 		1F990F142A78EDC7000EB3D0 /* DetailsModule */ = {
@@ -767,6 +836,7 @@
 		2D616176C6D83293BB9F01DB /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				1F3670782A8BA35C00CBDCD2 /* EmailServices */,
 				D41C5D432A1FAB7B00755CA5 /* UserLocationServiceManager */,
 				D4623DED29D2F107003B4020 /* AdvertisementService */,
 				D451E88829B7944C00CE75D2 /* AdvertisementNetworkService */,
@@ -826,6 +896,7 @@
 				D48BE09F29CB85FF00E7F159 /* UIResponder */,
 				D495004C29C9EE28009CECA9 /* Optional */,
 				E090948C3E1FACBD0D5E9A89 /* UIKit */,
+				1F3670652A8A615700CBDCD2 /* SwiftUI */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1106,6 +1177,7 @@
 				D43554D329E00D580002A406 /* AdvertisementDomainModel.swift */,
 				D43E8E492A12B24300DFC444 /* BrandDomainModel.swift */,
 				D47839A72A1397990003FD83 /* ModelsDomainModel.swift */,
+				1F36707F2A8CCFA100CBDCD2 /* EmailDomainModel.swift */,
 			);
 			path = Advertisements;
 			sourceTree = "<group>";
@@ -1537,6 +1609,7 @@
 		D4ADEC3729AFB69000D7CE53 /* SearchFlow */ = {
 			isa = PBXGroup;
 			children = (
+				1F918AED2A866FCC008E8057 /* EmailModule */,
 				1F990F142A78EDC7000EB3D0 /* DetailsModule */,
 				1F35486B2A8284A200A3E29C /* CarouselImageModule */,
 				D43554C429DEF97E0002A406 /* Models */,
@@ -1574,6 +1647,7 @@
 		D4B0A3D729DD828400BCB8A7 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				1F36707C2A8CCDC600CBDCD2 /* SwiftUIAlertModel */,
 				1FCA59082A73C1D3003477E3 /* AdvertisementCellModel */,
 				1FCA59072A73C19A003477E3 /* SectionModel */,
 				1FCA58F52A73BFD7003477E3 /* FilterCellModels */,
@@ -1689,6 +1763,7 @@
 			isa = PBXGroup;
 			children = (
 				D4EA6E6B299E8FD7009F7DBD /* LoginRequestModel.swift */,
+				1F3670832A8CCFD600CBDCD2 /* EmailRequestModel.swift */,
 				D41C5D3A2A1E2B4400755CA5 /* CreateAdvertisementRequestModel.swift */,
 			);
 			path = Request;
@@ -1699,6 +1774,7 @@
 			children = (
 				D4EA6E7A299FAF31009F7DBD /* ApiErrorResponseModel.swift */,
 				1F78F74F2A6FC5BF006E920D /* TrandingCategoriesResponseModel.swift */,
+				1F3670812A8CCFC500CBDCD2 /* EmailResponseModel.swift */,
 				D4623DF229D363F0003B4020 /* AdvertisementResponseModel.swift */,
 				1F918AD12A864E26008E8057 /* AdsPublishResponseModel.swift */,
 				D4623E0A29D4968E003B4020 /* AdvertisementCountResponseModel.swift */,
@@ -1925,6 +2001,7 @@
 				1F4DAAF32A7A526800387F97 /* BasicDetailsView.swift in Sources */,
 				2174305FA29F27D7BC4E5DD5 /* AppContainer.swift in Sources */,
 				D42926152A1780B60047F6CB /* MainCarInfoView.swift in Sources */,
+				1F3670672A8A616F00CBDCD2 /* TextEditor+Extension.swift in Sources */,
 				D47839B82A13B5090003FD83 /* CreatingProgressView.swift in Sources */,
 				D4E6473C2A0E42CF00D838F0 /* AddAdvertisementModel.swift in Sources */,
 				D4EA6E54299E5EC2009F7DBD /* HTTPMethods.swift in Sources */,
@@ -1938,6 +2015,7 @@
 				D477DC3429B0C4B100B719AC /* UserNetworkService.swift in Sources */,
 				DBD9E53A938258AF427C8291 /* AppDelegate.swift in Sources */,
 				D451E88C29B7A40900CE75D2 /* AdvertisementEndpointBuilder.swift in Sources */,
+				1F3670732A8BA05800CBDCD2 /* EmailNetworkService.swift in Sources */,
 				D49D0E2629EEBE3700C67E96 /* LoaderFooterView.swift in Sources */,
 				D4ADEBFF29AD09F600D7CE53 /* MainButtonType.swift in Sources */,
 				D453B39B2A261CBB00B17A99 /* BrandModelsViewModel.swift in Sources */,
@@ -1961,6 +2039,7 @@
 				D453B39A2A261CBB00B17A99 /* BrandModelsViewController.swift in Sources */,
 				D4EA6E58299E617A009F7DBD /* NetworkProviderProtocol.swift in Sources */,
 				D44AF14829D21D4100C7E756 /* RecommendationBadgeView.swift in Sources */,
+				1F36707B2A8BA73700CBDCD2 /* EmailService.swift in Sources */,
 				1F78F7502A6FC5BF006E920D /* TrandingCategoriesResponseModel.swift in Sources */,
 				20E6443F2CF0FE7E640D0DDF /* AuthCoordinator.swift in Sources */,
 				D42926002A1647FC0047F6CB /* BodyColorViewController.swift in Sources */,
@@ -1994,6 +2073,7 @@
 				D4623E0B29D4968E003B4020 /* AdvertisementCountResponseModel.swift in Sources */,
 				38853001D5E53B861428DCB1 /* Colors.swift in Sources */,
 				1F4DAAF92A7A959C00387F97 /* SocialNetworkView.swift in Sources */,
+				1F3670752A8BA07B00CBDCD2 /* EmailNetworkServiceImpl.swift in Sources */,
 				D49D0E2C29EED03000C67E96 /* SearchAdvertisementModuleBuilder.swift in Sources */,
 				D49D0E2F29EED03000C67E96 /* SearchAdvertisementViewModel.swift in Sources */,
 				D47839B42A13A3CB0003FD83 /* VehicleDataCell.swift in Sources */,
@@ -2002,6 +2082,7 @@
 				D49D0E2229EEB09A00C67E96 /* FakeSplashViewModel.swift in Sources */,
 				D495004629C8EA89009CECA9 /* EditUserProfileModuleBuilder.swift in Sources */,
 				D42926102A1668350047F6CB /* AdsVehicleDetailsView.swift in Sources */,
+				1F3670692A8A678D00CBDCD2 /* SendEmailViewModel.swift in Sources */,
 				D49D0E5429F183F000C67E96 /* AdditionalSearchParamCell.swift in Sources */,
 				D458970D29F68223001210A3 /* SelectedBrandCell.swift in Sources */,
 				D42926112A1668350047F6CB /* AdsVehicleDetailsViewModel.swift in Sources */,
@@ -2017,12 +2098,14 @@
 				D48BE0BF29CC985A00E7F159 /* RecommendationCell.swift in Sources */,
 				D4E647422A0E5D6600D838F0 /* UserAdsCell.swift in Sources */,
 				D42926082A165A280047F6CB /* BrandCellConfigurationModel.swift in Sources */,
+				1F3670842A8CCFD600CBDCD2 /* EmailRequestModel.swift in Sources */,
 				D4623E0429D44C74003B4020 /* SearchResultCell.swift in Sources */,
 				D48BE09E29CB5E9200E7F159 /* TextFieldValidationState.swift in Sources */,
 				D43BC1E82A1B6E28005F5F4C /* VehicleDetailsView.swift in Sources */,
 				D48BE0B029CC958700E7F159 /* AdvertisementRecommendationViewController.swift in Sources */,
 				D4ADEC2229AE407800D7CE53 /* CreateAccountViewController.swift in Sources */,
 				D4EA6E6E299E9260009F7DBD /* AuthNetworkServiceProtocol.swift in Sources */,
+				1F3670772A8BA0B500CBDCD2 /* EmailEndpointsBuilder.swift in Sources */,
 				D4EA6E5A299E619F009F7DBD /* NetworkServiceProvider.swift in Sources */,
 				D47839C82A141FC00003FD83 /* BrandListView.swift in Sources */,
 				1F78F7532A6FE3BD006E920D /* TrandingCategoriesDomainModel.swift in Sources */,
@@ -2079,6 +2162,7 @@
 				D42F78F529C0C1D700339DA2 /* SettingsListCell.swift in Sources */,
 				D47839C92A141FC00003FD83 /* BrandListViewModel.swift in Sources */,
 				D47839B62A13B27A0003FD83 /* AnimationProgressView.swift in Sources */,
+				1F918AF22A866FE5008E8057 /* SendEmailModuleBuilder.swift in Sources */,
 				D4E374C52A151CFC001E0D7A /* ModelListModuleBuilder.swift in Sources */,
 				D41C5D352A1CCCEE00755CA5 /* AddAdvertisementImageView.swift in Sources */,
 				D4623E0129D444EE003B4020 /* SearchResultViewModel.swift in Sources */,
@@ -2112,6 +2196,7 @@
 				D4ADEC0629AD33AA00D7CE53 /* RestorePasswordViewController.swift in Sources */,
 				D49D0E4329F05A5D00C67E96 /* DecorationGroupView.swift in Sources */,
 				D48BE0A129CB861300E7F159 /* UIResponder+Extension.swift in Sources */,
+				1F3670822A8CCFC500CBDCD2 /* EmailResponseModel.swift in Sources */,
 				D42F78F729C0C1F800339DA2 /* SettingsCellContentConfiguration.swift in Sources */,
 				D47839C62A141FC00003FD83 /* BrandListModuleBuilder.swift in Sources */,
 				D49D0E3429EEE50D00C67E96 /* BrandCell.swift in Sources */,
@@ -2134,6 +2219,7 @@
 				D49D0E2D29EED03000C67E96 /* SearchAdvertisementViewController.swift in Sources */,
 				7EB4B3410B43ED90D532A613 /* SettingsViewController.swift in Sources */,
 				D453B3882A24B6AA00B17A99 /* AllMakesViewController.swift in Sources */,
+				1F3670802A8CCFA100CBDCD2 /* EmailDomainModel.swift in Sources */,
 				D4E41B172A2E73FA00484FBD /* ValidationForms.swift in Sources */,
 				D49D0E1F29EEB09A00C67E96 /* FakeSplashModuleBuilder.swift in Sources */,
 				D50B0DC3B906281FFB3C6A3F /* SettingsViewModel.swift in Sources */,
@@ -2157,11 +2243,13 @@
 				1F990F2F2A792FD8000EB3D0 /* ModelConfigurableView.swift in Sources */,
 				D4EA6E6C299E8FD7009F7DBD /* LoginRequestModel.swift in Sources */,
 				D49D0E4529F05BA500C67E96 /* BrandsFooterView.swift in Sources */,
+				1F36707E2A8CCDE200CBDCD2 /* AlertModel.swift in Sources */,
 				8304DDF3CD66A921582DC923 /* UIView+Ext.swift in Sources */,
 				061ADE121561DCED49E0848A /* TokenStorage.swift in Sources */,
 				D47CD5E329A5083500C3ECC6 /* NetworkManagerProtocol.swift in Sources */,
 				D49D0E4129F048C700C67E96 /* BodyTypeCell.swift in Sources */,
 				D42F78FA29C0C29000339DA2 /* UserInfoCellContentView.swift in Sources */,
+				1F3670642A8A612F00CBDCD2 /* SendEmailView.swift in Sources */,
 				D43BC1EA2A1B8D16005F5F4C /* EngineAndEnvironmentView.swift in Sources */,
 				F7BEDDCD78729639577A1381 /* ViewRepresentable.swift in Sources */,
 				D477DC3629B0C59000B719AC /* UserNetworkServiceImpl.swift in Sources */,

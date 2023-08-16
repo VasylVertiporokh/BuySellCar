@@ -14,6 +14,7 @@ enum DetailsViewAction {
     case imageRowSelected(AdsImageRow)
     case socialNetworkButtonDidTap
     case makeCallDidTap
+    case sendEmailDidTap
 }
 
 final class DetailsView: BaseView {
@@ -114,6 +115,12 @@ private extension DetailsView {
         phoneButton.tapPublisher
             .sink { [unowned self] in
                 actionSubject.send(.makeCallDidTap)
+            }
+            .store(in: &cancellables)
+        
+        emailButton.tapPublisher
+            .sink { [unowned self] in
+                actionSubject.send(.sendEmailDidTap)
             }
             .store(in: &cancellables)
     }
