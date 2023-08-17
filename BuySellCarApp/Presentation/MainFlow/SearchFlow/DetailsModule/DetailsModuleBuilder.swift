@@ -15,7 +15,7 @@ enum DetailsTransition: Transition {
 
 final class DetailsModuleBuilder {
     class func build(container: AppContainer, adsModel: AdvertisementDomainModel) -> Module<DetailsTransition, UIViewController> {
-        let viewModel = DetailsViewModel(adsDomainModel: adsModel)
+        let viewModel = DetailsViewModel(userService: container.userService, adsDomainModel: adsModel)
         let viewController = DetailsViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

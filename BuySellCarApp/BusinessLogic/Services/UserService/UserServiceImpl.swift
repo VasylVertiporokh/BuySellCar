@@ -14,10 +14,10 @@ final class UserServiceImpl {
         tokenStorage.token != nil
     }
     
-     var user: UserDomainModel? {
+    var user: UserDomainModel? {
         userDomainSubject.value
     }
-
+    
     // MARK: - Private properties
     private let tokenStorage: TokenStorage
     private let userDefaultsService: UserDefaultsServiceProtocol
@@ -62,6 +62,38 @@ extension UserServiceImpl: UserService {
                 return userNetworkService.deleteUserAvatar(userId: userId)
             }
             .eraseToAnyPublisher()
+    }
+    
+    func addToFavorite(objectId: String) -> AnyPublisher<FavoriteResponseModel, NetworkError> {
+        guard let userId = user?.objectID else {
+            return Fail(error: NetworkError.unexpectedError)
+                .eraseToAnyPublisher()
+        }
+        return userNetworkService.addToFavorite(objectId: objectId, userId: userId)
+            .flatMap { [unowned self] _ -> AnyPublisher<FavoriteResponseModel, NetworkError> in
+                return userNetworkService.loadFavorite(userId: userId)
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    func deleteFromFavorite(objectId: String) -> AnyPublisher<FavoriteResponseModel, NetworkError> {
+        guard let userId = user?.objectID else {
+            return Fail(error: NetworkError.unexpectedError)
+                .eraseToAnyPublisher()
+        }
+        return userNetworkService.deleteFromFavorite(objectId: objectId, userId: userId)
+            .flatMap { [unowned self] _ -> AnyPublisher<FavoriteResponseModel, NetworkError> in
+                return userNetworkService.loadFavorite(userId: userId)
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    func getFavoriteAds() -> AnyPublisher<FavoriteResponseModel, NetworkError> {
+        guard let userId = user?.objectID else {
+            return Fail(error: NetworkError.unexpectedError)
+                .eraseToAnyPublisher()
+        }
+        return userNetworkService.loadFavorite(userId: userId)
     }
     
     func saveUser(_ model: UserDomainModel) {

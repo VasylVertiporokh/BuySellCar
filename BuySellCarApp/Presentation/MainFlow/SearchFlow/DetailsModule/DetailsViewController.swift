@@ -12,6 +12,7 @@ final class DetailsViewController: BaseViewController<DetailsViewModel> {
     // MARK: - Views
     private let navigationView = NavigationTitleView()
     private let contentView = DetailsView()
+    private let rightTabBarView = TabBarButtonView()
     
     // MARK: - Lifecycle
     override func loadView() {
@@ -23,6 +24,7 @@ final class DetailsViewController: BaseViewController<DetailsViewModel> {
         setupBindings()
         configureNavigationBar()
         contentView.showAds(self)
+        rightTabBarView.startLoadingAnimation()
     }
 }
 
@@ -40,6 +42,16 @@ private extension DetailsViewController {
             }
             .store(in: &cancellables)
         
+        rightTabBarView.actionPublisher
+            .sink { [unowned self] action in
+                switch action {
+                case .buttonDidTap:
+                    viewModel.addToFavorite()
+                    rightTabBarView.startLoadingAnimation()
+                }
+            }
+            .store(in: &cancellables)
+        
         viewModel.advertisementDomainModelPublisher
             .sink { [unowned self] model in
                 guard let model = model else {
@@ -51,10 +63,23 @@ private extension DetailsViewController {
                 navigationView.configure(model: .init(title: adsName , subtitle: price))
             }
             .store(in: &cancellables)
+        
+        viewModel.actionPublisher
+            .sink { [unowned self] action in
+                switch action {
+                case .isFavorite(let isFavorite):
+                    rightTabBarView.setState(isSelected: isFavorite)
+                case .loadingError:
+                    rightTabBarView.stopLoadingAnimation()
+                    
+                }
+            }
+            .store(in: &cancellables)
     }
     
     func configureNavigationBar() {
         navigationItem.titleView = navigationView
         navigationController?.navigationBar.tintColor = Colors.buttonDarkGray.color
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightTabBarView)
     }
 }

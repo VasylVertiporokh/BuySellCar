@@ -15,6 +15,8 @@
 		0B5369933285BD6E6AE60FE1 /* MainTabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C11CDAFE6ACE00F9D45F4C8 /* MainTabBarViewModel.swift */; };
 		0D38D12AC75458E87F590FD0 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F94F525E684B577C82B92F /* UIView+Constraints.swift */; };
 		154720384BE7D4D605505B04 /* Montserrat-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B5D092F58D96AE8251693F /* Montserrat-ThinItalic.ttf */; };
+		1F2E91F42A8D032500C7B8E7 /* TabBarButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E91F32A8D032500C7B8E7 /* TabBarButtonView.swift */; };
+		1F2E91F92A8E6C4100C7B8E7 /* FavoriteResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E91F82A8E6C4100C7B8E7 /* FavoriteResponseModel.swift */; };
 		1F35486A2A82508E00A3E29C /* ImageZoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3548692A82508E00A3E29C /* ImageZoomCell.swift */; };
 		1F3548702A8284DF00A3E29C /* CarouselImageModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F35486C2A8284DF00A3E29C /* CarouselImageModuleBuilder.swift */; };
 		1F3548712A8284DF00A3E29C /* CarouselImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F35486D2A8284DF00A3E29C /* CarouselImageViewController.swift */; };
@@ -311,6 +313,8 @@
 		11ED46B0B0B628F67D24DAFE /* Config-PROD.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Config-PROD.xcconfig"; sourceTree = "<group>"; };
 		173BE34A90FB549143B439D2 /* TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStorage.swift; sourceTree = "<group>"; };
 		181A1538B0C4BFDAEC64312F /* Montserrat-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		1F2E91F32A8D032500C7B8E7 /* TabBarButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButtonView.swift; sourceTree = "<group>"; };
+		1F2E91F82A8E6C4100C7B8E7 /* FavoriteResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteResponseModel.swift; sourceTree = "<group>"; };
 		1F3548692A82508E00A3E29C /* ImageZoomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageZoomCell.swift; sourceTree = "<group>"; };
 		1F35486C2A8284DF00A3E29C /* CarouselImageModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselImageModuleBuilder.swift; sourceTree = "<group>"; };
 		1F35486D2A8284DF00A3E29C /* CarouselImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselImageViewController.swift; sourceTree = "<group>"; };
@@ -639,6 +643,14 @@
 				F2C12EDFCDBED61BB33C9E7B /* SettingsCoordinator.swift */,
 			);
 			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		1F2E91F22A8D031800C7B8E7 /* TabBarButtonView */ = {
+			isa = PBXGroup;
+			children = (
+				1F2E91F32A8D032500C7B8E7 /* TabBarButtonView.swift */,
+			);
+			path = TabBarButtonView;
 			sourceTree = "<group>";
 		};
 		1F35486B2A8284A200A3E29C /* CarouselImageModule */ = {
@@ -972,6 +984,7 @@
 		AF64773E9E0835EAD672668B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1F2E91F22A8D031800C7B8E7 /* TabBarButtonView */,
 				D42F78F029C0C14F00339DA2 /* CollectionViewCells */,
 				D46CC3C329A92933003BCB24 /* MainTextField */,
 				D46CC3C229A92927003BCB24 /* MainButton */,
@@ -1609,10 +1622,10 @@
 		D4ADEC3729AFB69000D7CE53 /* SearchFlow */ = {
 			isa = PBXGroup;
 			children = (
+				D43554C429DEF97E0002A406 /* Models */,
 				1F918AED2A866FCC008E8057 /* EmailModule */,
 				1F990F142A78EDC7000EB3D0 /* DetailsModule */,
 				1F35486B2A8284A200A3E29C /* CarouselImageModule */,
-				D43554C429DEF97E0002A406 /* Models */,
 				D49D0E2729EED00400C67E96 /* SearchAdvertisement */,
 				D453B3822A24B68600B17A99 /* AllMakesModule */,
 				D453B3952A261CBA00B17A99 /* BrandModelsModule */,
@@ -1773,6 +1786,7 @@
 			isa = PBXGroup;
 			children = (
 				D4EA6E7A299FAF31009F7DBD /* ApiErrorResponseModel.swift */,
+				1F2E91F82A8E6C4100C7B8E7 /* FavoriteResponseModel.swift */,
 				1F78F74F2A6FC5BF006E920D /* TrandingCategoriesResponseModel.swift */,
 				1F3670812A8CCFC500CBDCD2 /* EmailResponseModel.swift */,
 				D4623DF229D363F0003B4020 /* AdvertisementResponseModel.swift */,
@@ -2034,6 +2048,7 @@
 				D453B3872A24B6AA00B17A99 /* AllMakesModuleBuilder.swift in Sources */,
 				1F78F7562A6FEA1B006E920D /* RecommendationDomainModel.swift in Sources */,
 				D429260F2A1668350047F6CB /* AdsVehicleDetailsViewController.swift in Sources */,
+				1F2E91F92A8E6C4100C7B8E7 /* FavoriteResponseModel.swift in Sources */,
 				D4623DF829D36FBA003B4020 /* RecommendationDataSource.swift in Sources */,
 				1F990F2B2A7915D9000EB3D0 /* PriceLocationView.swift in Sources */,
 				D453B39A2A261CBB00B17A99 /* BrandModelsViewController.swift in Sources */,
@@ -2076,6 +2091,7 @@
 				1F3670752A8BA07B00CBDCD2 /* EmailNetworkServiceImpl.swift in Sources */,
 				D49D0E2C29EED03000C67E96 /* SearchAdvertisementModuleBuilder.swift in Sources */,
 				D49D0E2F29EED03000C67E96 /* SearchAdvertisementViewModel.swift in Sources */,
+				1F2E91F42A8D032500C7B8E7 /* TabBarButtonView.swift in Sources */,
 				D47839B42A13A3CB0003FD83 /* VehicleDataCell.swift in Sources */,
 				D43554D429E00D580002A406 /* AdvertisementDomainModel.swift in Sources */,
 				D4E14A572A0D31F3000E37E6 /* AddNewAdvertisementViewController.swift in Sources */,

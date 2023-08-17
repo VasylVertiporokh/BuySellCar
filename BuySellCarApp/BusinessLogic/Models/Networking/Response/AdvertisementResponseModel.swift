@@ -35,7 +35,7 @@ struct AdvertisementResponseModel: Decodable {
     let sellerType: SellerType
     let updated: Int?
     let sellerName: String
-    var images: AdvertisementImages?
+    let images: AdvertisementImages?
     let userData: OwnerInfo
 
     enum CodingKeys: String, CodingKey {

@@ -9,9 +9,17 @@ import Combine
 import Foundation
 import UIKit
 
+enum DetailsViewModelAction {
+    case isFavorite(Bool)
+    case loadingError
+}
+
 final class DetailsViewModel: BaseViewModel {
     // MARK: - Private properties
+    private let userService: UserService
     private let adsDomainModel: AdvertisementDomainModel
+    private var favoriteModel: FavoriteResponseModel?
+    private var isFavorite: Bool = false
     
     // MARK: - Transition subject
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -21,8 +29,13 @@ final class DetailsViewModel: BaseViewModel {
     private(set) lazy var advertisementDomainModelPublisher = advertisementDomainModelSubject.eraseToAnyPublisher()
     private let advertisementDomainModelSubject = CurrentValueSubject<AdvertisementDomainModel?, Never>(nil)
     
+    // MARK: - DetailsViewModelAction publisher
+    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
+    private let actionSubject = PassthroughSubject<DetailsViewModelAction, Never>()
+    
     // MARK: - Init
-    init(adsDomainModel: AdvertisementDomainModel) {
+    init(userService: UserService, adsDomainModel: AdvertisementDomainModel) {
+        self.userService = userService
         self.adsDomainModel = adsDomainModel
         super.init()
     }
@@ -30,6 +43,7 @@ final class DetailsViewModel: BaseViewModel {
     // MARK: - Life cycle
     override func onViewDidLoad() {
         advertisementDomainModelSubject.value = adsDomainModel
+        getFavorite()
     }
 }
 
@@ -39,7 +53,7 @@ extension DetailsViewModel {
         guard let images = self.adsDomainModel.images?.carImages else {
             return
         }
-
+        
         let items: [AdsImageRow] = images.map { .adsImageRow($0) }
         let model = CarouselImageView.ViewModel(
             sections: [.init(section: .adsImageSection, items: items)],
@@ -49,9 +63,6 @@ extension DetailsViewModel {
     }
     
     func openSendEmail() {
-        guard let ownerId = adsDomainModel.ownerID else {
-            return
-        }
         transitionSubject.send(.showSendEmail(adsDomainModel: adsDomainModel))
     }
     
@@ -71,5 +82,77 @@ extension DetailsViewModel {
             return
         }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+    
+    func addToFavorite() {
+        guard let currentAds = advertisementDomainModelSubject.value else {
+            return
+        }
+        
+        if isFavorite {
+            userService.deleteFromFavorite(objectId: currentAds.objectID)
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] completion in
+                    guard case let .failure(error) = completion else {
+                        return
+                    }
+                    self?.actionSubject.send(.loadingError)
+                    self?.errorSubject.send(error)
+                } receiveValue: { [weak self] favoriteAds in
+                    guard let self = self else {
+                        return
+                    }
+                    self.favoriteModel = favoriteAds
+                    self.checkIsFavorite()
+                }
+                .store(in: &cancellables)
+        } else {
+            userService.addToFavorite(objectId: currentAds.objectID)
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] completion in
+                    guard case let .failure(error) = completion else {
+                        return
+                    }
+                    self?.actionSubject.send(.loadingError)
+                    self?.errorSubject.send(error)
+                } receiveValue: { [weak self] favoriteAds in
+                    guard let self = self else {
+                        return
+                    }
+                    self.favoriteModel = favoriteAds
+                    self.checkIsFavorite()
+                }
+                .store(in: &cancellables)
+        }
+    }
+}
+
+// MARK: - Private extension
+private extension DetailsViewModel {
+    func checkIsFavorite() {
+        guard let favoriteModel = favoriteModel else {
+            return
+        }
+        isFavorite = favoriteModel.favorite.contains { $0.objectID == advertisementDomainModelSubject.value?.objectID }
+        actionSubject.send(.isFavorite(isFavorite))
+    }
+    
+    func getFavorite() {
+        userService.getFavoriteAds()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard case let .failure(error) = completion else {
+                    return
+                }
+                self?.actionSubject.send(.loadingError)
+                self?.errorSubject.send(error)
+            } receiveValue: { [weak self] ads in
+                guard let self = self else {
+                    return
+                }
+                self.favoriteModel = ads
+                self.checkIsFavorite()
+            }
+            .store(in: &cancellables)
     }
 }
