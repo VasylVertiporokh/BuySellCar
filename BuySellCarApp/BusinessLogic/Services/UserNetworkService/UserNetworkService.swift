@@ -13,4 +13,7 @@ protocol UserNetworkService {
     func deleteUserAvatar(userId: String) -> AnyPublisher<Void, NetworkError>
     func addUserAvatar(data: MultipartItem, userId: String) -> AnyPublisher<UploadingImageResponseModel, NetworkError>
     func updateUser(_ userModel: UserInfoUpdateRequestModel, userId: String) -> AnyPublisher<UserResponseModel, NetworkError>
+    func addToFavorite(objectId: String, userId: String) -> AnyPublisher<Void, NetworkError>
+    func deleteFromFavorite(objectId: String, userId: String) -> AnyPublisher<Void, NetworkError>
+    func loadFavorite(userId: String) -> AnyPublisher<FavoriteResponseModel, NetworkError>
 }

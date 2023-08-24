@@ -12,6 +12,9 @@ enum UserEndpointsBuilder {
     case deleteAvatar(userId: String)
     case addUserAvatar(item: MultipartItem, userId: String)
     case updateUser(userModel: UserInfoUpdateRequestModel, userId: String)
+    case addToFavorite(objectId: String, objectData: Data)
+    case deleteFromFavorite(objectId: String, objectData: Data)
+    case getFavorite(userId: String)
 }
 
 // MARK: - EndpointBuilderProtocol
@@ -26,6 +29,12 @@ extension UserEndpointsBuilder: EndpointBuilderProtocol {
             return "/files/images/users/\(userId)/\(dataItem.fileName)"
         case .updateUser(_, let userId):
             return "/users/\(userId)"
+        case .addToFavorite(let objectId, _):
+            return "data/users/\(objectId)/favorite"
+        case .deleteFromFavorite(let objectId, _):
+            return "data/users/\(objectId)/favorite"
+        case .getFavorite(let userId):
+            return "data/users/\(userId)"
         }
     }
     var headerFields: [String : String] {
@@ -35,7 +44,7 @@ extension UserEndpointsBuilder: EndpointBuilderProtocol {
                 "Content-Type" : "application/json",
                 "user-token" : token.value
             ]
-        case .deleteAvatar, .updateUser:
+        case .deleteAvatar, .updateUser, .addToFavorite, .getFavorite, .deleteFromFavorite:
             return ["Content-Type" : "application/json"]
         case .addUserAvatar:
             return ["" : ""]
@@ -44,14 +53,13 @@ extension UserEndpointsBuilder: EndpointBuilderProtocol {
      
     var method: HTTPMethod {
         switch self {
-        case .logout:
-            return .get
-        case .deleteAvatar:
-            return .delete
-        case .addUserAvatar:
-            return .post
-        case .updateUser:
-            return .put
+        case .logout:              return .get
+        case .deleteAvatar:        return .delete
+        case .addUserAvatar:       return .post
+        case .updateUser:          return .put
+        case .addToFavorite:       return .put
+        case .deleteFromFavorite:  return .delete
+        case .getFavorite:         return .get
         }
     }
     
@@ -59,6 +67,8 @@ extension UserEndpointsBuilder: EndpointBuilderProtocol {
         switch self {
         case .addUserAvatar:
             return ["overwrite" : "true"]
+        case .getFavorite:
+            return ["loadRelations" : "favorite.userData"]
         default:
             return nil
         }
@@ -66,14 +76,16 @@ extension UserEndpointsBuilder: EndpointBuilderProtocol {
     
     var body: RequestBody? {
         switch self {
-        case .logout:
-            return nil
-        case .deleteAvatar:
+        case .logout, .deleteAvatar, .getFavorite:
             return nil
         case .addUserAvatar(let item, _):
             return .multipartBody([item])
         case .updateUser(let userModel, _):
             return .encodable(userModel)
+        case .addToFavorite(_, let data):
+            return .rawData(data)
+        case .deleteFromFavorite(_, let data):
+            return .rawData(data)
         }
     }
 }

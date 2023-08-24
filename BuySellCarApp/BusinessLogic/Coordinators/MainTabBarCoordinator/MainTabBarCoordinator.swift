@@ -29,6 +29,7 @@ final class MainTabBarCoordinator: Coordinator {
     func start() {
         setupHomeCoordinator()
         setupAddAdvertisementCoordinator()
+        setupFavoriteCoordinator()
         setupSettingsCoordinator()
         
         let controllers = childCoordinators.compactMap { $0.navigationController }
@@ -55,6 +56,24 @@ private extension MainTabBarCoordinator {
                                          image: Assets.addAdv.image,
                                          selectedImage: nil)
         let coordinator = AddAdvertisementCoordinator(navigationController: navController, container: container)
+        childCoordinators.append(coordinator)
+        coordinator.didFinishPublisher
+            .sink { [unowned self] in
+                childCoordinators.forEach { removeChild(coordinator: $0) }
+                didFinishSubject.send()
+                didFinishSubject.send(completion: .finished)
+            }
+            .store(in: &cancellables)
+        coordinator.start()
+    }
+    
+    func setupFavoriteCoordinator() {
+        let navController = UINavigationController()
+        navController.tabBarItem = .init(title: Localization.favorite,
+                                         image: UIImage(systemName: "star"),
+                                         selectedImage: nil)
+        
+        let coordinator = FavoriteCoordinator(navigationController: navController, container: container)
         childCoordinators.append(coordinator)
         coordinator.didFinishPublisher
             .sink { [unowned self] in

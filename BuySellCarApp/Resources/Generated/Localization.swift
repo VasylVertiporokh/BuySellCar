@@ -49,6 +49,8 @@ internal enum Localization {
   /// Localizable.strings
   ///   MVVMSkeleton
   internal static let error = Localization.tr("Localizable", "error", fallback: "Error")
+  /// Favorite
+  internal static let favorite = Localization.tr("Localizable", "favorite", fallback: "Favorite")
   /// Forgot password?
   internal static let forgotPassword = Localization.tr("Localizable", "forgot-password", fallback: "Forgot password?")
   /// The letter has been sent to the seller, wait for a reply!)
