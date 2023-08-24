@@ -11,6 +11,7 @@ import Combine
 enum DetailsTransition: Transition {
     case showImages(CarouselImageView.ViewModel)
     case showSendEmail(adsDomainModel: AdvertisementDomainModel)
+    case finishFlow
 }
 
 final class DetailsModuleBuilder {

@@ -26,6 +26,11 @@ final class DetailsViewController: BaseViewController<DetailsViewModel> {
         contentView.showAds(self)
         rightTabBarView.startLoadingAnimation()
     }
+    
+    // MARK: - Deinit
+    deinit {
+        viewModel.finishFlow()
+    }
 }
 
 // MARK: - Private extenison

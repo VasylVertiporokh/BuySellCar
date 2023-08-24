@@ -125,6 +125,10 @@ extension DetailsViewModel {
                 .store(in: &cancellables)
         }
     }
+    
+    func finishFlow() {
+        transitionSubject.send(.finishFlow)
+    }
 }
 
 // MARK: - Private extension
