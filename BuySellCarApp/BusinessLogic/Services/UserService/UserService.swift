@@ -11,6 +11,7 @@ import Combine
 protocol UserService {
     var isAuthorized: Bool { get }
     var userDomainPublisher: AnyPublisher<UserDomainModel?, Never> { get }
+    var numberOfFavoriteAdsPublisher: AnyPublisher<Int, Never> { get }
     var user: UserDomainModel? { get }
     
     func updateUser(userModel: UserInfoUpdateRequestModel, userId: String) -> AnyPublisher<UserResponseModel, NetworkError>
