@@ -12,6 +12,10 @@ final class AdvertisementServiceImpl {
     // MARK: - Private properties
     private let advertisementNetworkService: AdvertisementNetworkService
     
+    // MARK: - Publishers
+    private(set) lazy var numberOfOwnAdsPublisher = numberOfOwnAdsSubject.eraseToAnyPublisher()
+    private let numberOfOwnAdsSubject = CurrentValueSubject<Int, Never>(.zero)
+    
     // MARK: - Init
     init(advertisementNetworkService: AdvertisementNetworkService) {
         self.advertisementNetworkService = advertisementNetworkService
@@ -37,6 +41,9 @@ extension AdvertisementServiceImpl: AdvertisementService {
         advertisementNetworkService.getOwnAds(ownerID: byID)
             .mapError { $0 as Error }
             .map { $0.map { AdvertisementDomainModel(advertisementResponseModel: $0) } }
+            .handleEvents(receiveOutput: { [unowned self] adsCount in
+                numberOfOwnAdsSubject.send(adsCount.count)
+            })
             .eraseToAnyPublisher()
     }
     

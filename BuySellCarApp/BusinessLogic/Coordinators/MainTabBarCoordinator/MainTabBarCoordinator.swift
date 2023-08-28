@@ -15,13 +15,16 @@ final class MainTabBarCoordinator: Coordinator {
     private let didFinishSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
     
+    // MARK: - AppContainer
     private let container: AppContainer
     
+    // MARK: - Init
     init(navigationController: UINavigationController, container: AppContainer) {
         self.navigationController = navigationController
         self.container = container
     }
     
+    // MARK: - Deinit
     deinit {
         print("Deinit of \(String(describing: self))")
     }
@@ -33,7 +36,7 @@ final class MainTabBarCoordinator: Coordinator {
         setupSettingsCoordinator()
         
         let controllers = childCoordinators.compactMap { $0.navigationController }
-        let module = MainTabBarModuleBuilder.build(viewControllers: controllers)
+        let module = MainTabBarModuleBuilder.build(container: container, viewControllers: controllers)
         setRoot(module.viewController)
     }
 }

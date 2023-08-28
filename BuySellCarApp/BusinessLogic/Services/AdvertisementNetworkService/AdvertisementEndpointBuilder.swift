@@ -82,7 +82,8 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
         case .getOwnAds(let ownerID):
             return [
                 "where" : "ownerId = '\(ownerID)'",
-                "loadRelations" : "userData"
+                "loadRelations" : "userData",
+                "pageSize" : "100",
             ]
         
         case .deleteAdvertisement, .uploadAdvertisementImage, .publishAdvertisement, .getTrandingCategories, .setAdsRelation:

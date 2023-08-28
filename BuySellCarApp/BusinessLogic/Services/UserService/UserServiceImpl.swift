@@ -27,6 +27,9 @@ final class UserServiceImpl {
     private(set) lazy var userDomainPublisher = userDomainSubject.eraseToAnyPublisher()
     private let userDomainSubject = CurrentValueSubject<UserDomainModel?, Never>(nil)
     
+    private(set) lazy var numberOfFavoriteAdsPublisher = numberOfFavoriteAdsSubject.eraseToAnyPublisher()
+    private let numberOfFavoriteAdsSubject = CurrentValueSubject<Int, Never>(.zero)
+    
     // MARK: - Init
     init(
         tokenStorage: TokenStorage,
@@ -72,6 +75,10 @@ extension UserServiceImpl: UserService {
         return userNetworkService.addToFavorite(objectId: objectId, userId: userId)
             .flatMap { [unowned self] _ -> AnyPublisher<FavoriteResponseModel, NetworkError> in
                 return userNetworkService.loadFavorite(userId: userId)
+                    .handleEvents(receiveOutput: { [unowned self] model in
+                        numberOfFavoriteAdsSubject.value = model.favorite.count
+                    })
+                    .eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
     }
@@ -84,6 +91,10 @@ extension UserServiceImpl: UserService {
         return userNetworkService.deleteFromFavorite(objectId: objectId, userId: userId)
             .flatMap { [unowned self] _ -> AnyPublisher<FavoriteResponseModel, NetworkError> in
                 return userNetworkService.loadFavorite(userId: userId)
+                    .handleEvents(receiveOutput: { [unowned self] model in
+                        numberOfFavoriteAdsSubject.value = model.favorite.count
+                    })
+                    .eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
     }
@@ -94,6 +105,10 @@ extension UserServiceImpl: UserService {
                 .eraseToAnyPublisher()
         }
         return userNetworkService.loadFavorite(userId: userId)
+            .handleEvents(receiveOutput: { [unowned self] model in
+                numberOfFavoriteAdsSubject.value = model.favorite.count
+            })
+            .eraseToAnyPublisher()
     }
     
     func saveUser(_ model: UserDomainModel) {

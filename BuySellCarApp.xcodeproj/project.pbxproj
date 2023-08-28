@@ -15,6 +15,8 @@
 		0B5369933285BD6E6AE60FE1 /* MainTabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C11CDAFE6ACE00F9D45F4C8 /* MainTabBarViewModel.swift */; };
 		0D38D12AC75458E87F590FD0 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F94F525E684B577C82B92F /* UIView+Constraints.swift */; };
 		154720384BE7D4D605505B04 /* Montserrat-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B5D092F58D96AE8251693F /* Montserrat-ThinItalic.ttf */; };
+		1F09A8842A9C969D00E75EA3 /* UITabBar+Erxension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09A8832A9C969D00E75EA3 /* UITabBar+Erxension.swift */; };
+		1F09A88E2A9CE97D00E75EA3 /* MainTabBarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09A88D2A9CE97D00E75EA3 /* MainTabBarModel.swift */; };
 		1F2E91F42A8D032500C7B8E7 /* TabBarButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E91F32A8D032500C7B8E7 /* TabBarButtonView.swift */; };
 		1F2E91F92A8E6C4100C7B8E7 /* FavoriteResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E91F82A8E6C4100C7B8E7 /* FavoriteResponseModel.swift */; };
 		1F35486A2A82508E00A3E29C /* ImageZoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3548692A82508E00A3E29C /* ImageZoomCell.swift */; };
@@ -325,6 +327,8 @@
 		11ED46B0B0B628F67D24DAFE /* Config-PROD.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Config-PROD.xcconfig"; sourceTree = "<group>"; };
 		173BE34A90FB549143B439D2 /* TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStorage.swift; sourceTree = "<group>"; };
 		181A1538B0C4BFDAEC64312F /* Montserrat-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		1F09A8832A9C969D00E75EA3 /* UITabBar+Erxension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+Erxension.swift"; sourceTree = "<group>"; };
+		1F09A88D2A9CE97D00E75EA3 /* MainTabBarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarModel.swift; sourceTree = "<group>"; };
 		1F2E91F32A8D032500C7B8E7 /* TabBarButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButtonView.swift; sourceTree = "<group>"; };
 		1F2E91F82A8E6C4100C7B8E7 /* FavoriteResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteResponseModel.swift; sourceTree = "<group>"; };
 		1F3548692A82508E00A3E29C /* ImageZoomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageZoomCell.swift; sourceTree = "<group>"; };
@@ -668,6 +672,14 @@
 			path = Coordinators;
 			sourceTree = "<group>";
 		};
+		1F09A88C2A9CE96B00E75EA3 /* MainTabMabModel */ = {
+			isa = PBXGroup;
+			children = (
+				1F09A88D2A9CE97D00E75EA3 /* MainTabBarModel.swift */,
+			);
+			path = MainTabMabModel;
+			sourceTree = "<group>";
+		};
 		1F2E91F22A8D031800C7B8E7 /* TabBarButtonView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1002,6 +1014,7 @@
 		61F6E5A9CBF1438DFF0EFE80 /* MainTabBar */ = {
 			isa = PBXGroup;
 			children = (
+				1F09A88C2A9CE96B00E75EA3 /* MainTabMabModel */,
 				7201505F35E30E167375DE00 /* MainTabBarModuleBuilder.swift */,
 				6BAA1E05913E2BA1850F0DB4 /* MainTabBarViewController.swift */,
 				2C11CDAFE6ACE00F9D45F4C8 /* MainTabBarViewModel.swift */,
@@ -1962,6 +1975,7 @@
 				D43BC1EB2A1BA207005F5F4C /* UIAlertController+Extension.swift */,
 				D43BC1ED2A1BA6B9005F5F4C /* UIAlertAction+Extension.swift */,
 				1F990F302A794F7F000EB3D0 /* UIButton+Extension.swift */,
+				1F09A8832A9C969D00E75EA3 /* UITabBar+Erxension.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -2158,6 +2172,7 @@
 				D451E88C29B7A40900CE75D2 /* AdvertisementEndpointBuilder.swift in Sources */,
 				1F3670732A8BA05800CBDCD2 /* EmailNetworkService.swift in Sources */,
 				D49D0E2629EEBE3700C67E96 /* LoaderFooterView.swift in Sources */,
+				1F09A88E2A9CE97D00E75EA3 /* MainTabBarModel.swift in Sources */,
 				D4ADEBFF29AD09F600D7CE53 /* MainButtonType.swift in Sources */,
 				D453B39B2A261CBB00B17A99 /* BrandModelsViewModel.swift in Sources */,
 				94820361E0C892362C5CD40F /* AppEnvironment.swift in Sources */,
@@ -2276,6 +2291,7 @@
 				D4377E2F29B9044400BCC919 /* SearchQueryBuilder.swift in Sources */,
 				D477DC3829B0C5D000B719AC /* UserEndpointsBuilder.swift in Sources */,
 				D4ADEC3329AFB5D600D7CE53 /* UserDomainModel.swift in Sources */,
+				1F09A8842A9C969D00E75EA3 /* UITabBar+Erxension.swift in Sources */,
 				D4E374D22A15375C001E0D7A /* FirstRegistrationViewController.swift in Sources */,
 				D43554C629DEF9A80002A406 /* AdvertisementModel.swift in Sources */,
 				3C5521BC30F2E1DB2DA1E3FC /* Localization.swift in Sources */,
