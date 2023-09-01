@@ -19,6 +19,7 @@ final class AdvertisementRecommendationViewController: BaseViewController<Advert
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBindings()
+        contentView.showSkeleton()
     }
 }
 
@@ -28,16 +29,23 @@ private extension AdvertisementRecommendationViewController {
         contentView.actionPublisher
             .sink { [unowned self] action in
                 switch action {
-                case .startSearch:
-                    viewModel.startSearch()
-                case .rowSelected(let row):
-                    viewModel.showSelected(row)
+                case .startSearch:              viewModel.startSearch()
+                case .rowSelected(let row):     viewModel.showSelected(row)
                 }
             }
             .store(in: &cancellables)
         
-        viewModel.sectionsAction
+        viewModel.sectionsPublisher
+            .dropFirst()
             .sink { [unowned self] in contentView.setupSnapshot(sections: $0) }
+            .store(in: &cancellables)
+        
+        viewModel.eventsPublisher
+            .sink { [unowned self] event in
+                switch event {
+                case .hideSkeleton:             contentView.hideSkeleton()
+                }
+            }
             .store(in: &cancellables)
     }
 }

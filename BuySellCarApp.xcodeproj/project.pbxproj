@@ -17,6 +17,8 @@
 		154720384BE7D4D605505B04 /* Montserrat-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85B5D092F58D96AE8251693F /* Montserrat-ThinItalic.ttf */; };
 		1F09A8842A9C969D00E75EA3 /* UITabBar+Erxension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09A8832A9C969D00E75EA3 /* UITabBar+Erxension.swift */; };
 		1F09A88E2A9CE97D00E75EA3 /* MainTabBarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09A88D2A9CE97D00E75EA3 /* MainTabBarModel.swift */; };
+		1F09A8932A9D172600E75EA3 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 1F09A8922A9D172600E75EA3 /* SkeletonView */; };
+		1F1B76DC2AA0B8020083BC6D /* UILable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1B76DB2AA0B8020083BC6D /* UILable+Extension.swift */; };
 		1F2E91F42A8D032500C7B8E7 /* TabBarButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E91F32A8D032500C7B8E7 /* TabBarButtonView.swift */; };
 		1F2E91F92A8E6C4100C7B8E7 /* FavoriteResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E91F82A8E6C4100C7B8E7 /* FavoriteResponseModel.swift */; };
 		1F35486A2A82508E00A3E29C /* ImageZoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3548692A82508E00A3E29C /* ImageZoomCell.swift */; };
@@ -329,6 +331,7 @@
 		181A1538B0C4BFDAEC64312F /* Montserrat-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		1F09A8832A9C969D00E75EA3 /* UITabBar+Erxension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+Erxension.swift"; sourceTree = "<group>"; };
 		1F09A88D2A9CE97D00E75EA3 /* MainTabBarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarModel.swift; sourceTree = "<group>"; };
+		1F1B76DB2AA0B8020083BC6D /* UILable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILable+Extension.swift"; sourceTree = "<group>"; };
 		1F2E91F32A8D032500C7B8E7 /* TabBarButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButtonView.swift; sourceTree = "<group>"; };
 		1F2E91F82A8E6C4100C7B8E7 /* FavoriteResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteResponseModel.swift; sourceTree = "<group>"; };
 		1F3548692A82508E00A3E29C /* ImageZoomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageZoomCell.swift; sourceTree = "<group>"; };
@@ -645,6 +648,7 @@
 				1F4DAAFC2A7BA09E00387F97 /* GoogleMobileAds in Frameworks */,
 				D4EA6E5D299E86EB009F7DBD /* SnapKit in Frameworks */,
 				2E0A948A1F95B389F8C78963 /* KeyboardLayoutGuide in Frameworks */,
+				1F09A8932A9D172600E75EA3 /* SkeletonView in Frameworks */,
 				EA652AE85CDC79FA5E05BDBA /* KeychainAccess in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1964,6 +1968,7 @@
 			isa = PBXGroup;
 			children = (
 				D42F790029C254F700339DA2 /* UIAction+Extension.swift */,
+				1F1B76DB2AA0B8020083BC6D /* UILable+Extension.swift */,
 				DF44145BF552CC54BB3CB718 /* UIEdgeInsets+Ext.swift */,
 				D49D0E3E29F0193500C67E96 /* UICollectionViewLayout+Extension.swift */,
 				F2A668DAEEEBB5C4A445D60D /* UIStackView+Ext.swift */,
@@ -2041,6 +2046,7 @@
 				D4E77B2629C8AC0100CC899E /* Kingfisher */,
 				D48BE09B29CB0C9D00E7F159 /* PhoneNumberKit */,
 				1F4DAAFB2A7BA09E00387F97 /* GoogleMobileAds */,
+				1F09A8922A9D172600E75EA3 /* SkeletonView */,
 			);
 			productName = BuySellCarApp;
 			productReference = 37A711F212A38CCE683FBCC6 /* BuySellCarApp.app */;
@@ -2073,6 +2079,7 @@
 				D4E77B2529C8AC0100CC899E /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				D48BE09A29CB0C9D00E7F159 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */,
 				1F4DAAFA2A7BA09E00387F97 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+				1F09A8912A9D172600E75EA3 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			projectDirPath = "";
 			projectRoot = "";
@@ -2228,6 +2235,7 @@
 				D4623E0929D45F4B003B4020 /* AdvertisementSearchResultDataSource.swift in Sources */,
 				D49D0E2E29EED03000C67E96 /* SearchAdvertisementView.swift in Sources */,
 				D4CE253D43E79AE86BD92491 /* BaseViewModel.swift in Sources */,
+				1F1B76DC2AA0B8020083BC6D /* UILable+Extension.swift in Sources */,
 				D4623E0B29D4968E003B4020 /* AdvertisementCountResponseModel.swift in Sources */,
 				38853001D5E53B861428DCB1 /* Colors.swift in Sources */,
 				1F4DAAF92A7A959C00387F97 /* SocialNetworkView.swift in Sources */,
@@ -3001,6 +3009,14 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		1F09A8912A9D172600E75EA3 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		1F4DAAFA2A7BA09E00387F97 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
@@ -3064,6 +3080,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 40D4EC2F46FEE68B4A900071 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
 			productName = CombineCocoa;
+		};
+		1F09A8922A9D172600E75EA3 /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1F09A8912A9D172600E75EA3 /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
 		};
 		1F4DAAFB2A7BA09E00387F97 /* GoogleMobileAds */ = {
 			isa = XCSwiftPackageProductDependency;

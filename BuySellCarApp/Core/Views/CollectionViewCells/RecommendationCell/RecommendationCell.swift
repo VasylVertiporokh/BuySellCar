@@ -9,6 +9,7 @@ import Foundation
 import SnapKit
 import Kingfisher
 import UIKit
+import SkeletonView
 
 final class RecommendationCell: UICollectionViewCell {
     // MARK: - Subviews
@@ -89,6 +90,7 @@ private extension RecommendationCell {
     func initialSetup() {
         setupLayout()
         setupUI()
+        setupSkeletonBehaviour()
     }
     
     func setupUI() {
@@ -188,10 +190,28 @@ private extension RecommendationCell {
         ].forEach {
             $0.textColor = .black
             $0.font = Constant.defaultLabelFont
+            $0.setSkeletonPlaceholder(.medium)
+            $0.linesCornerRadius = Constant.linesCornerRadius
+            $0.isSkeletonable = true
         }
         
-        [brandNameLabel, priceLabel].forEach { $0.font = Constant.priceLabelFont }
+        [brandNameLabel, priceLabel].forEach {
+            $0.font = Constant.priceLabelFont
+            $0.setSkeletonPlaceholder(.medium)
+            $0.linesCornerRadius = Constant.linesCornerRadius
+            $0.isSkeletonable = true
+        }
         brandNameLabel.numberOfLines = Constant.brandNameLabel
+    }
+    
+    func setupSkeletonBehaviour() {
+        isSkeletonable = true
+        [
+            contentView, containerStackView, headerStackView, imageStackView, priceStackView,
+            mainInfoStackView, leftInfoStackView, rightInfoStackView, sellerStackView, carImageView
+        ].forEach {
+            $0.isSkeletonable = true
+        }
     }
 }
 
@@ -212,4 +232,5 @@ private enum Constant {
     static let priceLabelFont: UIFont = FontFamily.Montserrat.semiBold.font(size: 15)
     static let brandNameLabel: Int = 2
     static let separatorViewHeight: CGFloat = 0.5
+    static let linesCornerRadius: Int = 8
 }

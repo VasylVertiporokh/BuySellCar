@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Combine
+import SkeletonView
 
 enum AdvertisementRecommendationViewAction {
     case rowSelected(AdvertisementRow)
@@ -20,7 +21,8 @@ final class AdvertisementRecommendationView: BaseView {
     private var collectionView: UICollectionView!
     
     // MARK: - Private properties
-    private var dataSource: UICollectionViewDiffableDataSource<AdvertisementSection, AdvertisementRow>?
+    private var dataSource: SearchSkeletonDataSource<AdvertisementSection, AdvertisementRow>?
+    private var snapShot: NSDiffableDataSourceSnapshot<AdvertisementSection, AdvertisementRow>!
     
     // MARK: - Subjects
     private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
@@ -40,12 +42,18 @@ final class AdvertisementRecommendationView: BaseView {
 // MARK: - Internal extension
 extension AdvertisementRecommendationView {
     func setupSnapshot(sections: [SectionModel<AdvertisementSection, AdvertisementRow>]) {
-        var snapShot = NSDiffableDataSourceSnapshot<AdvertisementSection, AdvertisementRow>()
         for section in sections {
-            snapShot.appendSections([section.section])
             snapShot.appendItems(section.items, toSection: section.section)
         }
-        dataSource?.apply(snapShot)
+        dataSource?.apply(self.snapShot, animatingDifferences: false)
+    }
+    
+    func showSkeleton() {
+        collectionView.showAnimatedSkeleton()
+    }
+    
+    func hideSkeleton() {
+        collectionView.hideSkeleton()
     }
 }
 
@@ -78,9 +86,9 @@ private extension AdvertisementRecommendationView {
             switch kind {
             case "UICollectionElementKindSectionHeader":
                 let header: AdvertisementHeaderView = collectionView.dequeueSupplementaryView(for: indexPath, kind: kind)
-                    header.setHeaderTitle(section.headerTitle)
-                    return header
-               
+                header.setHeaderTitle(section.headerTitle)
+                return header
+                
             case "RecommendationBadgeView":
                 let badge: RecommendationBadgeView = collectionView.dequeueSupplementaryView(for: indexPath, kind: kind)
                 return badge
@@ -88,6 +96,10 @@ private extension AdvertisementRecommendationView {
                 return nil
             }
         }
+        
+        snapShot = NSDiffableDataSourceSnapshot<AdvertisementSection, AdvertisementRow>()
+        snapShot.appendSections([.recommended, .trendingCategories])
+        dataSource?.apply(snapShot, animatingDifferences: true)
     }
     
     func initialSetup() {
@@ -132,6 +144,7 @@ private extension AdvertisementRecommendationView {
     
     func configureCollectionView() {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+        collectionView.isSkeletonable = true
     }
 }
 
@@ -141,7 +154,6 @@ private extension AdvertisementRecommendationView {
         let layout = UICollectionViewCompositionalLayout { [weak self] sectionIndex, layoutEnvironment in
             guard let self = self,
                   let dataSource = self.dataSource else { return nil }
-            
             let sections = dataSource.snapshot().sectionIdentifiers[sectionIndex]
             switch sections {
             case .recommended:
@@ -249,9 +261,44 @@ private enum Constant {
     static let searchButtonHeight: CGFloat = 47
     static let allSpacingValue: CGFloat = 48
     static let numberOfItemsInGroup: CGFloat = 2
-    static let recommendationCellHeight: CGFloat =  250
+    static let recommendationCellHeight: CGFloat = 250
     static let badgeViewHeight: CGFloat = 20
     static let badgeViewWidth: CGFloat = 100
     static let headerHeight: CGFloat = 50
     static let trandingGroupHeight: CGFloat = 300
+}
+
+// MARK: - Skeleton data source with custom class
+private extension AdvertisementRecommendationView {
+    // MARK: - SearchSkeletonDataSource
+    class SearchSkeletonDataSource<Section: Hashable, Item: Hashable>: UICollectionViewDiffableDataSource<AdvertisementSection, AdvertisementRow> {
+        
+        // MARK: - Init
+        override init(collectionView: UICollectionView, cellProvider: @escaping UICollectionViewDiffableDataSource<AdvertisementSection, AdvertisementRow>.CellProvider) {
+            super.init(collectionView: collectionView, cellProvider: cellProvider)
+        }
+    }
+}
+
+// MARK: - SkeletonCollectionViewDataSource
+extension AdvertisementRecommendationView.SearchSkeletonDataSource: SkeletonCollectionViewDataSource {
+    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> SkeletonView.ReusableCellIdentifier {
+        let section = snapshot().sectionIdentifiers[indexPath.section]
+        switch section {
+        case .trendingCategories:       return QuickSearchCell.className
+        case .recommended:              return RecommendationCell.className
+        }
+    }
+    
+    func numSections(in collectionSkeletonView: UICollectionView) -> Int {
+        return snapshot().numberOfSections
+    }
+    
+    func collectionSkeletonView(_ skeletonView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let section = snapshot().sectionIdentifiers[section]
+        switch section {
+        case .recommended:              return 2
+        case .trendingCategories:       return 2
+        }
+    }
 }
