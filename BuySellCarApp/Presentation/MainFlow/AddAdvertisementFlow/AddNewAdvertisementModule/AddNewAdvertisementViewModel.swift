@@ -64,12 +64,12 @@ private extension AddNewAdvertisementViewModel {
         addAdvertisementModel.ownAdsPublisher
             .dropFirst()
             .receive(on: DispatchQueue.main)
-            .sink { completion in
+            .sink { [weak self] completion in
                 guard case let .failure(error) = completion else {
                     return
                 }
-                self.errorSubject.send(error)
-                self.isLoadingSubject.send(false)
+                self?.errorSubject.send(error)
+                self?.isLoadingSubject.send(false)
             } receiveValue: { [weak self] ownAdsModel in
                 guard let self = self else {
                     return
