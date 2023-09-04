@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Kingfisher
+import SkeletonView
 
 final class QuickSearchCell: UICollectionViewCell {
     // MARK: - Subviews
@@ -61,6 +62,7 @@ private extension QuickSearchCell {
     func initialSetup() {
         setupLayout()
         setupUI()
+        setupSkeletonBehaviour()
     }
     
     func setupUI() {
@@ -103,6 +105,15 @@ private extension QuickSearchCell {
         layer.shadowRadius = 10
         contentView.backgroundColor = .white
         contentView.layer.cornerRadius = 8
+    }
+    
+    func setupSkeletonBehaviour() {
+        isSkeletonable = true
+        contentView.isSkeletonable = true
+        containerStackView.isSkeletonable = true
+        labelStackView.isSkeletonable = true
+        carImageView.isSkeletonable = true
+        descriptionLabel.isSkeletonable = true
     }
 }
 

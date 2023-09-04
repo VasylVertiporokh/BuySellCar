@@ -8,6 +8,10 @@
 import Combine
 import Foundation
 
+enum AdvertisementRecommendationViewEvents {
+    case hideSkeleton
+}
+
 final class AdvertisementRecommendationViewModel: BaseViewModel {
     // MARK: - Private properties
     private let advertisementModel: AdvertisementModel
@@ -17,19 +21,21 @@ final class AdvertisementRecommendationViewModel: BaseViewModel {
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<AdvertisementRecomendationTransition, Never>()
     
-    private(set) lazy var sectionsAction = sectionsSubject.eraseToAnyPublisher()
+    private(set) lazy var sectionsPublisher = sectionsSubject.eraseToAnyPublisher()
     private let sectionsSubject = CurrentValueSubject<[SectionModel<AdvertisementSection, AdvertisementRow>], Never>([])
+    
+    private(set) lazy var eventsPublisher = eventsSubject.eraseToAnyPublisher()
+    private let eventsSubject = PassthroughSubject<AdvertisementRecommendationViewEvents, Never>()
     
     // MARK: - Init
     init(advertisementModel: AdvertisementModel) {
         self.advertisementModel = advertisementModel
         super.init()
     }
-    
+        
     // MARK: - Life cycle
     override func onViewWillAppear() {
         setupBindings()
-        isLoadingSubject.send(true)
         advertisementModel.getRecommendedAdvertisements()
     }
 }
@@ -60,15 +66,14 @@ private extension AdvertisementRecommendationViewModel {
     func setupBindings() {
         advertisementModel.recommendationPublisher
             .receive(on: DispatchQueue.main)
+            .dropFirst()
             .sink { [weak self] completion in
                 guard case let .failure(error) = completion else {
                     return
                 }
                 self?.errorSubject.send(error)
-                self?.isLoadingSubject.send(false)
             } receiveValue: { [weak self] advertisementDomainModel in
                 guard let self = self else { return }
-                self.isLoadingSubject.send(false)
                 self.recommendationDomainModel = advertisementDomainModel
                 self.updateDataSource(model: advertisementDomainModel)
             }
@@ -93,6 +98,7 @@ private extension AdvertisementRecommendationViewModel {
                 categoriesName: $0.categoryTitle)
             )
         }
+        eventsSubject.send(.hideSkeleton)
         sectionsSubject.value = [
             .init(section: .recommended, items: recommended),
             .init(section: .trendingCategories, items: trending)
