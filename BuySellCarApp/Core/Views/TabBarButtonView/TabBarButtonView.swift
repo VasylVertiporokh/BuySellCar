@@ -42,6 +42,11 @@ extension TabBarButtonView {
         button.setImage(buttonImage, for: .normal)
     }
     
+    func setDisabledState() {
+        spinner.stopAnimating()
+        button.isEnabled = false
+    }
+    
     func stopLoadingAnimation() {
         button.isHidden = false
         spinner.stopAnimating()
@@ -77,6 +82,7 @@ private extension TabBarButtonView {
     func setupUI() {
         spinner.color = Colors.buttonDarkGray.color
         button.setImage(.init(systemName:"star"), for: .normal)
+        button.setImage(Assets.statusOfflineIcon.image, for: .disabled)
     }
     
     func setupBindings() {

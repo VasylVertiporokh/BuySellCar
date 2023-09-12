@@ -86,6 +86,10 @@ extension DetailsView {
         bannerView.rootViewController = controller
         bannerView.load(GADRequest())
     }
+    
+    func setOfflineMode() {
+        emailButton.isEnabled = false
+    }
 }
 
 // MARK: - Private extension

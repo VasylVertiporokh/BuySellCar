@@ -40,6 +40,11 @@ struct FavoriteView: View {
 private extension FavoriteView {
     var listView: some View {
         ScrollView {
+            if !viewModel.isLoadingFinished {
+                ProgressView()
+                    .scaleEffect(Size.progressViewScale)
+                    .padding([.top, .bottom], Size.progressViewPadding)
+            }
             LazyVStack(spacing: Size.defaultSpacing) {
                 ForEach($viewModel.favoriteModel, id: \.objectId) { item in
                     FavoriteCellView(item: item) { action in
@@ -52,6 +57,7 @@ private extension FavoriteView {
                 }
             }
         }
+        .animation(.default, value: viewModel.isLoadingFinished)
     }
     
     var loadingView: some View {
@@ -77,6 +83,13 @@ private extension FavoriteView {
             LottieView(name: "errorState")
                 .frame(height: Size.stateViewHeight)
                 .padding(.horizontal, Size.stateViewPadding)
+            buttonView
+        }
+        .padding(.horizontal, Size.horizontalPadding)
+    }
+    
+    var buttonView: some View {
+        VStack(spacing: Size.progressViewPadding) {
             Button(action: {
                 viewModel.reloadData()
             }, label: {
@@ -84,6 +97,21 @@ private extension FavoriteView {
                     .font(FontFamily.Montserrat.regular.swiftUIFont(fixedSize: 16))
                     .foregroundColor(Colors.buttonDarkGray.swiftUIColor)
                     .frame(height: Size.defaultButtonHeight)
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, Size.stateViewPadding)
+                    .modifier(ShadowModifier(color: Colors.buttonYellow.swiftUIColor, shadowRadius: Size.shadowRadius))
+            })
+            Text("OR")
+                .font(FontFamily.Montserrat.regular.swiftUIFont(fixedSize: 16))
+                .foregroundColor(.gray)
+            Button(action: {
+                viewModel.reloadData()
+            }, label: {
+                Text("Use offline mode?")
+                    .font(FontFamily.Montserrat.regular.swiftUIFont(fixedSize: 16))
+                    .foregroundColor(Colors.buttonDarkGray.swiftUIColor)
+                    .frame(height: Size.defaultButtonHeight)
+                    .frame(maxWidth: .infinity)
                     .padding(.horizontal, Size.stateViewPadding)
                     .modifier(ShadowModifier(color: Colors.buttonYellow.swiftUIColor, shadowRadius: Size.shadowRadius))
             })
@@ -98,4 +126,7 @@ private enum Size {
     static let stateViewPadding: CGFloat = 64
     static let defaultButtonHeight: CGFloat = 44
     static let shadowRadius: CGFloat = 2
+    static let horizontalPadding: CGFloat = 32
+    static let progressViewScale: CGFloat = 1.5
+    static let progressViewPadding: CGFloat = 8
 }

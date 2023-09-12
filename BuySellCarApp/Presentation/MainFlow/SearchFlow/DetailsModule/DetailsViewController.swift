@@ -24,7 +24,6 @@ final class DetailsViewController: BaseViewController<DetailsViewModel> {
         setupBindings()
         configureNavigationBar()
         contentView.showAds(self)
-        rightTabBarView.startLoadingAnimation()
     }
     
     // MARK: - Deinit
@@ -69,14 +68,18 @@ private extension DetailsViewController {
             }
             .store(in: &cancellables)
         
-        viewModel.actionPublisher
+        viewModel.eventPublisher
             .sink { [unowned self] action in
                 switch action {
                 case .isFavorite(let isFavorite):
                     rightTabBarView.setState(isSelected: isFavorite)
                 case .loadingError:
                     rightTabBarView.stopLoadingAnimation()
-                    
+                case .offlineMode:
+                    rightTabBarView.setDisabledState()
+                    contentView.setOfflineMode()
+                case .onlineMode:
+                    rightTabBarView.startLoadingAnimation()
                 }
             }
             .store(in: &cancellables)

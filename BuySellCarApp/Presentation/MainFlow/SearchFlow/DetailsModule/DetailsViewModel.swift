@@ -9,15 +9,18 @@ import Combine
 import Foundation
 import UIKit
 
-enum DetailsViewModelAction {
+enum DetailsViewModelEvent {
     case isFavorite(Bool)
     case loadingError
+    case offlineMode
+    case onlineMode
 }
 
 final class DetailsViewModel: BaseViewModel {
     // MARK: - Private properties
     private let userService: UserService
     private let adsDomainModel: AdvertisementDomainModel
+    private let reachabilityManager: ReachabilityManager = ReachabilityManagerImpl.shared
     private var favoriteModel: FavoriteResponseModel?
     private var isFavorite: Bool = false
     
@@ -30,8 +33,8 @@ final class DetailsViewModel: BaseViewModel {
     private let advertisementDomainModelSubject = CurrentValueSubject<AdvertisementDomainModel?, Never>(nil)
     
     // MARK: - DetailsViewModelAction publisher
-    private(set) lazy var actionPublisher = actionSubject.eraseToAnyPublisher()
-    private let actionSubject = PassthroughSubject<DetailsViewModelAction, Never>()
+    private(set) lazy var eventPublisher = eventSubject.eraseToAnyPublisher()
+    private let eventSubject = PassthroughSubject<DetailsViewModelEvent, Never>()
     
     // MARK: - Init
     init(userService: UserService, adsDomainModel: AdvertisementDomainModel) {
@@ -40,10 +43,18 @@ final class DetailsViewModel: BaseViewModel {
         super.init()
     }
     
-    // MARK: - Life cycle
-    override func onViewDidLoad() {
-        advertisementDomainModelSubject.value = adsDomainModel
-        getFavorite()
+    // MARK: - Life cycle    
+    override func onViewWillAppear() {
+        super.onViewWillAppear()
+        switch reachabilityManager.appMode {
+        case .api:
+            advertisementDomainModelSubject.value = adsDomainModel
+            eventSubject.send(.onlineMode)
+            getFavorite()
+        case .database:
+            advertisementDomainModelSubject.value = adsDomainModel
+            eventSubject.send(.offlineMode)
+        }
     }
 }
 
@@ -96,7 +107,7 @@ extension DetailsViewModel {
                     guard case let .failure(error) = completion else {
                         return
                     }
-                    self?.actionSubject.send(.loadingError)
+                    self?.eventSubject.send(.loadingError)
                     self?.errorSubject.send(error)
                 } receiveValue: { [weak self] favoriteAds in
                     guard let self = self else {
@@ -113,7 +124,7 @@ extension DetailsViewModel {
                     guard case let .failure(error) = completion else {
                         return
                     }
-                    self?.actionSubject.send(.loadingError)
+                    self?.eventSubject.send(.loadingError)
                     self?.errorSubject.send(error)
                 } receiveValue: { [weak self] favoriteAds in
                     guard let self = self else {
@@ -138,7 +149,7 @@ private extension DetailsViewModel {
             return
         }
         isFavorite = favoriteModel.favorite.contains { $0.objectID == advertisementDomainModelSubject.value?.objectID }
-        actionSubject.send(.isFavorite(isFavorite))
+        eventSubject.send(.isFavorite(isFavorite))
     }
     
     func getFavorite() {
@@ -148,7 +159,7 @@ private extension DetailsViewModel {
                 guard case let .failure(error) = completion else {
                     return
                 }
-                self?.actionSubject.send(.loadingError)
+                self?.eventSubject.send(.loadingError)
                 self?.errorSubject.send(error)
             } receiveValue: { [weak self] ads in
                 guard let self = self else {

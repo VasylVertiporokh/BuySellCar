@@ -8,6 +8,7 @@
 import Foundation
 
 struct AdvertisementDomainModel {
+    let isDatabaseModel: Bool
     let bodyType: BodyType
     let transportName: String
     let bodyColor: CarColor
@@ -42,8 +43,9 @@ struct AdvertisementDomainModel {
         ownerinfo.isCommercialSales ? .diller : .owner
     }
     
-    // MARK: - Init
+    // MARK: - Init from response
     init(advertisementResponseModel: AdvertisementResponseModel) {
+        isDatabaseModel = false
         bodyType = advertisementResponseModel.bodyType
         transportName = advertisementResponseModel.transportName
         bodyColor = advertisementResponseModel.bodyColor
@@ -73,6 +75,39 @@ struct AdvertisementDomainModel {
         sellerName = advertisementResponseModel.sellerName
         ownerinfo = .init(model: advertisementResponseModel.userData)
     }
+    
+    // MARK: - Init from data base model
+    init(dataBaseModel: FavoriteCoreDataModel) {
+        isDatabaseModel = true
+        bodyType = BodyType.init(rawString: dataBaseModel.bodyType)
+        transportName = dataBaseModel.transportName
+        bodyColor = CarColor.init(rawString: dataBaseModel.bodyColor)
+        description = dataBaseModel.des
+        avarageFuelConsumption = dataBaseModel.avarageFuelConsumption
+        ownerID = dataBaseModel.ownerId
+        interiorColor = CarColor.init(rawString: dataBaseModel.interiorColor)
+        price = Int(dataBaseModel.price)
+        transmissionType = TransmissionType.init(rawString: dataBaseModel.transmissionType)
+        power = Int(dataBaseModel.power)
+        objectID = dataBaseModel.objectId
+        mileage = Int(dataBaseModel.mileage)
+        doorCount = Int(dataBaseModel.doorCount)
+        yearOfManufacture = Int(dataBaseModel.yearOfManufacture)
+        created = Int(dataBaseModel.created)
+        transportModel = dataBaseModel.transportModel
+        interiorFittings = dataBaseModel.interiorFittings
+        photo = dataBaseModel.photo
+        shortDescription = dataBaseModel.shortDes
+        numberOfSeats = Int(dataBaseModel.numberOfSeats)
+        condition = Condition.init(rawString: dataBaseModel.condition)
+        fuelType = FuelType.init(rawString: dataBaseModel.fuelType)
+        location = dataBaseModel.location
+        sellerType = .init(rawString: dataBaseModel.sellerType)
+        updated = Int(dataBaseModel.wasUpdated)
+        images = .init(carImages: dataBaseModel.images)
+        sellerName = dataBaseModel.sellerName
+        ownerinfo = .init(model: dataBaseModel.ownerInfo)
+    }
 }
 
 struct OwnerInfoModel {
@@ -91,5 +126,16 @@ struct OwnerInfoModel {
         self.phoneNumber = model.phoneNumber
         self.name = model.name
         self.email = model.email
+    }
+    
+    // MARK: - Init from data base model
+    init(model: OwnerInfoCoreDataModel?) {
+        // TODO: - Need fix
+        self.withWhatsAppAccount = model!.withWhatsAppAccount
+        self.isCommercialSales = model!.isCommercialSales
+        self.ownerId = model!.ownerId
+        self.phoneNumber = model!.phoneNumber
+        self.name = model!.name
+        self.email = model!.email
     }
 }

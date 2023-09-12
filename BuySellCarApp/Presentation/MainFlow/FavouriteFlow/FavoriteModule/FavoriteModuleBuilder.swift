@@ -14,7 +14,10 @@ enum FavoriteTransition: Transition {
 
 final class FavoriteModuleBuilder {
     class func build(container: AppContainer) -> Module<FavoriteTransition, UIViewController> {
-        let viewModel = FavoriteViewModel(userService: container.userService)
+        let viewModel = FavoriteViewModel(
+            userService: container.userService,
+            favoriteStorageService: container.favoriteStorageService
+        )
         let viewController = UIHostingController(rootView: FavoriteView(viewModel: viewModel))
         viewController.title = "Favorite"
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)

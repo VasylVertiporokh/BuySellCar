@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22F82" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="FavoriteCoreDataModel" representedClassName="FavoriteCoreDataModel" syncable="YES">
+        <attribute name="avarageFuelConsumption" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="bodyColor" attributeType="String"/>
+        <attribute name="bodyType" attributeType="String"/>
+        <attribute name="condition" attributeType="String"/>
+        <attribute name="created" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="des" optional="YES" attributeType="String"/>
+        <attribute name="doorCount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="fuelType" attributeType="String"/>
+        <attribute name="images" optional="YES" attributeType="Transformable" customClassName="[String]"/>
+        <attribute name="interiorColor" attributeType="String"/>
+        <attribute name="interiorFittings" optional="YES" attributeType="String"/>
+        <attribute name="isFavorite" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="location" optional="YES" attributeType="String"/>
+        <attribute name="mileage" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="numberOfSeats" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="objectId" attributeType="String"/>
+        <attribute name="ownerId" attributeType="String"/>
+        <attribute name="photo" optional="YES" attributeType="String"/>
+        <attribute name="power" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="price" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sellerName" attributeType="String"/>
+        <attribute name="sellerType" attributeType="String"/>
+        <attribute name="shortDes" optional="YES" attributeType="String"/>
+        <attribute name="transmissionType" attributeType="String"/>
+        <attribute name="transportModel" attributeType="String"/>
+        <attribute name="transportName" attributeType="String"/>
+        <attribute name="wasUpdated" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="yearOfManufacture" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="ownerInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OwnerInfoCoreDataModel"/>
+    </entity>
+    <entity name="OwnerInfoCoreDataModel" representedClassName="OwnerInfoCoreDataModel" syncable="YES">
+        <attribute name="email" attributeType="String"/>
+        <attribute name="isCommercialSales" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="ownerId" attributeType="String"/>
+        <attribute name="phoneNumber" attributeType="String"/>
+        <attribute name="withWhatsAppAccount" attributeType="Boolean" usesScalarValueType="YES"/>
+    </entity>
+</model>

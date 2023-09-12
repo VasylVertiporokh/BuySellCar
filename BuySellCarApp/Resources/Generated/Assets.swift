@@ -92,6 +92,7 @@ internal enum Assets {
   internal static let sellerIcon = ImageAsset(name: "sellerIcon")
   internal static let settingsIcon = ImageAsset(name: "settingsIcon")
   internal static let speedometer = ImageAsset(name: "speedometer")
+  internal static let statusOfflineIcon = ImageAsset(name: "statusOfflineIcon")
   internal static let trashIcon = ImageAsset(name: "trashIcon")
   internal static let user1 = ImageAsset(name: "user1")
   internal static let userIcon = ImageAsset(name: "userIcon")

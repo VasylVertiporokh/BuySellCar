@@ -11,27 +11,31 @@ import SwiftUI
 
 final class FavoriteViewModel: BaseViewModel, ObservableObject {
     // MARK: - Internal properties
-    @Published var favoriteModel: [FavoriteCellModel] = []
-    @Published var loadingState: FavoritesLoadingState = .loading
+    @Published var favoriteModel = [FavoriteCellModel]()
+    @Published var loadingState: FavoritesLoadingState = .loaded
     @Published var alert: AlertModel?
+    @Published var isLoadingFinished: Bool = false
     
     // MARK: - Private properties
     private let userService: UserService
+    private let favoriteStorageService: FavoriteAdsStorageService
     private var adsDomainModel: [AdvertisementDomainModel]?
+    private let reachabilityManager: ReachabilityManager = ReachabilityManagerImpl.shared
     
     // MARK: - Transition publisher
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
     private let transitionSubject = PassthroughSubject<FavoriteTransition, Never>()
     
     // MARK: - Init
-    init(userService: UserService) {
+    init(userService: UserService, favoriteStorageService: FavoriteAdsStorageService) {
         self.userService = userService
+        self.favoriteStorageService = favoriteStorageService
     }
     
     // MARK: - Life cycle
     override func onViewDidLoad() {
         super.onViewDidLoad()
-        getFavorite()
+        fetchAds()
     }
 }
 
@@ -56,7 +60,7 @@ extension FavoriteViewModel {
                 }
                 self.adsDomainModel = response.favorite
                     .map { AdvertisementDomainModel(advertisementResponseModel: $0) }
-                
+                self.favoriteStorageService.synchronizeFavoriteAds(adsDomainModel: self.adsDomainModel)
                 self.setupDataSource()
             }
             .store(in: &cancellables)
@@ -73,6 +77,12 @@ extension FavoriteViewModel {
     func reloadData() {
         loadingState = .loading
         getFavorite()
+        setupDataSource()
+    }
+    
+    func loadFromDatabase() {
+        adsDomainModel = favoriteStorageService.favoriteAds
+        setupDataSource()
     }
 }
 
@@ -88,8 +98,19 @@ extension FavoriteViewModel {
 
 // MARK: - Private extenison
 private extension FavoriteViewModel {
+    func fetchAds() {
+        switch reachabilityManager.appMode {
+        case .api:
+            favoriteStorageService.fetchFavoriteAds()
+            adsDomainModel = favoriteStorageService.favoriteAds
+            setupDataSource()
+            getFavorite()
+        case .database:
+            loadingState = .error
+        }
+    }
+    
     func getFavorite() {
-        loadingState = .loading
         userService.getFavoriteAds()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
@@ -104,8 +125,9 @@ private extension FavoriteViewModel {
                 }
                 self.adsDomainModel = response.favorite
                     .map { AdvertisementDomainModel(advertisementResponseModel: $0) }
-                
+                self.favoriteStorageService.synchronizeFavoriteAds(adsDomainModel: self.adsDomainModel)
                 self.setupDataSource()
+                self.isLoadingFinished = true
             }
             .store(in: &cancellables)
     }
@@ -116,6 +138,7 @@ private extension FavoriteViewModel {
         }
         
         favoriteModel = adsDomainModel
+            .sorted { $0.created > $1.created }
             .map { .init(domainModel: $0) }
         loadingState = favoriteModel.isEmpty ? .empty : .loaded
     }

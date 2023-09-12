@@ -79,11 +79,33 @@ enum BodyType: String, Codable {
     case cabrio = "Cabrio"
     case van = "Van"
     case transporter = "Transporter"
+    
+    init(rawString: String) {
+        switch rawString {
+        case "Hatchback":           self = .hatchback
+        case "Sedan":               self = .sedan
+        case "SUV":                 self = .suv
+        case "Compact":             self = .compact
+        case "Station wagon":       self = .stationWagon
+        case "Cabrio":              self = .cabrio
+        case "Van":                 self = .van
+        case "Transporter":         self = .transporter
+        default:                    self = .sedan
+        }
+    }
 }
 
 enum Condition: String, Codable {
     case new = "New"
     case used = "Used"
+    
+    init(rawString: String) {
+        switch rawString {
+        case "New":                 self = .new
+        case "Used":                self = .used
+        default:                    self = .used
+        }
+    }
 }
 
 enum FuelType: String, Codable, CaseIterable {
@@ -95,6 +117,19 @@ enum FuelType: String, Codable, CaseIterable {
     case hydrogen = "Hydrogen"
     case lpg = "LPG"
     case other = "Other"
+    
+    init(rawString: String) {
+        switch rawString {
+        case "Disel":               self = .disel
+        case "Electro":             self = .electro
+        case "Petrol":              self = .petrol
+        case "Hybrid":              self = .hybrid
+        case "Ethanol":             self = .ethanol
+        case "Hydrogen":            self = .hydrogen
+        case "LPG":                 self = .lpg
+        default:                    self = .other
+        }
+    }
 }
 
 enum CarColor: String, Codable, CaseIterable {
@@ -111,16 +146,32 @@ enum CarColor: String, Codable, CaseIterable {
     
     var colors: UIColor {
         switch self {
-        case .black:     return .black
-        case .gray:      return .gray
-        case .white:     return .white
-        case .red:       return .red
-        case .blue:      return .blue
-        case .yellow:    return .yellow
-        case .orange:    return .orange
-        case .green:     return .green
-        case .brown:     return .brown
-        case .silver:    return .lightGray
+        case .black:                return .black
+        case .gray:                 return .gray
+        case .white:                return .white
+        case .red:                  return .red
+        case .blue:                 return .blue
+        case .yellow:               return .yellow
+        case .orange:               return .orange
+        case .green:                return .green
+        case .brown:                return .brown
+        case .silver:               return .lightGray
+        }
+    }
+    
+    init(rawString: String) {
+        switch rawString {
+        case "Black":               self = .black
+        case "Gray":                self = .gray
+        case "White":               self = .white
+        case "Red":                 self = .red
+        case "Blue":                self = .blue
+        case "Yellow":              self = .yellow
+        case "Orange":              self = .orange
+        case "Green":               self = .green
+        case "Brown":               self = .brown
+        case "Silver":              self = .silver
+        default:                    self = .white
         }
     }
 }
@@ -128,10 +179,26 @@ enum CarColor: String, Codable, CaseIterable {
 enum SellerType: String, Codable {
     case diller = "Diller"
     case owner = "Owner"
+    
+    init(rawString: String) {
+        switch rawString {
+        case "Diller" :               self = .diller
+        default:                     self = .owner
+        }
+    }
 }
 
 enum TransmissionType: String, Codable {
     case automatic = "Automatic"
     case manual = "Manual"
     case semiAutomatic = "Semi-automatic"
+    
+    init(rawString: String) {
+        switch rawString {
+        case "Automatic":            self = .automatic
+        case "Manual":               self = .manual
+        case "Semi-automatic":       self = .semiAutomatic
+        default:                     self = .manual
+        }
+    }
 }

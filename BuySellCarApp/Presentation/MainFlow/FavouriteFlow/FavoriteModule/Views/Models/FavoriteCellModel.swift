@@ -9,6 +9,7 @@ import Foundation
 
 struct FavoriteCellModel: Hashable {
     private(set) var objectId: String
+    var isOfflineModel: Bool
     var imageUrl: URL?
     let adsName: String
     let price: String
@@ -24,6 +25,7 @@ struct FavoriteCellModel: Hashable {
     // MARK: - Init
     init(domainModel: AdvertisementDomainModel) {
         self.objectId = domainModel.objectID
+        self.isOfflineModel = domainModel.isDatabaseModel
         self.adsName = "\(domainModel.transportName) \(domainModel.transportModel)"
         self.price = "€ \(domainModel.price).-"
         self.bodyType = domainModel.bodyType.rawValue

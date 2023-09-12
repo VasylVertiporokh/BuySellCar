@@ -20,6 +20,8 @@ protocol AppContainer: AnyObject {
     var searchAdvertisementModel: AdvertisementModel { get }
     var emailNetworkService: EmailNetworkService { get }
     var emailService: EmailService { get }
+    var coreDataStack: CoreDataStack { get }
+    var favoriteStorageService: FavoriteAdsStorageService { get }
     var userLocationService: UserLocationService { get }
 }
 
@@ -37,6 +39,8 @@ final class AppContainerImpl: AppContainer {
     let searchAdvertisementModel: AdvertisementModel
     let emailNetworkService: EmailNetworkService
     let emailService: EmailService
+    let coreDataStack: CoreDataStack = CoreDataStack(dataModelName: .mainModel)
+    let favoriteStorageService: FavoriteAdsStorageService
     var userLocationService: UserLocationService = {
         return UserLocationServiceImpl()
     }()
@@ -86,6 +90,8 @@ final class AppContainerImpl: AppContainer {
         )
         self.emailNetworkService = EmailNetworkServiceImpl(emailNetworkServiceProvider)
         self.emailService = EmailServiceImpl(emailNetworkService: emailNetworkService, userService: userService)
+        
+        self.favoriteStorageService = AdsStorageServiceImpl(stack: coreDataStack)
         
         self.advertisementNetworkService = AdvertisementNetworkImpl(provider: advertisementNetworkServiceProvider)
         self.advertisementService = AdvertisementServiceImpl(advertisementNetworkService: advertisementNetworkService)

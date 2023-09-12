@@ -32,7 +32,11 @@ struct FavoriteCellView: View {
             containerStackView
                 .modifier(ShadowModifier())
                 .offset(x: item.offset)
-                .gesture(DragGesture().onChanged(onChanged(value:)).onEnded(onEnd(value:)))
+                .gesture(DragGesture()
+                    .onChanged(onChanged(value:))
+                    .onEnded(onEnd(value:))
+                )
+                .disabled(item.isOfflineModel)
                 .onTapGesture {
                     action(.cellDidTap(item.objectId))
                 }
