@@ -1,5 +1,5 @@
 //
-//  FavoriteCoreDataModel+CoreDataClass.swift
+//  AdsCoreDataModel+CoreDataClass.swift
 //  BuySellCarApp
 //
 //  Created by Vasia Vertiporoh on 05/09/2023.
@@ -9,8 +9,8 @@
 import Foundation
 import CoreData
 
-@objc(FavoriteCoreDataModel)
-public class FavoriteCoreDataModel: NSManagedObject {
+@objc(AdsCoreDataModel)
+public class AdsCoreDataModel: NSManagedObject {
     
     // MARK: - Init from model
     convenience init(
@@ -20,7 +20,7 @@ public class FavoriteCoreDataModel: NSManagedObject {
         insertIntoManagedObjectContext context: NSManagedObjectContext) {
             
         guard let entity = NSEntityDescription.entity(
-            forEntityName: "FavoriteCoreDataModel",
+            forEntityName: "AdsCoreDataModel",
             in: context
         ) else {
             fatalError("Erorr")

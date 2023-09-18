@@ -61,7 +61,7 @@ extension AdsStorageServiceImpl: AdsStorageService {
     }
     
     func fetchAdsByType(_ type: AdvertisementType) {
-        let request: NSFetchRequest<FavoriteCoreDataModel> = FavoriteCoreDataModel.fetchRequest()
+        let request: NSFetchRequest<AdsCoreDataModel> = AdsCoreDataModel.fetchRequest()
         request.predicate = NSPredicate(format: "\(type.filterParam) == %@", NSNumber (value: true))
         
         switch type {
@@ -84,9 +84,9 @@ extension AdsStorageServiceImpl: AdsStorageService {
     }
     
     func synchronizeAdsByType(_ type: AdvertisementType, adsDomainModel: [AdvertisementDomainModel]?) {
-        let request: NSFetchRequest<FavoriteCoreDataModel> = FavoriteCoreDataModel.fetchRequest()
+        let request: NSFetchRequest<AdsCoreDataModel> = AdsCoreDataModel.fetchRequest()
         let existingItems = try? stack.backgroundContext.fetch(request)
-        var items = [FavoriteCoreDataModel]()
+        var items = [AdsCoreDataModel]()
         
         guard let existingItems = existingItems,
               let adsDomainModel = adsDomainModel,

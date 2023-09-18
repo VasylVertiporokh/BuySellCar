@@ -81,6 +81,7 @@ extension FavoriteViewModel {
     }
     
     func loadFromDatabase() {
+        favoriteStorageService.fetchAdsByType(.favoriteAds)
         adsDomainModel = favoriteStorageService.favoriteAds
         setupDataSource()
     }

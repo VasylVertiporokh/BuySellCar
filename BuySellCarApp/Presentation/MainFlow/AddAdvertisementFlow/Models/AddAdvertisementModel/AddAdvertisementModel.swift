@@ -241,29 +241,29 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
         
         multipartItems.forEach { item in
             dispatchGroup.enter()
-                self.advertisementService.uploadAdvertisementImage(item: item, userID: ownedID)
-                    .sink { [unowned self] completion in
-                        guard case let .failure(error) = completion else {
-                            return
-                        }
-                        modelErrorSubject.send(error)
-                    } receiveValue: { [unowned self] imageURL in
-                        advertisementImages.carImages?.append(imageURL.fileURL)
-                        self.dispatchGroup.leave()
+            self.advertisementService.uploadAdvertisementImage(item: item, userID: ownedID)
+                .sink { [unowned self] completion in
+                    guard case let .failure(error) = completion else {
+                        return
                     }
-                    .store(in: &self.cancellables)
+                    modelErrorSubject.send(error)
+                } receiveValue: { [unowned self] imageURL in
+                    advertisementImages.carImages?.append(imageURL.fileURL)
+                    self.dispatchGroup.leave()
+                }
+                .store(in: &self.cancellables)
         }
         
         dispatchGroup.notify(queue: DispatchQueue.global(qos: .default)) {
             self.addAdsDomainModelSubject.value.images = advertisementImages
-                self.advertisementService.publishAdvertisement(model: self.addAdsDomainModelSubject.value, ownerId: ownedID)
-                    .sink { [unowned self] completion in
-                        guard case let .failure(error) = completion else {
-                            return
-                        }
-                        self.modelErrorSubject.send(error)
-                    } receiveValue: { [unowned self] in successfulPublicationSubject.send($0) }
-                    .store(in: &self.cancellables)
+            self.advertisementService.publishAdvertisement(model: self.addAdsDomainModelSubject.value, ownerId: ownedID)
+                .sink { [unowned self] completion in
+                    guard case let .failure(error) = completion else {
+                        return
+                    }
+                    self.modelErrorSubject.send(error)
+                } receiveValue: { [unowned self] in successfulPublicationSubject.send($0) }
+                .store(in: &self.cancellables)
         }
     }
     

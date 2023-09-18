@@ -1,5 +1,5 @@
 //
-//  FavoriteCoreDataModel+CoreDataProperties.swift
+//  AdsCoreDataModel+CoreDataProperties.swift
 //  BuySellCarApp
 //
 //  Created by Vasia Vertiporoh on 05/09/2023.
@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 
 
-extension FavoriteCoreDataModel {
+extension AdsCoreDataModel {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<FavoriteCoreDataModel> {
-        return NSFetchRequest<FavoriteCoreDataModel>(entityName: "FavoriteCoreDataModel")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<AdsCoreDataModel> {
+        return NSFetchRequest<AdsCoreDataModel>(entityName: "AdsCoreDataModel")
     }
     
     @NSManaged public var isOwnAds: Bool
@@ -49,6 +49,6 @@ extension FavoriteCoreDataModel {
 
 }
 
-extension FavoriteCoreDataModel : Identifiable {
+extension AdsCoreDataModel : Identifiable {
 
 }

@@ -77,7 +77,7 @@ struct AdvertisementDomainModel {
     }
     
     // MARK: - Init from data base model
-    init(dataBaseModel: FavoriteCoreDataModel) {
+    init(dataBaseModel: AdsCoreDataModel) {
         isDatabaseModel = true
         bodyType = BodyType.init(rawString: dataBaseModel.bodyType)
         transportName = dataBaseModel.transportName
