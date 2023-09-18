@@ -21,7 +21,7 @@ protocol AppContainer: AnyObject {
     var emailNetworkService: EmailNetworkService { get }
     var emailService: EmailService { get }
     var coreDataStack: CoreDataStack { get }
-    var favoriteStorageService: FavoriteAdsStorageService { get }
+    var adsStorageService: AdsStorageService { get }
     var userLocationService: UserLocationService { get }
 }
 
@@ -40,11 +40,10 @@ final class AppContainerImpl: AppContainer {
     let emailNetworkService: EmailNetworkService
     let emailService: EmailService
     let coreDataStack: CoreDataStack = CoreDataStack(dataModelName: .mainModel)
-    let favoriteStorageService: FavoriteAdsStorageService
+    let adsStorageService: AdsStorageService
     var userLocationService: UserLocationService = {
         return UserLocationServiceImpl()
     }()
-    
     
     init() {
         let appConfiguration = AppConfigurationImpl()
@@ -91,7 +90,7 @@ final class AppContainerImpl: AppContainer {
         self.emailNetworkService = EmailNetworkServiceImpl(emailNetworkServiceProvider)
         self.emailService = EmailServiceImpl(emailNetworkService: emailNetworkService, userService: userService)
         
-        self.favoriteStorageService = AdsStorageServiceImpl(stack: coreDataStack)
+        self.adsStorageService = AdsStorageServiceImpl(stack: coreDataStack)
         
         self.advertisementNetworkService = AdvertisementNetworkImpl(provider: advertisementNetworkServiceProvider)
         self.advertisementService = AdvertisementServiceImpl(advertisementNetworkService: advertisementNetworkService)
@@ -100,7 +99,8 @@ final class AppContainerImpl: AppContainer {
         self.addAdvertisementModel = AddAdvertisementModelImpl(
             userService: userService,
             advertisementService: advertisementService,
-            userLocationService: userLocationService
+            userLocationService: userLocationService,
+            ownAdsStorageService: adsStorageService
         )
     }
 }

@@ -105,7 +105,7 @@ private extension FavoriteView {
                 .font(FontFamily.Montserrat.regular.swiftUIFont(fixedSize: 16))
                 .foregroundColor(.gray)
             Button(action: {
-                viewModel.reloadData()
+                viewModel.loadFromDatabase()
             }, label: {
                 Text("Use offline mode?")
                     .font(FontFamily.Montserrat.regular.swiftUIFont(fixedSize: 16))

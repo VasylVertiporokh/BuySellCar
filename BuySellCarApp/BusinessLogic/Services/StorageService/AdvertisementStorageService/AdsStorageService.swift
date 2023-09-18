@@ -8,16 +8,27 @@
 import Foundation
 import Combine
 
-protocol AdsStorageService {
-    func saveContext(contextType: ContextType)
+enum AdvertisementType {
+    case ownAds
+    case favoriteAds
+    
+    var filterParam: String {
+        switch self {
+        case .ownAds:               return "isOwnAds"
+        case .favoriteAds:          return "isFavorite"
+        }
+    }
 }
 
-protocol FavoriteAdsStorageService {
+// MARK: - AdsStorageService
+protocol AdsStorageService {
     var favoriteAds: [AdvertisementDomainModel] { get }
     var favoriteAdsPublisher: AnyPublisher<[AdvertisementDomainModel], Never> { get }
     var favoriteAdsErrorPublisher: AnyPublisher<Error, Never> { get }
+    var ownAds: [AdvertisementDomainModel] { get }
+    var ownAdsPublisher: AnyPublisher<[AdvertisementDomainModel], Never> { get }
     
-    func synchronizeFavoriteAds(adsDomainModel: [AdvertisementDomainModel]?)
-    func fetchFavoriteAds()
-    func deleteFavoriteAds(adsDomainModel: AdvertisementDomainModel)
+    func saveContext(contextType: ContextType)
+    func fetchAdsByType(_ type: AdvertisementType)
+    func synchronizeAdsByType(_ type: AdvertisementType, adsDomainModel: [AdvertisementDomainModel]?)
 }

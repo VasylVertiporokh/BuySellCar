@@ -18,7 +18,7 @@ extension AdsStorageError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .fetchFavoriteError:
-            return "Something went wrong while trying to retrieve Favorites from the local storage"
+            return "Something went wrong while trying to retrieve data from the local storage"
         case .saveError:
             return "An error occurred while trying to save to local storage"
         case .defaultError:

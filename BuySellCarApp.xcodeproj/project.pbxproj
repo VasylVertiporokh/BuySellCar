@@ -79,8 +79,8 @@
 		1FCA59012A73C0AE003477E3 /* SelectedBrandModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA59002A73C0AE003477E3 /* SelectedBrandModel.swift */; };
 		1FCA59032A73C0C5003477E3 /* TechnicalSpecCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA59022A73C0C5003477E3 /* TechnicalSpecCellModel.swift */; };
 		1FCA59062A73C169003477E3 /* SearchableModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCA59052A73C169003477E3 /* SearchableModelProtocol.swift */; };
-		1FD2378A2AA70D6100D7AF0D /* FavoriteCoreDataModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD237862AA70D6100D7AF0D /* FavoriteCoreDataModel+CoreDataClass.swift */; };
-		1FD2378B2AA70D6100D7AF0D /* FavoriteCoreDataModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD237872AA70D6100D7AF0D /* FavoriteCoreDataModel+CoreDataProperties.swift */; };
+		1FD2378A2AA70D6100D7AF0D /* AdsCoreDataModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD237862AA70D6100D7AF0D /* AdsCoreDataModel+CoreDataClass.swift */; };
+		1FD2378B2AA70D6100D7AF0D /* AdsCoreDataModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD237872AA70D6100D7AF0D /* AdsCoreDataModel+CoreDataProperties.swift */; };
 		1FD2378C2AA70D6100D7AF0D /* OwnerInfoCoreDataModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD237882AA70D6100D7AF0D /* OwnerInfoCoreDataModel+CoreDataClass.swift */; };
 		1FD2378D2AA70D6100D7AF0D /* OwnerInfoCoreDataModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD237892AA70D6100D7AF0D /* OwnerInfoCoreDataModel+CoreDataProperties.swift */; };
 		1FD237902AA88B1600D7AF0D /* AdsStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD2378F2AA88B1600D7AF0D /* AdsStorageService.swift */; };
@@ -402,8 +402,8 @@
 		1FCA59002A73C0AE003477E3 /* SelectedBrandModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedBrandModel.swift; sourceTree = "<group>"; };
 		1FCA59022A73C0C5003477E3 /* TechnicalSpecCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechnicalSpecCellModel.swift; sourceTree = "<group>"; };
 		1FCA59052A73C169003477E3 /* SearchableModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableModelProtocol.swift; sourceTree = "<group>"; };
-		1FD237862AA70D6100D7AF0D /* FavoriteCoreDataModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteCoreDataModel+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1FD237872AA70D6100D7AF0D /* FavoriteCoreDataModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteCoreDataModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1FD237862AA70D6100D7AF0D /* AdsCoreDataModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AdsCoreDataModel+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1FD237872AA70D6100D7AF0D /* AdsCoreDataModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AdsCoreDataModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1FD237882AA70D6100D7AF0D /* OwnerInfoCoreDataModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OwnerInfoCoreDataModel+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1FD237892AA70D6100D7AF0D /* OwnerInfoCoreDataModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OwnerInfoCoreDataModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1FD2378F2AA88B1600D7AF0D /* AdsStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsStorageService.swift; sourceTree = "<group>"; };
@@ -930,8 +930,8 @@
 		1FA2B8A62AA5E7D3003D7FCB /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				1FD237862AA70D6100D7AF0D /* FavoriteCoreDataModel+CoreDataClass.swift */,
-				1FD237872AA70D6100D7AF0D /* FavoriteCoreDataModel+CoreDataProperties.swift */,
+				1FD237862AA70D6100D7AF0D /* AdsCoreDataModel+CoreDataClass.swift */,
+				1FD237872AA70D6100D7AF0D /* AdsCoreDataModel+CoreDataProperties.swift */,
 				1FD237882AA70D6100D7AF0D /* OwnerInfoCoreDataModel+CoreDataClass.swift */,
 				1FD237892AA70D6100D7AF0D /* OwnerInfoCoreDataModel+CoreDataProperties.swift */,
 			);
@@ -2445,7 +2445,7 @@
 				D42F790329C35C8600339DA2 /* UserInfoUpdateRequestModel.swift in Sources */,
 				D4EA6E65299E87A1009F7DBD /* SignInView.swift in Sources */,
 				D47839AF2A139D5E0003FD83 /* VehicleDataViewController.swift in Sources */,
-				1FD2378A2AA70D6100D7AF0D /* FavoriteCoreDataModel+CoreDataClass.swift in Sources */,
+				1FD2378A2AA70D6100D7AF0D /* AdsCoreDataModel+CoreDataClass.swift in Sources */,
 				D4E14A592A0D31F3000E37E6 /* AddNewAdvertisementViewModel.swift in Sources */,
 				D43BC1EC2A1BA207005F5F4C /* UIAlertController+Extension.swift in Sources */,
 				D4E14A582A0D31F3000E37E6 /* AddNewAdvertisementView.swift in Sources */,
@@ -2460,7 +2460,7 @@
 				D49D0E4329F05A5D00C67E96 /* DecorationGroupView.swift in Sources */,
 				D48BE0A129CB861300E7F159 /* UIResponder+Extension.swift in Sources */,
 				1F3670822A8CCFC500CBDCD2 /* EmailResponseModel.swift in Sources */,
-				1FD2378B2AA70D6100D7AF0D /* FavoriteCoreDataModel+CoreDataProperties.swift in Sources */,
+				1FD2378B2AA70D6100D7AF0D /* AdsCoreDataModel+CoreDataProperties.swift in Sources */,
 				D42F78F729C0C1F800339DA2 /* SettingsCellContentConfiguration.swift in Sources */,
 				D47839C62A141FC00003FD83 /* BrandListModuleBuilder.swift in Sources */,
 				D49D0E3429EEE50D00C67E96 /* BrandCell.swift in Sources */,

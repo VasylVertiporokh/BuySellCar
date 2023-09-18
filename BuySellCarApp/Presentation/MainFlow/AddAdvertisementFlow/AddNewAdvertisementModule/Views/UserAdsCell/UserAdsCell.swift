@@ -54,6 +54,8 @@ extension UserAdsCell {
         productionYearLabel.text = "\(model.year)"
         fixedPriceLabel.text = "\(model.price)€"
         dataLabel.text = model.created.toDateType(dateType: "MM/dd/yyyy")
+        deleteButton.isEnabled = !model.isFromDataBase
+        deleteButton.layer.borderColor = !model.isFromDataBase ? UIColor.red.cgColor : UIColor.lightGray.cgColor
     }
 }
 
@@ -88,7 +90,6 @@ private extension UserAdsCell {
         deleteButton.tintColor = .red
         deleteButton.layer.cornerRadius = Constant.deleteButtonRadius
         deleteButton.layer.borderWidth = Constant.deleteButtonBorderWidth
-        deleteButton.layer.borderColor = UIColor.red.cgColor
         brandLabel.text = "Car"
         yearLabel.text = "Year"
         priceLabel.text = "Price"

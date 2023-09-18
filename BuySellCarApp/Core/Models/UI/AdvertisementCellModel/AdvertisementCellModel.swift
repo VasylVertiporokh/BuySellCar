@@ -24,24 +24,26 @@ struct AdvertisementCellModel: Hashable {
     let objectID: String
     let imageArray: [String]
     let created: Int
+    let isFromDataBase: Bool
     
     // MARK: - Init from AdvertisementCellModel
     init(model: AdvertisementDomainModel) {
-        brandName = model.transportName
-        brandModel = model.transportModel
-        price = model.price
-        mileage = model.mileage
-        power = model.power
-        numberOfOwners = model.numberOfSeats
-        fuelConsumption = model.avarageFuelConsumption
-        year = model.yearOfManufacture
-        condition = model.condition.rawValue
-        fuelType = model.fuelType.rawValue
-        color = model.bodyColor.rawValue
-        sellerName = model.sellerName
-        location = model.location
-        objectID = model.objectID
-        imageArray = model.images?.carImages ?? [""]
-        created = model.created
+        self.brandName = model.transportName
+        self.brandModel = model.transportModel
+        self.price = model.price
+        self.mileage = model.mileage
+        self.power = model.power
+        self.numberOfOwners = model.numberOfSeats
+        self.fuelConsumption = model.avarageFuelConsumption
+        self.year = model.yearOfManufacture
+        self.condition = model.condition.rawValue
+        self.fuelType = model.fuelType.rawValue
+        self.color = model.bodyColor.rawValue
+        self.sellerName = model.sellerName
+        self.location = model.location
+        self.objectID = model.objectID
+        self.imageArray = model.images?.carImages ?? [""]
+        self.created = model.created
+        self.isFromDataBase = model.isDatabaseModel
     }
 }

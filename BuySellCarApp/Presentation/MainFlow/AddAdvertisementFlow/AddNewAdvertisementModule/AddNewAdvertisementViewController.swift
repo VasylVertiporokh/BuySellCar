@@ -11,6 +11,12 @@ final class AddNewAdvertisementViewController: BaseViewController<AddNewAdvertis
     // MARK: - Views
     private let contentView = AddNewAdvertisementView()
     
+    private lazy var offlineRightView: UIImageView = {
+        let imegeView = UIImageView(image: Assets.statusOfflineIcon.image)
+        imegeView.frame.size = .init(width: 25, height: 25)
+        return imegeView
+    }()
+    
     // MARK: - Lifecycle
     override func loadView() {
         view = contentView
@@ -50,6 +56,9 @@ private extension AddNewAdvertisementViewController {
                 switch events {
                 case .hasUserOwnAdvertisement(let hasUserOwnAdvertisement):
                     contentView.configureIfEmptyState(hasUserOwnAdvertisement)
+                case .offlineMode(let mode):
+                    contentView.offlineConfig(mode: mode)
+                    offlineModeConfig()
                 }
             }
             .store(in: &cancellables)
@@ -70,5 +79,10 @@ private extension AddNewAdvertisementViewController {
         alertController.addAction(okAction)
         alertController.addAction(cancel)
         present(alertController, animated: true, completion: nil)
+    }
+    
+    func offlineModeConfig() {
+        navigationController?.navigationBar.tintColor = Colors.buttonDarkGray.color
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: offlineRightView)
     }
 }

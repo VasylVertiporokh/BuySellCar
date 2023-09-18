@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22F82" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="FavoriteCoreDataModel" representedClassName="FavoriteCoreDataModel" syncable="YES">
+    <entity name="AdsCoreDataModel" representedClassName="AdsCoreDataModel" syncable="YES">
         <attribute name="avarageFuelConsumption" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="bodyColor" attributeType="String"/>
         <attribute name="bodyType" attributeType="String"/>
@@ -13,6 +13,7 @@
         <attribute name="interiorColor" attributeType="String"/>
         <attribute name="interiorFittings" optional="YES" attributeType="String"/>
         <attribute name="isFavorite" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isOwnAds" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="location" optional="YES" attributeType="String"/>
         <attribute name="mileage" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="numberOfSeats" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
