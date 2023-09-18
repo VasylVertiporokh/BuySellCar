@@ -99,6 +99,10 @@ extension AddNewAdvertisementView {
         emptyStateView.isHidden = isEmpty
         collectionView.isHidden = !isEmpty
     }
+    
+    func offlineConfig(mode: AppDataMode) {
+        createAddButton.isEnabled = mode == .api
+    }
 }
 
 // MARK: - Configure collection view

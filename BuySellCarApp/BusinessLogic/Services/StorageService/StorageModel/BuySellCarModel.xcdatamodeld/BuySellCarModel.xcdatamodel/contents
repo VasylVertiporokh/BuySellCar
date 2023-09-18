@@ -13,6 +13,7 @@
         <attribute name="interiorColor" attributeType="String"/>
         <attribute name="interiorFittings" optional="YES" attributeType="String"/>
         <attribute name="isFavorite" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isOwnAds" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="location" optional="YES" attributeType="String"/>
         <attribute name="mileage" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="numberOfSeats" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>

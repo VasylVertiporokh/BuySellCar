@@ -15,6 +15,7 @@ protocol AddAdvertisementModel {
     var isAllFieldsValidPublisher: AnyPublisher<Bool, Never> { get }
     var modelErrorPublisher: AnyPublisher<Error, Never> { get }
     var successfulPublicationPublisher: AnyPublisher<Void, Never> { get }
+    var offlineModePublisher: AnyPublisher<AppDataMode, Never> { get }
     var carColorArray: [CarColor] { get }
     var fuelTypesArray: [FuelType] { get }
     var addAdsDomainModelPublisher: AnyPublisher<AddAdvertisementDomainModel, Never> { get }
@@ -45,6 +46,8 @@ final class AddAdvertisementModelImpl {
     private let userService: UserService
     private let advertisementService: AdvertisementService
     private let userLocationService: UserLocationService
+    private let ownAdsStorageService: AdsStorageService
+    private let reachabilityManager: ReachabilityManager = ReachabilityManagerImpl.shared
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Subjects
@@ -53,6 +56,7 @@ final class AddAdvertisementModelImpl {
     private let modelsSubject = CurrentValueSubject<[ModelsDomainModel], Never>([])
     private let isAllFieldsValidSubject = CurrentValueSubject<Bool, Never>(false)
     private let successfulPublicationSubject = PassthroughSubject<Void, Never>()
+    private let offlineModeSubject = PassthroughSubject<AppDataMode, Never>()
     private let modelErrorSubject = PassthroughSubject<Error, Never>()
     private let addAdsDomainModelSubject = CurrentValueSubject<AddAdvertisementDomainModel, Never>(.init())
     
@@ -62,17 +66,24 @@ final class AddAdvertisementModelImpl {
     lazy var modelsPublisher = modelsSubject.eraseToAnyPublisher()
     lazy var modelErrorPublisher = modelErrorSubject.eraseToAnyPublisher()
     lazy var successfulPublicationPublisher = successfulPublicationSubject.eraseToAnyPublisher()
+    lazy var offlineModePublisher = offlineModeSubject.eraseToAnyPublisher()
     lazy var addAdsDomainModelPublisher = addAdsDomainModelSubject.eraseToAnyPublisher()
     lazy var isAllFieldsValidPublisher = isAllFieldsValidSubject.eraseToAnyPublisher()
     
-    // MARK: - For testing
+    // MARK: - Temp solution
     private let dispatchGroup = DispatchGroup()
     
     // MARK: - Init
-    init(userService: UserService, advertisementService: AdvertisementService, userLocationService: UserLocationService) {
+    init(
+        userService: UserService,
+        advertisementService: AdvertisementService,
+        userLocationService: UserLocationService,
+        ownAdsStorageService: AdsStorageService
+    ) {
         self.userService = userService
         self.advertisementService = advertisementService
         self.userLocationService = userLocationService
+        self.ownAdsStorageService = ownAdsStorageService
     }
 }
 
@@ -82,18 +93,27 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
         guard let ownerID = userService.user?.ownerID else {
             return
         }
+        ownAdsStorageService.fetchAdsByType(.ownAds)
         
-        advertisementService.getOwnAds(byID: ownerID)
-            .sink { [weak self] completion in
-                guard case let .failure(error) = completion else {
-                    return
+        switch reachabilityManager.appMode {
+        case .api:
+            ownAdsSubject.send(ownAdsStorageService.ownAds)
+            advertisementService.getOwnAds(byID: ownerID)
+                .sink { [weak self] completion in
+                    guard case let .failure(error) = completion else {
+                        return
+                    }
+                    self?.modelErrorSubject.send(error)
+                } receiveValue: { [weak self] adsDomainModel in
+                    guard let self = self else { return }
+                    self.ownAdsSubject.send(adsDomainModel)
+                    self.ownAdsStorageService.synchronizeAdsByType(.ownAds, adsDomainModel: adsDomainModel)
                 }
-                self?.modelErrorSubject.send(error)
-            } receiveValue: { [weak self] adsDomainModel in
-                guard let self = self else { return }
-                self.ownAdsSubject.send(adsDomainModel)
-            }
-            .store(in: &cancellables)
+                .store(in: &cancellables)
+        case .database:
+            ownAdsSubject.send(ownAdsStorageService.ownAds)
+            offlineModeSubject.send(.database)
+        }
     }
     
     func getBrands() {

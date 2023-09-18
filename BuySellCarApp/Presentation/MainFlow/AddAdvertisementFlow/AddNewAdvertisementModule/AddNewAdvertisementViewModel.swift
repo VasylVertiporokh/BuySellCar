@@ -10,6 +10,7 @@ import Foundation
 
 enum AddNewAdvertisementViewModelEvents {
     case hasUserOwnAdvertisement(Bool)
+    case offlineMode(AppDataMode)
 }
 
 final class AddNewAdvertisementViewModel: BaseViewModel {
@@ -91,10 +92,22 @@ private extension AddNewAdvertisementViewModel {
                 self.errorSubject.send(error)
             }
             .store(in: &cancellables)
+        
+        addAdvertisementModel.offlineModePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [unowned self] mode in
+                guard case .database = mode else {
+                    return
+                }
+                eventsSubject.send(.offlineMode(mode))
+            }
+            .store(in: &cancellables)
     }
     
     func updateDataSource() {
-        let items = advertisementCellModel.map { CreatedAdvertisementsRow.createdAdvertisementsRow($0) }
+        let items = advertisementCellModel
+            .sorted { $0.created > $1.created }
+            .map { CreatedAdvertisementsRow.createdAdvertisementsRow($0) }
         sectionSubject.send([.init(section: .createdAdvertisements, items: items)])
     }
 }

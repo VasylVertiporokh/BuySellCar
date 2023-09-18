@@ -16,6 +16,7 @@ extension FavoriteCoreDataModel {
         return NSFetchRequest<FavoriteCoreDataModel>(entityName: "FavoriteCoreDataModel")
     }
     
+    @NSManaged public var isOwnAds: Bool
     @NSManaged public var avarageFuelConsumption: Double
     @NSManaged public var bodyColor: String
     @NSManaged public var bodyType: String

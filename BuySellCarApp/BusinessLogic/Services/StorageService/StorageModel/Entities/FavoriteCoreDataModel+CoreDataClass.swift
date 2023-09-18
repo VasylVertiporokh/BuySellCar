@@ -16,6 +16,7 @@ public class FavoriteCoreDataModel: NSManagedObject {
     convenience init(
         adsDomainModel: AdvertisementDomainModel,
         isFavorite: Bool = false,
+        isOwnAds: Bool = false,
         insertIntoManagedObjectContext context: NSManagedObjectContext) {
             
         guard let entity = NSEntityDescription.entity(
@@ -26,6 +27,7 @@ public class FavoriteCoreDataModel: NSManagedObject {
         }
         
         self.init(entity: entity, insertInto: context)
+        self.isOwnAds = isOwnAds
         self.bodyType = adsDomainModel.bodyType.rawValue
         self.transportName = adsDomainModel.transportName
         self.bodyColor = adsDomainModel.bodyType.rawValue

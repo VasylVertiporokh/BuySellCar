@@ -16,7 +16,7 @@ final class FavoriteModuleBuilder {
     class func build(container: AppContainer) -> Module<FavoriteTransition, UIViewController> {
         let viewModel = FavoriteViewModel(
             userService: container.userService,
-            favoriteStorageService: container.favoriteStorageService
+            favoriteStorageService: container.adsStorageService
         )
         let viewController = UIHostingController(rootView: FavoriteView(viewModel: viewModel))
         viewController.title = "Favorite"

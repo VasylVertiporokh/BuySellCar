@@ -15,12 +15,19 @@ final class AdsStorageServiceImpl {
         favoriteAdsSubject.value
     }
     
+    var ownAds: [AdvertisementDomainModel] {
+        ownAdsSubject.value
+    }
+    
     // MARK: - Private properties
     private let stack: CoreDataStack
     
     // MARK: - Publishers
     private(set) lazy var favoriteAdsPublisher = favoriteAdsSubject.eraseToAnyPublisher()
     private let favoriteAdsSubject = CurrentValueSubject<[AdvertisementDomainModel], Never>([])
+    
+    private(set) lazy var ownAdsPublisher = ownAdsSubject.eraseToAnyPublisher()
+    private let ownAdsSubject = CurrentValueSubject<[AdvertisementDomainModel], Never>([])
     
     private(set) lazy var favoriteAdsErrorPublisher = favoriteAdsErrorSubject.eraseToAnyPublisher()
     private let favoriteAdsErrorSubject = PassthroughSubject<Error, Never>()
@@ -42,7 +49,7 @@ extension AdsStorageServiceImpl: AdsStorageService {
             } catch {
                 favoriteAdsErrorSubject.send(AdsStorageError.saveError)
             }
-
+            
         case .backgroundContext:
             guard stack.backgroundContext.hasChanges else { return }
             do {
@@ -52,13 +59,34 @@ extension AdsStorageServiceImpl: AdsStorageService {
             }
         }
     }
-}
+    
+    func fetchAdsByType(_ type: AdvertisementType) {
+        let request: NSFetchRequest<FavoriteCoreDataModel> = FavoriteCoreDataModel.fetchRequest()
+        request.predicate = NSPredicate(format: "\(type.filterParam) == %@", NSNumber (value: true))
+        
+        switch type {
+        case .ownAds:
+            do {
+                let model = try stack.viewContext.fetch(request)
+                ownAdsSubject.value = model.map { .init(dataBaseModel: $0) }
+            } catch {
+                favoriteAdsErrorSubject.send(AdsStorageError.fetchFavoriteError)
+            }
 
-// MARK: - FavoriteAdsStorageService
-extension AdsStorageServiceImpl: FavoriteAdsStorageService {
-    func synchronizeFavoriteAds(adsDomainModel: [AdvertisementDomainModel]?) {
+        case .favoriteAds:
+            do {
+                let model = try stack.viewContext.fetch(request)
+                favoriteAdsSubject.value = model.map { .init(dataBaseModel: $0) }
+            } catch {
+                favoriteAdsErrorSubject.send(AdsStorageError.fetchFavoriteError)
+            }
+        }
+    }
+    
+    func synchronizeAdsByType(_ type: AdvertisementType, adsDomainModel: [AdvertisementDomainModel]?) {
         let request: NSFetchRequest<FavoriteCoreDataModel> = FavoriteCoreDataModel.fetchRequest()
         let existingItems = try? stack.backgroundContext.fetch(request)
+        var items = [FavoriteCoreDataModel]()
         
         guard let existingItems = existingItems,
               let adsDomainModel = adsDomainModel,
@@ -67,12 +95,23 @@ extension AdsStorageServiceImpl: FavoriteAdsStorageService {
             return
         }
         
-        let items: [FavoriteCoreDataModel] = adsDomainModel.map {
-            .init(
-                adsDomainModel: $0,
-                isFavorite: true,
-                insertIntoManagedObjectContext: stack.backgroundContext
-            )
+        switch type {
+        case .ownAds:
+            items = adsDomainModel.map {
+                .init(
+                    adsDomainModel: $0,
+                    isOwnAds: true,
+                    insertIntoManagedObjectContext: stack.backgroundContext
+                )
+            }
+        case .favoriteAds:
+            items = adsDomainModel.map {
+                .init(
+                    adsDomainModel: $0,
+                    isFavorite: true,
+                    insertIntoManagedObjectContext: stack.backgroundContext
+                )
+            }
         }
         
         // filtered item to delete
@@ -82,25 +121,6 @@ extension AdsStorageServiceImpl: FavoriteAdsStorageService {
         // filtered item to save
         let itemsToInsert = items.filter { !existingItems.contains($0) }
         itemsToInsert.forEach { stack.backgroundContext.insert($0) }
-        saveContext(contextType: .backgroundContext)
-    }
-    
-    func fetchFavoriteAds() {
-        let request: NSFetchRequest<FavoriteCoreDataModel> = FavoriteCoreDataModel.fetchRequest()
-        do {
-            let model = try stack.viewContext.fetch(request)
-            favoriteAdsSubject.value = model.map { .init(dataBaseModel: $0) }
-        } catch {
-            favoriteAdsErrorSubject.send(AdsStorageError.fetchFavoriteError)
-        }
-    }
-    
-    func deleteFavoriteAds(adsDomainModel: AdvertisementDomainModel) {
-        let item = FavoriteCoreDataModel(
-            adsDomainModel: adsDomainModel,
-            insertIntoManagedObjectContext: stack.backgroundContext
-        )
-        stack.backgroundContext.delete(item)
         saveContext(contextType: .backgroundContext)
     }
 }

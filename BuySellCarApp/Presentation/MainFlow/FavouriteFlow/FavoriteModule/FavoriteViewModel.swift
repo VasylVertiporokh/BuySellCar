@@ -18,7 +18,7 @@ final class FavoriteViewModel: BaseViewModel, ObservableObject {
     
     // MARK: - Private properties
     private let userService: UserService
-    private let favoriteStorageService: FavoriteAdsStorageService
+    private let favoriteStorageService: AdsStorageService
     private var adsDomainModel: [AdvertisementDomainModel]?
     private let reachabilityManager: ReachabilityManager = ReachabilityManagerImpl.shared
     
@@ -27,7 +27,7 @@ final class FavoriteViewModel: BaseViewModel, ObservableObject {
     private let transitionSubject = PassthroughSubject<FavoriteTransition, Never>()
     
     // MARK: - Init
-    init(userService: UserService, favoriteStorageService: FavoriteAdsStorageService) {
+    init(userService: UserService, favoriteStorageService: AdsStorageService) {
         self.userService = userService
         self.favoriteStorageService = favoriteStorageService
     }
@@ -60,7 +60,7 @@ extension FavoriteViewModel {
                 }
                 self.adsDomainModel = response.favorite
                     .map { AdvertisementDomainModel(advertisementResponseModel: $0) }
-                self.favoriteStorageService.synchronizeFavoriteAds(adsDomainModel: self.adsDomainModel)
+                self.favoriteStorageService.synchronizeAdsByType(.favoriteAds, adsDomainModel: self.adsDomainModel)
                 self.setupDataSource()
             }
             .store(in: &cancellables)
@@ -101,7 +101,7 @@ private extension FavoriteViewModel {
     func fetchAds() {
         switch reachabilityManager.appMode {
         case .api:
-            favoriteStorageService.fetchFavoriteAds()
+            favoriteStorageService.fetchAdsByType(.favoriteAds)
             adsDomainModel = favoriteStorageService.favoriteAds
             setupDataSource()
             getFavorite()
@@ -125,7 +125,7 @@ private extension FavoriteViewModel {
                 }
                 self.adsDomainModel = response.favorite
                     .map { AdvertisementDomainModel(advertisementResponseModel: $0) }
-                self.favoriteStorageService.synchronizeFavoriteAds(adsDomainModel: self.adsDomainModel)
+                self.favoriteStorageService.synchronizeAdsByType(.favoriteAds, adsDomainModel: self.adsDomainModel)
                 self.setupDataSource()
                 self.isLoadingFinished = true
             }
