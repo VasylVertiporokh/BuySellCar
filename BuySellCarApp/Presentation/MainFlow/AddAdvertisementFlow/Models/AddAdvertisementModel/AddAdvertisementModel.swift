@@ -8,6 +8,12 @@
 import Foundation
 import Combine
 
+enum BaseTechnicalInfoParameters {
+    case millage(Int)
+    case price(Int)
+    case power(Int)
+}
+
 protocol AddAdvertisementModel {
     var ownAdsPublisher: AnyPublisher<[AdvertisementDomainModel], Never> { get }
     var brandsPublisher: AnyPublisher<[BrandDomainModel], Never> { get }
@@ -24,6 +30,7 @@ protocol AddAdvertisementModel {
     func getBrands()
     func setAddAdvertisemenOwnerId()
     func getModelsById(_ brandId: String)
+    func getModelsForCurrentBrand()
     func deleteAdvertisementByID(_ id: String)
     func setBrand(model: BrandCellConfigurationModel)
     func setModel(model: ModelCellConfigurationModel)
@@ -32,9 +39,15 @@ protocol AddAdvertisementModel {
     func setCarColor(color: CarColor)
     func userLocationRequest()
     func setAdvertisementPhoto(_ photoData: Data?, collageID: String)
-    func publishAdvertisement(technicalInfoModel: TechnicalInfoModel)
+    func publishAdvertisement()
     func deleteImageByID(_ id: String)
     func resetAdCreation()
+    func configureEditModel(by id: String)
+    func setBaseParameters(baseParams: BaseTechnicalInfoParameters)
+    func setNumberOfSeats(_ numberOfSeats: Int)
+    func setNumberOfDoors(_ numberOfDoors: Int)
+    func setBodyType(_ bodyType: String)
+    func setCondition(_ condition: String)
 }
 
 final class AddAdvertisementModelImpl {
@@ -87,8 +100,19 @@ final class AddAdvertisementModelImpl {
     }
 }
 
-// MARK: -
+// MARK: - AddAdvertisementModel
 extension AddAdvertisementModelImpl: AddAdvertisementModel {
+    func setBaseParameters(baseParams: BaseTechnicalInfoParameters) {
+        switch baseParams {
+        case .millage(let value):
+            addAdsDomainModelSubject.value.mainTechnicalInfo.millage = value
+        case .price(let value):
+            addAdsDomainModelSubject.value.mainTechnicalInfo.price = value
+        case .power(let value):
+            addAdsDomainModelSubject.value.mainTechnicalInfo.power = value
+        }
+    }
+    
     func getOwnAds() {
         guard let ownerID = userService.user?.ownerID else {
             return
@@ -157,6 +181,26 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
             .store(in: &cancellables)
     }
     
+    func getModelsForCurrentBrand() {
+        guard let currnetBrandName = addAdsDomainModelSubject.value.make,
+              let currnetBrand = brandsSubject.value.first(where: { $0.name == currnetBrandName }) else {
+            return
+        }
+        advertisementService.getModelsByBrandId(currnetBrand.id)
+            .sink { [weak self] completion in
+                guard case let .failure(error) = completion else {
+                    return
+                }
+                self?.modelErrorSubject.send(error)
+            } receiveValue: { [weak self] models in
+                guard let self = self else {
+                    return
+                }
+                modelsSubject.value = models
+            }
+            .store(in: &cancellables)
+    }
+    
     func deleteAdvertisementByID(_ id: String) {
         advertisementService.deleteAdvertisementByID(id)
             .sink { [weak self] completion in
@@ -217,7 +261,7 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
         addAdsDomainModelSubject.value.adsPhotoModel[index].selectedImage = photo
     }
     
-    func publishAdvertisement(technicalInfoModel: TechnicalInfoModel) {
+    func publishAdvertisement() {
         guard let ownedID = userService.user?.ownerID else {
             return
         }
@@ -225,7 +269,6 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
         let photos = addAdsDomainModelSubject.value.adsPhotoModel.compactMap { $0.selectedImage }
         let multipartItems: [MultipartItem] = photos.map { .init(data: $0, fileName: "\(UUID().uuidString).png") }
         
-        addAdsDomainModelSubject.value.mainTechnicalInfo = technicalInfoModel
         guard !multipartItems.isEmpty else {
             advertisementService.publishAdvertisement(model: addAdsDomainModelSubject.value, ownerId: ownedID)
                 .sink { [unowned self] completion in
@@ -277,5 +320,28 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
     func resetAdCreation() {
         addAdsDomainModelSubject.value = .init()
         isAllFieldsValidSubject.send(false)
+    }
+    
+    func configureEditModel(by id: String) {
+        guard let modelForEdit = ownAdsSubject.value.first(where: { $0.objectID == id }) else {
+            return
+        }
+        addAdsDomainModelSubject.value = .init(model: modelForEdit)
+    }
+    
+    func setNumberOfSeats(_ numberOfSeats: Int) {
+        addAdsDomainModelSubject.value.numberOfSeats = numberOfSeats
+    }
+    
+    func setNumberOfDoors(_ numberOfDoors: Int) {
+        addAdsDomainModelSubject.value.doorCount = numberOfDoors
+    }
+    
+    func setBodyType(_ bodyType: String) {
+        addAdsDomainModelSubject.value.bodyType = .init(rawString: bodyType)
+    }
+    
+    func setCondition(_ condition: String) {
+        addAdsDomainModelSubject.value.condition = .init(rawString: condition)
     }
 }

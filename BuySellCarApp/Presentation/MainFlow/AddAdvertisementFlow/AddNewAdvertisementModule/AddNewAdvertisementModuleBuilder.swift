@@ -10,6 +10,7 @@ import Combine
 
 enum AddNewAdvertisementTransition: Transition {
     case showVehicleData
+    case showEditingFlow
 }
 
 final class AddNewAdvertisementModuleBuilder {

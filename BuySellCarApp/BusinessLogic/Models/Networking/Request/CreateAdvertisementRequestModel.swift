@@ -18,7 +18,7 @@ struct CreateAdvertisementRequestModel: Encodable {
     let description: String = ""
     let price: Int?
     let interiorFittings: CarColor = .white
-    let numberOfSeats: Int = 5
+    var numberOfSeats: Int = 5
     var yearOfManufacture: Int?
     let bodyType: BodyType?
     let transmissionType: TransmissionType = .manual
@@ -27,16 +27,16 @@ struct CreateAdvertisementRequestModel: Encodable {
     var images: AdvertisementImages?
     var condition: Condition = .used
     let transportModel: String?
-    let doorCount: Int = 5
+    var doorCount: Int = 5
     let interiorColor: CarColor = .gray
     var power: Int?
     var sellerName: String?
     var contactsInfo: ContactsInfo?
     
     init(domainModel: AddAdvertisementDomainModel) {
-        self.mileage = domainModel.mainTechnicalInfo?.millage
-        self.price = domainModel.mainTechnicalInfo?.price
-        self.power = domainModel.mainTechnicalInfo?.power
+        self.mileage = domainModel.mainTechnicalInfo.millage
+        self.price = domainModel.mainTechnicalInfo.price
+        self.power = domainModel.mainTechnicalInfo.power
         self.ownerId = domainModel.ownerId
         self.fuelType = domainModel.fuelType
         self.transportName = domainModel.make
@@ -51,5 +51,7 @@ struct CreateAdvertisementRequestModel: Encodable {
         self.location = domainModel.location
         self.sellerName = domainModel.sellerName
         self.contactsInfo = domainModel.contactsInfo
+        self.numberOfSeats = domainModel.numberOfSeats
+        self.doorCount = domainModel.doorCount
     }
 }

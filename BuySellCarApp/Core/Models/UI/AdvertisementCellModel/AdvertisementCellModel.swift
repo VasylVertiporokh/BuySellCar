@@ -33,7 +33,7 @@ struct AdvertisementCellModel: Hashable {
         self.price = model.price
         self.mileage = model.mileage
         self.power = model.power
-        self.numberOfOwners = model.numberOfSeats
+        self.numberOfOwners = model.numberOfSeats.rawValue
         self.fuelConsumption = model.avarageFuelConsumption
         self.year = model.yearOfManufacture
         self.condition = model.condition.rawValue

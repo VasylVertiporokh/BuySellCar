@@ -15,6 +15,7 @@ final class CreatingProgressView: UIView {
         case createAd
         case creatingInProgress
         case created
+        case adsEditing
     }
     
     // MARK: - Subviews
@@ -57,6 +58,12 @@ extension CreatingProgressView {
             stepLabel.text = "Finished!"
             stepDescriptionLabel.text = "Congratulations, the ad has been published"
             progressAnimationView.setupProgress(progress: Constant.created)
+            
+        case .adsEditing:
+            stepLabel.text = "Editing..."
+            stepDescriptionLabel.text = "Now you can edit the necessary information"
+            progressAnimationView.setupProgress(progress: Constant.created)
+            progressAnimationView.alpha = Constant.secondProgressValue
         }
     }
 }

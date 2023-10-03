@@ -12,11 +12,15 @@ enum AdsVehicleDetailsTransition: Transition {
     case showAddAdsPhotos
     case showRegistrationDate
     case popToRoot
+    case vehicleData
 }
 
 final class AdsVehicleDetailsModuleBuilder {
-    class func build(container: AppContainer) -> Module<AdsVehicleDetailsTransition, UIViewController> {
-        let viewModel = AdsVehicleDetailsViewModel(addAdvertisementModel: container.addAdvertisementModel)
+    class func build(container: AppContainer, flow: AddAdvertisementFlow) -> Module<AdsVehicleDetailsTransition, UIViewController> {
+        let viewModel = AdsVehicleDetailsViewModel(
+            addAdvertisementModel: container.addAdvertisementModel,
+            flow: flow
+        )
         let viewController = AdsVehicleDetailsViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

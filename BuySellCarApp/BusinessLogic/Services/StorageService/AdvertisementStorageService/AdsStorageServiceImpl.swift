@@ -85,6 +85,8 @@ extension AdsStorageServiceImpl: AdsStorageService {
     
     func synchronizeAdsByType(_ type: AdvertisementType, adsDomainModel: [AdvertisementDomainModel]?) {
         let request: NSFetchRequest<AdsCoreDataModel> = AdsCoreDataModel.fetchRequest()
+        request.predicate = NSPredicate(format: "\(type.filterParam) == %@", NSNumber (value: true))
+        
         let existingItems = try? stack.backgroundContext.fetch(request)
         var items = [AdsCoreDataModel]()
         

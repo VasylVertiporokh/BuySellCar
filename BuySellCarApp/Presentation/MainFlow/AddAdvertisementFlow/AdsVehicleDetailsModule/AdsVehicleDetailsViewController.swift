@@ -37,6 +37,7 @@ private extension AdsVehicleDetailsViewController {
                 case .priceEntered(let price):           viewModel.setPrice(price)
                 case .millageEntered(let millage):       viewModel.setMillage(millage)
                 case .powerEntered(let power):           viewModel.setPower(power)
+                case .vehicleDataDidTap:                 viewModel.showVehicleData()
                 }
             }
             .store(in: &cancellables)
@@ -82,7 +83,6 @@ private extension AdsVehicleDetailsViewController {
         view.addGestureRecognizer(tap)
     }
     
-    // TODO: - Fix alerts after demo
     func showSuccessfullyCreationAlert() {
         let alertController = UIAlertController(
             title: Localization.successfullyAlertTitle,

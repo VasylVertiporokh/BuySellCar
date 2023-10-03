@@ -19,6 +19,17 @@
 		1F09A88E2A9CE97D00E75EA3 /* MainTabBarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F09A88D2A9CE97D00E75EA3 /* MainTabBarModel.swift */; };
 		1F09A8932A9D172600E75EA3 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 1F09A8922A9D172600E75EA3 /* SkeletonView */; };
 		1F1B76DC2AA0B8020083BC6D /* UILable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1B76DB2AA0B8020083BC6D /* UILable+Extension.swift */; };
+		1F2263092AC43D4A0091B9CE /* NumberOfSeatsModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2263052AC43D4A0091B9CE /* NumberOfSeatsModuleBuilder.swift */; };
+		1F22630C2AC43D4A0091B9CE /* NumberOfSeatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2263082AC43D4A0091B9CE /* NumberOfSeatsViewModel.swift */; };
+		1F22630E2AC43DB60091B9CE /* NumberOfSeatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F22630D2AC43DB60091B9CE /* NumberOfSeatsView.swift */; };
+		1F2263112AC43E140091B9CE /* DetailsCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2263102AC43E140091B9CE /* DetailsCellView.swift */; };
+		1F2263142AC5EBAF0091B9CE /* CheckBoxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2263132AC5EBAF0091B9CE /* CheckBoxCell.swift */; };
+		1F22631A2AC5EE2F0091B9CE /* DoorCountModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2263162AC5EE2F0091B9CE /* DoorCountModuleBuilder.swift */; };
+		1F22631D2AC5EE2F0091B9CE /* DoorCountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2263192AC5EE2F0091B9CE /* DoorCountViewModel.swift */; };
+		1F22631F2AC5EF4C0091B9CE /* DoorCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F22631E2AC5EF4C0091B9CE /* DoorCountView.swift */; };
+		1F2263252AC5FD790091B9CE /* BodyTypeModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2263212AC5FD790091B9CE /* BodyTypeModuleBuilder.swift */; };
+		1F2263282AC5FD790091B9CE /* BodyTypeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2263242AC5FD790091B9CE /* BodyTypeViewModel.swift */; };
+		1F22632A2AC5FD930091B9CE /* BodyTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2263292AC5FD930091B9CE /* BodyTypeView.swift */; };
 		1F2E91F42A8D032500C7B8E7 /* TabBarButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E91F32A8D032500C7B8E7 /* TabBarButtonView.swift */; };
 		1F2E91F92A8E6C4100C7B8E7 /* FavoriteResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E91F82A8E6C4100C7B8E7 /* FavoriteResponseModel.swift */; };
 		1F35486A2A82508E00A3E29C /* ImageZoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3548692A82508E00A3E29C /* ImageZoomCell.swift */; };
@@ -64,8 +75,14 @@
 		1F990F2B2A7915D9000EB3D0 /* PriceLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F990F2A2A7915D9000EB3D0 /* PriceLocationView.swift */; };
 		1F990F2F2A792FD8000EB3D0 /* ModelConfigurableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F990F2E2A792FD8000EB3D0 /* ModelConfigurableView.swift */; };
 		1F990F312A794F7F000EB3D0 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F990F302A794F7F000EB3D0 /* UIButton+Extension.swift */; };
+		1F9B7E9D2ACABA78004BBFB2 /* VehicleConditionModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9B7E992ACABA78004BBFB2 /* VehicleConditionModuleBuilder.swift */; };
+		1F9B7EA02ACABA78004BBFB2 /* VehicleConditionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9B7E9C2ACABA78004BBFB2 /* VehicleConditionViewModel.swift */; };
+		1F9B7EA22ACABA98004BBFB2 /* VehicleConditionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9B7EA12ACABA98004BBFB2 /* VehicleConditionView.swift */; };
 		1FA2B8932AA5E19C003D7FCB /* BuySellCarModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1FA2B8912AA5E19C003D7FCB /* BuySellCarModel.xcdatamodeld */; };
 		1FA2B8B12AA5F9CB003D7FCB /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA2B8B02AA5F9CB003D7FCB /* CoreDataStack.swift */; };
+		1FA328962ABF582E006B562E /* AddVehicleDetailsModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA328922ABF582E006B562E /* AddVehicleDetailsModuleBuilder.swift */; };
+		1FA328992ABF582E006B562E /* AddVehicleDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA328952ABF582E006B562E /* AddVehicleDetailsViewModel.swift */; };
+		1FA3289B2ABF58EB006B562E /* AddVehicleDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA3289A2ABF58EB006B562E /* AddVehicleDetailsView.swift */; };
 		1FB779602AA9F9F800DAE37E /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB7795F2AA9F9F800DAE37E /* ReachabilityManager.swift */; };
 		1FB779622AA9FA0600DAE37E /* ReachabilityManagerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB779612AA9FA0600DAE37E /* ReachabilityManagerImpl.swift */; };
 		1FC794FF2A974A42003BC432 /* errorState.json in Resources */ = {isa = PBXBuildFile; fileRef = 1FC794FE2A974A42003BC432 /* errorState.json */; };
@@ -343,6 +360,17 @@
 		1F09A8832A9C969D00E75EA3 /* UITabBar+Erxension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+Erxension.swift"; sourceTree = "<group>"; };
 		1F09A88D2A9CE97D00E75EA3 /* MainTabBarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarModel.swift; sourceTree = "<group>"; };
 		1F1B76DB2AA0B8020083BC6D /* UILable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILable+Extension.swift"; sourceTree = "<group>"; };
+		1F2263052AC43D4A0091B9CE /* NumberOfSeatsModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfSeatsModuleBuilder.swift; sourceTree = "<group>"; };
+		1F2263082AC43D4A0091B9CE /* NumberOfSeatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfSeatsViewModel.swift; sourceTree = "<group>"; };
+		1F22630D2AC43DB60091B9CE /* NumberOfSeatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfSeatsView.swift; sourceTree = "<group>"; };
+		1F2263102AC43E140091B9CE /* DetailsCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsCellView.swift; sourceTree = "<group>"; };
+		1F2263132AC5EBAF0091B9CE /* CheckBoxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxCell.swift; sourceTree = "<group>"; };
+		1F2263162AC5EE2F0091B9CE /* DoorCountModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoorCountModuleBuilder.swift; sourceTree = "<group>"; };
+		1F2263192AC5EE2F0091B9CE /* DoorCountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoorCountViewModel.swift; sourceTree = "<group>"; };
+		1F22631E2AC5EF4C0091B9CE /* DoorCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoorCountView.swift; sourceTree = "<group>"; };
+		1F2263212AC5FD790091B9CE /* BodyTypeModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyTypeModuleBuilder.swift; sourceTree = "<group>"; };
+		1F2263242AC5FD790091B9CE /* BodyTypeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyTypeViewModel.swift; sourceTree = "<group>"; };
+		1F2263292AC5FD930091B9CE /* BodyTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyTypeView.swift; sourceTree = "<group>"; };
 		1F2E91F32A8D032500C7B8E7 /* TabBarButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButtonView.swift; sourceTree = "<group>"; };
 		1F2E91F82A8E6C4100C7B8E7 /* FavoriteResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteResponseModel.swift; sourceTree = "<group>"; };
 		1F3548692A82508E00A3E29C /* ImageZoomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageZoomCell.swift; sourceTree = "<group>"; };
@@ -387,8 +415,14 @@
 		1F990F2A2A7915D9000EB3D0 /* PriceLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceLocationView.swift; sourceTree = "<group>"; };
 		1F990F2E2A792FD8000EB3D0 /* ModelConfigurableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelConfigurableView.swift; sourceTree = "<group>"; };
 		1F990F302A794F7F000EB3D0 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		1F9B7E992ACABA78004BBFB2 /* VehicleConditionModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleConditionModuleBuilder.swift; sourceTree = "<group>"; };
+		1F9B7E9C2ACABA78004BBFB2 /* VehicleConditionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleConditionViewModel.swift; sourceTree = "<group>"; };
+		1F9B7EA12ACABA98004BBFB2 /* VehicleConditionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleConditionView.swift; sourceTree = "<group>"; };
 		1FA2B8922AA5E19C003D7FCB /* BuySellCarModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BuySellCarModel.xcdatamodel; sourceTree = "<group>"; };
 		1FA2B8B02AA5F9CB003D7FCB /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		1FA328922ABF582E006B562E /* AddVehicleDetailsModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVehicleDetailsModuleBuilder.swift; sourceTree = "<group>"; };
+		1FA328952ABF582E006B562E /* AddVehicleDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVehicleDetailsViewModel.swift; sourceTree = "<group>"; };
+		1FA3289A2ABF58EB006B562E /* AddVehicleDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVehicleDetailsView.swift; sourceTree = "<group>"; };
 		1FB7795F2AA9F9F800DAE37E /* ReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
 		1FB779612AA9FA0600DAE37E /* ReachabilityManagerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityManagerImpl.swift; sourceTree = "<group>"; };
 		1FC794FE2A974A42003BC432 /* errorState.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = errorState.json; sourceTree = "<group>"; };
@@ -706,6 +740,53 @@
 			path = MainTabMabModel;
 			sourceTree = "<group>";
 		};
+		1F2263042AC43D280091B9CE /* NumberOfSeatsModule */ = {
+			isa = PBXGroup;
+			children = (
+				1F2263122AC5EB9D0091B9CE /* Views */,
+				1F2263052AC43D4A0091B9CE /* NumberOfSeatsModuleBuilder.swift */,
+				1F22630D2AC43DB60091B9CE /* NumberOfSeatsView.swift */,
+				1F2263082AC43D4A0091B9CE /* NumberOfSeatsViewModel.swift */,
+			);
+			path = NumberOfSeatsModule;
+			sourceTree = "<group>";
+		};
+		1F22630F2AC43E030091B9CE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1F2263102AC43E140091B9CE /* DetailsCellView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1F2263122AC5EB9D0091B9CE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1F2263132AC5EBAF0091B9CE /* CheckBoxCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1F2263152AC5EE180091B9CE /* DoorCountModule */ = {
+			isa = PBXGroup;
+			children = (
+				1F2263162AC5EE2F0091B9CE /* DoorCountModuleBuilder.swift */,
+				1F2263192AC5EE2F0091B9CE /* DoorCountViewModel.swift */,
+				1F22631E2AC5EF4C0091B9CE /* DoorCountView.swift */,
+			);
+			path = DoorCountModule;
+			sourceTree = "<group>";
+		};
+		1F2263202AC5FD620091B9CE /* BodyTypeModule */ = {
+			isa = PBXGroup;
+			children = (
+				1F2263212AC5FD790091B9CE /* BodyTypeModuleBuilder.swift */,
+				1F2263242AC5FD790091B9CE /* BodyTypeViewModel.swift */,
+				1F2263292AC5FD930091B9CE /* BodyTypeView.swift */,
+			);
+			path = BodyTypeModule;
+			sourceTree = "<group>";
+		};
 		1F2E91F22A8D031800C7B8E7 /* TabBarButtonView */ = {
 			isa = PBXGroup;
 			children = (
@@ -807,6 +888,7 @@
 		1F7061D42A936E330056C552 /* FavoriteModule */ = {
 			isa = PBXGroup;
 			children = (
+				1FC795032A975ACE003BC432 /* Models */,
 				1F74B8692A94C08300094993 /* Views */,
 				1F7061D52A936E470056C552 /* FavoriteModuleBuilder.swift */,
 				1F7061D82A936E470056C552 /* FavoriteViewModel.swift */,
@@ -835,7 +917,6 @@
 		1F74B8692A94C08300094993 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1FC795032A975ACE003BC432 /* Models */,
 				1F74B86A2A94C09000094993 /* FavoriteCellView.swift */,
 			);
 			path = Views;
@@ -908,6 +989,16 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		1F9B7E972ACABA46004BBFB2 /* VehicleConditionModule */ = {
+			isa = PBXGroup;
+			children = (
+				1F9B7E992ACABA78004BBFB2 /* VehicleConditionModuleBuilder.swift */,
+				1F9B7E9C2ACABA78004BBFB2 /* VehicleConditionViewModel.swift */,
+				1F9B7EA12ACABA98004BBFB2 /* VehicleConditionView.swift */,
+			);
+			path = VehicleConditionModule;
+			sourceTree = "<group>";
+		};
 		1FA2B8942AA5E20F003D7FCB /* StorageService */ = {
 			isa = PBXGroup;
 			children = (
@@ -944,6 +1035,17 @@
 				1FA2B8B02AA5F9CB003D7FCB /* CoreDataStack.swift */,
 			);
 			path = CoreDataStack;
+			sourceTree = "<group>";
+		};
+		1FA328892ABF578A006B562E /* AddVehicleDetailsModule */ = {
+			isa = PBXGroup;
+			children = (
+				1F22630F2AC43E030091B9CE /* Views */,
+				1FA328922ABF582E006B562E /* AddVehicleDetailsModuleBuilder.swift */,
+				1FA328952ABF582E006B562E /* AddVehicleDetailsViewModel.swift */,
+				1FA3289A2ABF58EB006B562E /* AddVehicleDetailsView.swift */,
+			);
+			path = AddVehicleDetailsModule;
 			sourceTree = "<group>";
 		};
 		1FB7795E2AA9F9EB00DAE37E /* ReachabilityManager */ = {
@@ -1239,6 +1341,11 @@
 				D42925FA2A1647E30047F6CB /* BodyColorModule */,
 				D42926092A1668140047F6CB /* AdsVehicleDetailsModule */,
 				D41C5D2C2A1CCBE800755CA5 /* AddAdvertisementImage */,
+				1FA328892ABF578A006B562E /* AddVehicleDetailsModule */,
+				1F2263042AC43D280091B9CE /* NumberOfSeatsModule */,
+				1F2263152AC5EE180091B9CE /* DoorCountModule */,
+				1F9B7E972ACABA46004BBFB2 /* VehicleConditionModule */,
+				1F2263202AC5FD620091B9CE /* BodyTypeModule */,
 			);
 			path = AddAdvertisementFlow;
 			sourceTree = "<group>";
@@ -2266,6 +2373,7 @@
 				D4ADEBFF29AD09F600D7CE53 /* MainButtonType.swift in Sources */,
 				D453B39B2A261CBB00B17A99 /* BrandModelsViewModel.swift in Sources */,
 				94820361E0C892362C5CD40F /* AppEnvironment.swift in Sources */,
+				1F22631F2AC5EF4C0091B9CE /* DoorCountView.swift in Sources */,
 				1F990F312A794F7F000EB3D0 /* UIButton+Extension.swift in Sources */,
 				D4623DFE29D444EE003B4020 /* SearchResultModuleBuilder.swift in Sources */,
 				D4ADEC2F29AFB58600D7CE53 /* UserServiceImpl.swift in Sources */,
@@ -2312,6 +2420,7 @@
 				1F7061D12A93689B0056C552 /* FavoriteCoordinator.swift in Sources */,
 				D42925F92A1633D60047F6CB /* FuelTypeListViewModel.swift in Sources */,
 				D451E88E29B7A58F00CE75D2 /* AdvertisementNetworkImpl.swift in Sources */,
+				1F9B7E9D2ACABA78004BBFB2 /* VehicleConditionModuleBuilder.swift in Sources */,
 				1F4DAB002A7BE24900387F97 /* SpecsView.swift in Sources */,
 				D4623DEF29D2F116003B4020 /* AdvertisementService.swift in Sources */,
 				D4EA6E66299E87A1009F7DBD /* SignInViewModel.swift in Sources */,
@@ -2323,6 +2432,7 @@
 				D4623E0B29D4968E003B4020 /* AdvertisementCountResponseModel.swift in Sources */,
 				38853001D5E53B861428DCB1 /* Colors.swift in Sources */,
 				1F4DAAF92A7A959C00387F97 /* SocialNetworkView.swift in Sources */,
+				1F22630C2AC43D4A0091B9CE /* NumberOfSeatsViewModel.swift in Sources */,
 				1F3670752A8BA07B00CBDCD2 /* EmailNetworkServiceImpl.swift in Sources */,
 				D49D0E2C29EED03000C67E96 /* SearchAdvertisementModuleBuilder.swift in Sources */,
 				D49D0E2F29EED03000C67E96 /* SearchAdvertisementViewModel.swift in Sources */,
@@ -2343,8 +2453,10 @@
 				D4623DF129D2F15C003B4020 /* AdvertisementServiceImpl.swift in Sources */,
 				BF49A036D782AC10A92809CB /* Fonts.swift in Sources */,
 				D46CC3C129A8F71C003BCB24 /* MainButton.swift in Sources */,
+				1FA328992ABF582E006B562E /* AddVehicleDetailsViewModel.swift in Sources */,
 				D458973129F6B442001210A3 /* TechnicalSpecCell.swift in Sources */,
 				D42F790529C372BC00339DA2 /* UploadingImageResponseModel.swift in Sources */,
+				1F2263142AC5EBAF0091B9CE /* CheckBoxCell.swift in Sources */,
 				D4ADEC1229ADF84000D7CE53 /* RegEx.swift in Sources */,
 				BD055F8B3C7F245B0D1E9612 /* HomeCoordinator.swift in Sources */,
 				D48BE0BF29CC985A00E7F159 /* RecommendationCell.swift in Sources */,
@@ -2352,6 +2464,7 @@
 				D4E647422A0E5D6600D838F0 /* UserAdsCell.swift in Sources */,
 				D42926082A165A280047F6CB /* BrandCellConfigurationModel.swift in Sources */,
 				1F3670842A8CCFD600CBDCD2 /* EmailRequestModel.swift in Sources */,
+				1F9B7EA22ACABA98004BBFB2 /* VehicleConditionView.swift in Sources */,
 				D4623E0429D44C74003B4020 /* SearchResultCell.swift in Sources */,
 				D48BE09E29CB5E9200E7F159 /* TextFieldValidationState.swift in Sources */,
 				D43BC1E82A1B6E28005F5F4C /* VehicleDetailsView.swift in Sources */,
@@ -2359,6 +2472,7 @@
 				1FD237902AA88B1600D7AF0D /* AdsStorageService.swift in Sources */,
 				D48BE0B029CC958700E7F159 /* AdvertisementRecommendationViewController.swift in Sources */,
 				D4ADEC2229AE407800D7CE53 /* CreateAccountViewController.swift in Sources */,
+				1F22632A2AC5FD930091B9CE /* BodyTypeView.swift in Sources */,
 				D4EA6E6E299E9260009F7DBD /* AuthNetworkServiceProtocol.swift in Sources */,
 				1F3670772A8BA0B500CBDCD2 /* EmailEndpointsBuilder.swift in Sources */,
 				D4EA6E5A299E619F009F7DBD /* NetworkServiceProvider.swift in Sources */,
@@ -2386,15 +2500,19 @@
 				D477DC3829B0C5D000B719AC /* UserEndpointsBuilder.swift in Sources */,
 				D4ADEC3329AFB5D600D7CE53 /* UserDomainModel.swift in Sources */,
 				1F09A8842A9C969D00E75EA3 /* UITabBar+Erxension.swift in Sources */,
+				1F2263092AC43D4A0091B9CE /* NumberOfSeatsModuleBuilder.swift in Sources */,
 				D4E374D22A15375C001E0D7A /* FirstRegistrationViewController.swift in Sources */,
 				D43554C629DEF9A80002A406 /* AdvertisementModel.swift in Sources */,
 				3C5521BC30F2E1DB2DA1E3FC /* Localization.swift in Sources */,
 				D4E374C82A151CFC001E0D7A /* ModelListViewModel.swift in Sources */,
+				1F22631D2AC5EE2F0091B9CE /* DoorCountViewModel.swift in Sources */,
+				1F2263112AC43E140091B9CE /* DetailsCellView.swift in Sources */,
 				D42925F82A1633D60047F6CB /* FuelTypeListView.swift in Sources */,
 				1F3548702A8284DF00A3E29C /* CarouselImageModuleBuilder.swift in Sources */,
 				D4402C872A39CDB70086A86F /* FilterDomainModel.swift in Sources */,
 				65A829DAAD75E4B54CCFB4C4 /* MainTabBarCoordinator.swift in Sources */,
 				D42F78FE29C0C2BF00339DA2 /* UserInfoListCell.swift in Sources */,
+				1F2263252AC5FD790091B9CE /* BodyTypeModuleBuilder.swift in Sources */,
 				D41C5D362A1CCCEE00755CA5 /* AddAdvertisementImageViewModel.swift in Sources */,
 				D451E88A29B7946600CE75D2 /* AdvertisementNetworkService.swift in Sources */,
 				90991EDBF21638A3548B592E /* MainTabBarModuleBuilder.swift in Sources */,
@@ -2406,6 +2524,7 @@
 				1FCA59062A73C169003477E3 /* SearchableModelProtocol.swift in Sources */,
 				D49D0E5629F2CFBC00C67E96 /* SearchPlainCell.swift in Sources */,
 				0B5369933285BD6E6AE60FE1 /* MainTabBarViewModel.swift in Sources */,
+				1F22631A2AC5EE2F0091B9CE /* DoorCountModuleBuilder.swift in Sources */,
 				D4623E0029D444EE003B4020 /* SearchResultView.swift in Sources */,
 				D42F790129C254F800339DA2 /* UIAction+Extension.swift in Sources */,
 				D42925F02A1579080047F6CB /* Date+Extension.swift in Sources */,
@@ -2418,8 +2537,10 @@
 				D4E374C72A151CFC001E0D7A /* ModelListView.swift in Sources */,
 				1FCA58FF2A73C09B003477E3 /* SellerDetails.swift in Sources */,
 				D42926042A1657140047F6CB /* VehicleDataCellModel.swift in Sources */,
+				1FA3289B2ABF58EB006B562E /* AddVehicleDetailsView.swift in Sources */,
 				D9DA8267D674BEFF9E81DA86 /* Module.swift in Sources */,
 				D42F78F529C0C1D700339DA2 /* SettingsListCell.swift in Sources */,
+				1F22630E2AC43DB60091B9CE /* NumberOfSeatsView.swift in Sources */,
 				1FD237942AA8918800D7AF0D /* AdsStorageError.swift in Sources */,
 				D47839C92A141FC00003FD83 /* BrandListViewModel.swift in Sources */,
 				D47839B62A13B27A0003FD83 /* AnimationProgressView.swift in Sources */,
@@ -2460,6 +2581,7 @@
 				D49D0E4329F05A5D00C67E96 /* DecorationGroupView.swift in Sources */,
 				D48BE0A129CB861300E7F159 /* UIResponder+Extension.swift in Sources */,
 				1F3670822A8CCFC500CBDCD2 /* EmailResponseModel.swift in Sources */,
+				1FA328962ABF582E006B562E /* AddVehicleDetailsModuleBuilder.swift in Sources */,
 				1FD2378B2AA70D6100D7AF0D /* AdsCoreDataModel+CoreDataProperties.swift in Sources */,
 				D42F78F729C0C1F800339DA2 /* SettingsCellContentConfiguration.swift in Sources */,
 				D47839C62A141FC00003FD83 /* BrandListModuleBuilder.swift in Sources */,
@@ -2482,6 +2604,8 @@
 				D47A8EB129D49A6D00500259 /* NavigationTitleView.swift in Sources */,
 				1F3548712A8284DF00A3E29C /* CarouselImageViewController.swift in Sources */,
 				D49D0E2D29EED03000C67E96 /* SearchAdvertisementViewController.swift in Sources */,
+				1F9B7EA02ACABA78004BBFB2 /* VehicleConditionViewModel.swift in Sources */,
+				1F2263282AC5FD790091B9CE /* BodyTypeViewModel.swift in Sources */,
 				7EB4B3410B43ED90D532A613 /* SettingsViewController.swift in Sources */,
 				1F7061DE2A936EA20056C552 /* FavoriteView.swift in Sources */,
 				D453B3882A24B6AA00B17A99 /* AllMakesViewController.swift in Sources */,

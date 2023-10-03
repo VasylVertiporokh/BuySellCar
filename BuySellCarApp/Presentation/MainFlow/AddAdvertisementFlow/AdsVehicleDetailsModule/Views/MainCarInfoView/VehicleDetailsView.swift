@@ -7,6 +7,8 @@
 
 import UIKit
 import SnapKit
+import CombineCocoa
+import Combine
 
 final class VehicleDetailsView: BaseView {
     // MARK: - Subviews
@@ -28,6 +30,10 @@ final class VehicleDetailsView: BaseView {
     private let bodyColorDescriptionLabel = UILabel()
     private let doorCountDescriptionLabel = UILabel()
     private let numberOfSeatsDescriptionLabel = UILabel()
+    
+    // MARK: - Tap publisher
+    private(set) lazy var tapPublisher = tapSubject.eraseToAnyPublisher()
+    private let tapSubject = PassthroughSubject<Void, Never>()
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -57,6 +63,7 @@ private extension VehicleDetailsView {
         setupLayout()
         configureStackViews()
         configureUI()
+        setupGesture()
     }
     
     func setupLayout() {
@@ -90,7 +97,6 @@ private extension VehicleDetailsView {
     }
     
     func configureUI() {
-        backgroundColor = .white
         separatorView.backgroundColor = .lightGray
         arrowImageView.image = Assets.arrow.image
         configureLabels()
@@ -135,6 +141,13 @@ private extension VehicleDetailsView {
             $0.textColor = Colors.buttonDarkGray.color
             $0.font = Constant.labelFont
         }
+    }
+    
+    func setupGesture() {
+        let tapGesture = UITapGestureRecognizer()
+        tapGesture.tapPublisher.sink { [unowned self] _ in tapSubject.send() }
+        .store(in: &cancellables)
+        self.addGestureRecognizer(tapGesture)
     }
 }
 

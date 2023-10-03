@@ -17,7 +17,7 @@ enum AdsVehicleDetailsViewModelEvents {
 final class AdsVehicleDetailsViewModel: BaseViewModel {
     // MARK: - Private properties
     private let addAdvertisementModel: AddAdvertisementModel
-    private var technicalInfoModel = TechnicalInfoModel()
+    private let flow: AddAdvertisementFlow
     
     // MARK: - Transition publisher
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -36,8 +36,9 @@ final class AdsVehicleDetailsViewModel: BaseViewModel {
     private let sectionSubject = CurrentValueSubject<[SectionModel<SelectedImageSection, SelectedImageRow>], Never>([])
     
     // MARK: - Init
-    init(addAdvertisementModel: AddAdvertisementModel) {
+    init(addAdvertisementModel: AddAdvertisementModel, flow: AddAdvertisementFlow) {
         self.addAdvertisementModel = addAdvertisementModel
+        self.flow = flow
         super.init()
     }
     
@@ -64,45 +65,65 @@ extension AdsVehicleDetailsViewModel {
     }
     
     func publishAds() {
-        if technicalInfoModel.price.isNil || technicalInfoModel.millage.isNil || technicalInfoModel.power.isNil {
-            eventsSubject.send(.inputError)
-        } else {
-            eventsSubject.send(.publicationInProgress)
-            isLoadingSubject.send(true)
-            addAdvertisementModel.publishAdvertisement(technicalInfoModel: technicalInfoModel)
+        guard let model = advertisementModelSubject.value else {
+            return
+        }
+        
+        switch flow {
+        case .creating:
+            if model.mainTechnicalInfo.isInfoValid {
+                eventsSubject.send(.inputError)
+            } else {
+                eventsSubject.send(.publicationInProgress)
+                isLoadingSubject.send(true)
+                addAdvertisementModel.publishAdvertisement()
+            }
+        case .editing:
+            if  model.mainTechnicalInfo.isInfoValid {
+                eventsSubject.send(.inputError)
+            } else {
+                eventsSubject.send(.publicationInProgress)
+                isLoadingSubject.send(true)
+                // TODO: - Need add request for ads editing
+                print("Need add request for ads editing")
+            }
         }
     }
     
     func setMillage(_ millage: Int) {
-        technicalInfoModel.millage = millage
+        addAdvertisementModel.setBaseParameters(baseParams: .millage(millage))
     }
     
     func setPrice(_ price: Int) {
-        technicalInfoModel.price = price
+        addAdvertisementModel.setBaseParameters(baseParams: .price(price))
     }
     
     func setPower(_ power: Int) {
-        technicalInfoModel.power = power
+        addAdvertisementModel.setBaseParameters(baseParams: .power(power))
+    }
+    
+    func showVehicleData() {
+        transitionSubject.send(.vehicleData)
     }
 }
 
 // MARK: - Private extension
 private extension AdsVehicleDetailsViewModel {
     func setupBindings() {
-        addAdvertisementModel.addAdsDomainModelPublisher
-            .receive(on: DispatchQueue.main)
-            .sink { [unowned self] domainModel in
-                advertisementModelSubject.send(domainModel)
-                updateDataSource()
-            }
-            .store(in: &cancellables)
-        
         addAdvertisementModel.successfulPublicationPublisher
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] _ in
                 isLoadingSubject.send(false)
                 eventsSubject.send(.publicationСreatedSuccessfully)
                 addAdvertisementModel.getOwnAds()
+            }
+            .store(in: &cancellables)
+        
+        addAdvertisementModel.addAdsDomainModelPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [unowned self] domainModel in
+                advertisementModelSubject.send(domainModel)
+                updateDataSource()
             }
             .store(in: &cancellables)
         

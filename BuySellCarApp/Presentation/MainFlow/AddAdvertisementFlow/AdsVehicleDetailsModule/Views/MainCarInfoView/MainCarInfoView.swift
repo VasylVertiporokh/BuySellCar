@@ -17,6 +17,7 @@ enum SelectedImageSection: Hashable {
 // MARK: - SelectedImageRow
 enum SelectedImageRow: Hashable {
     case selectedImageRow(Data)
+    case kf(String?)
 }
 
 // MARK: - MainCarInfoViewAction
@@ -91,6 +92,16 @@ extension MainCarInfoView {
         shortDescriptionTextField.text = "\(make) \(carModel) \(fuelType) \(bodyColor)"
         brandModelLabel.text = "\(make) \(carModel)"
         registrationTextField.text = firstRegistration
+        
+        guard let price = model.mainTechnicalInfo.price,
+              let power = model.mainTechnicalInfo.power,
+              let millage = model.mainTechnicalInfo.millage else {
+            return
+        }
+        
+        priceTextField.text = "\(price)"
+        powerTextField.text = "\(power)"
+        millageTextField.text = "\(millage)"
     }
     
     func setupSnapshot(sections: [SectionModel<SelectedImageSection, SelectedImageRow>]) {
@@ -135,7 +146,6 @@ private extension MainCarInfoView {
         configureCollectionView()
         setupLayout()
         configureStackViews()
-        setupLayout()
         configureUI()
         setupDataSource()
         bindAction()
@@ -363,6 +373,11 @@ private extension MainCarInfoView {
             case .selectedImageRow(let data):
                 let cell: CarImageCell = collectionView.dequeueReusableCell(for: indexPath)
                 cell.setImageFromData(data)
+                return cell
+                
+            case .kf(let imageStringURL):
+                let cell: CarImageCell = collectionView.dequeueReusableCell(for: indexPath)
+                cell.setImageURL(imageStringURL)
                 return cell
             }
         })

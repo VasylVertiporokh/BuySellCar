@@ -22,3 +22,9 @@ extension Optional {
         return self == nil
     }
 }
+
+extension Optional where Wrapped == Int {
+    var isNilOrZero: Bool {
+        return self == nil || self == 0
+    }
+}

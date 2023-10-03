@@ -8,6 +8,11 @@
 import UIKit
 import Combine
 
+enum AddAdvertisementFlow {
+    case creating
+    case editing
+}
+
 final class AddAdvertisementCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     
@@ -39,8 +44,8 @@ private extension AddAdvertisementCoordinator {
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
-                case .showVehicleData:
-                    vehicleDataModule()
+                case .showVehicleData:          vehicleDataModule()
+                case .showEditingFlow:          adsVehicleDetailsModule(.editing)
                 }
             }
             .store(in: &cancellables)
@@ -57,7 +62,7 @@ private extension AddAdvertisementCoordinator {
                 case .showRegistrationDate:   registrationDateModule()
                 case .showFuelType:           fuelTypeModule()
                 case .showBodyColor:          bodyColorModule()
-                case .showCreateAd:           adsVehicleDetailsModule()
+                case .showCreateAd:           adsVehicleDetailsModule(.creating)
                 }
             }
             .store(in: &cancellables)
@@ -65,12 +70,13 @@ private extension AddAdvertisementCoordinator {
         push(module.viewController)
     }
     
-    func brandsModule() {
-        let module = BrandListModuleBuilder.build(container: container)
+    func brandsModule(flow: AddAdvertisementFlow = .creating) {
+        let module = BrandListModuleBuilder.build(container: container, flow: flow)
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
                 case .popToPreviousModule:   pop()
+                case .showModelList:         modelsModule()
                 }
             }
             .store(in: &cancellables)
@@ -118,14 +124,16 @@ private extension AddAdvertisementCoordinator {
         push(module.viewController)
     }
     
-    func adsVehicleDetailsModule() {
-        let module = AdsVehicleDetailsModuleBuilder.build(container: container)
+    func adsVehicleDetailsModule(_ flow: AddAdvertisementFlow) {
+        let module = AdsVehicleDetailsModuleBuilder.build(container: container, flow: flow)
         module.transitionPublisher
             .sink { [unowned self] transition in
                 switch transition {
                 case .showRegistrationDate:   registrationDateModule()
                 case .showAddAdsPhotos:       addAdsPhoto()
                 case .popToRoot:              popToRoot()
+                case .vehicleData:            showVehicleData()
+                    
                 }
             }
             .store(in: &cancellables)
@@ -139,6 +147,44 @@ private extension AddAdvertisementCoordinator {
   
             }
             .store(in: &cancellables)
+        push(module.viewController)
+    }
+    
+    func showVehicleData() {
+        let module = AddVehicleDetailsModuleBuilder.build(container: container)
+        module.transitionPublisher
+            .sink { [unowned self] transition in
+                switch transition {
+                case .showModel:                      modelsModule()
+                case .showFuelType:                   fuelTypeModule()
+                case .showBodyColor:                  bodyColorModule()
+                case .showNumberOfSeats:              showNumberOfSeats()
+                case .showNumberOfDoor:               showNumberOfDoor()
+                case .showBodyType:                   showBodyType()
+                case .showCondition:                  showCondition()
+                }
+            }
+            .store(in: &cancellables)
+        push(module.viewController)
+    }
+    
+    func showNumberOfSeats() {
+        let module = NumberOfSeatsModuleBuilder.build(container: container)
+        push(module.viewController)
+    }
+    
+    func showNumberOfDoor() {
+        let module = DoorCountModuleBuilder.build(container: container)
+        push(module.viewController)
+    }
+    
+    func showBodyType() {
+        let module = BodyTypeModuleBuilder.build(container: container)
+        push(module.viewController)
+    }
+    
+    func showCondition() {
+        let module = VehicleConditionModuleBuilder.build(container: container)
         push(module.viewController)
     }
 }

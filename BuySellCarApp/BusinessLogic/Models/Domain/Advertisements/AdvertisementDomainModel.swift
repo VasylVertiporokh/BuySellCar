@@ -21,14 +21,14 @@ struct AdvertisementDomainModel {
     let power: Int
     let objectID: String
     let mileage: Int
-    let doorCount: Int
+    let doorCount: DoorCount
     let yearOfManufacture: Int
     let created: Int
     let transportModel: String
     let interiorFittings: String?
     let photo: String?
     let shortDescription: String?
-    let numberOfSeats: Int
+    let numberOfSeats: NumberOfSeats
     let condition: Condition
     let fuelType: FuelType
     let location: String?
@@ -91,14 +91,14 @@ struct AdvertisementDomainModel {
         power = Int(dataBaseModel.power)
         objectID = dataBaseModel.objectId
         mileage = Int(dataBaseModel.mileage)
-        doorCount = Int(dataBaseModel.doorCount)
+        doorCount = DoorCount(rawInt: Int(dataBaseModel.doorCount))
         yearOfManufacture = Int(dataBaseModel.yearOfManufacture)
         created = Int(dataBaseModel.created)
         transportModel = dataBaseModel.transportModel
         interiorFittings = dataBaseModel.interiorFittings
         photo = dataBaseModel.photo
         shortDescription = dataBaseModel.shortDes
-        numberOfSeats = Int(dataBaseModel.numberOfSeats)
+        numberOfSeats = NumberOfSeats(rawInt: Int(dataBaseModel.numberOfSeats))
         condition = Condition.init(rawString: dataBaseModel.condition)
         fuelType = FuelType.init(rawString: dataBaseModel.fuelType)
         location = dataBaseModel.location

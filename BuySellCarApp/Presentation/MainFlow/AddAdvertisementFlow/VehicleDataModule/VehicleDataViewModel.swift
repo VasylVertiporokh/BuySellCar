@@ -15,6 +15,10 @@ enum VehicleDataType: String {
     case bodyColor = "Body color"
     case model = "Model"
     case fuelType = "Fuel type"
+    case doorCount = "Door count"
+    case condition = "Condition"
+    case numberOfSeats = "Number of seats"
+    case bodyType = "Body type"
 }
 
 // MARK: - VehicleDataViewModelEvents
@@ -84,6 +88,7 @@ extension VehicleDataViewModel {
         case .firstRegistration:   transitionSubject.send(.showRegistrationDate)
         case .fuelType:            transitionSubject.send(.showFuelType)
         case .bodyColor:           transitionSubject.send(.showBodyColor)
+        default:                   break
         }
     }
     
@@ -101,10 +106,17 @@ private extension VehicleDataViewModel {
     
     func configureSteps(_ model: AddAdvertisementDomainModel) {
         let make = VehicleDataCellModel.init(dataType: .make, dataDescriptionTitle: model.make)
-        let carModel = model.model.map { VehicleDataCellModel.init(dataType: .model, dataDescriptionTitle: $0) }
-        let registration = model.firstRegistration.map { VehicleDataCellModel.init(dataType: .firstRegistration, dataDescriptionTitle: $0.dateString)}
-        let fuelType = model.fuelType.map { VehicleDataCellModel.init(dataType: .fuelType, dataDescriptionTitle: $0.rawValue) }
-        let bodyColor = model.bodyColor.map { VehicleDataCellModel.init(dataType: .bodyColor, dataDescriptionTitle: $0.rawValue) }
+        let carModel = model.model
+            .map { VehicleDataCellModel.init(dataType: .model, dataDescriptionTitle: $0) }
+        
+        let registration = model.firstRegistration
+            .map { VehicleDataCellModel.init(dataType: .firstRegistration, dataDescriptionTitle: $0.dateString) }
+        
+        let fuelType = model.fuelType
+            .map { VehicleDataCellModel.init(dataType: .fuelType, dataDescriptionTitle: $0.rawValue) }
+        
+        let bodyColor = model.bodyColor
+            .map { VehicleDataCellModel.init(dataType: .bodyColor, dataDescriptionTitle: $0.rawValue) }
         
         vehicleDataRows = [make, carModel, registration, fuelType, bodyColor].compactMap { $0 }
         updateDataSource()

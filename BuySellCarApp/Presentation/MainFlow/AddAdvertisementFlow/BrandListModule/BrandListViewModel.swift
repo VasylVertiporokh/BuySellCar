@@ -11,6 +11,7 @@ import Foundation
 final class BrandListViewModel: BaseViewModel {
     // MARK: - Private properties
     private let addAdvertisementModel: AddAdvertisementModel
+    private let flow: AddAdvertisementFlow
     
     // MARK: - Transition publisher
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -24,8 +25,9 @@ final class BrandListViewModel: BaseViewModel {
     private let searchTextSubject = CurrentValueSubject<String, Never>("")
     
     // MARK: - Init
-    init(addAdvertisementModel: AddAdvertisementModel) {
+    init(addAdvertisementModel: AddAdvertisementModel, flow: AddAdvertisementFlow) {
         self.addAdvertisementModel = addAdvertisementModel
+        self.flow = flow
         super.init()
     }
     
@@ -62,8 +64,14 @@ extension BrandListViewModel {
         switch item {
         case .carBrandRow(let brand):
             addAdvertisementModel.getModelsById(brand.id)
-            addAdvertisementModel.setBrand(model: brand)
-            transitionSubject.send(.popToPreviousModule)
+            // check current flow
+            switch flow {
+            case .creating:
+                addAdvertisementModel.setBrand(model: brand)
+                transitionSubject.send(.popToPreviousModule)
+            case .editing:
+                transitionSubject.send(.showModelList)
+            }
         }
     }
     

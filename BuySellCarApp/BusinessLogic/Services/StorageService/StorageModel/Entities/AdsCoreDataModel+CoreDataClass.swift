@@ -40,14 +40,14 @@ public class AdsCoreDataModel: NSManagedObject {
         self.power = Int64(adsDomainModel.power)
         self.objectId = adsDomainModel.objectID
         self.mileage = Int64(adsDomainModel.mileage)
-        self.doorCount = Int64(adsDomainModel.doorCount)
+        self.doorCount = Int64(adsDomainModel.doorCount.rawValue)
         self.yearOfManufacture = Int64(adsDomainModel.yearOfManufacture)
         self.created = Int64(adsDomainModel.created)
         self.transportModel = adsDomainModel.transportModel
         self.interiorFittings = adsDomainModel.interiorFittings
         self.photo = adsDomainModel.photo
         self.shortDes = adsDomainModel.shortDescription
-        self.numberOfSeats = Int64(adsDomainModel.numberOfSeats)
+        self.numberOfSeats = Int64(adsDomainModel.numberOfSeats.rawValue)
         self.condition = adsDomainModel.condition.rawValue
         self.fuelType = adsDomainModel.fuelType.rawValue
         self.location = adsDomainModel.location
