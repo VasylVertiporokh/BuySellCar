@@ -38,9 +38,9 @@ protocol AddAdvertisementModel {
     func setFuelType(type: FuelType)
     func setCarColor(color: CarColor)
     func userLocationRequest()
-    func setAdvertisementPhoto(_ photoData: Data?, collageID: String)
+    func setAdvertisementPhoto(_ photoData: Data?, racurs: AdsPhotoModel.Racurs)
     func publishAdvertisement()
-    func deleteImageByID(_ id: String)
+    func deleteImageByRacurs(_ racurs: AdsPhotoModel.Racurs)
     func resetAdCreation()
     func configureEditModel(by id: String)
     func setBaseParameters(baseParams: BaseTechnicalInfoParameters)
@@ -254,8 +254,8 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
             .store(in: &cancellables)
     }
     
-    func setAdvertisementPhoto(_ photo: Data?, collageID: String) {
-        guard let index = addAdsDomainModelSubject.value.adsPhotoModel.firstIndex(where: { $0.id == collageID }) else {
+    func setAdvertisementPhoto(_ photo: Data?, racurs: AdsPhotoModel.Racurs) {
+        guard let index = addAdsDomainModelSubject.value.adsPhotoModel.firstIndex(where: { $0.photoRacurs == racurs }) else {
             return
         }
         addAdsDomainModelSubject.value.adsPhotoModel[index].selectedImage = photo
@@ -310,8 +310,8 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
         }
     }
     
-    func deleteImageByID(_ id: String) {
-        guard let index = addAdsDomainModelSubject.value.adsPhotoModel.firstIndex(where: { $0.id == id }) else {
+    func deleteImageByRacurs(_ racurs: AdsPhotoModel.Racurs) {
+        guard let index = addAdsDomainModelSubject.value.adsPhotoModel.firstIndex(where: { $0.photoRacurs == racurs }) else {
             return
         }
         addAdsDomainModelSubject.value.adsPhotoModel[index].selectedImage = nil

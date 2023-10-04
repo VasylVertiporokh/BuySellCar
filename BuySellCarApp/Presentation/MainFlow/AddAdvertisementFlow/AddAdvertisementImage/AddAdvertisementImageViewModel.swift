@@ -12,7 +12,7 @@ final class AddAdvertisementImageViewModel: BaseViewModel {
     // MARK: - Private properties
     private let addAdvertisementModel: AddAdvertisementModel
     private var adsPhotoModel: [AdsPhotoModel]!
-    private var collageID: String = ""
+    private var collageRacurs: AdsPhotoModel.Racurs = .backRightSide
     
     // MARK: - Transition publisher
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -37,15 +37,15 @@ final class AddAdvertisementImageViewModel: BaseViewModel {
 // MARK: - Internal extension
 extension AddAdvertisementImageViewModel {
     func addPhoto(_ photo: Data?) {
-        addAdvertisementModel.setAdvertisementPhoto(photo, collageID: collageID)
+        addAdvertisementModel.setAdvertisementPhoto(photo, racurs: collageRacurs)
     }
     
     func deleteSelectedPhoto() {
-        addAdvertisementModel.deleteImageByID(collageID)
+        addAdvertisementModel.deleteImageByRacurs(collageRacurs)
     }
     
-    func setSelectedCollageID(_ id: String) {
-        collageID = id
+    func setSelectedCollageID(_ racurs: AdsPhotoModel.Racurs) {
+        collageRacurs = racurs
     }
 }
 

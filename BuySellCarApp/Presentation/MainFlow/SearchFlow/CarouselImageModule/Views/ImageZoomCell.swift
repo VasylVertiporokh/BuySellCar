@@ -34,25 +34,16 @@ final class ImageZoomCell: UICollectionViewCell {
 
 // MARK: - Internal extension
 extension ImageZoomCell {
-    func set(image: String?) {
-        guard let imageStringUrl = image,
-              let imageUrl: URL = URL(string: imageStringUrl) else {
-            return
-        }
-        
-        KingfisherManager.shared.retrieveImage(with: imageUrl) { [weak self] result in
-            guard let self = self else {
+    func set(imageStringUrl: String?) {
+        imageStringUrl.loadImageDataFromString { [weak self] imageData in
+            guard let self = self,
+                  let imageData = imageData else {
                 return
             }
-            switch result {
-            case .success(let value):
-                self.imageView = UIImageView(image: value.image)
-                self.scrollView.addSubview(self.imageView)
-                self.configurateFor(imageSize: self.imageView.image!.size)
-                self.centerImage()
-            case .failure(let error):
-                debugPrint("Error downloading image: \(error)")
-            }
+            self.imageView = UIImageView(image: .init(data: imageData))
+            self.scrollView.addSubview(imageView)
+            self.configurateFor(imageSize:imageView.image?.size)
+            self.centerImage()
         }
     }
 }
@@ -92,7 +83,10 @@ private extension ImageZoomCell {
         
     }
     
-    func configurateFor(imageSize: CGSize) {
+    func configurateFor(imageSize: CGSize?) {
+        guard let imageSize = imageSize else {
+            return
+        }
         scrollView.contentSize = imageSize
         setCurrentMaxandMinZoomScale()
         scrollView.zoomScale = scrollView.minimumZoomScale

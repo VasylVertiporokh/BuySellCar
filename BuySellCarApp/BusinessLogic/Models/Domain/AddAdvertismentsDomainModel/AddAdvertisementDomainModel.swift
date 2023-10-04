@@ -83,22 +83,51 @@ struct TechnicalInfoModel {
 }
 
 struct AdsPhotoModel: Hashable {
-    private(set) var id = UUID().uuidString
-    var placeholderImageRow: Data?
+    var photoRacurs: Racurs
     var selectedImage: Data?
+    
+    // MARK: - Computed properties
+    var placeholderImageRow: Data? {
+        return photoRacurs.racursPlaceholder
+    }
+    
     var withSelectedImage: Bool {
         return selectedImage != nil
     }
     
+    // MARK: - Static properties
     static var photoModel: [Self] {
         [
-            .init(placeholderImageRow: Assets.frontLeftSizeIcon.image.pngData()),
-            .init(placeholderImageRow: Assets.backRightSideIcon.image.pngData()),
-            .init(placeholderImageRow: Assets.frontSideIcon.image.pngData()),
-            .init(placeholderImageRow: Assets.backSideIcon.image.pngData()),
-            .init(placeholderImageRow: Assets.dashboardIcon.image.pngData()),
-            .init(placeholderImageRow: Assets.interiorIcon.image.pngData()),
-            .init(placeholderImageRow: Assets.bodySideIcon.image.pngData())
+            .init(photoRacurs: .frontLeftSide),
+            .init(photoRacurs: .backRightSide),
+            .init(photoRacurs: .frontSide),
+            .init(photoRacurs: .backSide),
+            .init(photoRacurs: .dashboard),
+            .init(photoRacurs: .interior),
+            .init(photoRacurs: .bodySide)
         ]
+    }
+    
+    // MARK: - Photo racurs
+    enum Racurs: String {
+        case frontLeftSide = "frontLeftSide"
+        case backRightSide = "backRightSide"
+        case frontSide = "frontSide"
+        case backSide = "backSide"
+        case dashboard = "dashboard"
+        case interior = "interior"
+        case bodySide = "bodySide"
+        
+        var racursPlaceholder: Data? {
+            switch self {
+            case .frontLeftSide:            return Assets.frontLeftSizeIcon.image.pngData()
+            case .backRightSide:            return Assets.backRightSideIcon.image.pngData()
+            case .frontSide:                return Assets.frontSideIcon.image.pngData()
+            case .backSide:                 return Assets.backSideIcon.image.pngData()
+            case .dashboard:                return Assets.dashboardIcon.image.pngData()
+            case .interior:                 return Assets.interiorIcon.image.pngData()
+            case .bodySide:                 return Assets.bodySideIcon.image.pngData()
+            }
+        }
     }
 }
