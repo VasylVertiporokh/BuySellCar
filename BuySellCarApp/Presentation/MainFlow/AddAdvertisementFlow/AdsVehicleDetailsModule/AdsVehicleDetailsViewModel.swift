@@ -134,11 +134,11 @@ private extension AdsVehicleDetailsViewModel {
     }
     
     func updateDataSource() {
-        guard let photoModel = advertisementModelSubject.value?.adsPhotoModel else {
-            return
-        }
-        let photos: [Data] = photoModel.compactMap { $0.selectedImage }
-        let row: [SelectedImageRow] = photos.map { SelectedImageRow.selectedImageRow($0) }
-        sectionSubject.send([.init(section: .selectedImageSection, items: row)])
+//        guard let photoModel = advertisementModelSubject.value?.adsPhotoModel else {
+//            return
+//        }
+//        let photos: [Data] = photoModel.compactMap { $0.selectedImage }
+//        let row: [SelectedImageRow] = photos.map { SelectedImageRow.selectedImageRow($0) }
+//        sectionSubject.send([.init(section: .selectedImageSection, items: row)])
     }
 }

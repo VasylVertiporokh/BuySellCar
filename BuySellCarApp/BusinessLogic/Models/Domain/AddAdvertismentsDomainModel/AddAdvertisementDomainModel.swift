@@ -23,10 +23,16 @@ struct AddAdvertisementDomainModel {
     var bodyType: BodyType = .sedan
     var sellerType: SellerType = .owner
     var transmissionType: TransmissionType = .manual
-    var adsPhotoModel: [AdsPhotoModel] = AdsPhotoModel.photoModel
     var images: AdvertisementImages?
+    var adsRemoteImages: [AdvertisementImagesModel]?
     var location: String?
+    var adsImages: [CollageImageModel]?
     var contactsInfo: ContactsInfo?
+    
+    // MARK: - Computed properties
+    var needCreateImagesModel: Bool {
+        return adsImages == nil
+    }
     
     // MARK: - Empty init
     init() {}
@@ -45,9 +51,10 @@ struct AddAdvertisementDomainModel {
         self.bodyType = model.bodyType
         self.sellerType = model.sellerType
         self.transmissionType = model.transmissionType
-        self.adsPhotoModel = AdsPhotoModel.photoModel
         self.images = model.images
         self.location = model.location
+        self.adsImages = model.adsImages?
+            .map { .init(imageModel: $0) }
         
         self.contactsInfo = .init(
             email: model.ownerinfo.email,
@@ -82,29 +89,40 @@ struct TechnicalInfoModel {
     }
 }
 
+struct CollageImageModel {
+    var collageImage: ImageResources
+    var index: Int
+    var photoRacurs: String
+    
+    // MARK: - Init
+    init(imageModel: AdvertisementImagesModel) {
+        self.collageImage = .formRemote(imageModel.imageUrl)
+        self.index = imageModel.imageIndex
+        self.photoRacurs = imageModel.photoRacurs
+    }
+    
+    init(collageImage: ImageResources, index: Int, photoRacurs: String) {
+        self.collageImage = collageImage
+        self.index = index
+        self.photoRacurs = photoRacurs
+    }
+}
+
 struct AdsPhotoModel: Hashable {
     var photoRacurs: Racurs
-    var selectedImage: Data?
-    
-    // MARK: - Computed properties
-    var placeholderImageRow: Data? {
-        return photoRacurs.racursPlaceholder
-    }
-    
-    var withSelectedImage: Bool {
-        return selectedImage != nil
-    }
+    let imageIndex: Int
+    var image: ImageResources
     
     // MARK: - Static properties
     static var photoModel: [Self] {
         [
-            .init(photoRacurs: .frontLeftSide),
-            .init(photoRacurs: .backRightSide),
-            .init(photoRacurs: .frontSide),
-            .init(photoRacurs: .backSide),
-            .init(photoRacurs: .dashboard),
-            .init(photoRacurs: .interior),
-            .init(photoRacurs: .bodySide)
+            .init(photoRacurs: .frontLeftSide, imageIndex: 0, image: .fromAssets(Assets.frontLeftSizeIcon)),
+            .init(photoRacurs: .backRightSide, imageIndex: 1, image: .fromAssets(Assets.backRightSideIcon)),
+            .init(photoRacurs: .frontSide, imageIndex: 2, image: .fromAssets(Assets.frontSideIcon)),
+            .init(photoRacurs: .backSide, imageIndex: 3, image: .fromAssets(Assets.backSideIcon)),
+            .init(photoRacurs: .dashboard, imageIndex: 4, image: .fromAssets(Assets.dashboardIcon)),
+            .init(photoRacurs: .interior, imageIndex: 5, image: .fromAssets(Assets.interiorIcon)),
+            .init(photoRacurs: .bodySide, imageIndex: 6, image: .fromAssets(Assets.bodySideIcon))
         ]
     }
     
@@ -118,15 +136,15 @@ struct AdsPhotoModel: Hashable {
         case interior = "interior"
         case bodySide = "bodySide"
         
-        var racursPlaceholder: Data? {
+        var racursPlaceholder: ImageAsset {
             switch self {
-            case .frontLeftSide:            return Assets.frontLeftSizeIcon.image.pngData()
-            case .backRightSide:            return Assets.backRightSideIcon.image.pngData()
-            case .frontSide:                return Assets.frontSideIcon.image.pngData()
-            case .backSide:                 return Assets.backSideIcon.image.pngData()
-            case .dashboard:                return Assets.dashboardIcon.image.pngData()
-            case .interior:                 return Assets.interiorIcon.image.pngData()
-            case .bodySide:                 return Assets.bodySideIcon.image.pngData()
+            case .frontLeftSide:            return Assets.frontLeftSizeIcon
+            case .backRightSide:            return Assets.backRightSideIcon
+            case .frontSide:                return Assets.frontSideIcon
+            case .backSide:                 return Assets.backSideIcon
+            case .dashboard:                return Assets.dashboardIcon
+            case .interior:                 return Assets.interiorIcon
+            case .bodySide:                 return Assets.bodySideIcon
             }
         }
     }

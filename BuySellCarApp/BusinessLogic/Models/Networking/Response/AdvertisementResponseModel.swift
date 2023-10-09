@@ -36,6 +36,7 @@ struct AdvertisementResponseModel: Decodable {
     let updated: Int?
     let sellerName: String
     let images: AdvertisementImages?
+    let adsImages: [AdvertisementImagesModel]?
     let userData: OwnerInfo
     
     enum CodingKeys: String, CodingKey {
@@ -48,12 +49,18 @@ struct AdvertisementResponseModel: Decodable {
              transportModel, interiorFittings, photo,
              shortDescription, numberOfSeats, condition,
              fuelType, location, sellerType, updated,
-             images, sellerName, userData
+             images, sellerName, userData, adsImages
     }
 }
 
 struct AdvertisementImages: Codable {
     var carImages: [String]?
+}
+
+struct AdvertisementImagesModel: Codable {
+    let imageUrl: String
+    let imageIndex: Int
+    let photoRacurs: String
 }
 
 struct ContactsInfo: Codable {
@@ -229,7 +236,7 @@ enum SellerType: String, Codable {
     
     init(rawString: String) {
         switch rawString {
-        case "Diller" :               self = .diller
+        case "Diller" :              self = .diller
         default:                     self = .owner
         }
     }

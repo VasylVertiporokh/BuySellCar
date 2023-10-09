@@ -24,7 +24,7 @@ struct CreateAdvertisementRequestModel: Encodable {
     let transmissionType: TransmissionType = .manual
     let shortDescription: String
     let avarageFuelConsumption: Double = 5.2
-    var images: AdvertisementImages?
+    var adsImages: [AdvertisementImagesModel]?
     var condition: Condition = .used
     let transportModel: String?
     var doorCount: Int = 5
@@ -45,7 +45,7 @@ struct CreateAdvertisementRequestModel: Encodable {
         self.yearOfManufacture = domainModel.firstRegistration?.dateInt
         self.bodyType = domainModel.bodyType
         self.shortDescription = ""
-        self.images = domainModel.images
+        self.adsImages = domainModel.adsRemoteImages
         self.condition = domainModel.condition
         self.transportModel = domainModel.model
         self.location = domainModel.location

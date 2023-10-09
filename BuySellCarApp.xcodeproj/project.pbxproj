@@ -78,6 +78,7 @@
 		1F9B7E9D2ACABA78004BBFB2 /* VehicleConditionModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9B7E992ACABA78004BBFB2 /* VehicleConditionModuleBuilder.swift */; };
 		1F9B7EA02ACABA78004BBFB2 /* VehicleConditionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9B7E9C2ACABA78004BBFB2 /* VehicleConditionViewModel.swift */; };
 		1F9B7EA22ACABA98004BBFB2 /* VehicleConditionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9B7EA12ACABA98004BBFB2 /* VehicleConditionView.swift */; };
+		1F9B7EC72ACEC24A004BBFB2 /* ImageAsset+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9B7EC62ACEC24A004BBFB2 /* ImageAsset+Extension.swift */; };
 		1FA2B8932AA5E19C003D7FCB /* BuySellCarModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1FA2B8912AA5E19C003D7FCB /* BuySellCarModel.xcdatamodeld */; };
 		1FA2B8B12AA5F9CB003D7FCB /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA2B8B02AA5F9CB003D7FCB /* CoreDataStack.swift */; };
 		1FA328962ABF582E006B562E /* AddVehicleDetailsModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA328922ABF582E006B562E /* AddVehicleDetailsModuleBuilder.swift */; };
@@ -418,6 +419,7 @@
 		1F9B7E992ACABA78004BBFB2 /* VehicleConditionModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleConditionModuleBuilder.swift; sourceTree = "<group>"; };
 		1F9B7E9C2ACABA78004BBFB2 /* VehicleConditionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleConditionViewModel.swift; sourceTree = "<group>"; };
 		1F9B7EA12ACABA98004BBFB2 /* VehicleConditionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleConditionView.swift; sourceTree = "<group>"; };
+		1F9B7EC62ACEC24A004BBFB2 /* ImageAsset+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageAsset+Extension.swift"; sourceTree = "<group>"; };
 		1FA2B8922AA5E19C003D7FCB /* BuySellCarModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BuySellCarModel.xcdatamodel; sourceTree = "<group>"; };
 		1FA2B8B02AA5F9CB003D7FCB /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		1FA328922ABF582E006B562E /* AddVehicleDetailsModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVehicleDetailsModuleBuilder.swift; sourceTree = "<group>"; };
@@ -999,6 +1001,14 @@
 			path = VehicleConditionModule;
 			sourceTree = "<group>";
 		};
+		1F9B7EC52ACEC22F004BBFB2 /* SwiftGen */ = {
+			isa = PBXGroup;
+			children = (
+				1F9B7EC62ACEC24A004BBFB2 /* ImageAsset+Extension.swift */,
+			);
+			path = SwiftGen;
+			sourceTree = "<group>";
+		};
 		1FA2B8942AA5E20F003D7FCB /* StorageService */ = {
 			isa = PBXGroup;
 			children = (
@@ -1221,6 +1231,7 @@
 		709CADC65289B84AE1C90454 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				1F9B7EC52ACEC22F004BBFB2 /* SwiftGen */,
 				D42925EE2A1578F30047F6CB /* Foundation */,
 				D49D0E3B29F018F000C67E96 /* NSObject */,
 				D48BE09F29CB85FF00E7F159 /* UIResponder */,
@@ -2570,6 +2581,7 @@
 				D4E14A592A0D31F3000E37E6 /* AddNewAdvertisementViewModel.swift in Sources */,
 				D43BC1EC2A1BA207005F5F4C /* UIAlertController+Extension.swift in Sources */,
 				D4E14A582A0D31F3000E37E6 /* AddNewAdvertisementView.swift in Sources */,
+				1F9B7EC72ACEC24A004BBFB2 /* ImageAsset+Extension.swift in Sources */,
 				D4E14A562A0D31F3000E37E6 /* AddNewAdvertisementModuleBuilder.swift in Sources */,
 				D495004029C8E648009CECA9 /* SectionModel.swift in Sources */,
 				1FD2378C2AA70D6100D7AF0D /* OwnerInfoCoreDataModel+CoreDataClass.swift in Sources */,

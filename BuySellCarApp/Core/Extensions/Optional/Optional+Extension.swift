@@ -35,7 +35,6 @@ extension Optional where Wrapped == String {
             }
         }
     }
-
 }
 
 extension Optional {

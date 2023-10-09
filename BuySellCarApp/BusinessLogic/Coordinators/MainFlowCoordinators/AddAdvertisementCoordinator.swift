@@ -21,6 +21,7 @@ final class AddAdvertisementCoordinator: Coordinator {
     private let didFinishSubject = PassthroughSubject<Void, Never>()
     private let container: AppContainer
     private var cancellables = Set<AnyCancellable>()
+    private var flow: AddAdvertisementFlow = .creating
     
     init(navigationController: UINavigationController, container: AppContainer) {
         self.navigationController = navigationController
@@ -137,11 +138,12 @@ private extension AddAdvertisementCoordinator {
                 }
             }
             .store(in: &cancellables)
+        self.flow = flow
         push(module.viewController)
     }
     
     func addAdsPhoto() {
-        let module = AddAdvertisementImageModuleBuilder.build(container: container)
+        let module = AddAdvertisementImageModuleBuilder.build(container: container, flow: flow)
         module.transitionPublisher
             .sink { [unowned self] transition in
   

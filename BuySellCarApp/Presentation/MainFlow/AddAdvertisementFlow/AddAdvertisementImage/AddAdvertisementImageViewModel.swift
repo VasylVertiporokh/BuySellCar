@@ -11,7 +11,8 @@ import Foundation
 final class AddAdvertisementImageViewModel: BaseViewModel {
     // MARK: - Private properties
     private let addAdvertisementModel: AddAdvertisementModel
-    private var adsPhotoModel: [AdsPhotoModel]!
+    private let flow: AddAdvertisementFlow
+    private var adsPhotoModel: [AdsPhotoModel] = AdsPhotoModel.photoModel
     private var collageRacurs: AdsPhotoModel.Racurs = .backRightSide
     
     // MARK: - Transition publisher
@@ -23,8 +24,9 @@ final class AddAdvertisementImageViewModel: BaseViewModel {
     private let sectionSubject = CurrentValueSubject<[SectionModel<AddAdvertisementImageSection, AddAdvertisementImageRow>], Never>([])
     
     // MARK: - Init
-    init(addAdvertisementModel: AddAdvertisementModel) {
+    init(addAdvertisementModel: AddAdvertisementModel, flow: AddAdvertisementFlow) {
         self.addAdvertisementModel = addAdvertisementModel
+        self.flow = flow
         super.init()
     }
     
@@ -37,7 +39,10 @@ final class AddAdvertisementImageViewModel: BaseViewModel {
 // MARK: - Internal extension
 extension AddAdvertisementImageViewModel {
     func addPhoto(_ photo: Data?) {
-        addAdvertisementModel.setAdvertisementPhoto(photo, racurs: collageRacurs)
+        guard let collageItem = adsPhotoModel.first(where: { $0.photoRacurs == collageRacurs }) else {
+            return
+        }
+        addAdvertisementModel.setAdvertisementPhoto(photo, racurs: collageRacurs, index: collageItem.imageIndex)
     }
     
     func deleteSelectedPhoto() {
@@ -55,7 +60,19 @@ private extension AddAdvertisementImageViewModel {
         addAdvertisementModel.addAdsDomainModelPublisher
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] domainModel in
-                adsPhotoModel = domainModel.adsPhotoModel
+                guard let remoteImages = domainModel.adsImages else {
+                    updateDataSource()
+                    return
+                }
+                
+                remoteImages.forEach { collageImageModel in
+                    guard let collageIndex = adsPhotoModel.firstIndex(where: { $0.imageIndex == collageImageModel.index }) else {
+                        return
+                    }
+                    adsPhotoModel[collageIndex].image = collageImageModel.collageImage
+                    adsPhotoModel[collageIndex].photoRacurs = .init(rawValue: collageImageModel.photoRacurs)!
+                }
+                
                 updateDataSource()
             }
             .store(in: &cancellables)

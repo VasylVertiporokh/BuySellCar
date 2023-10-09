@@ -38,7 +38,7 @@ protocol AddAdvertisementModel {
     func setFuelType(type: FuelType)
     func setCarColor(color: CarColor)
     func userLocationRequest()
-    func setAdvertisementPhoto(_ photoData: Data?, racurs: AdsPhotoModel.Racurs)
+    func setAdvertisementPhoto(_ photoData: Data?, racurs: AdsPhotoModel.Racurs, index: Int)
     func publishAdvertisement()
     func deleteImageByRacurs(_ racurs: AdsPhotoModel.Racurs)
     func resetAdCreation()
@@ -254,11 +254,21 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
             .store(in: &cancellables)
     }
     
-    func setAdvertisementPhoto(_ photo: Data?, racurs: AdsPhotoModel.Racurs) {
-        guard let index = addAdsDomainModelSubject.value.adsPhotoModel.firstIndex(where: { $0.photoRacurs == racurs }) else {
+    func setAdvertisementPhoto(_ photo: Data?, racurs: AdsPhotoModel.Racurs, index: Int) {
+        guard !addAdsDomainModelSubject.value.needCreateImagesModel else {
+            addAdsDomainModelSubject.value.adsImages = [
+                .init(collageImage: .fromData(photo), index: index, photoRacurs: racurs.rawValue)
+            ]
             return
         }
-        addAdsDomainModelSubject.value.adsPhotoModel[index].selectedImage = photo
+        
+        addAdsDomainModelSubject.value.adsImages?.append(
+            .init(
+                collageImage: .fromData(photo),
+                index: index,
+                photoRacurs: racurs.rawValue
+            )
+        )
     }
     
     func publishAdvertisement() {
@@ -266,10 +276,7 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
             return
         }
         
-        let photos = addAdsDomainModelSubject.value.adsPhotoModel.compactMap { $0.selectedImage }
-        let multipartItems: [MultipartItem] = photos.map { .init(data: $0, fileName: "\(UUID().uuidString).png") }
-        
-        guard !multipartItems.isEmpty else {
+        guard let adsImages = addAdsDomainModelSubject.value.adsImages else {
             advertisementService.publishAdvertisement(model: addAdsDomainModelSubject.value, ownerId: ownedID)
                 .sink { [unowned self] completion in
                     guard case let .failure(error) = completion else {
@@ -280,10 +287,16 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
                 .store(in: &self.cancellables)
             return
         }
-        var advertisementImages = AdvertisementImages(carImages: [])
         
-        multipartItems.forEach { item in
+        var remoteImages: [AdvertisementImagesModel] = []
+        
+        adsImages.forEach { adsImageModel in
+            guard let imageData = adsImageModel.collageImage.imageData else {
+                return
+            }
+            
             dispatchGroup.enter()
+            let item = MultipartItem(data: imageData, fileName: "\(UUID().uuidString).jpeg")
             self.advertisementService.uploadAdvertisementImage(item: item, userID: ownedID)
                 .sink { [unowned self] completion in
                     guard case let .failure(error) = completion else {
@@ -291,14 +304,20 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
                     }
                     modelErrorSubject.send(error)
                 } receiveValue: { [unowned self] imageURL in
-                    advertisementImages.carImages?.append(imageURL.fileURL)
+                    remoteImages.append(
+                        .init(
+                            imageUrl: imageURL.fileURL,
+                            imageIndex: adsImageModel.index,
+                            photoRacurs: adsImageModel.photoRacurs
+                        )
+                    )
                     self.dispatchGroup.leave()
                 }
                 .store(in: &self.cancellables)
         }
         
         dispatchGroup.notify(queue: DispatchQueue.global(qos: .default)) {
-            self.addAdsDomainModelSubject.value.images = advertisementImages
+            self.addAdsDomainModelSubject.value.adsRemoteImages = remoteImages
             self.advertisementService.publishAdvertisement(model: self.addAdsDomainModelSubject.value, ownerId: ownedID)
                 .sink { [unowned self] completion in
                     guard case let .failure(error) = completion else {
@@ -311,10 +330,22 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
     }
     
     func deleteImageByRacurs(_ racurs: AdsPhotoModel.Racurs) {
-        guard let index = addAdsDomainModelSubject.value.adsPhotoModel.firstIndex(where: { $0.photoRacurs == racurs }) else {
+        guard let index = addAdsDomainModelSubject.value.adsImages?.firstIndex(where: { $0.photoRacurs == racurs.rawValue }),
+              let adsImages = addAdsDomainModelSubject.value.adsImages else {
             return
         }
-        addAdsDomainModelSubject.value.adsPhotoModel[index].selectedImage = nil
+        
+        let currentImageResource = adsImages[index].collageImage
+        
+        switch currentImageResource {
+        case .fromData:
+            addAdsDomainModelSubject.value.adsImages?[index].collageImage = .fromAssets(racurs.racursPlaceholder)
+        case .fromAssets:
+            break
+        case .formRemote(let string):
+            print("Need delete by link \(string)")
+            addAdsDomainModelSubject.value.adsImages?[index].collageImage = .fromAssets(racurs.racursPlaceholder)
+        }
     }
     
     func resetAdCreation() {

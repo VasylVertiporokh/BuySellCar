@@ -35,6 +35,7 @@ struct AdvertisementDomainModel {
     let sellerType: SellerType
     let updated: Int?
     var images: AdvertisementImages?
+    var adsImages: [AdvertisementImagesModel]?
     let sellerName: String
     let ownerinfo: OwnerInfoModel
     
@@ -72,6 +73,7 @@ struct AdvertisementDomainModel {
         sellerType = advertisementResponseModel.sellerType
         updated = advertisementResponseModel.updated
         images = advertisementResponseModel.images
+        adsImages = advertisementResponseModel.adsImages
         sellerName = advertisementResponseModel.sellerName
         ownerinfo = .init(model: advertisementResponseModel.userData)
     }
