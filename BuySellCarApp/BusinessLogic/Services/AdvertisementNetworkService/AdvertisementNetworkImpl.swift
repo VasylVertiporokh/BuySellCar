@@ -56,7 +56,11 @@ extension AdvertisementNetworkImpl: AdvertisementNetworkService {
         provider.performWithResponseModel(.publishAdvertisement(.init(domainModel: model)))
     }
     
-    func setAdsRrelation(ownerId: String, publishedResponse: AdsPublishResponseModel) -> AnyPublisher<Void, NetworkError> {
+    func updateAdvertisement(model: AddAdvertisementDomainModel) -> AnyPublisher<Void, NetworkError> {
+        provider.performWithProcessingResult(.editAdvertisement(.init(domainModel: model)))
+    }
+    
+    func setAdsRelation(ownerId: String, publishedResponse: AdsPublishResponseModel) -> AnyPublisher<Void, NetworkError> {
         let ownerData: [String] = [ownerId]
         do {
             let data = try JSONSerialization.data(withJSONObject: ownerData, options: [])
@@ -73,5 +77,13 @@ extension AdvertisementNetworkImpl: AdvertisementNetworkService {
     
     func getTrandingCategories() -> AnyPublisher<[TrandingCategoriesResponseModel], NetworkError> {
         provider.performWithResponseModel(.getTrandingCategories)
+    }
+    
+    func deleteImage(url: String) -> AnyPublisher<Void, NetworkError> {
+        provider.performWithProcessingResult(.deleteImage(path: url))
+    }
+    
+    func deleteImageFromUserAds(imagesModel: EditImagesModel, id: String) -> AnyPublisher<EditImagesModel?, NetworkError> {
+        provider.performWithResponseModel(.editImageModel(images: imagesModel, objectId: id))
     }
 }

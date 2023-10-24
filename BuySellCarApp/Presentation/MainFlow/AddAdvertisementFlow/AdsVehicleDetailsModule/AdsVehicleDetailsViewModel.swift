@@ -12,12 +12,17 @@ enum AdsVehicleDetailsViewModelEvents {
     case publicationInProgress
     case publicationСreatedSuccessfully
     case inputError
+    case needShowEmptyState(Bool)
+    case publicationEditing
+    case showAlert(UIAlertControllerModel)
+    case currnetFlow(AddAdvertisementFlow)
 }
 
 final class AdsVehicleDetailsViewModel: BaseViewModel {
     // MARK: - Private properties
     private let addAdvertisementModel: AddAdvertisementModel
     private let flow: AddAdvertisementFlow
+    private var photoModel: [CollageImagesModel]?
     
     // MARK: - Transition publisher
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -48,6 +53,11 @@ final class AdsVehicleDetailsViewModel: BaseViewModel {
         addAdvertisementModel.setAddAdvertisemenOwnerId()
         addAdvertisementModel.userLocationRequest()
     }
+    
+    override func onViewWillAppear() {
+        setEditingState()
+        eventsSubject.send(.currnetFlow(flow))
+    }
 }
 
 // MARK: - Internal extension
@@ -58,10 +68,6 @@ extension AdsVehicleDetailsViewModel {
     
     func showAddPhotoScreen() {
         transitionSubject.send(.showAddAdsPhotos)
-    }
-    
-    func popToRoot() {
-        transitionSubject.send(.popToRoot)
     }
     
     func publishAds() {
@@ -82,10 +88,8 @@ extension AdsVehicleDetailsViewModel {
             if  model.mainTechnicalInfo.isInfoValid {
                 eventsSubject.send(.inputError)
             } else {
-                eventsSubject.send(.publicationInProgress)
                 isLoadingSubject.send(true)
-                // TODO: - Need add request for ads editing
-                print("Need add request for ads editing")
+                addAdvertisementModel.updateAdvertisement()
             }
         }
     }
@@ -105,6 +109,23 @@ extension AdsVehicleDetailsViewModel {
     func showVehicleData() {
         transitionSubject.send(.vehicleData)
     }
+    
+    func discardCreationDidTap() {
+        eventsSubject.send(
+            .showAlert(
+                .init(
+                    confirmActionStyle: .destructive,
+                    title: flow == .creating ? Localization.discardCreationTitle : Localization.discardEditingTitle,
+                    message: Localization.discardCreationMessage,
+                    confirmButtonTitle: Localization.continue,
+                    discardButtonTitle: Localization.cancel,
+                    confirmAction: { [weak self] in
+                        self?.transitionSubject.send(.popToRoot)
+                    }
+                )
+            )
+        )
+    }
 }
 
 // MARK: - Private extension
@@ -115,6 +136,15 @@ private extension AdsVehicleDetailsViewModel {
             .sink { [unowned self] _ in
                 isLoadingSubject.send(false)
                 eventsSubject.send(.publicationСreatedSuccessfully)
+                eventsSubject.send(
+                    .showAlert(.init(
+                        title: Localization.successfullyAlertTitle,
+                        message: Localization.adsCreatedSuccessfully,
+                        confirmButtonTitle: Localization.ok, confirmAction: { [weak self] in
+                            self?.transitionSubject.send(.popToRoot)
+                        }
+                    ))
+                )
                 addAdvertisementModel.getOwnAds()
             }
             .store(in: &cancellables)
@@ -123,7 +153,6 @@ private extension AdsVehicleDetailsViewModel {
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] domainModel in
                 advertisementModelSubject.send(domainModel)
-                updateDataSource()
             }
             .store(in: &cancellables)
         
@@ -131,14 +160,33 @@ private extension AdsVehicleDetailsViewModel {
             .receive(on: DispatchQueue.main)
             .sink { [unowned self] in errorSubject.send($0) }
             .store(in: &cancellables)
+        
+        addAdvertisementModel.collageImagePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [unowned self] model in
+                photoModel = model
+                updateDataSource()
+            }
+            .store(in: &cancellables)
     }
     
     func updateDataSource() {
-//        guard let photoModel = advertisementModelSubject.value?.adsPhotoModel else {
-//            return
-//        }
-//        let photos: [Data] = photoModel.compactMap { $0.selectedImage }
-//        let row: [SelectedImageRow] = photos.map { SelectedImageRow.selectedImageRow($0) }
-//        sectionSubject.send([.init(section: .selectedImageSection, items: row)])
+        guard let photoModel = photoModel else {
+            eventsSubject.send(.needShowEmptyState(true))
+            return
+        }
+        
+        let images: [SelectedImageRow] = photoModel
+            .sorted(by: { $0.index < $1.index })
+            .compactMap { .imageResources($0.collageImage) }
+        sectionSubject.send([.init(section: .selectedImageSection, items: images)])
+        eventsSubject.send(.needShowEmptyState(images.isEmpty))
+    }
+    
+    func setEditingState() {
+        guard flow == .editing else {
+            return
+        }
+        eventsSubject.send(.publicationEditing)
     }
 }

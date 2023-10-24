@@ -52,7 +52,7 @@ extension DetailsView: ModelConfigurableView {
     typealias Model = ViewModel
     
     func configure(model: ViewModel) {
-        if let imageArray = model.adsDomainModel.images?.carImages?
+        if let imageArray = model.adsDomainModel.adsImageUrlArray?
             .compactMap({ AdsImageRow.adsImageRow($0) }) {
             adsImagesView.setupSnapshot(
                 sections: [ .init(section: .adsImageSection, items: imageArray)]

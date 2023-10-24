@@ -30,12 +30,18 @@ extension CarImageCell {
         carImageView.kf.setImage(with: URL(string: stringURL ?? ""), placeholder: Assets.carPlaceholder.image)
     }
     
-    func setImageFromData(_ data: Data) {
-        guard let image = UIImage(data: data) else {
-            carImageView.image = Assets.carPlaceholder.image
-            return
+    func setImageFromResources(_ resources: ImageResources) {
+        switch resources {
+        case .fromData(let data):
+            guard let data = data else {
+                return
+            }
+            carImageView.image = UIImage(data: data)
+        case .fromAssets:
+            break
+        case .formRemote(let string):
+            carImageView.kf.setImage(with: URL(string: string), placeholder: Assets.carPlaceholder.image)
         }
-        carImageView.image = image
     }
 }
 
@@ -52,7 +58,6 @@ private extension CarImageCell {
     }
     
     func configureUI() {
-        carImageView.image = Assets.compact.image
         carImageView.contentMode = .scaleAspectFill
         carImageView.clipsToBounds = true
     }

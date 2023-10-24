@@ -12,7 +12,7 @@ final class AddAdvertisementImageViewModel: BaseViewModel {
     // MARK: - Private properties
     private let addAdvertisementModel: AddAdvertisementModel
     private let flow: AddAdvertisementFlow
-    private var adsPhotoModel: [AdsPhotoModel] = AdsPhotoModel.photoModel
+    private var adsPhotoModel: [AdsPhotoModel] = []
     private var collageRacurs: AdsPhotoModel.Racurs = .backRightSide
     
     // MARK: - Transition publisher
@@ -57,14 +57,16 @@ extension AddAdvertisementImageViewModel {
 // MARK: - Private extension
 private extension AddAdvertisementImageViewModel {
     func setupBindings() {
-        addAdvertisementModel.addAdsDomainModelPublisher
+        addAdvertisementModel.collageImagePublisher
             .receive(on: DispatchQueue.main)
-            .sink { [unowned self] domainModel in
-                guard let remoteImages = domainModel.adsImages else {
+            .sink { [unowned self] imageModel in
+                guard let remoteImages = imageModel else {
+                    adsPhotoModel = AdsPhotoModel.photoModel
                     updateDataSource()
                     return
                 }
                 
+                adsPhotoModel = AdsPhotoModel.photoModel
                 remoteImages.forEach { collageImageModel in
                     guard let collageIndex = adsPhotoModel.firstIndex(where: { $0.imageIndex == collageImageModel.index }) else {
                         return
@@ -72,7 +74,6 @@ private extension AddAdvertisementImageViewModel {
                     adsPhotoModel[collageIndex].image = collageImageModel.collageImage
                     adsPhotoModel[collageIndex].photoRacurs = .init(rawValue: collageImageModel.photoRacurs)!
                 }
-                
                 updateDataSource()
             }
             .store(in: &cancellables)

@@ -36,6 +36,8 @@ internal enum Localization {
   internal static let discardCreationMessage = Localization.tr("Localizable", "discard-creation-message", fallback: "If you continue all data will be lost")
   /// Do you want cancel creation
   internal static let discardCreationTitle = Localization.tr("Localizable", "discard-creation-title", fallback: "Do you want cancel creation")
+  /// Do you want cancel editing
+  internal static let discardEditingTitle = Localization.tr("Localizable", "discard-editing-title", fallback: "Do you want cancel editing")
   /// Done
   internal static let done = Localization.tr("Localizable", "done", fallback: "Done")
   /// Edit profile

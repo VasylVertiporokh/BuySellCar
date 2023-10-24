@@ -35,7 +35,6 @@ struct AdvertisementResponseModel: Decodable {
     let sellerType: SellerType
     let updated: Int?
     let sellerName: String
-    let images: AdvertisementImages?
     let adsImages: [AdvertisementImagesModel]?
     let userData: OwnerInfo
     
@@ -49,12 +48,8 @@ struct AdvertisementResponseModel: Decodable {
              transportModel, interiorFittings, photo,
              shortDescription, numberOfSeats, condition,
              fuelType, location, sellerType, updated,
-             images, sellerName, userData, adsImages
+             sellerName, userData, adsImages
     }
-}
-
-struct AdvertisementImages: Codable {
-    var carImages: [String]?
 }
 
 struct AdvertisementImagesModel: Codable {

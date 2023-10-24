@@ -23,15 +23,6 @@ extension EmailEndpointsBuilder: EndpointBuilderProtocol {
         }
     }
     
-    var headerFields: [String : String] {
-        switch self {
-        case .sendEmail, .createRelation:
-            return [
-                "Content-Type" : "application/json"
-            ]
-        }
-    }
-    
     var method: HTTPMethod {
         switch self {
         case .sendEmail:                           return .post

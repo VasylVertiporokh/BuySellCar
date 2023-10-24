@@ -60,7 +60,6 @@ extension AdsVehicleDetailsView {
         mainInfoView.setMainDetailsFromModel(model)
         vehicleDetailsView.setCarDetailsFromModel(model)
         engineAndEnvironmentView.setTransmissionDetail(model)
-//        mainInfoView.setEmptyState(model.adsPhotoModel.allSatisfy { $0.selectedImage.isNil })
     }
     
     func setupSnapshot(sections: [SectionModel<SelectedImageSection, SelectedImageRow>]) {
@@ -68,11 +67,15 @@ extension AdsVehicleDetailsView {
     }
     
     func reconfigureProgressBar(_ step: CreatingProgressView.CreatingProgressViewStep) {
-        progressView.configureForStep(step)
+        progressView.configureForStep(.adsEditing)
     }
     
     func showDataMissingState() {
         mainInfoView.shakeTextFields()
+    }
+    
+    func showEmptyStateIfNeeded(_ needShow: Bool) {
+        mainInfoView.setEmptyState(needShow)
     }
 }
 

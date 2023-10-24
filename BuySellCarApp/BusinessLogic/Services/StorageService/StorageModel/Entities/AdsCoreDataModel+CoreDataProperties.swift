@@ -25,7 +25,6 @@ extension AdsCoreDataModel {
     @NSManaged public var des: String?
     @NSManaged public var doorCount: Int64
     @NSManaged public var fuelType: String
-    @NSManaged public var images: [String]?
     @NSManaged public var interiorColor: String
     @NSManaged public var interiorFittings: String?
     @NSManaged public var isFavorite: Bool
@@ -46,9 +45,8 @@ extension AdsCoreDataModel {
     @NSManaged public var wasUpdated: Int64
     @NSManaged public var yearOfManufacture: Int64
     @NSManaged public var ownerInfo: OwnerInfoCoreDataModel?
+    @NSManaged public var adsImages: NSSet?
 
 }
 
-extension AdsCoreDataModel : Identifiable {
-
-}
+extension AdsCoreDataModel : Identifiable { }

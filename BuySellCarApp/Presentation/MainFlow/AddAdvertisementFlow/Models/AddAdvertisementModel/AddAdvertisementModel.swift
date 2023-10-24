@@ -18,6 +18,7 @@ protocol AddAdvertisementModel {
     var ownAdsPublisher: AnyPublisher<[AdvertisementDomainModel], Never> { get }
     var brandsPublisher: AnyPublisher<[BrandDomainModel], Never> { get }
     var modelsPublisher: AnyPublisher<[ModelsDomainModel], Never> { get }
+    var collageImagePublisher: AnyPublisher<[CollageImagesModel]?, Never> { get }
     var isAllFieldsValidPublisher: AnyPublisher<Bool, Never> { get }
     var modelErrorPublisher: AnyPublisher<Error, Never> { get }
     var successfulPublicationPublisher: AnyPublisher<Void, Never> { get }
@@ -40,6 +41,7 @@ protocol AddAdvertisementModel {
     func userLocationRequest()
     func setAdvertisementPhoto(_ photoData: Data?, racurs: AdsPhotoModel.Racurs, index: Int)
     func publishAdvertisement()
+    func updateAdvertisement()
     func deleteImageByRacurs(_ racurs: AdsPhotoModel.Racurs)
     func resetAdCreation()
     func configureEditModel(by id: String)
@@ -72,6 +74,7 @@ final class AddAdvertisementModelImpl {
     private let offlineModeSubject = PassthroughSubject<AppDataMode, Never>()
     private let modelErrorSubject = PassthroughSubject<Error, Never>()
     private let addAdsDomainModelSubject = CurrentValueSubject<AddAdvertisementDomainModel, Never>(.init())
+    private let collageImageSubject = CurrentValueSubject<[CollageImagesModel]?, Never>(nil)
     
     // MARK: - Publishers
     lazy var ownAdsPublisher = ownAdsSubject.eraseToAnyPublisher()
@@ -82,6 +85,7 @@ final class AddAdvertisementModelImpl {
     lazy var offlineModePublisher = offlineModeSubject.eraseToAnyPublisher()
     lazy var addAdsDomainModelPublisher = addAdsDomainModelSubject.eraseToAnyPublisher()
     lazy var isAllFieldsValidPublisher = isAllFieldsValidSubject.eraseToAnyPublisher()
+    lazy var collageImagePublisher = collageImageSubject.eraseToAnyPublisher()
     
     // MARK: - Temp solution
     private let dispatchGroup = DispatchGroup()
@@ -202,6 +206,7 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
     }
     
     func deleteAdvertisementByID(_ id: String) {
+        let itemToDelete = ownAdsSubject.value.first { $0.objectID == id }
         advertisementService.deleteAdvertisementByID(id)
             .sink { [weak self] completion in
                 guard case let .failure(error) = completion else {
@@ -212,6 +217,7 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
                 guard let self = self else {
                     return
                 }
+                self.ownAdsStorageService.deleteAdsByType(.ownAds, adsDomainModel: itemToDelete)
                 self.ownAdsSubject.value.removeAll { $0.objectID == id }
             }
             .store(in: &cancellables)
@@ -255,14 +261,14 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
     }
     
     func setAdvertisementPhoto(_ photo: Data?, racurs: AdsPhotoModel.Racurs, index: Int) {
-        guard !addAdsDomainModelSubject.value.needCreateImagesModel else {
-            addAdsDomainModelSubject.value.adsImages = [
+        guard !collageImageSubject.value.isNil else {
+            collageImageSubject.value = [
                 .init(collageImage: .fromData(photo), index: index, photoRacurs: racurs.rawValue)
             ]
             return
         }
         
-        addAdsDomainModelSubject.value.adsImages?.append(
+        collageImageSubject.value?.append(
             .init(
                 collageImage: .fromData(photo),
                 index: index,
@@ -276,7 +282,7 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
             return
         }
         
-        guard let adsImages = addAdsDomainModelSubject.value.adsImages else {
+        guard let adsImages = collageImageSubject.value else {
             advertisementService.publishAdvertisement(model: addAdsDomainModelSubject.value, ownerId: ownedID)
                 .sink { [unowned self] completion in
                     guard case let .failure(error) = completion else {
@@ -310,6 +316,7 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
                             imageIndex: adsImageModel.index,
                             photoRacurs: adsImageModel.photoRacurs
                         )
+                        
                     )
                     self.dispatchGroup.leave()
                 }
@@ -329,9 +336,69 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
         }
     }
     
+    func updateAdvertisement() {
+        guard let ownedID = userService.user?.ownerID else {
+            return
+        }
+        
+        guard let adsImages = collageImageSubject.value else {
+            advertisementService.updateAdvertisement(model: addAdsDomainModelSubject.value)
+                .sink { [unowned self] completion in
+                    guard case let .failure(error) = completion else {
+                        return
+                    }
+                    modelErrorSubject.send(error)
+                } receiveValue: { [unowned self] in successfulPublicationSubject.send($0) }
+                .store(in: &self.cancellables)
+            return
+        }
+        
+        var remoteImages: [AdvertisementImagesModel] = []
+        
+        adsImages.forEach { adsImageModel in
+            guard let imageData = adsImageModel.collageImage.imageData else {
+                remoteImages = addAdsDomainModelSubject.value.adsRemoteImages ?? []
+                return
+            }
+            
+            dispatchGroup.enter()
+            let item = MultipartItem(data: imageData, fileName: "\(UUID().uuidString).jpeg")
+            self.advertisementService.uploadAdvertisementImage(item: item, userID: ownedID)
+                .sink { [unowned self] completion in
+                    guard case let .failure(error) = completion else {
+                        return
+                    }
+                    modelErrorSubject.send(error)
+                } receiveValue: { [unowned self] imageURL in
+                    remoteImages.append(
+                        .init(
+                            imageUrl: imageURL.fileURL,
+                            imageIndex: adsImageModel.index,
+                            photoRacurs: adsImageModel.photoRacurs
+                        )
+                        
+                    )
+                    self.dispatchGroup.leave()
+                }
+                .store(in: &self.cancellables)
+        }
+        
+        dispatchGroup.notify(queue: DispatchQueue.global(qos: .default)) {
+            self.addAdsDomainModelSubject.value.adsRemoteImages = remoteImages
+            self.advertisementService.updateAdvertisement(model: self.addAdsDomainModelSubject.value)
+                .sink { [unowned self] completion in
+                    guard case let .failure(error) = completion else {
+                        return
+                    }
+                    self.modelErrorSubject.send(error)
+                } receiveValue: { [unowned self] in successfulPublicationSubject.send($0) }
+                .store(in: &self.cancellables)
+        }
+    }
+    
     func deleteImageByRacurs(_ racurs: AdsPhotoModel.Racurs) {
-        guard let index = addAdsDomainModelSubject.value.adsImages?.firstIndex(where: { $0.photoRacurs == racurs.rawValue }),
-              let adsImages = addAdsDomainModelSubject.value.adsImages else {
+        guard let index = collageImageSubject.value?.firstIndex(where: { $0.photoRacurs == racurs.rawValue }),
+              let adsImages = collageImageSubject.value else {
             return
         }
         
@@ -339,12 +406,33 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
         
         switch currentImageResource {
         case .fromData:
-            addAdsDomainModelSubject.value.adsImages?[index].collageImage = .fromAssets(racurs.racursPlaceholder)
+            collageImageSubject.value?[index].collageImage = .fromAssets(racurs.racursPlaceholder)
         case .fromAssets:
             break
         case .formRemote(let string):
-            print("Need delete by link \(string)")
-            addAdsDomainModelSubject.value.adsImages?[index].collageImage = .fromAssets(racurs.racursPlaceholder)
+            addAdsDomainModelSubject.value.adsRemoteImages?.removeAll(where: { $0.imageUrl == string })
+            
+            guard let images = addAdsDomainModelSubject.value.adsRemoteImages else {
+                return
+            }
+            
+            advertisementService.deleteRemoteImage(
+                imageModel: .init(adsImages: images),
+                imageUrl: string,
+                id: addAdsDomainModelSubject.value.objectId
+            )
+            .sink { [unowned self] completion in
+                guard case let .failure(error) = completion else {
+                    return
+                }
+                
+                modelErrorSubject.send(error)
+            } receiveValue: { [unowned self] adsModel in
+                addAdsDomainModelSubject.value.adsRemoteImages = adsModel?.adsImages
+                collageImageSubject.value?.remove(at: index)
+                updateImagesInAdsModel(id: addAdsDomainModelSubject.value.ownerId, adsImages: adsModel?.adsImages)
+            }
+            .store(in: &cancellables)
         }
     }
     
@@ -357,7 +445,9 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
         guard let modelForEdit = ownAdsSubject.value.first(where: { $0.objectID == id }) else {
             return
         }
+        
         addAdsDomainModelSubject.value = .init(model: modelForEdit)
+        collageImageSubject.value = modelForEdit.adsImages?.map { .init(imageModel: $0) }
     }
     
     func setNumberOfSeats(_ numberOfSeats: Int) {
@@ -374,5 +464,16 @@ extension AddAdvertisementModelImpl: AddAdvertisementModel {
     
     func setCondition(_ condition: String) {
         addAdsDomainModelSubject.value.condition = .init(rawString: condition)
+    }
+}
+
+// MARK: - Private extension
+private extension AddAdvertisementModelImpl {
+    func updateImagesInAdsModel(id: String?, adsImages: [AdvertisementImagesModel]?) {
+        guard let id = id,
+              let index = ownAdsSubject.value.firstIndex(where: { $0.ownerID == id }) else {
+            return
+        }
+        ownAdsSubject.value[index].adsImages = adsImages
     }
 }

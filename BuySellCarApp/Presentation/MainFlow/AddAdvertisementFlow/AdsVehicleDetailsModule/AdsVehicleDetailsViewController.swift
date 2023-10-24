@@ -18,7 +18,6 @@ final class AdsVehicleDetailsViewController: BaseViewController<AdsVehicleDetail
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureNavigationBar()
         configureGesture()
         setupBindings()
     }
@@ -33,7 +32,7 @@ private extension AdsVehicleDetailsViewController {
                 case .addPhotoDidTapped:                 viewModel.showAddPhotoScreen()
                 case .changeFirstRegistrationDidTapped:  viewModel.changeFirstRegistrationDate()
                 case .publishAds:                        viewModel.publishAds()
-                case .discardCreation:                   showDiscardAlert()
+                case .discardCreation:                   viewModel.discardCreationDidTap()
                 case .priceEntered(let price):           viewModel.setPrice(price)
                 case .millageEntered(let millage):       viewModel.setMillage(millage)
                 case .powerEntered(let power):           viewModel.setPower(power)
@@ -50,10 +49,21 @@ private extension AdsVehicleDetailsViewController {
                     
                 case .publicationСreatedSuccessfully:
                     contentView.reconfigureProgressBar(.created)
-                    showSuccessfullyCreationAlert()
                     
                 case .inputError:
                     contentView.showDataMissingState()
+                    
+                case .needShowEmptyState(let needShow):
+                    contentView.showEmptyStateIfNeeded(needShow)
+                    
+                case .publicationEditing:
+                    contentView.reconfigureProgressBar(.adsEditing)
+                    
+                case .showAlert(let alertModel):
+                    UIAlertController.showAlert(model: alertModel)
+                    
+                case .currnetFlow(let flow):
+                    configureNavigationBar(flow: flow)
                 }
             }
             .store(in: &cancellables)
@@ -74,40 +84,18 @@ private extension AdsVehicleDetailsViewController {
             .store(in: &cancellables)
     }
     
-    func configureNavigationBar() {
-        title = "Create ad"
+    func configureNavigationBar(flow: AddAdvertisementFlow) {
+        switch flow {
+        case .creating:
+            title = "Create ad"
+        case .editing:
+            title = "Edit ad"
+        }
     }
     
     func configureGesture() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
         view.addGestureRecognizer(tap)
-    }
-    
-    func showSuccessfullyCreationAlert() {
-        let alertController = UIAlertController(
-            title: Localization.successfullyAlertTitle,
-            message: Localization.adsCreatedSuccessfully,
-            preferredStyle: .alert
-        )
-        alertController.addAction(.init(title: Localization.ok, style: .default, handler: { [weak self] _ in
-            self?.viewModel.popToRoot()
-        }))
-        present(alertController, animated: true, completion: nil)
-    }
-    
-    func showDiscardAlert() {
-        let alertController = UIAlertController(
-            title: Localization.discardCreationTitle,
-            message: Localization.discardCreationMessage,
-            preferredStyle: .alert
-        )
-        
-        alertController.addAction(.init(title: Localization.continue, style: .destructive, handler: { [weak self] _ in
-            self?.viewModel.popToRoot()
-        }))
-        
-        alertController.addAction(.init(title: Localization.cancel, style: .default))
-        present(alertController, animated: true, completion: nil)
     }
 }
 

@@ -11,7 +11,6 @@ import CoreData
 
 
 extension OwnerInfoCoreDataModel {
-
     @nonobjc public class func fetchRequest() -> NSFetchRequest<OwnerInfoCoreDataModel> {
         return NSFetchRequest<OwnerInfoCoreDataModel>(entityName: "OwnerInfoCoreDataModel")
     }
@@ -25,6 +24,4 @@ extension OwnerInfoCoreDataModel {
 
 }
 
-extension OwnerInfoCoreDataModel : Identifiable {
-
-}
+extension OwnerInfoCoreDataModel : Identifiable { }

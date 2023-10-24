@@ -77,10 +77,16 @@ extension AdvertisementServiceImpl: AdvertisementService {
         advertisementNetworkService.publishAdvertisement(model: model)
             .mapError { $0 as Error }
             .flatMap { [unowned self] model -> AnyPublisher<Void, Error> in
-                return advertisementNetworkService.setAdsRrelation(ownerId: ownerId, publishedResponse: model)
+                return advertisementNetworkService.setAdsRelation(ownerId: ownerId, publishedResponse: model)
                     .mapError { $0 as Error }
                     .eraseToAnyPublisher()
             }
+            .eraseToAnyPublisher()
+    }
+    
+    func updateAdvertisement(model: AddAdvertisementDomainModel) -> AnyPublisher<Void, Error> {
+        advertisementNetworkService.updateAdvertisement(model: model)
+            .mapError { $0 as Error }
             .eraseToAnyPublisher()
     }
     
@@ -94,6 +100,29 @@ extension AdvertisementServiceImpl: AdvertisementService {
                     trendingCategories: categories.map { .init(trandingResponseModel: $0) })
             }
             .mapError { $0 as Error }
+            .eraseToAnyPublisher()
+    }
+    
+    func deleteRemoteImage(
+        imageModel: EditImagesModel,
+        imageUrl: String,
+        id: String?
+    ) -> AnyPublisher<EditImagesModel?, Error> {
+        guard let imagePath = imageUrl.components(separatedBy: "users/").last,
+              let id = id else {
+            return Fail(error: NetworkError.badURLError)
+                .mapError { $0 as Error }
+                .eraseToAnyPublisher()
+        }
+        
+        return advertisementNetworkService.deleteImage(url: imagePath)
+            .mapError { $0 as Error }
+            .flatMap { [unowned self] _ -> AnyPublisher<EditImagesModel?, Error> in
+                return advertisementNetworkService.deleteImageFromUserAds(imagesModel: imageModel, id: id)
+                    .map { .init(adsImages: $0?.adsImages) }
+                    .mapError { $0 as Error }
+                    .eraseToAnyPublisher()
+            }
             .eraseToAnyPublisher()
     }
 }

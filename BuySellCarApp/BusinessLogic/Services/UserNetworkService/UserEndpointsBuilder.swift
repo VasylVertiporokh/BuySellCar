@@ -37,19 +37,6 @@ extension UserEndpointsBuilder: EndpointBuilderProtocol {
             return "data/users/\(userId)"
         }
     }
-    var headerFields: [String : String] {
-        switch self {
-        case .logout(let token):
-            return [
-                "Content-Type" : "application/json",
-                "user-token" : token.value
-            ]
-        case .deleteAvatar, .updateUser, .addToFavorite, .getFavorite, .deleteFromFavorite:
-            return ["Content-Type" : "application/json"]
-        case .addUserAvatar:
-            return ["" : ""]
-        }
-    }
      
     var method: HTTPMethod {
         switch self {

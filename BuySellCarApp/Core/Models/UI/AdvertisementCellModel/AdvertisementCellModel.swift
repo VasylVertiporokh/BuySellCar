@@ -23,6 +23,7 @@ struct AdvertisementCellModel: Hashable {
     var location: String? = ""
     let objectID: String
     let imageArray: [String]
+    let imagePreviewUrl: String?
     let created: Int
     let isFromDataBase: Bool
     
@@ -42,7 +43,8 @@ struct AdvertisementCellModel: Hashable {
         self.sellerName = model.sellerName
         self.location = model.location
         self.objectID = model.objectID
-        self.imageArray = model.images?.carImages ?? [""]
+        self.imageArray = model.adsImageUrlArray ?? []
+        self.imagePreviewUrl = model.previewImageUrl
         self.created = model.created
         self.isFromDataBase = model.isDatabaseModel
     }

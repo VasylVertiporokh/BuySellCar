@@ -34,7 +34,6 @@ struct AdvertisementDomainModel {
     let location: String?
     let sellerType: SellerType
     let updated: Int?
-    var images: AdvertisementImages?
     var adsImages: [AdvertisementImagesModel]?
     let sellerName: String
     let ownerinfo: OwnerInfoModel
@@ -42,6 +41,17 @@ struct AdvertisementDomainModel {
     // MARK: - Computed properties
     var sellingType: SellerType {
         ownerinfo.isCommercialSales ? .diller : .owner
+    }
+    
+    var previewImageUrl: String? {
+        let imageModel = adsImages?.min(by: { $0.imageIndex < $1.imageIndex })
+        return imageModel?.imageUrl
+    }
+    
+    var adsImageUrlArray: [String]? {
+        return adsImages?
+            .sorted(by: { $0.imageIndex < $1.imageIndex })
+            .map { $0.imageUrl }
     }
     
     // MARK: - Init from response
@@ -72,7 +82,6 @@ struct AdvertisementDomainModel {
         location = advertisementResponseModel.location
         sellerType = advertisementResponseModel.sellerType
         updated = advertisementResponseModel.updated
-        images = advertisementResponseModel.images
         adsImages = advertisementResponseModel.adsImages
         sellerName = advertisementResponseModel.sellerName
         ownerinfo = .init(model: advertisementResponseModel.userData)
@@ -106,7 +115,9 @@ struct AdvertisementDomainModel {
         location = dataBaseModel.location
         sellerType = .init(rawString: dataBaseModel.sellerType)
         updated = Int(dataBaseModel.wasUpdated)
-        images = .init(carImages: dataBaseModel.images)
+        adsImages = dataBaseModel.adsImagesModel
+            .map { .init(imageUrl: $0.imageUrl, imageIndex: Int($0.imageIndex), photoRacurs: $0.photoRacurs) }
+        
         sellerName = dataBaseModel.sellerName
         ownerinfo = .init(model: dataBaseModel.ownerInfo)
     }
@@ -132,7 +143,6 @@ struct OwnerInfoModel {
     
     // MARK: - Init from data base model
     init(model: OwnerInfoCoreDataModel?) {
-        // TODO: - Need fix
         self.withWhatsAppAccount = model!.withWhatsAppAccount
         self.isCommercialSales = model!.isCommercialSales
         self.ownerId = model!.ownerId

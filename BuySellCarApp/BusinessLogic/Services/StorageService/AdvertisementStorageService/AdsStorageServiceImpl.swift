@@ -125,4 +125,29 @@ extension AdsStorageServiceImpl: AdsStorageService {
         itemsToInsert.forEach { stack.backgroundContext.insert($0) }
         saveContext(contextType: .backgroundContext)
     }
+    
+    func deleteAdsByType(_ type: AdvertisementType, adsDomainModel: AdvertisementDomainModel?) {
+        // request for delete
+        let request: NSFetchRequest<AdsCoreDataModel> = AdsCoreDataModel.fetchRequest()
+        request.predicate = NSPredicate(format: "\(type.filterParam) == %@", NSNumber (value: true))
+        
+        // try get object for delete
+        let objectToDelete = try? stack.backgroundContext.fetch(request)
+            .first(where: { $0.objectId == adsDomainModel?.objectID })
+        
+        guard let object = objectToDelete else {
+            return
+        }
+
+        // switch by types
+        switch type {
+        case .favoriteAds:
+            stack.backgroundContext.delete(object)
+        case .ownAds:
+            stack.backgroundContext.delete(object)
+        }
+        
+        // save changes
+        saveContext(contextType: .backgroundContext)
+    }
 }

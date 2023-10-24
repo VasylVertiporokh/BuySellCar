@@ -9,6 +9,7 @@ import Foundation
 
 struct CreateAdvertisementRequestModel: Encodable {
     var ownerId: String?
+    var objectId: String
     var mileage: Int?
     var fuelType: FuelType?
     let transportName: String?
@@ -38,6 +39,7 @@ struct CreateAdvertisementRequestModel: Encodable {
         self.price = domainModel.mainTechnicalInfo.price
         self.power = domainModel.mainTechnicalInfo.power
         self.ownerId = domainModel.ownerId
+        self.objectId = domainModel.objectId ?? ""
         self.fuelType = domainModel.fuelType
         self.transportName = domainModel.make
         self.bodyColor = domainModel.bodyColor

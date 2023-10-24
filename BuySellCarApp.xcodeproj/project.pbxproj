@@ -30,6 +30,9 @@
 		1F2263252AC5FD790091B9CE /* BodyTypeModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2263212AC5FD790091B9CE /* BodyTypeModuleBuilder.swift */; };
 		1F2263282AC5FD790091B9CE /* BodyTypeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2263242AC5FD790091B9CE /* BodyTypeViewModel.swift */; };
 		1F22632A2AC5FD930091B9CE /* BodyTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2263292AC5FD930091B9CE /* BodyTypeView.swift */; };
+		1F27354D2ADD2DB7009696F0 /* AdsImages+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F27354B2ADD2DB7009696F0 /* AdsImages+CoreDataClass.swift */; };
+		1F27354E2ADD2DB7009696F0 /* AdsImages+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F27354C2ADD2DB7009696F0 /* AdsImages+CoreDataProperties.swift */; };
+		1F2735502ADD5763009696F0 /* EditImagesRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F27354F2ADD5763009696F0 /* EditImagesRequestModel.swift */; };
 		1F2E91F42A8D032500C7B8E7 /* TabBarButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E91F32A8D032500C7B8E7 /* TabBarButtonView.swift */; };
 		1F2E91F92A8E6C4100C7B8E7 /* FavoriteResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E91F82A8E6C4100C7B8E7 /* FavoriteResponseModel.swift */; };
 		1F35486A2A82508E00A3E29C /* ImageZoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3548692A82508E00A3E29C /* ImageZoomCell.swift */; };
@@ -104,6 +107,8 @@
 		1FD237902AA88B1600D7AF0D /* AdsStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD2378F2AA88B1600D7AF0D /* AdsStorageService.swift */; };
 		1FD237922AA890EC00D7AF0D /* AdsStorageServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD237912AA890EC00D7AF0D /* AdsStorageServiceImpl.swift */; };
 		1FD237942AA8918800D7AF0D /* AdsStorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD237932AA8918800D7AF0D /* AdsStorageError.swift */; };
+		1FE307562AD56095001DAA28 /* NetworkPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE307552AD56095001DAA28 /* NetworkPlugin.swift */; };
+		1FE307592AD57547001DAA28 /* BaseHeadersPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE307582AD57547001DAA28 /* BaseHeadersPlugin.swift */; };
 		20E6443F2CF0FE7E640D0DDF /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF210A01E50E3A0070C899D /* AuthCoordinator.swift */; };
 		2174305FA29F27D7BC4E5DD5 /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB41F88AEA6C275FF542C14 /* AppContainer.swift */; };
 		2E0A948A1F95B389F8C78963 /* KeyboardLayoutGuide in Frameworks */ = {isa = PBXBuildFile; productRef = 6F28DE4B19DE8160C318C5F1 /* KeyboardLayoutGuide */; };
@@ -372,6 +377,9 @@
 		1F2263212AC5FD790091B9CE /* BodyTypeModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyTypeModuleBuilder.swift; sourceTree = "<group>"; };
 		1F2263242AC5FD790091B9CE /* BodyTypeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyTypeViewModel.swift; sourceTree = "<group>"; };
 		1F2263292AC5FD930091B9CE /* BodyTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyTypeView.swift; sourceTree = "<group>"; };
+		1F27354B2ADD2DB7009696F0 /* AdsImages+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AdsImages+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1F27354C2ADD2DB7009696F0 /* AdsImages+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AdsImages+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1F27354F2ADD5763009696F0 /* EditImagesRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImagesRequestModel.swift; sourceTree = "<group>"; };
 		1F2E91F32A8D032500C7B8E7 /* TabBarButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButtonView.swift; sourceTree = "<group>"; };
 		1F2E91F82A8E6C4100C7B8E7 /* FavoriteResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteResponseModel.swift; sourceTree = "<group>"; };
 		1F3548692A82508E00A3E29C /* ImageZoomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageZoomCell.swift; sourceTree = "<group>"; };
@@ -406,6 +414,7 @@
 		1F78F74F2A6FC5BF006E920D /* TrandingCategoriesResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrandingCategoriesResponseModel.swift; sourceTree = "<group>"; };
 		1F78F7522A6FE3BD006E920D /* TrandingCategoriesDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrandingCategoriesDomainModel.swift; sourceTree = "<group>"; };
 		1F78F7552A6FEA1B006E920D /* RecommendationDomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationDomainModel.swift; sourceTree = "<group>"; };
+		1F8EC1942AE01E72009A2C24 /* BuySellCarApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BuySellCarApp.entitlements; sourceTree = "<group>"; };
 		1F918AD12A864E26008E8057 /* AdsPublishResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsPublishResponseModel.swift; sourceTree = "<group>"; };
 		1F918AEE2A866FE5008E8057 /* SendEmailModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendEmailModuleBuilder.swift; sourceTree = "<group>"; };
 		1F990F202A78F34B000EB3D0 /* DetailsModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsModuleBuilder.swift; sourceTree = "<group>"; };
@@ -445,6 +454,8 @@
 		1FD2378F2AA88B1600D7AF0D /* AdsStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsStorageService.swift; sourceTree = "<group>"; };
 		1FD237912AA890EC00D7AF0D /* AdsStorageServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsStorageServiceImpl.swift; sourceTree = "<group>"; };
 		1FD237932AA8918800D7AF0D /* AdsStorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsStorageError.swift; sourceTree = "<group>"; };
+		1FE307552AD56095001DAA28 /* NetworkPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPlugin.swift; sourceTree = "<group>"; };
+		1FE307582AD57547001DAA28 /* BaseHeadersPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseHeadersPlugin.swift; sourceTree = "<group>"; };
 		227779459FE6ACE005F31BFD /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		2434A8CDE974A11EF75DAF57 /* Montserrat-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-BlackItalic.ttf"; sourceTree = "<group>"; };
 		25C862345ACB3CDEC2F442ED /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -1031,6 +1042,8 @@
 		1FA2B8A62AA5E7D3003D7FCB /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				1F27354B2ADD2DB7009696F0 /* AdsImages+CoreDataClass.swift */,
+				1F27354C2ADD2DB7009696F0 /* AdsImages+CoreDataProperties.swift */,
 				1FD237862AA70D6100D7AF0D /* AdsCoreDataModel+CoreDataClass.swift */,
 				1FD237872AA70D6100D7AF0D /* AdsCoreDataModel+CoreDataProperties.swift */,
 				1FD237882AA70D6100D7AF0D /* OwnerInfoCoreDataModel+CoreDataClass.swift */,
@@ -1143,6 +1156,22 @@
 			path = AdvertisementStorageService;
 			sourceTree = "<group>";
 		};
+		1FE307542AD56076001DAA28 /* NetworkPlugin */ = {
+			isa = PBXGroup;
+			children = (
+				1FE307552AD56095001DAA28 /* NetworkPlugin.swift */,
+			);
+			path = NetworkPlugin;
+			sourceTree = "<group>";
+		};
+		1FE307572AD57528001DAA28 /* NetworkPlugins */ = {
+			isa = PBXGroup;
+			children = (
+				1FE307582AD57547001DAA28 /* BaseHeadersPlugin.swift */,
+			);
+			path = NetworkPlugins;
+			sourceTree = "<group>";
+		};
 		22D4565EE1CBBAE2316CA7D0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1221,6 +1250,7 @@
 		6A6BBB5EFA19C7424B8F07B7 /* BusinessLogic */ = {
 			isa = PBXGroup;
 			children = (
+				1FE307572AD57528001DAA28 /* NetworkPlugins */,
 				195B17D915795DFAF44BBE35 /* Coordinators */,
 				716B06AF0901CA18A7BAAA7F /* Models */,
 				2D616176C6D83293BB9F01DB /* Services */,
@@ -2117,6 +2147,7 @@
 				D4EA6E6B299E8FD7009F7DBD /* LoginRequestModel.swift */,
 				1F3670832A8CCFD600CBDCD2 /* EmailRequestModel.swift */,
 				D41C5D3A2A1E2B4400755CA5 /* CreateAdvertisementRequestModel.swift */,
+				1F27354F2ADD5763009696F0 /* EditImagesRequestModel.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -2197,6 +2228,7 @@
 		EAFC5F22BE3607EA991D61C6 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				1FE307542AD56076001DAA28 /* NetworkPlugin */,
 				1FB7795E2AA9F9EB00DAE37E /* ReachabilityManager */,
 				D451E88529B639FA00CE75D2 /* NetworkLogger */,
 				D46CC3BB29A80269003BCB24 /* EnpointBuilder */,
@@ -2210,6 +2242,7 @@
 		ED02FF65E72DB0B7057DBFC8 /* BuySellCarApp */ = {
 			isa = PBXGroup;
 			children = (
+				1F8EC1942AE01E72009A2C24 /* BuySellCarApp.entitlements */,
 				E0C707BC01386EC0A7FA2303 /* Application */,
 				6A6BBB5EFA19C7424B8F07B7 /* BusinessLogic */,
 				C552A73C0826F8EE1CA976C2 /* Core */,
@@ -2379,6 +2412,7 @@
 				DBD9E53A938258AF427C8291 /* AppDelegate.swift in Sources */,
 				D451E88C29B7A40900CE75D2 /* AdvertisementEndpointBuilder.swift in Sources */,
 				1F3670732A8BA05800CBDCD2 /* EmailNetworkService.swift in Sources */,
+				1FE307562AD56095001DAA28 /* NetworkPlugin.swift in Sources */,
 				D49D0E2629EEBE3700C67E96 /* LoaderFooterView.swift in Sources */,
 				1F09A88E2A9CE97D00E75EA3 /* MainTabBarModel.swift in Sources */,
 				D4ADEBFF29AD09F600D7CE53 /* MainButtonType.swift in Sources */,
@@ -2438,6 +2472,7 @@
 				D495003E29C8E5D8009CECA9 /* SettingsCollectionView.swift in Sources */,
 				D4623E0929D45F4B003B4020 /* AdvertisementSearchResultDataSource.swift in Sources */,
 				D49D0E2E29EED03000C67E96 /* SearchAdvertisementView.swift in Sources */,
+				1F27354E2ADD2DB7009696F0 /* AdsImages+CoreDataProperties.swift in Sources */,
 				D4CE253D43E79AE86BD92491 /* BaseViewModel.swift in Sources */,
 				1F1B76DC2AA0B8020083BC6D /* UILable+Extension.swift in Sources */,
 				D4623E0B29D4968E003B4020 /* AdvertisementCountResponseModel.swift in Sources */,
@@ -2445,9 +2480,11 @@
 				1F4DAAF92A7A959C00387F97 /* SocialNetworkView.swift in Sources */,
 				1F22630C2AC43D4A0091B9CE /* NumberOfSeatsViewModel.swift in Sources */,
 				1F3670752A8BA07B00CBDCD2 /* EmailNetworkServiceImpl.swift in Sources */,
+				1F2735502ADD5763009696F0 /* EditImagesRequestModel.swift in Sources */,
 				D49D0E2C29EED03000C67E96 /* SearchAdvertisementModuleBuilder.swift in Sources */,
 				D49D0E2F29EED03000C67E96 /* SearchAdvertisementViewModel.swift in Sources */,
 				1F2E91F42A8D032500C7B8E7 /* TabBarButtonView.swift in Sources */,
+				1FE307592AD57547001DAA28 /* BaseHeadersPlugin.swift in Sources */,
 				1F7061D92A936E470056C552 /* FavoriteModuleBuilder.swift in Sources */,
 				D47839B42A13A3CB0003FD83 /* VehicleDataCell.swift in Sources */,
 				D43554D429E00D580002A406 /* AdvertisementDomainModel.swift in Sources */,
@@ -2468,6 +2505,7 @@
 				D458973129F6B442001210A3 /* TechnicalSpecCell.swift in Sources */,
 				D42F790529C372BC00339DA2 /* UploadingImageResponseModel.swift in Sources */,
 				1F2263142AC5EBAF0091B9CE /* CheckBoxCell.swift in Sources */,
+				1F27354D2ADD2DB7009696F0 /* AdsImages+CoreDataClass.swift in Sources */,
 				D4ADEC1229ADF84000D7CE53 /* RegEx.swift in Sources */,
 				BD055F8B3C7F245B0D1E9612 /* HomeCoordinator.swift in Sources */,
 				D48BE0BF29CC985A00E7F159 /* RecommendationCell.swift in Sources */,
@@ -2689,6 +2727,7 @@
 			baseConfigurationReference = 11ED46B0B0B628F67D24DAFE /* Config-PROD.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BuySellCarApp/BuySellCarApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L3QAWRZFYR;
@@ -2702,6 +2741,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chisw.BuySellCarApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -2711,6 +2753,7 @@
 			baseConfigurationReference = E5A85C08090B6E0C403F6475 /* Config-DEV.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BuySellCarApp/BuySellCarApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L3QAWRZFYR;
@@ -2724,6 +2767,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chisw.BuySellCarApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = "Debug DEV";
@@ -2793,6 +2839,7 @@
 			baseConfigurationReference = 55B62A600B9155FFF78EDB32 /* Config-STG.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BuySellCarApp/BuySellCarApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L3QAWRZFYR;
@@ -2806,6 +2853,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chisw.BuySellCarApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = "Debug STG";
@@ -2815,6 +2865,7 @@
 			baseConfigurationReference = 11ED46B0B0B628F67D24DAFE /* Config-PROD.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BuySellCarApp/BuySellCarApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L3QAWRZFYR;
@@ -2828,6 +2879,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chisw.BuySellCarApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2904,6 +2958,7 @@
 			baseConfigurationReference = 55B62A600B9155FFF78EDB32 /* Config-STG.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BuySellCarApp/BuySellCarApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L3QAWRZFYR;
@@ -2917,6 +2972,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chisw.BuySellCarApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = "Release STG";
@@ -3120,6 +3178,7 @@
 			baseConfigurationReference = E5A85C08090B6E0C403F6475 /* Config-DEV.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BuySellCarApp/BuySellCarApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = L3QAWRZFYR;
@@ -3133,6 +3192,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.chisw.BuySellCarApp;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = "Release DEV";

@@ -12,6 +12,7 @@ struct AddAdvertisementDomainModel {
     var make: String?
     var model: String?
     var ownerId: String?
+    var objectId: String?
     var sellerName: String?
     var doorCount: Int = 5
     var numberOfSeats: Int = 5
@@ -23,16 +24,9 @@ struct AddAdvertisementDomainModel {
     var bodyType: BodyType = .sedan
     var sellerType: SellerType = .owner
     var transmissionType: TransmissionType = .manual
-    var images: AdvertisementImages?
     var adsRemoteImages: [AdvertisementImagesModel]?
     var location: String?
-    var adsImages: [CollageImageModel]?
     var contactsInfo: ContactsInfo?
-    
-    // MARK: - Computed properties
-    var needCreateImagesModel: Bool {
-        return adsImages == nil
-    }
     
     // MARK: - Empty init
     init() {}
@@ -42,6 +36,7 @@ struct AddAdvertisementDomainModel {
         self.make = model.transportName
         self.model = model.transportModel
         self.ownerId = model.ownerID
+        self.objectId = model.objectID
         self.sellerName = model.sellerName
         self.doorCount = model.doorCount.rawValue
         self.numberOfSeats = model.numberOfSeats.rawValue
@@ -51,10 +46,8 @@ struct AddAdvertisementDomainModel {
         self.bodyType = model.bodyType
         self.sellerType = model.sellerType
         self.transmissionType = model.transmissionType
-        self.images = model.images
         self.location = model.location
-        self.adsImages = model.adsImages?
-            .map { .init(imageModel: $0) }
+        self.adsRemoteImages = model.adsImages
         
         self.contactsInfo = .init(
             email: model.ownerinfo.email,
@@ -89,7 +82,7 @@ struct TechnicalInfoModel {
     }
 }
 
-struct CollageImageModel {
+struct CollageImagesModel {
     var collageImage: ImageResources
     var index: Int
     var photoRacurs: String

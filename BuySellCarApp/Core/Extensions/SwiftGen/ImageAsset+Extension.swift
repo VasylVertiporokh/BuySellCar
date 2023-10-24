@@ -15,9 +15,9 @@ enum ImageResources: Hashable {
     
     var imageData: Data? {
         switch self {
-        case .fromData(let data):           return data
-        case .fromAssets(let imageAsset):   return imageAsset.image.pngData()
-        case .formRemote:                   return nil
+        case .fromData(let data):               return data
+        case .fromAssets(let imageAsset):       return imageAsset.image.pngData()
+        case .formRemote:                       return nil
         }
     }
 }

@@ -16,8 +16,7 @@ enum SelectedImageSection: Hashable {
 
 // MARK: - SelectedImageRow
 enum SelectedImageRow: Hashable {
-    case selectedImageRow(Data)
-    case kf(String?)
+    case imageResources(ImageResources)
 }
 
 // MARK: - MainCarInfoViewAction
@@ -370,14 +369,9 @@ private extension MainCarInfoView {
         carImageCollectionView.register(cellType: CarImageCell.self)
         dataSource = .init(collectionView: carImageCollectionView, cellProvider: { collectionView, indexPath, item in
             switch item {
-            case .selectedImageRow(let data):
+            case .imageResources(let image):
                 let cell: CarImageCell = collectionView.dequeueReusableCell(for: indexPath)
-                cell.setImageFromData(data)
-                return cell
-                
-            case .kf(let imageStringURL):
-                let cell: CarImageCell = collectionView.dequeueReusableCell(for: indexPath)
-                cell.setImageURL(imageStringURL)
+                cell.setImageFromResources(image)
                 return cell
             }
         })

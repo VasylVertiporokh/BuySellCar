@@ -36,10 +36,6 @@ extension AuthEndpoitsBuilder: EndpointBuilderProtocol {
         }
     }
     
-    var headerFields: [String : String] {
-        return ["Content-Type" : "application/json"]
-    }
-    
     var body: RequestBody? {
         switch self {
         case .login(let model):
