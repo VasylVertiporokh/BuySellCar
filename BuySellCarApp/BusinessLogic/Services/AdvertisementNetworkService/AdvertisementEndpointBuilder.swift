@@ -16,8 +16,11 @@ enum AdvertisementEndpointBuilder {
     case getBrand
     case getModel(brandId: String)
     case uploadAdvertisementImage(item: MultipartItem, userId: String)
+    case deleteImage(path: String)
+    case editImageModel(images: EditImagesModel, objectId: String)
     case setAdsRelation(relationData: Data, createdObjectId: String)
     case publishAdvertisement(CreateAdvertisementRequestModel)
+    case editAdvertisement(CreateAdvertisementRequestModel)
     case getTrandingCategories
 }
 
@@ -34,6 +37,9 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
         case .deleteAdvertisement(objectID: let id):
             return "/data/Advertisement/\(id)"
             
+        case .editImageModel(_ , let id):
+            return "/data/Advertisement/\(id)"
+            
         case .getBrand:
             return "/data/Brands"
             
@@ -43,23 +49,17 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
         case .uploadAdvertisementImage(let dataItem, let userId):
             return "/files/images/users/\(userId)/\(dataItem.fileName)"
             
+        case .deleteImage(let path):
+            return "/files/images/users/\(path)"
+            
         case .setAdsRelation(_, let ownerId):
             return "/data/Advertisement/\(ownerId)/userData"
             
+        case .editAdvertisement(let adsModel):
+            return "/data/Advertisement/\(adsModel.objectId)"
             
         case .getTrandingCategories:
             return "/files/fastSearch/trandingCategories"
-        }
-    }
-    
-    var headerFields: [String : String] {
-        switch self {
-        case .searchAdvertisement, .getAdvertisement, .getAdvertisementCount,
-                .getOwnAds, .deleteAdvertisement, .getBrand, .getModel,
-                .publishAdvertisement, .getTrandingCategories, .setAdsRelation: // TODO: - Need plugin
-            return ["Content-Type" : "application/json"]
-        case .uploadAdvertisementImage:
-            return ["" : ""]
         }
     }
     
@@ -85,9 +85,6 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
                 "loadRelations" : "userData",
                 "pageSize" : "100",
             ]
-        
-        case .deleteAdvertisement, .uploadAdvertisementImage, .publishAdvertisement, .getTrandingCategories, .setAdsRelation:
-            return nil
             
         case .getBrand:
             return ["pageSize" : "100"]
@@ -97,6 +94,9 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
                 "pageSize" : "100",
                 "where" : "brandID = \(brandId)"
             ]
+            
+        default:
+            return nil
         }
     }
     
@@ -105,6 +105,8 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
         case .uploadAdvertisementImage(let item, _):       return .multipartBody([item])
         case .publishAdvertisement(let adsModel):          return .encodable(adsModel)
         case .setAdsRelation(let data, _):                 return .rawData(data)
+        case .editImageModel(let model, _):                return .encodable(model)
+        case .editAdvertisement(let model):                return .encodable(model)
             
         default:
             return nil
@@ -116,7 +118,7 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
         case .searchAdvertisement, .getAdvertisement, .getAdvertisementCount, .getOwnAds, .getBrand, .getModel, .getTrandingCategories:
             return .get
             
-        case .deleteAdvertisement:
+        case .deleteAdvertisement, .deleteImage:
             return .delete
             
         case .uploadAdvertisementImage, .publishAdvertisement:
@@ -124,6 +126,9 @@ extension AdvertisementEndpointBuilder: EndpointBuilderProtocol {
             
         case .setAdsRelation:
             return .post
+        
+        case .editImageModel, .editAdvertisement:
+            return .put
         }
     }
 }

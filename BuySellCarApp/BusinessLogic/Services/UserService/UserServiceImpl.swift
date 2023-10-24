@@ -22,6 +22,7 @@ final class UserServiceImpl {
     private let tokenStorage: TokenStorage
     private let userDefaultsService: UserDefaultsServiceProtocol
     private let userNetworkService: UserNetworkService
+    private let adsStorageService: AdsStorageService
     
     // MARK: - Publisher
     private(set) lazy var userDomainPublisher = userDomainSubject.eraseToAnyPublisher()
@@ -34,11 +35,13 @@ final class UserServiceImpl {
     init(
         tokenStorage: TokenStorage,
         userDefaultsService: UserDefaultsServiceProtocol,
-        userNetworkService: UserNetworkService
+        userNetworkService: UserNetworkService,
+        adsStorageService: AdsStorageService
     ) {
         self.tokenStorage = tokenStorage
         self.userDefaultsService = userDefaultsService
         self.userNetworkService = userNetworkService
+        self.adsStorageService = adsStorageService
         createUserDomainPublisher()
     }
 }

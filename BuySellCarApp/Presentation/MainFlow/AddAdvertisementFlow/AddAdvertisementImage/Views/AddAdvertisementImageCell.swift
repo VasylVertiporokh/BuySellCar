@@ -30,13 +30,18 @@ final class AddAdvertisementImageCell: UICollectionViewCell {
 // MARK: - Internal extension
 extension AddAdvertisementImageCell {
     func configureCell(with model: AdsPhotoModel) {
-        guard let selectedImage = model.selectedImage else {
-            carImageView.image = UIImage(data: model.placeholderImageRow ?? Data())
+        switch model.image {
+        case .formRemote(let stringUrl):
+            carImageView.kf.setImage(with: URL(string: stringUrl), placeholder: model.photoRacurs.racursPlaceholder.image)
+            fakeButtonViewImage.image = Assets.closeCircleIcon.image.withTintColor(.white)
+        case .fromAssets(let assets):
+            carImageView.image = assets.image
             fakeButtonViewImage.image = Assets.addIcon.image.withTintColor(.white)
-            return
+        case .fromData(let data):
+            guard let data = data else { return }
+            carImageView.image = UIImage(data: data)
+            fakeButtonViewImage.image = Assets.closeCircleIcon.image.withTintColor(.white)
         }
-        carImageView.image = UIImage(data: selectedImage)
-        fakeButtonViewImage.image = Assets.closeCircleIcon.image.withTintColor(.white)
     }
 }
 

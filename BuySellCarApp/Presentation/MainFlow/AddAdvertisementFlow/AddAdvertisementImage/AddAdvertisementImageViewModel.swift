@@ -11,8 +11,9 @@ import Foundation
 final class AddAdvertisementImageViewModel: BaseViewModel {
     // MARK: - Private properties
     private let addAdvertisementModel: AddAdvertisementModel
-    private var adsPhotoModel: [AdsPhotoModel]!
-    private var collageID: String = ""
+    private let flow: AddAdvertisementFlow
+    private var adsPhotoModel: [AdsPhotoModel] = []
+    private var collageRacurs: AdsPhotoModel.Racurs = .backRightSide
     
     // MARK: - Transition publisher
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -23,8 +24,9 @@ final class AddAdvertisementImageViewModel: BaseViewModel {
     private let sectionSubject = CurrentValueSubject<[SectionModel<AddAdvertisementImageSection, AddAdvertisementImageRow>], Never>([])
     
     // MARK: - Init
-    init(addAdvertisementModel: AddAdvertisementModel) {
+    init(addAdvertisementModel: AddAdvertisementModel, flow: AddAdvertisementFlow) {
         self.addAdvertisementModel = addAdvertisementModel
+        self.flow = flow
         super.init()
     }
     
@@ -37,25 +39,41 @@ final class AddAdvertisementImageViewModel: BaseViewModel {
 // MARK: - Internal extension
 extension AddAdvertisementImageViewModel {
     func addPhoto(_ photo: Data?) {
-        addAdvertisementModel.setAdvertisementPhoto(photo, collageID: collageID)
+        guard let collageItem = adsPhotoModel.first(where: { $0.photoRacurs == collageRacurs }) else {
+            return
+        }
+        addAdvertisementModel.setAdvertisementPhoto(photo, racurs: collageRacurs, index: collageItem.imageIndex)
     }
     
     func deleteSelectedPhoto() {
-        addAdvertisementModel.deleteImageByID(collageID)
+        addAdvertisementModel.deleteImageByRacurs(collageRacurs)
     }
     
-    func setSelectedCollageID(_ id: String) {
-        collageID = id
+    func setSelectedCollageID(_ racurs: AdsPhotoModel.Racurs) {
+        collageRacurs = racurs
     }
 }
 
 // MARK: - Private extension
 private extension AddAdvertisementImageViewModel {
     func setupBindings() {
-        addAdvertisementModel.addAdsDomainModelPublisher
+        addAdvertisementModel.collageImagePublisher
             .receive(on: DispatchQueue.main)
-            .sink { [unowned self] domainModel in
-                adsPhotoModel = domainModel.adsPhotoModel
+            .sink { [unowned self] imageModel in
+                guard let remoteImages = imageModel else {
+                    adsPhotoModel = AdsPhotoModel.photoModel
+                    updateDataSource()
+                    return
+                }
+                
+                adsPhotoModel = AdsPhotoModel.photoModel
+                remoteImages.forEach { collageImageModel in
+                    guard let collageIndex = adsPhotoModel.firstIndex(where: { $0.imageIndex == collageImageModel.index }) else {
+                        return
+                    }
+                    adsPhotoModel[collageIndex].image = collageImageModel.collageImage
+                    adsPhotoModel[collageIndex].photoRacurs = .init(rawValue: collageImageModel.photoRacurs)!
+                }
                 updateDataSource()
             }
             .store(in: &cancellables)

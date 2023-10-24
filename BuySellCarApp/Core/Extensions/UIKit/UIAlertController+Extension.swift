@@ -64,4 +64,33 @@ extension UIAlertController {
         
         return deleteSubject.eraseToAnyPublisher()
     }
+    
+    class func showAlert(model: UIAlertControllerModel) {
+        let alertController = UIAlertController(
+            title: model.title,
+            message: model.message,
+            preferredStyle: model.preferredStyle
+        )
+        
+        alertController.addAction(
+            .init(
+                title: model.confirmButtonTitle,
+                style: model.confirmActionStyle,
+                handler: { _ in
+                    model.confirmAction?()
+                }
+            )
+        )
+        
+        alertController.addAction(
+            .init(
+                title:  model.discardButtonTitle,
+                style: model.discardActionStyle,
+                handler: { _ in
+                    model.discardAction?()
+                }
+            )
+        )
+        displayAlert(parmAlert: alertController)
+    }
 }

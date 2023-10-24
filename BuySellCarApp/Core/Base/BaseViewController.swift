@@ -33,6 +33,7 @@ class BaseViewController<VM: ViewModel>: UIViewController {
             .store(in: &cancellables)
 
         viewModel.errorPublisher
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
                 let alertController = UIAlertController(title: Localization.error, message: error.localizedDescription, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: Localization.ok, style: .default, handler: nil)

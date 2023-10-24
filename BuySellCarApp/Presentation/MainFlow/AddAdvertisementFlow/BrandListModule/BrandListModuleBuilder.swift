@@ -10,11 +10,12 @@ import Combine
 
 enum BrandListTransition: Transition {
     case popToPreviousModule
+    case showModelList
 }
 
 final class BrandListModuleBuilder {
-    class func build(container: AppContainer) -> Module<BrandListTransition, UIViewController> {
-        let viewModel = BrandListViewModel(addAdvertisementModel: container.addAdvertisementModel)
+    class func build(container: AppContainer, flow: AddAdvertisementFlow) -> Module<BrandListTransition, UIViewController> {
+        let viewModel = BrandListViewModel(addAdvertisementModel: container.addAdvertisementModel, flow: flow)
         let viewController = BrandListViewController(viewModel: viewModel)
         return Module(viewController: viewController, transitionPublisher: viewModel.transitionPublisher)
     }

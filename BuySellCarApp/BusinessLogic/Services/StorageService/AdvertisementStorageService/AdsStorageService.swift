@@ -31,4 +31,5 @@ protocol AdsStorageService {
     func saveContext(contextType: ContextType)
     func fetchAdsByType(_ type: AdvertisementType)
     func synchronizeAdsByType(_ type: AdvertisementType, adsDomainModel: [AdvertisementDomainModel]?)
+    func deleteAdsByType(_ type: AdvertisementType, adsDomainModel: AdvertisementDomainModel?)
 }

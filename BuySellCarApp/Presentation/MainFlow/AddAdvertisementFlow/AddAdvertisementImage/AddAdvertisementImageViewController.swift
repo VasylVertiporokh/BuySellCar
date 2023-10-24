@@ -46,8 +46,15 @@ private extension AddAdvertisementImageViewController {
                 case .adOrDeleteItem(let row):
                     switch row {
                     case .carImageRow(let adsPhotoModel):
-                        viewModel.setSelectedCollageID(adsPhotoModel.id)
-                        adsPhotoModel.withSelectedImage ? showDeleteSelectedPhotoAlert() : showGalleryOrCameraAlert()
+                        viewModel.setSelectedCollageID(adsPhotoModel.photoRacurs)
+                        switch adsPhotoModel.image {
+                        case .fromData:
+                            showDeleteSelectedPhotoAlert()
+                        case .fromAssets:
+                            showGalleryOrCameraAlert()
+                        case .formRemote:
+                            showDeleteSelectedPhotoAlert()
+                        }
                     }
                 }
             }

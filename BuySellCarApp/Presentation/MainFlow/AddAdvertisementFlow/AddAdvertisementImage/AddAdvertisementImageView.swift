@@ -87,7 +87,6 @@ private extension AddAdvertisementImageView {
     
     func setupDataSource() {
         collectionView.register(cellType: AddAdvertisementImageCell.self)
-        
         dataSource = .init(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
             switch item {
             case .carImageRow(let model):

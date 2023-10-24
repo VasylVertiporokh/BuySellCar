@@ -21,26 +21,37 @@ struct AdvertisementDomainModel {
     let power: Int
     let objectID: String
     let mileage: Int
-    let doorCount: Int
+    let doorCount: DoorCount
     let yearOfManufacture: Int
     let created: Int
     let transportModel: String
     let interiorFittings: String?
     let photo: String?
     let shortDescription: String?
-    let numberOfSeats: Int
+    let numberOfSeats: NumberOfSeats
     let condition: Condition
     let fuelType: FuelType
     let location: String?
     let sellerType: SellerType
     let updated: Int?
-    var images: AdvertisementImages?
+    var adsImages: [AdvertisementImagesModel]?
     let sellerName: String
     let ownerinfo: OwnerInfoModel
     
     // MARK: - Computed properties
     var sellingType: SellerType {
         ownerinfo.isCommercialSales ? .diller : .owner
+    }
+    
+    var previewImageUrl: String? {
+        let imageModel = adsImages?.min(by: { $0.imageIndex < $1.imageIndex })
+        return imageModel?.imageUrl
+    }
+    
+    var adsImageUrlArray: [String]? {
+        return adsImages?
+            .sorted(by: { $0.imageIndex < $1.imageIndex })
+            .map { $0.imageUrl }
     }
     
     // MARK: - Init from response
@@ -71,7 +82,7 @@ struct AdvertisementDomainModel {
         location = advertisementResponseModel.location
         sellerType = advertisementResponseModel.sellerType
         updated = advertisementResponseModel.updated
-        images = advertisementResponseModel.images
+        adsImages = advertisementResponseModel.adsImages
         sellerName = advertisementResponseModel.sellerName
         ownerinfo = .init(model: advertisementResponseModel.userData)
     }
@@ -91,20 +102,22 @@ struct AdvertisementDomainModel {
         power = Int(dataBaseModel.power)
         objectID = dataBaseModel.objectId
         mileage = Int(dataBaseModel.mileage)
-        doorCount = Int(dataBaseModel.doorCount)
+        doorCount = DoorCount(rawInt: Int(dataBaseModel.doorCount))
         yearOfManufacture = Int(dataBaseModel.yearOfManufacture)
         created = Int(dataBaseModel.created)
         transportModel = dataBaseModel.transportModel
         interiorFittings = dataBaseModel.interiorFittings
         photo = dataBaseModel.photo
         shortDescription = dataBaseModel.shortDes
-        numberOfSeats = Int(dataBaseModel.numberOfSeats)
+        numberOfSeats = NumberOfSeats(rawInt: Int(dataBaseModel.numberOfSeats))
         condition = Condition.init(rawString: dataBaseModel.condition)
         fuelType = FuelType.init(rawString: dataBaseModel.fuelType)
         location = dataBaseModel.location
         sellerType = .init(rawString: dataBaseModel.sellerType)
         updated = Int(dataBaseModel.wasUpdated)
-        images = .init(carImages: dataBaseModel.images)
+        adsImages = dataBaseModel.adsImagesModel
+            .map { .init(imageUrl: $0.imageUrl, imageIndex: Int($0.imageIndex), photoRacurs: $0.photoRacurs) }
+        
         sellerName = dataBaseModel.sellerName
         ownerinfo = .init(model: dataBaseModel.ownerInfo)
     }
@@ -130,7 +143,6 @@ struct OwnerInfoModel {
     
     // MARK: - Init from data base model
     init(model: OwnerInfoCoreDataModel?) {
-        // TODO: - Need fix
         self.withWhatsAppAccount = model!.withWhatsAppAccount
         self.isCommercialSales = model!.isCommercialSales
         self.ownerId = model!.ownerId

@@ -42,6 +42,8 @@ final class FavoriteViewModel: BaseViewModel, ObservableObject {
 // MARK: - Internal extension
 extension FavoriteViewModel {
     func deleteFromFavoritListBy(id: String) {
+        let objectToDelete = adsDomainModel?.first(where: { $0.objectID == id })
+        
         favoriteModel.removeAll { $0.objectId == id }
         loadingState = .loading
         userService.deleteFromFavorite(objectId: id)
@@ -60,7 +62,7 @@ extension FavoriteViewModel {
                 }
                 self.adsDomainModel = response.favorite
                     .map { AdvertisementDomainModel(advertisementResponseModel: $0) }
-                self.favoriteStorageService.synchronizeAdsByType(.favoriteAds, adsDomainModel: self.adsDomainModel)
+                self.favoriteStorageService.deleteAdsByType(.favoriteAds, adsDomainModel: objectToDelete)
                 self.setupDataSource()
             }
             .store(in: &cancellables)

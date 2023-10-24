@@ -9,6 +9,7 @@ import Foundation
 
 struct CreateAdvertisementRequestModel: Encodable {
     var ownerId: String?
+    var objectId: String
     var mileage: Int?
     var fuelType: FuelType?
     let transportName: String?
@@ -18,26 +19,27 @@ struct CreateAdvertisementRequestModel: Encodable {
     let description: String = ""
     let price: Int?
     let interiorFittings: CarColor = .white
-    let numberOfSeats: Int = 5
+    var numberOfSeats: Int = 5
     var yearOfManufacture: Int?
     let bodyType: BodyType?
     let transmissionType: TransmissionType = .manual
     let shortDescription: String
     let avarageFuelConsumption: Double = 5.2
-    var images: AdvertisementImages?
+    var adsImages: [AdvertisementImagesModel]?
     var condition: Condition = .used
     let transportModel: String?
-    let doorCount: Int = 5
+    var doorCount: Int = 5
     let interiorColor: CarColor = .gray
     var power: Int?
     var sellerName: String?
     var contactsInfo: ContactsInfo?
     
     init(domainModel: AddAdvertisementDomainModel) {
-        self.mileage = domainModel.mainTechnicalInfo?.millage
-        self.price = domainModel.mainTechnicalInfo?.price
-        self.power = domainModel.mainTechnicalInfo?.power
+        self.mileage = domainModel.mainTechnicalInfo.millage
+        self.price = domainModel.mainTechnicalInfo.price
+        self.power = domainModel.mainTechnicalInfo.power
         self.ownerId = domainModel.ownerId
+        self.objectId = domainModel.objectId ?? ""
         self.fuelType = domainModel.fuelType
         self.transportName = domainModel.make
         self.bodyColor = domainModel.bodyColor
@@ -45,11 +47,13 @@ struct CreateAdvertisementRequestModel: Encodable {
         self.yearOfManufacture = domainModel.firstRegistration?.dateInt
         self.bodyType = domainModel.bodyType
         self.shortDescription = ""
-        self.images = domainModel.images
+        self.adsImages = domainModel.adsRemoteImages
         self.condition = domainModel.condition
         self.transportModel = domainModel.model
         self.location = domainModel.location
         self.sellerName = domainModel.sellerName
         self.contactsInfo = domainModel.contactsInfo
+        self.numberOfSeats = domainModel.numberOfSeats
+        self.doorCount = domainModel.doorCount
     }
 }

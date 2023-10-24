@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Combine
 
 final class EngineAndEnvironmentView: BaseView {
     // MARK: - Subviews
@@ -30,6 +31,10 @@ final class EngineAndEnvironmentView: BaseView {
     private let cylinderDescriptionLabel = UILabel()
     private let engineSizeDescriptionLabel = UILabel()
     private let fuelTypeDescriptionLabel = UILabel()
+    
+    // MARK: - Tap publisher
+    private(set) lazy var tapPublisher = tapSubject.eraseToAnyPublisher()
+    private let tapSubject = PassthroughSubject<Void, Never>()
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -96,6 +101,7 @@ private extension EngineAndEnvironmentView {
         separatorView.backgroundColor = .lightGray
         arrowImageView.image = Assets.arrow.image
         configureLabels()
+        setupGesture()
     }
     
     func configureStackViews() {
@@ -137,6 +143,13 @@ private extension EngineAndEnvironmentView {
             $0.textColor = Colors.buttonDarkGray.color
             $0.font = Constant.labelFont
         }
+    }
+    
+    func setupGesture() {
+        let tapGesture = UITapGestureRecognizer()
+        tapGesture.tapPublisher.sink { [unowned self] _ in tapSubject.send() }
+        .store(in: &cancellables)
+        self.addGestureRecognizer(tapGesture)
     }
 }
 

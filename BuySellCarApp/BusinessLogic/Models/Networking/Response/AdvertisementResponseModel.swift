@@ -21,23 +21,23 @@ struct AdvertisementResponseModel: Decodable {
     let power: Int
     let objectID: String
     let mileage: Int
-    let doorCount: Int
+    let doorCount: DoorCount
     let yearOfManufacture: Int
     let created: Int
     let transportModel: String
     let interiorFittings: String?
     let photo: String?
     let shortDescription: String?
-    let numberOfSeats: Int
+    let numberOfSeats: NumberOfSeats
     let condition: Condition
     let fuelType: FuelType
     let location: String?
     let sellerType: SellerType
     let updated: Int?
     let sellerName: String
-    let images: AdvertisementImages?
+    let adsImages: [AdvertisementImagesModel]?
     let userData: OwnerInfo
-
+    
     enum CodingKeys: String, CodingKey {
         case bodyType, transportName, bodyColor, description, avarageFuelConsumption
         case ownerID = "ownerId"
@@ -48,12 +48,14 @@ struct AdvertisementResponseModel: Decodable {
              transportModel, interiorFittings, photo,
              shortDescription, numberOfSeats, condition,
              fuelType, location, sellerType, updated,
-             images, sellerName, userData
+             sellerName, userData, adsImages
     }
 }
 
-struct AdvertisementImages: Codable {
-    var carImages: [String]?
+struct AdvertisementImagesModel: Codable {
+    let imageUrl: String
+    let imageIndex: Int
+    let photoRacurs: String
 }
 
 struct ContactsInfo: Codable {
@@ -70,7 +72,54 @@ struct OwnerInfo: Decodable {
     let email: String
 }
 
-enum BodyType: String, Codable {
+enum DoorCount: Int, CaseIterable, Codable {
+    case two = 2
+    case three = 3
+    case four = 4
+    case five = 5
+    case six = 6
+    
+    var description: String {
+        return "\(self.rawValue)"
+    }
+    
+    init(rawInt: Int) {
+        switch rawInt {
+        case 2:                 self = .two
+        case 3:                 self = .three
+        case 4:                 self = .four
+        case 5:                 self = .five
+        case 6:                 self = .six
+        default:                self = .five
+        }
+    }
+}
+
+enum NumberOfSeats: Int, CaseIterable, Codable {
+    case two = 2
+    case three = 3
+    case four = 4
+    case five = 5
+    case six = 6
+    case ten = 10
+    
+    var description: String {
+        return "\(self.rawValue)".capitalized
+    }
+    
+    init(rawInt: Int) {
+        switch rawInt {
+        case 2:                 self = .two
+        case 3:                 self = .three
+        case 4:                 self = .four
+        case 5:                 self = .five
+        case 6:                 self = .six
+        default:                self = .ten
+        }
+    }
+}
+
+enum BodyType: String, CaseIterable, Codable {
     case hatchback = "Hatchback"
     case sedan = "Sedan"
     case suv = "SUV"
@@ -95,7 +144,7 @@ enum BodyType: String, Codable {
     }
 }
 
-enum Condition: String, Codable {
+enum Condition: String, CaseIterable, Codable {
     case new = "New"
     case used = "Used"
     
@@ -182,7 +231,7 @@ enum SellerType: String, Codable {
     
     init(rawString: String) {
         switch rawString {
-        case "Diller" :               self = .diller
+        case "Diller" :              self = .diller
         default:                     self = .owner
         }
     }

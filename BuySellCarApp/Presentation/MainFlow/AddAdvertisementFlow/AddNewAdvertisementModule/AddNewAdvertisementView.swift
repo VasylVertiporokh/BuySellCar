@@ -12,6 +12,7 @@ import Combine
 enum AddNewAdvertisementViewAction {
     case createAd
     case deleteAd(CreatedAdvertisementsRow)
+    case ownAdsDidTap(CreatedAdvertisementsRow)
 }
 
 final class AddNewAdvertisementView: BaseView {
@@ -51,6 +52,12 @@ private extension AddNewAdvertisementView {
     func bindActions() {
         createAddButton.tapPublisher
             .sink { [unowned self] in actionSubject.send(.createAd) }
+            .store(in: &cancellables)
+        
+        collectionView.didSelectItemPublisher
+            .compactMap { self.dataSource?.itemIdentifier(for: $0) }
+            .map { AddNewAdvertisementViewAction.ownAdsDidTap($0) }
+            .sink { [unowned self] in actionSubject.send($0) }
             .store(in: &cancellables)
     }
 

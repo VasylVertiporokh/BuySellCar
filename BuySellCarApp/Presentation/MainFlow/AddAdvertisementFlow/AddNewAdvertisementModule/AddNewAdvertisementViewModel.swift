@@ -17,6 +17,7 @@ final class AddNewAdvertisementViewModel: BaseViewModel {
     // MARK: - Private properties
     private let addAdvertisementModel: AddAdvertisementModel
     private var advertisementCellModel: [AdvertisementCellModel] = []
+    private var isOfflineMode: Bool = false
     
     // MARK: - Transition publisher
     private(set) lazy var transitionPublisher = transitionSubject.eraseToAnyPublisher()
@@ -56,8 +57,18 @@ extension AddNewAdvertisementViewModel {
     func showVehicleData() {
         transitionSubject.send(.showVehicleData)
     }
+    
+    func showEditFlow(for item: CreatedAdvertisementsRow) {
+        if !isOfflineMode {
+            switch item {
+            case .createdAdvertisementsRow(let model):
+                addAdvertisementModel.configureEditModel(by: model.objectID)
+                transitionSubject.send(.showEditingFlow)
+            }
+        }
+    }
 }
- 
+
 // MARK: - Private extension
 private extension AddNewAdvertisementViewModel {
     func setupBindings() {
@@ -100,6 +111,7 @@ private extension AddNewAdvertisementViewModel {
                     return
                 }
                 eventsSubject.send(.offlineMode(mode))
+                isOfflineMode = mode == .database
             }
             .store(in: &cancellables)
     }

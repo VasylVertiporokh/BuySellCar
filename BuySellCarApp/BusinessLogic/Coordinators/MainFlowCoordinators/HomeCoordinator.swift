@@ -13,18 +13,18 @@ final class HomeCoordinator: Coordinator {
     var navigationController: UINavigationController
     private(set) lazy var didFinishPublisher = didFinishSubject.eraseToAnyPublisher()
     
-    // MARK: - Private properties 
+    // MARK: - Private properties
     private let didFinishSubject = PassthroughSubject<Void, Never>()
     private let container: AppContainer
     private var cancellables = Set<AnyCancellable>()
-
+    
     // MARK: - Init
     init(navigationController: UINavigationController, container: AppContainer) {
         self.navigationController = navigationController
         self.container = container
         setupNavigationBar()
     }
-
+    
     // MARK: - Start flow
     func start() {
         searchRoot()

@@ -61,7 +61,7 @@ final class DetailsViewModel: BaseViewModel {
 // MARK: - Internal extension
 extension DetailsViewModel {
     func showSelectedImage(imageRow: AdsImageRow) {
-        guard let images = self.adsDomainModel.images?.carImages else {
+        guard let images = self.adsDomainModel.adsImageUrlArray else {
             return
         }
         

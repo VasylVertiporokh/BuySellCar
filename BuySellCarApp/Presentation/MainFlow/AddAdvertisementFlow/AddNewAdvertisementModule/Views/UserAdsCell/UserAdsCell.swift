@@ -49,7 +49,10 @@ final class UserAdsCell: UICollectionViewCell {
 // MARK: - Internal extension
 extension UserAdsCell {
     func configureCell(with model: AdvertisementCellModel) {
-        previewImageView.kf.setImage(with: URL(string: model.imageArray.first ?? ""), placeholder: Assets.carPlaceholder.image)
+        previewImageView.kf.setImage(
+            with: URL(string: model.imagePreviewUrl ?? ""),
+            placeholder: Assets.carPlaceholder.image
+        )
         brandNameLabel.text = "\(model.brandName) \(model.brandModel)"
         productionYearLabel.text = "\(model.year)"
         fixedPriceLabel.text = "\(model.price)€"

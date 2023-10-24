@@ -13,6 +13,7 @@ final class NetworkServiceProvider<Endpoint: EndpointBuilderProtocol>: NetworkPr
     private(set) var apiInfo: ApiInfo
     private(set) var decoder: JSONDecoder
     private(set) var encoder: JSONEncoder
+    private(set) var plugins: [NetworkPlugin]
     
     // MARK: - Private properties
     private let networkManager: NetworkManagerProtocol
@@ -22,18 +23,20 @@ final class NetworkServiceProvider<Endpoint: EndpointBuilderProtocol>: NetworkPr
         apiInfo: ApiInfo,
         decoder: JSONDecoder = JSONDecoder(),
         encoder: JSONEncoder = JSONEncoder(),
-        networkManager: NetworkManagerProtocol
+        networkManager: NetworkManagerProtocol,
+        plugins: [NetworkPlugin] = []
     ) {
         self.apiInfo = apiInfo
         self.decoder = decoder
         self.encoder = encoder
         self.networkManager = networkManager
+        self.plugins = plugins
     }
     
     // MARK: - Internal methods
     func performWithResponseModel<T: Decodable>(_ builder: Endpoint) -> AnyPublisher<T, NetworkError> {
         do {
-            let request = try builder.createRequest(apiInfo.baseURL, encoder)
+            let request = try builder.createRequest(apiInfo.baseURL, encoder, plugins)
             return networkManager.resumeDataTask(request)
                 .decode(type: T.self, decoder: decoder)
                 .mapError { error -> NetworkError in
@@ -54,7 +57,7 @@ final class NetworkServiceProvider<Endpoint: EndpointBuilderProtocol>: NetworkPr
     
     func performWithProcessingResult(_ builder: Endpoint) -> AnyPublisher<Void, NetworkError> {
         do {
-            let request = try builder.createRequest(apiInfo.baseURL, encoder)
+            let request = try builder.createRequest(apiInfo.baseURL, encoder, plugins)
             return networkManager.resumeDataTask(request)
                 .map { _ in } 
                 .eraseToAnyPublisher()
@@ -66,7 +69,7 @@ final class NetworkServiceProvider<Endpoint: EndpointBuilderProtocol>: NetworkPr
     
     func performWithRawData(_ builder: Endpoint) -> AnyPublisher<Data, NetworkError> {
         do {
-            let request = try builder.createRequest(apiInfo.baseURL, encoder)
+            let request = try builder.createRequest(apiInfo.baseURL, encoder, plugins)
             return networkManager.resumeDataTask(request)
                 .eraseToAnyPublisher()
         } catch {

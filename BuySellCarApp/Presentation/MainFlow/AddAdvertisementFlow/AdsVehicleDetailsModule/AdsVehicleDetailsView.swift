@@ -17,6 +17,7 @@ enum AdsVehicleDetailsViewAction {
     case millageEntered(Int)
     case discardCreation
     case publishAds
+    case vehicleDataDidTap
 }
 
 final class AdsVehicleDetailsView: BaseView {
@@ -59,7 +60,6 @@ extension AdsVehicleDetailsView {
         mainInfoView.setMainDetailsFromModel(model)
         vehicleDetailsView.setCarDetailsFromModel(model)
         engineAndEnvironmentView.setTransmissionDetail(model)
-        mainInfoView.setEmptyState(model.adsPhotoModel.allSatisfy { $0.selectedImage.isNil })
     }
     
     func setupSnapshot(sections: [SectionModel<SelectedImageSection, SelectedImageRow>]) {
@@ -67,11 +67,15 @@ extension AdsVehicleDetailsView {
     }
     
     func reconfigureProgressBar(_ step: CreatingProgressView.CreatingProgressViewStep) {
-        progressView.configureForStep(step)
+        progressView.configureForStep(.adsEditing)
     }
     
     func showDataMissingState() {
         mainInfoView.shakeTextFields()
+    }
+    
+    func showEmptyStateIfNeeded(_ needShow: Bool) {
+        mainInfoView.setEmptyState(needShow)
     }
 }
 
@@ -103,6 +107,14 @@ private extension AdsVehicleDetailsView {
                 case .changeRegistrationDidTapped:  actionSubject.send(.changeFirstRegistrationDidTapped)
                 }
             }
+            .store(in: &cancellables)
+        
+        vehicleDetailsView.tapPublisher
+            .sink { [unowned self] in  actionSubject.send(.vehicleDataDidTap) }
+            .store(in: &cancellables)
+        
+        engineAndEnvironmentView.tapPublisher
+            .sink { [unowned self] in  actionSubject.send(.vehicleDataDidTap) }
             .store(in: &cancellables)
         
         keyboardHeightPublisher

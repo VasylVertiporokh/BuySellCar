@@ -16,13 +16,19 @@ protocol EndpointBuilderProtocol {
     var method: HTTPMethod { get }
 }
 
+extension EndpointBuilderProtocol {
+    var headerFields: [String: String] {
+        return [:]
+    }
+}
+
 // MARK: - Internal extension
 extension EndpointBuilderProtocol {
     var baseURL: URL? { nil }
     var query: [String: String]? { nil }
     var body: RequestBody? { nil }
     
-    func createRequest(_ baseUrl: URL, _ encoder: JSONEncoder) throws -> URLRequest {
+    func createRequest(_ baseUrl: URL, _ encoder: JSONEncoder, _ plugins: [NetworkPlugin]) throws -> URLRequest {
         var request: URLRequest
         do {
             request = .init(url: try buildUrl(self.baseURL ?? baseUrl))
@@ -31,6 +37,7 @@ extension EndpointBuilderProtocol {
         }
         request.httpMethod = method.rawValue
         headerFields.forEach { request.addValue($0.value, forHTTPHeaderField: $0.key) }
+        plugins.forEach { $0.modifyRequest(&request) }
         
         guard let body = body else {
             NetworkLogger.log(request)
@@ -40,16 +47,18 @@ extension EndpointBuilderProtocol {
         switch body {
         case .rawData(let data):
             request.httpBody = data
+            
         case .encodable(let encodable):
             guard let data = try? encoder.encode(encodable) else {
                 throw RequestBuilderError.bodyEncodingError
             }
             request.httpBody = data
+            
         case .multipartBody(let items):
             let multipartBody = buildMultipartBody(items: items)
             request.httpBody = multipartBody.multipartData
-            request.addValue("multipart/form-data; boundary=\(multipartBody.boundary)", forHTTPHeaderField: "Content-Type")
-            request.addValue("\(multipartBody.length)", forHTTPHeaderField: "Content-Length")
+            request.setValue("multipart/form-data; boundary=\(multipartBody.boundary)", forHTTPHeaderField: "Content-Type")
+            request.setValue("\(multipartBody.length)", forHTTPHeaderField: "Content-Length")
         }
         NetworkLogger.log(request)
         return request
@@ -93,7 +102,7 @@ private extension EndpointBuilderProtocol {
 }
 
 // MARK: - NSMutableData + Append String
-extension NSMutableData {
+fileprivate extension NSMutableData {
     func append(_ string: String) {
         if let data = string.data(using: .utf8) {
             self.append(data)

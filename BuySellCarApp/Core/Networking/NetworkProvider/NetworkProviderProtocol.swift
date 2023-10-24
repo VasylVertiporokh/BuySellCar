@@ -15,6 +15,7 @@ protocol NetworkProviderProtocol {
     
     // MARK: - Properties
     var apiInfo: ApiInfo { get }
+    var plugins: [NetworkPlugin] { get }
     var decoder: JSONDecoder { get }
     var encoder: JSONEncoder { get }
     

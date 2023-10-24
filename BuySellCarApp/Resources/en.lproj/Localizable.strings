@@ -27,6 +27,7 @@
 "ads-created-successfully" = "Ad successfully created! Now you can see your ad in the list Selling.";
 "continue" = "Continue";
 "discard-creation-title" = "Do you want cancel creation";
+"discard-editing-title" = "Do you want cancel editing";
 "discard-creation-message" = "If you continue all data will be lost";
 "letter-sent-message" = "The letter has been sent to the seller, wait for a reply!)";
 

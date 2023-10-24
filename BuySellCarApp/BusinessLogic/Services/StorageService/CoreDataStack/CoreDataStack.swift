@@ -18,8 +18,8 @@ enum DataModelName: String {
 }
 
 final class CoreDataStack {
-    // MARK: - Private properties
-    private let dataModelName: String
+    // MARK: - Internal properties
+    private(set) var dataModelName: String
     
     // MARK: - Init
     init(dataModelName: DataModelName) {

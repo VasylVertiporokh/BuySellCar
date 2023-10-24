@@ -37,10 +37,14 @@ private extension AddNewAdvertisementViewController {
                 switch action {
                 case .createAd:
                     viewModel.showVehicleData()
+                    
                 case .deleteAd(let deleteItem):
                     deleteAdsAlert { [weak self] _ in
                         self?.viewModel.deleteAdvertisement(item: deleteItem)
                     }
+                    
+                case .ownAdsDidTap(let item):
+                    viewModel.showEditFlow(for: item)
                 }
             }
             .store(in: &cancellables)

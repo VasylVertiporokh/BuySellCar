@@ -35,7 +35,7 @@ struct FavoriteCellModel: Hashable {
         self.sellerType = domainModel.sellerType.rawValue
         self.created = domainModel.created.toDateType(dateType: "MM/dd/yyyy")
         
-        if let firstImage = domainModel.images?.carImages?.first {
+        if let firstImage = domainModel.previewImageUrl {
             self.imageUrl = URL(string: firstImage)
         }
     }

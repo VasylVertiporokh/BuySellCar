@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Kingfisher
 
 extension String {
     func toSimpleNumberFormat() -> Self {
@@ -19,5 +20,22 @@ extension String {
             formattedString = numberFormatter.string(from: number) ?? ""
         }
         return formattedString
+    }
+    
+    func loadImageDataFromString(completion: @escaping (Data?) -> Void) {
+        guard let imageUrl = URL(string: self) else {
+            completion(nil)
+            return
+        }
+        
+        KingfisherManager.shared.retrieveImage(with: imageUrl) { result in
+            switch result {
+            case .success(let value):
+                let imageData = value.image.pngData()
+                completion(imageData)
+            case .failure:
+                completion(nil)
+            }
+        }
     }
 }

@@ -6,7 +6,9 @@
 //
 
 import Foundation
+import UIKit
 
+/// SwiftUI aler model
 struct AlertModel: Identifiable {
     private(set) var id: Int
     let buttonTitle: String
@@ -22,4 +24,17 @@ struct AlertModel: Identifiable {
         self.message = message
         self.action = action
     }
+}
+
+/// UIKit aler model
+struct UIAlertControllerModel {
+    var preferredStyle: UIAlertController.Style = .alert
+    var confirmActionStyle: UIAlertAction.Style = .default
+    var discardActionStyle: UIAlertAction.Style = .default
+    var title: String?
+    var message: String?
+    var confirmButtonTitle: String? = Localization.ok
+    var discardButtonTitle: String? = Localization.cancel
+    var confirmAction: (() -> Void)?
+    var discardAction: (() -> Void)?
 }

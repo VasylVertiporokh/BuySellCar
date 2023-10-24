@@ -126,7 +126,7 @@ private extension CarouselImageView {
             switch item {
             case .adsImageRow(let image):
                 let cell: ImageZoomCell = collectionView.dequeueReusableCell(for: indexPath)
-                cell.set(image: image)
+                cell.set(imageStringUrl: image)
                 return cell
             }
         })
