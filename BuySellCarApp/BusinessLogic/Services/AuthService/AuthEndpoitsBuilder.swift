@@ -11,9 +11,19 @@ enum AuthEndpoitsBuilder {
     case login(model: LoginRequestModel)
     case createUser(model: CreateUserRequsetModel)
     case restorePassword(email: String)
+    case tokenValidation(token: Token)
 }
 
 extension AuthEndpoitsBuilder: EndpointBuilderProtocol {
+    var baseURL: URL? {
+        switch self {
+        case .tokenValidation:
+            return URL(string: "https://supremepump.backendless.app")
+        default:
+            return nil
+        }
+    }
+    
     var path: String {
         switch self {
         case .login:
@@ -22,6 +32,8 @@ extension AuthEndpoitsBuilder: EndpointBuilderProtocol {
             return "/users/register"
         case .restorePassword(let userEmail):
             return "/users/restorepassword/\(userEmail)"
+        case .tokenValidation(let token):
+            return "/api/users/isvalidusertoken/\(token.value)"
         }
     }
     
@@ -31,7 +43,7 @@ extension AuthEndpoitsBuilder: EndpointBuilderProtocol {
             return .post
         case .createUser:
             return .post
-        case .restorePassword:
+        case .restorePassword, .tokenValidation:
             return .get
         }
     }
@@ -42,7 +54,7 @@ extension AuthEndpoitsBuilder: EndpointBuilderProtocol {
             return .encodable(model)
         case .createUser(let model):
             return .encodable(model)
-        case .restorePassword:
+        case .restorePassword, .tokenValidation:
             return nil
         }
     }

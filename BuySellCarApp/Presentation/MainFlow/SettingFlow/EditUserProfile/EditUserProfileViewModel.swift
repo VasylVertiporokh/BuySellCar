@@ -71,20 +71,17 @@ extension EditUserProfileViewModel {
         isLoadingSubject.send(true)
         userService.logout()
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] error in
-                guard let self = self else {
+            .sink { [weak self] completion in
+                guard case let .failure(error) = completion else {
                     return
                 }
-                switch error {
-                case .finished:
-                    self.userService.clear()
-                    self.isLoadingSubject.send(false)
-                    self.transitionSubject.send(.logout)
-                case .failure(let error):
-                    self.errorSubject.send(error)
-                    self.isLoadingSubject.send(false)
-                }
-            } receiveValue: { _ in }
+                self?.isLoadingSubject.send(false)
+                self?.errorSubject.send(error)
+            } receiveValue: { [weak self] in
+                self?.userService.clear()
+                self?.isLoadingSubject.send(false)
+                self?.transitionSubject.send(.logout)
+            }
             .store(in: &cancellables)
     }
     

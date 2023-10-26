@@ -23,7 +23,7 @@ final class DetailsViewController: BaseViewController<DetailsViewModel> {
         super.viewDidLoad()
         setupBindings()
         configureNavigationBar()
-        contentView.showAds(self)
+        contentView.showAds()
     }
     
     // MARK: - Deinit

@@ -101,8 +101,8 @@ extension SpecsView: ModelConfigurableView {
         init(domainModel: AdvertisementDomainModel) {
             self.bodyType = domainModel.bodyType.rawValue
             self.condition = domainModel.condition.rawValue
-            self.numberOfSeats = "\(domainModel.numberOfSeats)"
-            self.doorCount = "\(domainModel.doorCount)"
+            self.numberOfSeats = "\(domainModel.numberOfSeats.rawValue)"
+            self.doorCount = "\(domainModel.doorCount.rawValue)"
             self.registration = "\(domainModel.yearOfManufacture)"
             self.owners = "2" // TODO: - Add to back model
             self.color = domainModel.bodyColor.rawValue

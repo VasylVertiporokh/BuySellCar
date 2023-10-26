@@ -81,7 +81,10 @@ extension DetailsView: ModelConfigurableView {
 
 // MARK: - Internal extension
 extension DetailsView {
-    func showAds(_ controller: DetailsViewController) {
+    func showAds() {
+        guard let controller = UIWindow.topViewController() else {
+            return
+        }
         bannerView.adUnitID = "ca-app-pub-3940256099942544/2435281174"
         bannerView.rootViewController = controller
         bannerView.load(GADRequest())
