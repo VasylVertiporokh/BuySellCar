@@ -35,4 +35,19 @@ extension AuthNetworkServiceImpl: AuthNetworkServiceProtocol {
     func restorePassword(userEmail: String) -> AnyPublisher<Void, NetworkError> {
         return provider.performWithProcessingResult(.restorePassword(email: userEmail))
     }
+    
+    func validateUserToken(token: Token) -> AnyPublisher<Bool, NetworkError> {
+        return provider.performWithRawData(.tokenValidation(token: token))
+            .flatMap { data -> AnyPublisher<Bool, NetworkError> in
+                guard let isTokenValid = String(data: data, encoding: .utf8).flatMap(Bool.init) else {
+                    return Fail(error: NetworkError.decodingError)
+                        .eraseToAnyPublisher()
+                }
+                
+                return Just(isTokenValid)
+                    .setFailureType(to: NetworkError.self)
+                    .eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
+    }
 }

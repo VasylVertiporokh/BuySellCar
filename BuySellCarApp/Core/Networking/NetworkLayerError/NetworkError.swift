@@ -18,8 +18,14 @@ enum NetworkError: Error {
     case hostError
     case tooManyRedirectsError
     case resourceUnavailable
-    case tokenError
+    case tokenError(Data?)
     case requestError(RequestBuilderError)
+}
+
+// MARK: - Server error code
+enum ApiErrorCode: Int {
+    case accessToAccountDenied = 3064
+    case invalidCredential = 3003
 }
 
 // MARK: - LocalizedError
@@ -49,8 +55,22 @@ extension NetworkError: LocalizedError {
             return "Too Many Redirects. Please try again later."
         case .resourceUnavailable:
             return "Resource Unavailable. Please try again later."
-        case .tokenError:
-            return "Token error"
+        case .tokenError(let data):
+            let defaultMessege = "Token error"
+            guard let data = data,
+                  let model = try? JSONDecoder().decode(ApiErrorResponseModel.self, from: data) else {
+                return defaultMessege
+            }
+            
+            switch model.code {
+            case ApiErrorCode.accessToAccountDenied.rawValue:
+                return "You need to log in to your account again, the login data was used on another device"
+            case ApiErrorCode.invalidCredential.rawValue:
+                return model.message
+            default:
+                return defaultMessege
+            }
+
         case .requestError(let error):
             return error.requestErrorDescription
         }

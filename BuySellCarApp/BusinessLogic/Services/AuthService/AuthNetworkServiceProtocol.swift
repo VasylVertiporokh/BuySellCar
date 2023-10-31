@@ -12,4 +12,5 @@ protocol AuthNetworkServiceProtocol {
     func login(loginModel: LoginRequestModel) -> AnyPublisher<UserResponseModel, NetworkError>
     func createUserAndLogin(userModel: CreateUserRequsetModel) -> AnyPublisher<UserResponseModel, NetworkError>
     func restorePassword(userEmail: String) -> AnyPublisher<Void, NetworkError>
+    func validateUserToken(token: Token) -> AnyPublisher<Bool, NetworkError>
 }

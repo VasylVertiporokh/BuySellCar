@@ -8,12 +8,17 @@
 import Foundation
 
 struct BaseHeadersPlugin {
-    // MARK: - Internal properties
-    private(set) var token: String?
+    // MARK: - Private properties
+    private let tokenStorage: TokenStorage
+    
+    // MARK: - Computed properties
+    private var token: String? {
+        return tokenStorage.token?.value
+    }
     
     // MARK: - Init
-    init(token: String?) {
-        self.token = token
+    init(tokenStorage: TokenStorage) {
+        self.tokenStorage = tokenStorage
     }
 }
 

@@ -109,6 +109,7 @@ private extension FavoriteViewModel {
             setupDataSource()
             getFavorite()
         case .database:
+            isLoadingFinished = true
             loadingState = .error
         }
     }

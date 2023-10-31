@@ -61,6 +61,6 @@ private extension SceneDelegate {
     func setupGADMobileAds() {
         GADMobileAds.sharedInstance().start(completionHandler: nil)
         GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers =
-            [ "7b35564148c7b5c285242ec7e42ed9a2" ]
+            ["7b35564148c7b5c285242ec7e42ed9a2"]
     }
 }

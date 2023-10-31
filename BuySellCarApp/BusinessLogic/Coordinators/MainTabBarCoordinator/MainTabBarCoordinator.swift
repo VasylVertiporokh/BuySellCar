@@ -30,6 +30,7 @@ final class MainTabBarCoordinator: Coordinator {
     }
     
     func start() {
+        handleAuthorizationStatus()
         setupHomeCoordinator()
         setupAddAdvertisementCoordinator()
         setupFavoriteCoordinator()
@@ -41,7 +42,7 @@ final class MainTabBarCoordinator: Coordinator {
     }
 }
 
-// MARK: - Private extension
+// MARK: - Private extension flows
 private extension MainTabBarCoordinator {
     func setupHomeCoordinator() {
         let navController = UINavigationController()
@@ -103,5 +104,22 @@ private extension MainTabBarCoordinator {
             }
             .store(in: &cancellables)
         coordinator.start()
+    }
+}
+
+// MARK: - Private extenison
+private extension MainTabBarCoordinator {
+    func handleAuthorizationStatus() {
+        container.networkManager.tokenManagablePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [unowned self] error in
+                guard case .tokenError = error else {
+                    return
+                }
+                childCoordinators.forEach { removeChild(coordinator: $0) }
+                didFinishSubject.send()
+                didFinishSubject.send(completion: .finished)
+            }
+            .store(in: &cancellables)
     }
 }
