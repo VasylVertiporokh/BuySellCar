@@ -12,6 +12,10 @@ final class NetworkManagerImpl: NetworkManagerProtocol {
     // MARK: - Private properties
     private let urlSession: URLSession
     
+    // MARK: - Publishers
+    private(set) lazy var tokenManagablePublisher = tokenManagableSubject.eraseToAnyPublisher()
+    private let tokenManagableSubject = PassthroughSubject<NetworkError, Never>()
+    
     // MARK: - Init
     init(urlSession: URLSession = URLSession.shared) {
         self.urlSession = urlSession
@@ -50,6 +54,10 @@ private extension NetworkManagerImpl {
         case 200...399:
             return Just(output.data)
                 .setFailureType(to: NetworkError.self)
+                .eraseToAnyPublisher()
+        case 401:
+            tokenManagableSubject.send(NetworkError.tokenError(output.data))
+            return Fail(error: NetworkError.tokenError(output.data))
                 .eraseToAnyPublisher()
         case 400...499:
             return Fail(error: NetworkError.clientError(output.data))

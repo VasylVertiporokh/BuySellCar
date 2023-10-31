@@ -9,5 +9,6 @@ import Foundation
 import Combine
 
 protocol NetworkManagerProtocol {
+    var tokenManagablePublisher: AnyPublisher<NetworkError, Never> { get }
     func resumeDataTask(_ requset: URLRequest) -> AnyPublisher<Data, NetworkError>
 }

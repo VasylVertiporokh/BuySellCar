@@ -13,6 +13,7 @@ enum UserAuthorizationStatus: Int, CaseIterable {
 }
 
 final class AppCoordinator: Coordinator {
+    
     // MARK: - Internal properties
     var window: UIWindow
     var navigationController: UINavigationController
@@ -34,7 +35,6 @@ final class AppCoordinator: Coordinator {
     func start() {
         self.window.rootViewController = navigationController
         self.window.makeKeyAndVisible()
-        
         fakeSplash()
     }
 }
